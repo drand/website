@@ -1,10 +1,10 @@
 # Contribution guidelines
 
-This article serves as the guideline for contributing to the [IPFS Docs V2](https://github.com/ipfs/ipfs-docs-v2) repository. This guide is only concerned with documentation within this repository and does not contain any information regarding changes to VuePress or the HTML of the site. It also includes some general tips, tools, and workflows for creating helpful docs.
+This article serves as the guideline for contributing to the [Drand Docs V2](https://github.com/ipfs/ipfs-docs-v2) repository. This guide is only concerned with documentation within this repository and does not contain any information regarding changes to VuePress or the HTML of the site. It also includes some general tips, tools, and workflows for creating helpful docs.
 
 ## Writing content
 
-By following these guidelines, you're helping to keep the IPFS docs consistent.
+By following these guidelines, you're helping to keep the Drand Docs consistent.
 
 ### Grammar and spelling
 
@@ -113,7 +113,7 @@ You can also contribute to the project without specifically writing content for 
 
 ## Tools
 
-The following tools are used by the IPFS docs team to help create documentation.
+The following tools are used by the Drand Docs team to help create documentation.
 
 ### Visual Studio Code
 

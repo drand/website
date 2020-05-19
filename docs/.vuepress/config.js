@@ -5,8 +5,8 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'IPFS Docs',
-      description: 'IPFS Documentation'
+      title: 'Drand Docs',
+      description: 'Drand Documentation'
     }
   },
   markdown: {
@@ -21,34 +21,31 @@ module.exports = {
     }
   },
   themeConfig: {
-    algolia: {
-      apiKey: 'e6dcd48beb5db629bf77c892d38fa091',
-      indexName: 'ipfs'
-    },
-    betaTestFormUrl:
-      'https://docs.google.com/forms/d/1LVaD1B2uyW6Ff0jfU_iQ5mCeyQcHfyQO6BDD99XAgK0/viewform',
+    //   TODO: create Algolia account for Drand an throw API key into here.
+    // algolia: {
+    //   apiKey: 'e6dcd48beb5db629bf77c892d38fa091',
+    //   indexName: 'drand'
+    // },
     defaultImage: '/images/social-card.png',
     author: {
-      name: 'IPFS Team',
-      twitter: '@ipfsbot'
+      name: 'Drand Team',
+      twitter: ''
     },
     keywords:
-      'IPFS, dweb, protocol, libp2p, ipld, multiformats, bitswap, decentralized web, InterPlanetary File System, dapp, documentation, docs, Protocol Labs',
-    // edit links
-    // repo: 'ipfs/ipfs-docs-v2',
-    domain: 'https://docs-beta.ipfs.io',
-    docsRepo: 'ipfs/ipfs-docs-v2',
+      'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, documentation, docs, Protocol Labs',
+    domain: 'https://docs.drand.love',
+    docsRepo: 'drand/drand-docs',
     docsDir: 'docs',
     docsBranch: 'master',
     feedbackWidget: {
-      docsRepoIssue: 'ipfs/docs'
+      docsRepoIssue: 'drand/drand-docs'
     },
     editLinks: false,
     // page nav
     nextLinks: false,
     prevLinks: false,
     // ui/ux
-    logo: '/images/ipfs-logo.svg',
+    logo: '/images/drand-logo.svg',
     locales: {
       '/': {
         label: 'English',
@@ -65,301 +62,33 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: [
           {
-            title: 'Install',
-            path: '/install/',
-            children: ['/install/command-line-quick-start']
+            title: 'Home',
+            path: '/'
           },
           {
-            title: 'Recent releases',
-            path: '/recent-releases/',
+            title: 'Main dropdown',
+            path: '/main-dropdown/',
             children: [
               {
-                title: 'Go-IPFS 0.5',
+                title: 'Sub Label',
                 sidebarDepth: 1,
                 collapsable: false,
                 children: [
-                  '/recent-releases/go-ipfs-0-5/',
-                  ['/recent-releases/go-ipfs-0-5/install', 'Install'],
-                  '/recent-releases/go-ipfs-0-5/update-procedure',
-                  '/recent-releases/go-ipfs-0-5/features',
-                  '/recent-releases/go-ipfs-0-5/fixes',
-                  '/recent-releases/go-ipfs-0-5/troubleshooting'
+                  '/main-dropdown/sub-label/page-a',
+                  '/main-dropdown/sub-label/page-b',
+                  '/main-dropdown/sub-label/page-c'
+                ]
+              },
+              {
+                title: 'Another Sub label',
+                sidebarDepth: 1,
+                collapsable: false,
+                children: [
+                  '/main-dropdown/another-sub-label/page-a',
+                  '/main-dropdown/another-sub-label/page-b',
+                  '/main-dropdown/another-sub-label/page-c'
                 ]
               }
-            ]
-          },
-          {
-            title: 'Concepts',
-            path: '/concepts/',
-            children: [
-              {
-                title: 'IPFS 101',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/concepts/what-is-ipfs',
-                  '/concepts/how-ipfs-works',
-                  ['https://dweb-primer.ipfs.io/', 'IPFS primer'],
-                  '/concepts/usage-ideas-examples',
-                  '/concepts/glossary',
-                  '/concepts/faq'
-                ]
-              },
-              {
-                title: 'Content-addressed data',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/concepts/content-addressing',
-                  '/concepts/hashing',
-                  '/concepts/immutability',
-                  '/concepts/persistence'
-                ]
-              },
-              {
-                title: 'Peer-to-peer sharing',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/concepts/dht',
-                  '/concepts/merkle-dag',
-                  '/concepts/bitswap',
-                  '/concepts/ipld',
-                  '/concepts/ipns',
-                  '/concepts/libp2p',
-                  '/concepts/file-systems'
-                ]
-              },
-              {
-                title: 'Integrating with the Web',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: ['/concepts/ipfs-gateway', '/concepts/dnslink']
-              },
-              {
-                title: 'Further reading',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: ['/concepts/further-reading/academic-papers']
-              }
-            ]
-          },
-          {
-            title: 'How-tos',
-            path: '/how-to/',
-            children: [
-              {
-                title: 'Quick start',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: ['/how-to/command-line-quick-start']
-              },
-              {
-                title: 'Customize your install',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/how-to/configure-node',
-                  '/how-to/modify-bootstrap-list',
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/custom-ipfs-repo',
-                    'Customize an IPFS repo'
-                  ]
-                ]
-              },
-              {
-                title: 'Manage files',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/ipfs-101',
-                    'Use js-ipfs as a library'
-                  ],
-                  [
-                    'https://github.com/ipfs/go-ipfs/tree/master/docs/examples/go-ipfs-as-a-library/README.md',
-                    'Use go-ipfs as a library'
-                  ],
-                  '/how-to/work-with-blocks',
-                  '/how-to/pin-files',
-                  [
-                    'https://github.com/ipfs/go-ipfs/blob/master/docs/file-transfer.md',
-                    'Troubleshoot file transfers'
-                  ],
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/traverse-ipld-graphs',
-                    'Traverse IPLD graphs'
-                  ],
-                  '/how-to/take-snapshot',
-                  '/how-to/store-play-videos',
-                  '/how-to/host-git-style-repo',
-                  [
-                    'https://github.com/ipfs/archives/tree/master/tutorials/replicating-large-datasets',
-                    'Replicate large datasets'
-                  ],
-                  '/how-to/move-ipfs-installation'
-                ]
-              },
-              {
-                title: 'Work with peers',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/how-to/observe-peers',
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/custom-libp2p',
-                    'Customize libp2p bundles'
-                  ],
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/circuit-relaying',
-                    'Use circuit relay'
-                  ]
-                ]
-              },
-              {
-                title: 'Host websites',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: ['/how-to/host-single-page-site']
-              },
-              {
-                title: 'Work with blockchains',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/explore-ethereum-blockchain',
-                    'Explore the Ethereum chain'
-                  ]
-                ]
-              },
-              {
-                title: 'Build apps',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/how-to/make-service',
-                  [
-                    'https://github.com/ipfs/camp/tree/master/CORE_AND_ELECTIVE_COURSES/CORE_COURSE_C',
-                    'Build with the IPFS API'
-                  ],
-                  [
-                    'https://github.com/ipfs/camp/tree/master/CORE_AND_ELECTIVE_COURSES/CORE_COURSE_B',
-                    'Make a basic libp2p app'
-                  ]
-                ]
-              },
-              {
-                title: 'IPFS in the browser',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  'how-to/address-ipfs-on-web',
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/exchange-files-in-browser',
-                    'Exchange files between nodes'
-                  ],
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/browser-mfs',
-                    'Use MFS in the browser'
-                  ],
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/browser-add-readable-stream',
-                    'Add directories using streams'
-                  ],
-                  [
-                    'https://www.youtube.com/watch?v=Nv_Teb--1zg',
-                    'Make a pubsub room'
-                  ],
-                  [
-                    'https://www.youtube.com/watch?v=-kdx8rJd8rQ',
-                    'Edit collaboratively with CRDT'
-                  ],
-                  [
-                    'https://github.com/ipfs/js-ipfs/tree/master/examples/browser-readablestream',
-                    'Stream video'
-                  ],
-                  '/how-to/browser-tools-frameworks'
-                ]
-              },
-              {
-                title: 'IPFS Companion',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  'how-to/companion-node-types',
-                  'how-to/dnslink-companion',
-                  'how-to/companion-window-ipfs',
-                  '/how-to/companion-x-ipfs-path-header'
-                ]
-              }
-            ]
-          },
-          {
-            title: 'API & CLI',
-            path: '/reference/',
-            children: [
-              '/reference/go/api',
-              '/reference/js/api',
-              '/reference/http/api',
-              '/reference/cli'
-            ]
-          },
-          {
-            title: 'Community',
-            path: '/community/',
-
-            children: [
-              {
-                title: 'Join the community',
-                sidebarDepth: 2,
-                collapsable: false,
-                children: [
-                  [
-                    'https://ipfs.us4.list-manage.com/subscribe?u=25473244c7d18b897f5a1ff6b&id=cad54b2230',
-                    'IPFS newsletter'
-                  ],
-                  '/community/contribute/ways-to-contribute',
-                  ['https://discuss.ipfs.io/', 'IPFS forums'],
-                  '/community/irc',
-                  [
-                    'https://calendar.google.com/calendar/embed?src=ipfs.io_eal36ugu5e75s207gfjcu0ae84@group.calendar.google.com',
-                    'Community video calls'
-                  ],
-                  ['https://proto.school/#/events', 'ProtoSchool workshops'],
-                  ['https://www.meetup.com/members/249142444/', 'Meetups'],
-                  '/community/social-media',
-                  ['https://awesome.ipfs.io', 'Awesome IPFS']
-                ]
-              },
-              {
-                title: 'Write the docs',
-                sidebarDepth: 1,
-                collapsable: false,
-                children: [
-                  '/community/contribute/grammar-formatting-and-style',
-                  '/community/contribute/writing-guide',
-                  '/community/contribute/code-persona',
-                  '/community/contribute/contribution-tutorial'
-                ]
-              }
-            ]
-          },
-          {
-            title: 'Project',
-            path: '/project/',
-            children: [
-              'project/history',
-              ['https://github.com/ipfs/roadmap', 'Roadmap'],
-              'project/implementation-status',
-              ['https://github.com/ipfs/specs', 'Specifications'],
-              ['https://github.com/ipfs/research', 'Research'],
-              ['https://github.com/ipfs/team-mgmt', 'Team org planning'],
-              '/project/related-projects',
-              [
-                'https://github.com/ipfs/community/blob/master/code-of-conduct.md',
-                'Code of conduct'
-              ]
             ]
           }
         ]
@@ -431,7 +160,7 @@ module.exports = {
       {
         // add <link rel="canonical" header (https://tools.ietf.org/html/rfc6596)
         // to deduplicate SEO across all copies loaded from various public gateways
-        baseURL: 'https://docs-beta.ipfs.io'
+        baseURL: 'https://docs.drand.love'
       }
     ]
   ],
