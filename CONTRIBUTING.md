@@ -1,6 +1,6 @@
 # Contribution guidelines
 
-This article serves as the guideline for contributing to the [Drand Docs V2](https://github.com/ipfs/ipfs-docs-v2) repository. This guide is only concerned with documentation within this repository and does not contain any information regarding changes to VuePress or the HTML of the site. It also includes some general tips, tools, and workflows for creating helpful docs.
+This article serves as the guideline for contributing to the [Drand Docs](https://github.com/drand/drand-docs) repository. This guide is only concerned with documentation within this repository and does not contain any information regarding changes to VuePress or the HTML of the site. It also includes some general tips, tools, and workflows for creating helpful docs.
 
 ## Writing content
 
@@ -90,7 +90,7 @@ Once an issue has been created, it can be discussed by the community and IPFS pr
 
 Follow these steps to learn how to file an issue with the IPFS project.
 
-1. Go to the [Issues](https://github.com/ipfs/docs/issues/) tab in the [`ipfs/docs`](https://github.com/ipfs/docs) repository.
+1. Go to the [Issues](https://github.com/drand/drand-docs/issues/) tab in the [`drand/drand-docs`](https://github.com/drand/drand-docs) repository.
 2. Search for the issue you want to raise. It may already exist. Make sure to also search _closed_ issues by including `is:closed` in your search query.
 3. If the issue doesn't already exist, click **New issue**.
 4. Select either the **Content request** or **Documentation issue** issue template. These templates auto-fill some of the issues for you, and direct you to fill out the required information.
@@ -101,15 +101,15 @@ Shortly after your issue is submitted, an internal project lead from the IPFS pr
 
 ### Create a pull request
 
-If you have created some changes to a post, article, or entire section, you can submit a pull request to have it merged into the `ipfs/docs` repository.
+If you have created some changes to a post, article, or entire section, you can submit a pull request to have it merged into the `drand/drand-docs` repository.
 
-If you only need to change a single file, the easiest way to create a pull request is to edit the file directly within the GitHub editor. Within each markdown file in the `ipfs/docs` repository is a pencil icon. When you click on that icon, the GitHub editor will open, and you'll be able to change the file. Once you have finished your edits, you can create a new branch for this commit and start a pull request.
+If you only need to change a single file, the easiest way to create a pull request is to edit the file directly within the GitHub editor. Within each markdown file in the `drand/drand-docs` repository is a pencil icon. When you click on that icon, the GitHub editor will open, and you'll be able to change the file. Once you have finished your edits, you can create a new branch for this commit and start a pull request.
 
 You can learn more about [pull requests on GitHub](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
 ### Discuss
 
-You can also contribute to the project without specifically writing content for the site. Many discussions are happening all around the project. Protocol Labs, and by extension, IPFS, is a collaborative company that relies heavily on the community. We need your opinions and input! If you have an idea about a topic or want to weigh in on a discussion, feel free to have your say either on [GitHub](https://github.com/ipfs/docs/issues) or on the [IPFS forums](https://discuss.ipfs.io/).
+You can also contribute to the project without specifically writing content for the site. Many discussions are happening all around the project. Protocol Labs, and by extension, IPFS, is a collaborative company that relies heavily on the community. We need your opinions and input! If you have an idea about a topic or want to weigh in on a discussion, feel free to have your say either on [GitHub](https://github.com/drand/drand-docs/issues) or on the [IPFS forums](https://discuss.ipfs.io/).
 
 ## Tools
 
@@ -134,7 +134,3 @@ It might not be the most elegant or robust application available, but Grammarly 
 ### [Hemingway](http://www.hemingwayapp.com/)
 
 This app helps to simplify your writing. It's easy to ramble on while writing, while not realizing your content has become difficult to read or unwieldy. Hemmingway stops that by telling you when your sentences are too long or complicated.
-
-## Just Ask
-
-After all that, if you're still not sure how to contribute to this project just post a question on the [IPFS forum](https://discuss.ipfs.io/), or join us on IRC at `#ipfs`.
