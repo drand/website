@@ -1,5 +1,6 @@
 ---
 title: Specifications
+sidebarDepth: 3
 ---
 
 # Drand Specifications
