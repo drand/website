@@ -12,7 +12,7 @@ module.exports = {
   markdown: {
     extendMarkdown: md => {
       md.set({
-        breaks: true
+        breaks: false
       })
       md.use(require('markdown-it-video'))
       md.use(require('markdown-it-footnote'))
@@ -62,31 +62,21 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: [
           {
-            title: 'Home',
-            path: '/'
-          },
-          {
-            title: 'Main dropdown',
-            path: '/main-dropdown/',
+            title: 'Concepts',
+            path: '/concepts/',
             children: [
               {
-                title: 'Sub Label',
-                sidebarDepth: 1,
+                title: 'What is drand?',
                 collapsable: false,
-                children: [
-                  '/main-dropdown/sub-label/page-a',
-                  '/main-dropdown/sub-label/page-b',
-                  '/main-dropdown/sub-label/page-c'
-                ]
+                path: '/concepts/what-is-drand/'
               },
               {
-                title: 'Another Sub label',
-                sidebarDepth: 1,
+                title: 'How does drand work?',
                 collapsable: false,
+                path: '/concepts/how-does-drand-work',
                 children: [
-                  '/main-dropdown/another-sub-label/page-a',
-                  '/main-dropdown/another-sub-label/page-b',
-                  '/main-dropdown/another-sub-label/page-c'
+                  '/concepts/how-does-drand-work/crypto/',
+                  '/concepts/how-does-drand-work/specs/'
                 ]
               }
             ]

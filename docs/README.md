@@ -1,6 +1,6 @@
 ---
 title: Drand Documentation
-description: The home page for developer documentation for IPFS, the InterPlanetary File System.
+description: The home page for developer documentation for drand, a distributed randomness beacon.
 ---
 
 # Drand documentation
