@@ -1,8 +1,9 @@
 ---
-title: Deployment Guide
+title: Deploying a drand Network
+sidebarDepth: 3
 ---
 
-# Drand node deployment guide
+# Deploying a drand Network
 
 This document explains in details the workflow to have a working group of drand
 nodes generate randomness. On a high-level, the workflow looks like this:

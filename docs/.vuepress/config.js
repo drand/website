@@ -64,6 +64,7 @@ module.exports = {
           {
             title: 'Concepts',
             path: '/concepts/',
+            collapsable: false,
             children: [
               {
                 title: 'What is drand?',
@@ -78,6 +79,18 @@ module.exports = {
                   '/concepts/how-does-drand-work/crypto/',
                   '/concepts/how-does-drand-work/specs/'
                 ]
+              }
+            ]
+          },
+          {
+            title: "Operator's Guide",
+            path: '/operators/',
+            collapsable: false,
+            children: [
+              {
+                title: 'Deploying a drand Network',
+                collapsable: false,
+                path: '/operators/deployment/'
               }
             ]
           }
