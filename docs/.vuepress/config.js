@@ -62,24 +62,8 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: [
           {
-            title: 'Concepts',
-            path: '/concepts/',
-            children: [
-              {
-                title: 'What is drand?',
-                collapsable: false,
-                path: '/concepts/what-is-drand/'
-              },
-              {
-                title: 'How does drand work?',
-                collapsable: false,
-                path: '/concepts/how-does-drand-work',
-                children: [
-                  '/concepts/how-does-drand-work/crypto/',
-                  '/concepts/how-does-drand-work/specs/'
-                ]
-              }
-            ]
+            title: 'Home',
+            path: '/'
           }
         ]
       }
