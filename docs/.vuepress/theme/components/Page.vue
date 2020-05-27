@@ -5,11 +5,11 @@
     <Content class="theme-default-content" />
 
     <div class="content-footer" v-if="!isContentStatus">
-      <Feedback
+      <!-- <Feedback
         class="content-feedback"
         evtYes="information_helpful"
         evtNo="information_not_helpful"
-      />
+      /> -->
       <PageEdit />
       <PageNav v-bind="{ sidebarItems }" />
     </div>
