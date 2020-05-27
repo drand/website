@@ -62,8 +62,37 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: [
           {
-            title: 'Home',
-            path: '/'
+            title: 'Concepts',
+            path: '/concepts/',
+            collapsable: false,
+            children: [
+              {
+                title: 'What is drand?',
+                collapsable: false,
+                path: '/concepts/what-is-drand/'
+              },
+              {
+                title: 'How does drand work?',
+                collapsable: false,
+                path: '/concepts/how-does-drand-work',
+                children: [
+                  '/concepts/how-does-drand-work/crypto/',
+                  '/concepts/how-does-drand-work/specs/'
+                ]
+              }
+            ]
+          },
+          {
+            title: "Operator's Guide",
+            path: '/operators/',
+            collapsable: false,
+            children: [
+              {
+                title: 'Deploying a drand Network',
+                collapsable: false,
+                path: '/operators/deployment/'
+              }
+            ]
           }
         ]
       }
