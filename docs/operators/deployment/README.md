@@ -387,9 +387,9 @@ The JSON-formatted output has the following form:
 }
 ```
 
-The "gid" simply indicates which group of BN256 the data belongs to. It is present for
+The "gid" simply indicates which group of bls12-381 the data belongs to. It is present for
 scalars and points on the curve, even though scalars are the same on the three
-groups of BN256. The field is included to be able to accommodate different curves in the
+groups of bls12-381. The field is included to be able to accommodate different curves in the
 future without modifying the JSON structure.
 
 ### Chain Information
