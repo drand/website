@@ -10,7 +10,7 @@ There is a considerable need for randomness generators. Things like lotteries, j
 To mitigate this exploitation, researchers have defined five points that a strong random-number-generator should be:
 
 - Unpredictable: you can't predict the next number to come out of the generator.
-- Publically-verifiable: anyone can verify that a random number is a legitimately _random_ number.
+- Publicly-verifiable: anyone can verify that a random number is a legitimately _random_ number.
 - Bias-resistant: you can't lead the generator one way or another.
 - Decentralized: a set of independent parties produces random numbers.
 - Always available: the system must always be able to provide random numbers.
