@@ -9,7 +9,7 @@ description: There are a bunch of different teams interacting with the Drand pro
 
 Asd.
 
-## Leauge of Entropy
+## League of Entropy
 
 Asd.
 

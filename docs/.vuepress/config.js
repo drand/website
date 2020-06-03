@@ -64,16 +64,13 @@ module.exports = {
           {
             title: 'Concepts',
             path: '/concepts/',
-            collapsable: false,
             children: [
               {
                 title: 'What is drand?',
-                collapsable: false,
                 path: '/concepts/what-is-drand/'
               },
               {
                 title: 'How does drand work?',
-                collapsable: false,
                 path: '/concepts/how-does-drand-work',
                 children: [
                   '/concepts/how-does-drand-work/crypto/',
@@ -83,15 +80,23 @@ module.exports = {
             ]
           },
           {
-            title: "Operator's Guide",
+            title: 'Operators',
             path: '/operators/',
-            collapsable: false,
             children: [
               {
-                title: 'Deploying a drand Network',
-                collapsable: false,
+                title: 'Deployment',
                 path: '/operators/deployment/'
               }
+            ]
+          },
+          {
+            title: 'Project',
+            path: '/project/',
+            children: [
+              '/project/project-map',
+              '/project/teams',
+              '/project/community',
+              '/project/contributing'
             ]
           }
         ]
