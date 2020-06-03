@@ -1,9 +1,9 @@
 ---
-title: Deploying a drand Network
-sidebarDepth: 3
+title: Deploy
+description: Learn how to deploy a Drand node onto your network.
 ---
 
-# Deploying a drand Network
+# Deploy a drand node
 
 This document explains in details the workflow to have a working group of drand
 nodes generate randomness. On a high-level, the workflow looks like this:

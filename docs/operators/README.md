@@ -1,8 +1,8 @@
 ---
-title: "Operator's Guide"
+title: 'Operators'
 ---
 
-# Operator's Guide
+# Operators
 
 This section contains information for `drand` node operators - the people deploying and maintaining `drand` networks.
 For information about consuming the randomness from a `drand` network, see the [Builder's Guide](../builders/) instead.

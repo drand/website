@@ -82,12 +82,7 @@ module.exports = {
           {
             title: 'Operators',
             path: '/operators/',
-            children: [
-              {
-                title: 'Deployment',
-                path: '/operators/deployment/'
-              }
-            ]
+            children: ['/operators/deploy']
           },
           {
             title: 'Project',
