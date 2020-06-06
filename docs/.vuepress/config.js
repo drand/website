@@ -82,7 +82,14 @@ module.exports = {
           {
             title: 'Operators',
             path: '/operators/',
-            children: ['/operators/deploy']
+            children: [
+              '/operators/deploy',
+              '/operators/metrics',
+              '/operators/drand-cli',           ]
+          },
+          {
+            title: 'Builders',
+            path: '/builders/'
           },
           {
             title: 'Project',

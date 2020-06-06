@@ -1,11 +1,12 @@
 ---
-title: Deploy
+title: Deploying a Drand Network
 description: Learn how to deploy a Drand node onto your network.
+sidebarDepth: 2
 ---
 
-# Deploy a drand node
+# Deploy a Drand Network Node
 
-This document explains in details the workflow to have a working group of drand
+This document explains in detail the workflow to have a working group of drand
 nodes generate randomness. On a high-level, the workflow looks like this:
 
 - **Setup**: generation of individual long-term key pair and the group file and
@@ -27,6 +28,8 @@ The setup process for a drand node consists of the following steps:
 This document explains how to do the setup with the drand binary itself. drand also offers
 a docker image to run the setup. You can find the information for running with docker
 [here](https://github.com/drand/drand/blob/master/docker/README.md).
+
+If you have not already installed `drand`, please see the [installation guide](./drand-cli/#installing-drand)
 
 ### Long-Term Key
 
