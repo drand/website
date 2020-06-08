@@ -1,8 +1,8 @@
 ---
-title: What is drand?
+title: What is Drand?
 ---
 
-# What is drand?
+# What is Drand?
 
 ## Overview and Goals
 
@@ -10,15 +10,15 @@ Many of the digital applications we rely on require a secure source of randomnes
 
 However, constructing a secure source of randomness is not a trivial matter, especially if the random values need to be shared with many participants. While most computers are capable of generating randomness locally (using, for example, `/dev/urandom` on UNIX platforms), it's not possible to prove to someone else that the generated value was truly random and not subject to some bias. There are also countless examples of attacks on secured systems that were made possible by weaknesses in random number generation, including the use of algorithms with non-uniform distribution or biased output. Such weaknesses can undermine the foundation of an otherwise secure system and can lead to severe and subtle vulnerabilities.
 
-`drand` aims to address this problem by providing a Randomness-as-a-Service network, similar to the NTP network which provides time-as-a-service, or Certificate Authority servers which provide certificate verification. `drand` provides a continuous source of randomness with these key properties:
+Drand aims to address this problem by providing a Randomness-as-a-Service network, similar to the NTP network which provides time-as-a-service, or Certificate Authority servers which provide certificate verification. Drand provides a continuous source of randomness with these key properties:
 
-- **Decentralized**: a `drand` network is not controlled by any one of its members, which means that there is no single point of failure, and none of the `drand` server operators are able to bias the output.
-- **Publicly verifiable**: `drand` periodically delivers randomness that is publicly verifiable and unbiased. Any third party can fetch and verify the authenticity of the randomness to ensure that it hasn't been tampered with.
-- **Optionally private**: in addition to "public" randomness, `drand` nodes can also deliver "private" encrypted randomness to be used in local applications. This may be used to seed the operating system RNG with an outside source of entropy.
+- **Decentralized**: a Drand network is not controlled by any one of its members, which means that there is no single point of failure, and none of the Drand server operators are able to bias the output.
+- **Publicly verifiable**: Drand periodically delivers randomness that is publicly verifiable and unbiased. Any third party can fetch and verify the authenticity of the randomness to ensure that it hasn't been tampered with.
+- **Optionally private**: in addition to "public" randomness, Drand nodes can also deliver "private" encrypted randomness to be used in local applications. This may be used to seed the operating system RNG with an outside source of entropy.
 
 ## Public Randomness
 
-Generating public randomness is the primary functionality of `drand`. Public randomness is generated collectively by `drand`nodes and made publicly available. The main challenge in generating good randomness is that no party involved in the randomness generation process should be able to predict or bias the final output. Additionally, the final result has to be verifiable by a third-party to make it actually useful for applications like lotteries, sharding, or parameter generation in security protocols.
+Generating public randomness is the primary functionality of Drand. Public randomness is generated collectively by Drand nodes and made publicly available. The main challenge in generating good randomness is that no party involved in the randomness generation process should be able to predict or bias the final output. Additionally, the final result has to be verifiable by a third-party to make it actually useful for applications like lotteries, sharding, or parameter generation in security protocols.
 
 A drand randomness beacon is composed of a distributed set of nodes and has two phases:
 
