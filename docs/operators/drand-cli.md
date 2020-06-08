@@ -115,7 +115,7 @@ OPTIONS:
 The generated key and all other drand state will be stored in `$HOME/.drand` by default, but this
 can be overridden with the `--folder` flag.
 
-The `--tls-disable` flag should only be used if intend to run an insecure test deployment without TLS protection.
+The `--tls-disable` flag should only be used if you intend to run an insecure test deployment without TLS protection.
 If either `drand` itself or a reverse proxy is providing TLS protection, the keypair must be generated with TLS
 set to the default of `true`.
 
@@ -166,6 +166,13 @@ If you want `drand` to listen on a different interface and/or port, you can pass
 specify the `host:port` to bind to. Note that the addresss associated with the keypair must be publicly accessible
 and mapped to the `--private-listen` address, for example using a reverse proxy.
 
+::: warning
+While the private API is primarily intended for inter-node communication, it may be exposed to the internet to allow clients
+to fetch randomness over gRPC using the [`drand get`](#drand-get) command and/or [`drand-client`](#drand-client). 
+This will not allow access to any secret information, but we generally recommend restricting gRPC access using firewall
+rules to limit the potential for denial of service attacks.
+:::
+
 The **control API endpoint** is used by the `drand` command to control a running drand daemon using commands like
 [`drand share`](#drand-share).
 
@@ -187,11 +194,15 @@ expose randomness to the public with the help of a relay server such as [`drand-
 Finally, the **metrics endpoint** provides an API for observing runtime metrics about the drand node. It can be enabled
 with the `--metrics <metrics-port>` flag. See [Drand Metrics](./metrics/) for more details on accessing the metrics.
 
+::: danger
+The metrics API may expose sensitive information about the running `drand` daemon, and should not be exposed to the public internet.
+:::
+
 #### TLS Configuration
 
 The `--tls-cert` and `--tls-key` commands give the path to TLS certificates and keys needed for `drand` to provide TLS protection
 to its connections with other `drand` nodes. If you are using a reverse proxy as described in the [Deployment Guide](./deploy/),
-you shoul pass the `--tls-disable` flag, as the proxy will handle TLS instead of `drand`.
+you should pass the `--tls-disable` flag, as the proxy will handle TLS instead of `drand`.
 
 ::: danger
 The `--tls-disable` flag may also be used to run without TLS entirely, but we **do not recommend** disabling TLS except for local
@@ -215,7 +226,7 @@ when running `drand stop`.
 The `share` command tells the `drand` daemon to begin the Distributed Key Generation (DKG) protocol to create private key shares
 with the other Drand nodes.
 
-There `share` command must be used when setting up a new Drand network before randomness generation can begin. It may also be
+The `share` command must be used when setting up a new Drand network before randomness generation can begin. It may also be
 used after the network is running to "re-share" the key material, which allows us to change the members of the Drand network
 without interrupting the generation of randomness.
 
@@ -246,7 +257,7 @@ OPTIONS:
    --transition          When set, this flag indicates the share operation is a resharing. The node will use the currently stored group as the basis for the resharing (default: false)
 ```
 
-The node that begins the sharing procedure should run with the `--leader` flag. This other nodes use the `--connect <leader-addr>` flag, passing
+The node that begins the sharing procedure should run with the `--leader` flag. The other nodes use the `--connect <leader-addr>` flag, passing
 in the address of the leader. All of the nodes must specify the following values:
 
 - `--secret` - a secret value, shared out-of-band with the other node operators. When re-sharing, this may be distinct from
@@ -258,9 +269,9 @@ in the address of the leader. All of the nodes must specify the following values
 - `--threshold` - the number of nodes required to generate randomness. The DKG will fail if fewer than `threshold` nodes participate
   in the DKG before the timeout.
 
-Whe re-sharing to nodes that are not members of the existing Drand group, the new nodes must obtain a copy of the group configuration file
-from an existing member, and use the `--from <group-file-path>` command to specify the path to the `group.toml` file. Members of
-the existing group may omit the `--from` flag, as they already posess the group configuration.
+When re-sharing to nodes that are not members of the existing Drand group, the new nodes must obtain a copy of the group configuration file
+from an existing member, and use the `--from <group-file-path>` flag to specify the path to the `group.toml` file. Members of
+the existing group may omit the `--from` flag, as they already posess the current group configuration.
 
 ::: tip
 You can mix an external source of entropy into the key sharing protocol by using the `--source` flag. The argument should be the path
@@ -270,15 +281,48 @@ but should not be used in production.
 
 ### `drand get`
 
-TK
+The `get` command allows you to fetch public information from a running Drand node, including random values and the public
+distributed key. Note that you do not need to be a node operator or a member of the Drand group in order to use `drand get`,
+but you will need a copy of the group configuration file. You will also need access to the gRPC API endpoint, which may be
+protected by firewall rules.
+
+There are three main subcommands for `drand get`:
+
+- `drand get public <path-to-group.toml>` returns the latest public random value from the group described in `group.toml`.
+  You may fetch a specific round instead of the latest by supplying the `--round <round-number>` flag.
+- `drand get private <path-to-group.toml>` sends an encrypted request for private randomness to one of the nodes in `group.toml`.
+- `drand get cokey <path-to-group.toml>` returns the distributed public key shared by all Drand nodes in the `group.toml`.
+
+For full usage information, run `drand get --help`.
 
 ### `drand show`
 
-TK
+The `show` command returns private information from a local `drand` node, including its private cryptographic material.
+
+There are several subcommands for `drand show`:
+
+- `drand show share` prints the private distributed key share for the local node.
+- `drand show group` prints the group configuration file. If a DKG has been performed, this will include the distributed public key.
+- `drand show cokey` prints the distributed public key, if a DKG has been performed.
+- `drand show private` prints the long-term private key of the local node.
+- `drand show public` prints the long-term public key of the local node.
+
+For full usage information, run `drand show --help`.
 
 ### `drand util`
 
-TK
+The `util` command provides several subcommands that are useful for debugging and managing local node state:
+
+- `drand util check <address>` attempts to contact the node at the given address to see if it's online and responding to requests.
+  This can be used to check that your local node is reachable at its public address, or to make sure that a remote node can be
+  reached before running `drand share`.
+- `drand util ping` sends a ping to the local `drand` daemon and prints its status.
+- `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from the local node. It
+does NOT delete the long-term keypair.
+- `drand util del-beacon <round-number>` deletes all beacon chain rounds from `<round-number>` until the current head of the beacon
+chain from the local node's database. You MUST restart the daemon after issuing this command.
+
+For full usage information, run `drand util --help`.
 
 ## Supplemental Tools
 
