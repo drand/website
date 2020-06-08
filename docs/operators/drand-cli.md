@@ -168,7 +168,7 @@ and mapped to the `--private-listen` address, for example using a reverse proxy.
 
 ::: warning
 While the private API is primarily intended for inter-node communication, it may be exposed to the internet to allow clients
-to fetch randomness over gRPC using the [`drand get`](#drand-get) command and/or [`drand-client`](#drand-client). 
+to fetch randomness over gRPC using the [`drand get`](#drand-get) command and/or [`drand-client`](#drand-client).
 This will not allow access to any secret information, but we generally recommend restricting gRPC access using firewall
 rules to limit the potential for denial of service attacks.
 :::
@@ -318,9 +318,9 @@ The `util` command provides several subcommands that are useful for debugging an
   reached before running `drand share`.
 - `drand util ping` sends a ping to the local `drand` daemon and prints its status.
 - `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from the local node. It
-does NOT delete the long-term keypair.
+  does NOT delete the long-term keypair.
 - `drand util del-beacon <round-number>` deletes all beacon chain rounds from `<round-number>` until the current head of the beacon
-chain from the local node's database. You MUST restart the daemon after issuing this command.
+  chain from the local node's database. You MUST restart the daemon after issuing this command.
 
 For full usage information, run `drand util --help`.
 
@@ -338,12 +338,27 @@ as [installing drand from source](#source-code), but instead of `make install` o
 
 ### `drand-client`
 
-TK
+The `drand-client` command is a standalone Drand client that's optimized to fetch randomness from a Drand network and provide it over a CDN.
+
+The client is configured with the URL for a Drand HTTP endpoint, and may optionally be configured with the addresses of one or more
+libp2p relay nodes. If libp2p relays are configured, the HTTP endpoint will be used as a fallback if the libp2p relays fail to deliver
+randomness at the expected interval.
+
+To see full usage information, run `drand-client help`.
 
 ### `drand-relay-http`
 
-TK
+The `drand-relay-http` command provides a gRPC to HTTP relay server that can be used to relay requests from the public internet to a Drand
+daemon. This is an alternative to the public HTTP endpoint that runs in the main `drand` process when starting `drand` with the `--public-listen`
+flag.
+
+While the `--public-listen` flag is convenient, running a seperate relay process allows the HTTP communications to be isolated from the
+main `drand` process, which limits the attack surface of the `drand` daemon.
+
+To see full usage information, run `drand-relay-http help`.
 
 ### `drand-relay-gossip`
 
-TK
+The `drand-relay-gossip` command provides a relay server that connects to a Drand node over gRPC and provides randomness to consumers over
+a [libp2p PubSub](https://docs.libp2p.io/concepts/publish-subscribe/) topic. Randomness provided by a gossip relay may be consumed directly
+over PubSub by libp2p-capable programs, and/or via a CDN which has been configured to listen to a PubSub topic using `drand-client`.
