@@ -85,7 +85,8 @@ module.exports = {
             children: [
               '/operators/deploy',
               '/operators/metrics',
-              '/operators/drand-cli',           ]
+              '/operators/drand-cli'
+            ]
           },
           {
             title: 'Builders',
