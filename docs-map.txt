@@ -1,5 +1,5 @@
 ├───drand.love
-    ├─── /
+    ├─── / (homepage)
 	|   ├───What is Drand?
 	|   ├───Why is it important?
 	|   ├───Who is it for?
@@ -7,7 +7,7 @@
     ├─── Quickstart
     |   ├───Generate randomness.
     |   └───Import into a project.
-    └─── Concepts
+    ├─── Concepts
     |   ├───How drand works
     |   └───Original specification
     ├─── Operators
