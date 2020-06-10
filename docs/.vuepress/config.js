@@ -74,6 +74,7 @@ module.exports = {
                 path: '/concepts/how-does-drand-work',
                 children: [
                   '/concepts/how-does-drand-work/crypto/',
+                  '/concepts/how-does-drand-work/security-model',
                   '/concepts/how-does-drand-work/specs/'
                 ]
               }
