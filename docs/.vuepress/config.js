@@ -174,6 +174,15 @@ module.exports = {
         // to deduplicate SEO across all copies loaded from various public gateways
         baseURL: 'https://docs.drand.love'
       }
+    ],
+    [
+      'vuepress-plugin-mathjax',
+      {
+        target: 'svg',
+        macros: {
+          '*': '\\times'
+        }
+      }
     ]
   ],
   extraWatchFiles: ['.vuepress/nav/en.js'],
