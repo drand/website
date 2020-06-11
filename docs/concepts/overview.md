@@ -1,10 +1,63 @@
 ---
-title: What is Drand?
+title: Overview
+description: Learn about the basics of Drand, how it works, and why it exists in the first place.
 ---
 
-# What is Drand?
+# Overview
 
-## Overview and Goals
+Learn about the basics of Drand, how it works, and why it exists in the first place.
+
+## Randomness matters
+
+Randomness serves a vital role in nearly every aspect of modern civilization. Voting systems, traffic management, and even financial sevices all depend on randomness in some way. But by far the most important and widely used aspect of randomness is within the field of cryptopgraphy. When connecting to a Wifi network using the WPA2 security protocol
+
+WPA2 is the most widely used security protocol for connecting to Wifi networks. If a laptop wants to connect to a Wifi network, the Wifi access-point generates a long random number and sends it to the laptop. At the same time the laptop generates a long random number and sends it to the Wifi access point.
+
+<!-- TODO: explain how this works, maybe with a diagram. -->
+
+### Current randomness generators
+
+There have been a collection of systems that have attempted to provide strong randomness, but they have all fallen short.
+
+The United States' [National Institute of Standards and Technology (NIST)'](https://www.nist.gov/) has a project that aims to produce randomness by using quantum entanglement. While this is an excellent way to produce incredibly random numbers, there is no way for an end-user to verify that the numbers they are getting from NIST are random. Users have to trust that the system is providing genuinely random numbers.
+
+Bitcoin is also able to [produce random numbers](https://eprint.iacr.org/2015/1015.pdf). However, the cryptocurrency is reasonably centralized, with power coming from a handful of mining pools.
+
+[Randhound](https://eprint.iacr.org/2016/1067.pdf) is the most robust random number generator so far. It claims to be scalable, bias-resistant, unpredictable, verifiable, and decentralized. However, tests have shown that it offers probabilistic guarantees, meaning that an attacker could have the system lean towards favorable numbers. Randhound is also hard to set up, and takes a while to generate an output.
+
+### Features of good randomness
+
+There have been cases where attackers have rigged lotteries and elections by influencing the randomness of a system. To mitigate this exploitation, researchers have defined five points that a strong random-number-generator should be:
+
+- Unpredictable: you can't predict the next number to come out of the generator.
+- Publicly-verifiable: anyone can verify that a random number is a legitimately _random_ number.
+- Bias-resistant: you can't lead the generator one way or another.
+- Decentralized: a set of independent parties produces random numbers.
+- Always available: the system must always be able to provide random numbers.
+
+## How drand works
+
+Here's a very brief rundown of how drand works. For a deep-dive into the intracieis of drand, check out the [project specifications](/concepts/specification).
+
+### Generating numbers
+
+<!-- TODO: how drand generates randomness -->
+
+### Decentralized randomness
+
+<!-- TODO: why drand is decentrazlied -->
+
+### Node communication
+
+<!-- TODO: how drand nodes talk to each other -->
+
+## Drand for everyone
+
+Defining exactly who will use drand is pointless since the project will generate random numbers for billions of applications, messages, transactions, and services around the world! However, this website is for developers looking to integrate drand into their projects, and for infrastructure specialists wanting to host a drand node.
+
+<!-- From Overview.md
+
+# Overview
 
 Many of the digital applications we rely on require a secure source of randomness in order to work effectively. Some examples include generating cryptographic parameters, electronic voting systems, blockchain networks, and statistical sampling of large data sets.
 
@@ -31,4 +84,4 @@ Private randomness generation is the secondary functionality of drand. Clients c
 
 In this mode we assume that a client has a private/public key pair and encapsulates its public key towards the server's public key using the ECIES encryption scheme. After receiving a request, the drand node produces 32 random bytes locally (using Go's crypto/rand interface), encrypts them using the received public key and sends it back to the client.
 
-**Note**: Assuming that clients without good local entropy sources (such as embedded devices) use this process to gather high entropy randomness to bootstrap their local PRNGs, we emphasize that the initial client key pair has to be provided by a trusted source (such as the device manufacturer). Otherwise we run into the chicken-and-egg problem of how to produce on the client's side a secure ephemeral key pair for ECIES encryption without a good (local) source of randomness.
+**Note**: Assuming that clients without good local entropy sources (such as embedded devices) use this process to gather high entropy randomness to bootstrap their local PRNGs, we emphasize that the initial client key pair has to be provided by a trusted source (such as the device manufacturer). Otherwise we run into the chicken-and-egg problem of how to produce on the client's side a secure ephemeral key pair for ECIES encryption without a good (local) source of randomness. -->

@@ -65,33 +65,24 @@ module.exports = {
             title: 'Concepts',
             path: '/concepts/',
             children: [
-              {
-                title: 'What is drand?',
-                path: '/concepts/what-is-drand/'
-              },
-              {
-                title: 'How does drand work?',
-                path: '/concepts/how-does-drand-work',
-                children: [
-                  '/concepts/how-does-drand-work/crypto/',
-                  '/concepts/how-does-drand-work/security-model',
-                  '/concepts/how-does-drand-work/specs/'
-                ]
-              }
+              '/concepts/overview',
+              '/concepts/cryptography',
+              '/concepts/security-model',
+              '/concepts/specification'
             ]
           },
           {
-            title: 'Operators',
-            path: '/operators/',
+            title: 'Operate',
+            path: '/operate/',
             children: [
-              '/operators/deploy',
-              '/operators/metrics',
-              '/operators/drand-cli'
+              '/operate/deploy',
+              '/operate/metrics',
+              '/operate/drand-cli'
             ]
           },
           {
-            title: 'Builders',
-            path: '/builders/'
+            title: 'Build',
+            path: '/build/'
           },
           {
             title: 'Project',

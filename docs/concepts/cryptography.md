@@ -1,9 +1,9 @@
 ---
-title: Cryptographic Background
+title: Cryptography
 sidebarDepth: 2
 ---
 
-# Drand: Cryptographic Background
+# Cryptography
 
 This document provides an overview on the cryptographic building blocks that Drand uses to generate
 publicly-verifiable, unbiasable, and unpredictable randomness in a distributed manner.

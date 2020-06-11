@@ -1,8 +1,8 @@
 ---
-title: 'Builders'
+title: 'Build'
 ---
 
-# Builder's Guide
+# Build
 
 This section helps you build applications that use Drand as a source of randomness. For help running a Drand network, see the [Operator's Guide](../operators/).
 

@@ -12,9 +12,10 @@ operators monitor and understand the runtime behavior of system.
 The local drand node exposes metrics on an HTTP server listening as specified
 by the `--metrics` comamnd line flag. You can view the reported metrics
 in a browser at `http://localhost:<metrics port>/metrics`. This page includes
-* The default Golang process metrics collected by prometheus
-* Statistics on the drand beacon and group behavior
-* Statistics on the HTTP public listener request load if enabled.
+
+- The default Golang process metrics collected by prometheus
+- Statistics on the drand beacon and group behavior
+- Statistics on the HTTP public listener request load if enabled.
 
 ## Shared Group Metrics
 

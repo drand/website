@@ -1,9 +1,8 @@
 ---
-title: Specifications
-sidebarDepth: 3
+title: Specification
 ---
 
-# Drand Specifications
+# Drand specification
 
 Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
 in Golang. Servers running drand can be linked with each other to produce
