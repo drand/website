@@ -87,12 +87,7 @@ module.exports = {
           {
             title: 'Project',
             path: '/project/',
-            children: [
-              '/project/project-map',
-              '/project/teams',
-              '/project/community',
-              '/project/contributing'
-            ]
+            children: ['/project/community', '/project/contributing']
           }
         ]
       }

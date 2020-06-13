@@ -9,6 +9,8 @@ description: Get up and running with Drand quickly! Learn how to grab randomness
 
 Asd.
 
+https://github.com/drand/drandjs
+
 ## Generate randomness
 
 Asd.
