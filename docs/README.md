@@ -9,7 +9,7 @@ description: The home page for developer documentation for drand, a distributed 
 <p style="font-size: 22px;line-height: 1.1;font-weight: 100;margin-top: -10px;">
 Drand is a service that provides random numbers. While this doesn't sounds particularly exciting or ground-breaking, what makes drand important is <i>how</i> these random numbers are created.</p>
 
-![](/images/drand-logo.svg)
+![Drand logo.](/images/drand-logo.svg)
 
 ## Get started
 
