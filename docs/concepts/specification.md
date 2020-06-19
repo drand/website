@@ -4,11 +4,7 @@ title: Specification
 
 # Drand specification
 
-Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
-in Golang. Servers running drand can be linked with each other to produce
-collective, publicly verifiable, unbiased, unpredictable random values at fixed
-intervals using bilinear pairings and threshold cryptography. Drand nodes can
-also serve locally-generated private randomness to clients.
+Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written in Golang. Servers running drand can be linked with each other to produce collective, publicly verifiable, unbiased, unpredictable random values at fixed intervals using bilinear pairings and threshold cryptography. Drand nodes can also serve locally-generated private randomness to clients.
 
 This document is a specification of the drand protocols.
 
@@ -16,11 +12,8 @@ This document is a specification of the drand protocols.
 
 ### Drand node
 
-A drand node is a server that runs the drand code, that participates in the
-distributed key generations phases, in the randomness generation and that can
-reply to public request API.
-The following representation is what gets embedded in group configuration file,
-what drand nodes knows about other drand nodes:
+A drand node is a server that runs the drand code, that participates in the distributed key generations phases, in the randomness generation and that can reply to public request API. The following representation is what gets embedded in group configuration file,
+and is what drand nodes know about other drand nodes:
 
 ```go
 type Node struct {
@@ -42,46 +35,27 @@ func (n *Node) Hash() []byte {
 }
 ```
 
-**Public Key**: Public keys of drand nodes are points on the G1 group of the
-BLS12-381 curve. See the [curve](#drand-curve) section for more information.
+**Public Key**: Public keys of drand nodes are points on the G1 group of the BLS12-381 curve. See the [curve](#drand-curve) section for more information.
 
 ### Drand beacon
 
-A drand beacon is what the drand network periodically creates and that can be
-used to derive the randomness. A beacon contains the signature of the previous
-beacon generated, the round of this beacon and signature. See the [beacon
-chain](#beacon-chain) section for more information.
+A drand beacon is what the drand network periodically creates and that can be used to derive the randomness. A beacon contains the signature of the previous beacon generated, the round of this beacon, and signature. See the [beacon chain](#beacon-chain) section for more information.
 
 ### Group configuration
 
-Group configuration: A structure that contains all the necessary information
-about nodes that form a drand network:
+Group configuration: A structure that contains all the necessary information about nodes that form a drand network:
 
 - Nodes: A list of nodes information that represents all nodes on the network.
-- Threshold: The number of nodes that are necessary to participate to a
-  randomness generation round to produce a new random value. Given the security
-  model of Drand, the threshold must be superior to 50% of the number of nodes.
+- Threshold: The number of nodes that are necessary to participate to a randomness generation round to produce a new random value. Given the security model of Drand, the threshold must be superior to 50% of the number of nodes.
 - Period: The period at which the network creates new random value
-- GenesisTime: A UNIX timestamp in seconds that represents the time at which
-  the first round of the drand chain starts. See the [beacon
-  chain](#beacon-chain) section for more information.
-- GenesisSeed: A generic slice of bytes that is the input for nodes that create
-  the first beacon. This seed is the hash of the initial group configuration, as
-  shown below.
-- Distributed public key: A list of points used to verify the partial and final
-  beacons created by the network. This field is nil if the network hasn't run
-  the setup phase yet. Each point lies on the group G1 of the BLS12-381 curve.
-- TransitionTime: A UNIX timestamp in seconds that represents the time the
-  network denoted by this group configuration took over a previous network. This
-  field is empty if the network has never reshared yet. See
-  [Types of Distributed Key Generation](#types-of-distributed-key-generation) below
-  for more info.
+- GenesisTime: A UNIX timestamp in seconds that represents the time at which the first round of the drand chain starts. See the [beacon chain](#beacon-chain) section for more information.
+- GenesisSeed: A generic slice of bytes that is the input for nodes that create the first beacon. This seed is the hash of the initial group configuration, as shown below.
+- Distributed public key: A list of points used to verify the partial and final beacons created by the network. This field is nil if the network hasn't run the setup phase yet. Each point lies on the group G1 of the BLS12-381 curve.
+- TransitionTime: A UNIX timestamp in seconds that represents the time the network denoted by this group configuration took over a previous network. This field is empty if the network has never reshared yet. See [Types of Distributed Key Generation](#types-of-distributed-key-generation) below for more info.
 
 #### Group Configuration Hash
 
-The group configuration can be uniquely referenced via its canonical hash.
-The hash is derived using the blake2b hash function.
-The Go procedure works as follow:
+The group configuration can be uniquely referenced via its canonical hash. The hash is derived using the blake2b hash function. The Go procedure works as follow:
 
 ```go
 func (g *Group) Hash() []byte {
@@ -108,48 +82,20 @@ func (g *Group) Hash() []byte {
 
 ## Wireformat & API
 
-Drand currently uses [gRPC](https://grpc.io/) as the networking protocol. All
-exposed services and protobuf definitions are in the
-[protocol.proto](https://github.com/drand/drand/blob/master/protobuf/drand/protocol.proto)
-file for the intra-nodes protocols and in the
-[api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto)
-file for the client-facing API.
+Drand currently uses [gRPC](https://grpc.io/) as the networking protocol. All exposed services and protobuf definitions are in the [protocol.proto](https://github.com/drand/drand/blob/master/protobuf/drand/protocol.proto) file for the intra-nodes protocols and in the [api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto) file for the client-facing API.
 
 ## Drand Modules
 
-Generating public randomness is the primary functionality of drand. Public
-randomness is generated collectively by drand nodes and made publicly available.
-A drand network is composed of a distributed set of nodes and has two
-phases / modules:
+Generating public randomness is the primary functionality of drand. Public randomness is generated collectively by drand nodes and made publicly available. A drand network is composed of a distributed set of nodes and has two phases / modules:
 
-- Setup: The nodes perform a distributed key generation (DKG) protocol to create
-  the collective public key and one private key share per node. The participants
-  never see/use the actual (distributed) private key explicitly but instead
-  utilize their respective private key shares for the generation of public
-  randomness.
-- Generation: After the setup, the nodes switch to the randomness generation
-  mode. Each node periodically broadcasts a partial signature to all the other
-  participants sign using a t-of-n threshold version of the [Boneh-Lynn-Shacham
-  (BLS)](https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham)
-  signature scheme with their respective private key shares. Once any node
-  (or third-party observer) has gathered t partial signatures, it can
-  reconstruct the full BLS signature, that can be verified against the
-  distributed public key. The random value is then simply the hash of that
-  signature, to ensure that there is no bias in the byte representation of the
-  final output.
+- Setup: The nodes perform a distributed key generation (DKG) protocol to create the collective public key and one private key share per node. The participants never see/use the actual (distributed) private key explicitly but instead utilize their respective private key shares for the generation of public randomness.
+- Generation: After the setup, the nodes switch to the randomness generation mode. Each node periodically broadcasts a partial signature to all the other participants sign using a t-of-n threshold version of the [Boneh-Lynn-Shacham (BLS)](https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham) signature scheme with their respective private key shares. Once any node (or third-party observer) has gathered t partial signatures, it can reconstruct the full BLS signature, that can be verified against the distributed public key. The random value is then simply the hash of that signature, to ensure that there is no bias in the byte representation of the final output.
 
 ### Setup phase
 
-To setup a new network, drand uses the notion of a _coordinator_ that
-collects the public key of the participants, creates the group configuration
-once all keys are received, pushes the group configuration back to participants
-and then starts the distributed key generation phase. The coordinator is a member
-of the new group by default. At this stage, the coordinator is trusted for setting
-up the group configuration and for starting the Distributed Key Generation.
+To setup a new network, drand uses the notion of a _coordinator_ that collects the public key of the participants, creates the group configuration once all keys are received, pushes the group configuration back to participants and then starts the distributed key generation phase. The coordinator is a member of the new group by default. At this stage, the coordinator is trusted for setting up the group configuration and for starting the Distributed Key Generation.
 
-This setup phase uses the notion of a common _secret_ between all participants.
-That way, only the participants that know the same secret are able to be listed
-in the new group configuration.
+This setup phase uses the notion of a common _secret_ between all participants. That way, only the participants that know the same secret are able to be listed in the new group configuration.
 
 #### Collecting the keys of the participants
 
@@ -186,15 +132,9 @@ message SignalDKGPacket {
 
 #### Coordinator pushing the new group configuration
 
-Once the coordinator has received the expected number of `SignalDKGPacket`s, they
-will create the group configuration using the threshold and period parameters set
-by the operator of the coordinator node.
+Once the coordinator has received the expected number of `SignalDKGPacket`s, they will create the group configuration using the threshold and period parameters set by the operator of the coordinator node.
 
-When creating a group from only public keys and addresses of the node, the
-_index_ of a node is determined by the lexicographical order of the public keys as
-slice of bytes.
-The coordinator then pushes the group configuration to the participants via the
-following RPC call:
+When creating a group from only public keys and addresses of the node, the _index_ of a node is determined by the lexicographical order of the public keys as slice of bytes. The coordinator then pushes the group configuration to the participants via the following RPC call:
 
 ```protobuf
 rpc PushDKGInfo(DKGInfoPacket) returns (drand.Empty);
@@ -227,52 +167,24 @@ message GroupPacket {
 }
 ```
 
-As soon as a participant receives this information from the coordinator, then he
-must be ready to accept DKG packets, but he does not start immediatly sending
-his packet. After the coordinator has successfully sent the group to all
-participants, he starts sending the first packet of the distributed key
-generation. All nodes that receive the first packet of the DKG from the
-coordinator (or else, due to network shifts) must send their first packet of the
-DKG as well and start the ticker as explained below.
+As soon as a participant receives this information from the coordinator, then he must be ready to accept DKG packets, but he does not start immediatly sending his packet. After the coordinator has successfully sent the group to all participants, he starts sending the first packet of the distributed key generation. All nodes that receive the first packet of the DKG from the coordinator (or else, due to network shifts) must send their first packet of the DKG as well and start the ticker as explained below.
 
 ### Distributed Key Generation
 
-The distributed key generation protocol implements the Pedersen's protocol, best
-described from [Gennaro's
-paper](https://www.researchgate.net/publication/225722958_Secure_Distributed_Key_Generation_for_Discrete-Log_Based_Cryptosystems):
+The distributed key generation protocol implements the Pedersen's protocol, best described from [Gennaro's paper](https://www.researchgate.net/publication/225722958_Secure_Distributed_Key_Generation_for_Discrete-Log_Based_Cryptosystems):
 
-> Distributed key generation (DKG) is a main component of threshold
-> cryptosystems. It allows a set of n servers to generate jointly a pair of
-> public and private keys without assuming any trusted party. A DKG may be run
-> in the presence of a malicious adversary who corrupts a fraction (or
-> threshold) of the parties and forces them to follow an arbitrary protocol of
-> their choice.
+> Distributed key generation (DKG) is a main component of threshold cryptosystems. It allows a set of n servers to generate jointly a pair of public and private keys without assuming any trusted party. A DKG may be run in the presence of a malicious adversary who corrupts a fraction (or threshold) of the parties and forces them to follow an arbitrary protocol of their choice.
 
-Note that the nodes that finish the protocol successfully, called "qualified
-nodes" may be a subset of the nodes that started it: there can be nodes offline
-and nodes malicious during the protocol that will get excluded unless they act
-accordingly to the protocol.
+Note that the nodes that finish the protocol successfully, called _qualified nodes_, may be a subset of the nodes that started it. There can be nodes offline and nodes malicious during the protocol that will get excluded unless they act accordingly to the protocol.
 
 #### Types of distributed key generation
 
 Drand supports two operations with respect to setting up a distributed key:
 
-- Fresh setup: nodes have no prior shares and want to run the protocol from
-  scratch
-- Resharing: Resharing enables to _remove_ and _add_ new nodes to a group, while
-  keeping the same public facing information, namely the distributed key. There
-  is already a first group of nodes A that have run the DKG protocol and have
-  shares of a distributed private key. This group wants to "re-share their
-  shares" to a second group of nodes B. Nodes of group B have no prior shares and
-  only the knowledge of the long-term public keys of nodes in group A. After the
-  resharing, nodes in group B will be able to use their new shares to produce
-  randomness and nodes in group A will not be able to participate in randomness
-  generation with the nodes in group B. the Note that a node can be in group A
-  and B as well.
+- Fresh setup: nodes have no prior shares and want to run the protocol from scratch.
+- Resharing: Resharing enables to _remove_ and _add_ new nodes to a group, while keeping the same public facing information, namely the distributed key. There is already a first group of nodes `A` that have run the DKG protocol and have shares of a distributed private key. This group wants to _re-share their shares_ to a second group of nodes `B`. Nodes of group `B` have no prior shares and only the knowledge of the long-term public keys of nodes in group `A`. After the resharing, nodes in group `B` will be able to use their new shares to produce randomness and nodes in group `A` will not be able to participate in randomness generation with the nodes in group `B`. the Note that a node can be in group `A` and `B` as well.
 
-The rest of this section highlights the network level operations that are valid
-for both types of DKG. Even though the main logic is similar for the two types,
-the cryptography section explains in details the difference between the two.
+The rest of this section highlights the network level operations that are valid for both types of DKG. Even though the main logic is similar for the two types, the cryptography section explains in details the difference between the two.
 
 #### Network level packets
 
@@ -300,61 +212,31 @@ message Packet {
 }
 ```
 
-All messages of the DKG have a canonical hash representation and each node signs
-that hash before sending out the packet, thus providing authentication of
-the messages. The signature scheme is the regular BLS signature as explained in
-the [cryptography](#cryptography) section.
+All messages of the DKG have a canonical hash representation and each node signs that hash before sending out the packet, thus providing authentication of the messages. The signature scheme is the regular BLS signature as explained in the [cryptography](#cryptography) section.
 
 #### Phase transitions
 
-The protocol runs in _at most_ 3 phases: `DealPhase`, `ResponsePhase` and
-`JustificationPhase`. The `FinishPhase` is an additional local phase where nodes
-compute their local private share. However, it can finish after the first two
-phases if there is malicious interference or offline nodes during the first
-phase.
+The protocol runs in _at most_ 3 phases: `DealPhase`, `ResponsePhase` and `JustificationPhase`. The `FinishPhase` is an additional local phase where nodes compute their local private share. However, it can finish after the first two phases if there is malicious interference or offline nodes during the first phase.
 
-The way the protocol transition works is via time-outs. As soon as a node starts
-the DKG protocol, it starts a ticker that triggers each transition phase.
-Example:
+The way the protocol transition works is through time-outs. As soon as a node starts the DKG protocol, it starts a ticker that triggers each transition phase. Example:
 
-- DKG timeout is set to 30s
-- Node 1 starts the DKG at time T, so he is in `DealPhase` and sends its deals
-  to every other node.
-- Node 1's ticker ticks at time T+30s, and node 1 enters the `ResponsePhase` and
-  sends its responses to every other node. Each `Response` can be a complaint or a
-  success depending on the deal the node received at the previous step.
-- Node 1's ticker ticks at time T+60s, and node 1 enters the
-  `JustificationPhase` _if there was no complaint response received_ OR in
-  `FinishPhase` otherwise.
+- DKG timeout is set to 30s.
+- Node 1 starts the DKG at time T, so he is in `DealPhase` and sends its deals to every other node.
+- Node 1's ticker ticks at time T+30s, and node 1 enters the `ResponsePhase` and sends its responses to every other node. Each `Response` can be a complaint or a success depending on the deal the node received at the previous step.
+- Node 1's ticker ticks at time T+60s, and node 1 enters the `JustificationPhase` _if there was no complaint response received_ OR in `FinishPhase` otherwise.
 
-**Fast Sync**: Drand uses a _fast sync_ mode that allows to make the setup
-phase proceeds faster at the cost of higher bandwidth usage. Given the
-relatively low size of the network, the latter is not a concern. The general
-idea is to move to the next step before the ticker kicks in if we received the
-messages of the phase from all other nodes already. In more details:
+**Fast Sync**: Drand uses a _fast sync_ mode that allows to make the setup phase proceeds faster at the cost of higher bandwidth usage. Given the relatively low size of the network, the latter is not a concern. The general idea is to move to the next step before the ticker kicks in if we received the messages of the phase from all other nodes already. In more details:
 
-- nodes go into the `ResponsePhase` as soon as they received deals from
-  everybody else OR when the ticker kicks in.
-- nodes go into the `FinishPhase` as soon as they received "success" responses
-  from all other nodes (i.e. all deals were correct) OR
-- nodes go into the `JustificationPhase` as soon as they received all responses
-  from all other nodes, where at least one of the responses is a complaint.
-- The transition from the `JustificationPhase` to the `FinishPhase` is done
-  locally: when a node received all justifications or when the ticker kicks in,
-  the nodes compute their final share. The beacon chain starts at a
-  pre-defined time, this final phase does not have a timeout, however all nodes
-  are expected to complete the `FinishPhase` before the beacon chain begins.
+- nodes go into the `ResponsePhase` as soon as they received deals from everybody else OR when the ticker kicks in.
+- nodes go into the `FinishPhase` as soon as they received "success" responses from all other nodes (i.e. all deals were correct) OR
+- nodes go into the `JustificationPhase` as soon as they received all responses from all other nodes, where at least one of the responses is a complaint.
+- The transition from the `JustificationPhase` to the `FinishPhase` is done locally: when a node received all justifications or when the ticker kicks in, the nodes compute their final share. The beacon chain starts at a pre-defined time, this final phase does not have a timeout, however all nodes are expected to complete the `FinishPhase` before the beacon chain begins.
 
-The phases and the respective messages are described in more details in the
-following sections.
+The phases and the respective messages are described in more details in the following sections.
 
 #### Deal Phase
 
-In this first phase, nodes sends their "deal" containing their encrypted share
-to the other nodes as well as the public polynomial from which those shares are
-derived. The share is encrypted via ECIES using the public key of the recipient
-share holder. A node bundles all its deals into a `DealBundle` that is
-signed.Here is the protobuf wire specification of the deals:
+In this first phase, nodes sends their _deal_ containing their encrypted share to the other nodes as well as the public polynomial from which those shares are derived. The share is encrypted via ECIES using the public key of the recipient share holder. A node bundles all its deals into a `DealBundle` that is signed.Here is the protobuf wire specification of the deals:
 
 ```protobuf
 // DealBundle is a packet issued by a dealer that contains each individual
@@ -377,24 +259,13 @@ message Deal {
 }
 ```
 
-Each `DealBundle` is authenticated, so a node can know when they have received all
-expected `DealBundle`s, one from each node, by looking at the
-`dealer_index` field of all `DealBundle`s. If that is the case, the node can directly
-transition to the`ResponsePhase`. Otherwise, the node needs to wait until the ticker
-kicks in for the next timeout before entering the`ResponsePhase`.
+Each `DealBundle` is authenticated, so a node can know when they have received all expected `DealBundle`s, one from each node, by looking at the `dealer_index` field of all `DealBundle`s. If that is the case, the node can directly transition to the`ResponsePhase`. Otherwise, the node needs to wait until the ticker kicks in for the next timeout before entering the`ResponsePhase`.
 
 #### Response Phase
 
-In this second phase, each node first process all their deals received during
-the previous phase. Each node then sends a Response for each share they have
-received and _should_ have received: if there is a missing share for a node,
-this node will send a response for it as well. A `Response` contains both the
-"share holder" index and the "dealer index" as well as a status. If the share
-holder found its share from that dealer invalid, the status is set as a
-complaint (`false`) and if the share was valid, the status is set as a success
-(`true`).
-A node bundles all its responses into a `ResponseBundle` that is signed. Here is
-the protobuf description:
+In this second phase, each node first process all their deals received during the previous phase. Each node then sends a Response for each share they have received and _should_ have received: if there is a missing share for a node, this node will send a response for it as well. A `Response` contains both the "share holder" index and the "dealer index" as well as a status. If the share holder found its share from that dealer invalid, the status is set as a complaint (`false`) and if the share was valid, the status is set as a success (`true`).
+
+A node bundles all its responses into a `ResponseBundle` that is signed. Here is the protobuf description:
 
 ```protobuf
 // ResponseBundle is a packet issued by a share holder that contains all the
@@ -415,22 +286,16 @@ message Response {
 }
 ```
 
-When a node receives all expected `ResponseBundle` from each node OR when the
-ticker kicks in, the node decides which phase to proceed to:
+When a node receives all expected `ResponseBundle` from each node OR when the ticker kicks in, the node decides which phase to proceed to:
 
-- If all `Response.status` from each `ResponseBundle` are set to true, the node
-  can directly go into the `FinishPhase` and compute their final share.
+- If all `Response.status` from each `ResponseBundle` are set to true, the node can directly go into the `FinishPhase` and compute their final share.
 - If not, then the node needs to go into the `JustificationPhase`.
 
 #### Justification Phase
 
-For each "complaint" responses (i.e. `status == false`) whose`dealer_index` is
-equal to their index, a node sends a `Justification` packet that contains the
-non-encrypted share that the share holder should have received. The goal here is
-that every node will be able to verify the validity of the share now that is
-unencrypted.
-A node bundles all its `Justifications` into a `JustificationBundle` that is
-signed. Here is the protobuf description:
+For each "complaint" responses (i.e. `status == false`) whose`dealer_index` is equal to their index, a node sends a `Justification` packet that contains the non-encrypted share that the share holder should have received. The goal here is that every node will be able to verify the validity of the share now that is unencrypted.
+
+A node bundles all its `Justifications` into a `JustificationBundle` that is signed. Here is the protobuf description:
 
 ```protobuf
 // JustifBundle is a packet that holds all justifications a dealer must
@@ -450,49 +315,29 @@ message Justification {
 }
 ```
 
-A node can silently wait until it receives all justifications expected, or until the
-ticker kicks in, at which point they will proceed to the `FinishPhase`.
+A node can silently wait until it receives all justifications expected, or until the ticker kicks in, at which point they will proceed to the `FinishPhase`.
 
 #### Finish Phase
 
-In the `FinishPhase`, each node locally look at the shares they received and
-computes both their final share and the distributed public key. For the DKG to be
-successful, there must be at least more than a threshold of valid shares. For
-more detail, see the [cryptographic specification](#cryptographic-specification) section.
-Each node must save the group configuration file, which now contains the distributed key. This
-configuration file is now representative of functional current drand network.
+In the `FinishPhase`, each node locally look at the shares they received and computes both their final share and the distributed public key. For the DKG to be successful, there must be at least more than a threshold of valid shares. For more detail, see the [cryptographic specification](#cryptographic-specification) section. Each node must save the group configuration file, which now contains the distributed key. This configuration file is now representative of functional current drand network.
 
-When a node stores the new group file, it switches to the randomness generation
-protocol. Given there might be slight time delays, it must already be ready to
-accept packets for this. However, the node must only start generating randomness
-at the time specified in the `GenesisTime` of the group configuration file.
+When a node stores the new group file, it switches to the randomness generation protocol. Given there might be slight time delays, it must already be ready to accept packets for this. However, the node must only start generating randomness at the time specified in the `GenesisTime` of the group configuration file.
 
 ### Randomness generation
 
 #### Overiew
 
-The randomness generation protocol works in its simple form by having each node
-periodically broadcasts a "partial" signature over a common input. Each node
-waits to receive these partial signatures, and as soon as one has a subset of at
-least a "threshold" (parameter given in the group configuration file) of those,
-this node can reconstruct the final signature. The final signature is a regular
-BLS signature that can be verified against the distributed public key. If that
-signature is correct, then the randomness is simply the hash of it:
+The randomness generation protocol works in its simple form by having each node periodically broadcasts a _partial_ signature over a common input. Each node waits to receive these partial signatures, and as soon as one has a subset of at least a _threshold_ (parameter given in the group configuration file) of those, this node can reconstruct the final signature. The final signature is a regular BLS signature that can be verified against the distributed public key. If that signature is correct, then the randomness is simply the hash of it:
 
 ```go
 rand := sha256.Sum256(signature)
 ```
 
-Note here that the hash function shown here is simply an example, a suggestion.
-An application is free to hash the signature using any secure hash function. The
-important point is to verify to validity of the signature.
+Note here that the hash function shown here is simply an example. An application is free to hash the signature using any secure hash function. The important point is to verify to validity of the signature.
 
 #### Randomness Generation Period
 
-The drand network outputs a new random beacon each period and associates a
-beacon "round" to a specific time. The mapping between a time and a round allows one
-to exactly determine the round number for any given time in the past or future.
-The relation to determine this mapping is as follows:
+The drand network outputs a new random beacon each period and associates a beacon _round_ to a specific time. The mapping between a time and a round allows one to exactly determine the round number for any given time in the past or future. The relation to determine this mapping is as follows:
 
 ```go
 // Parameters:
@@ -517,16 +362,11 @@ func CurrentRound(now, genesis int64, period uint32) (round uint64, time int64){
 }
 ```
 
-Each node starts sending their partial signature for a given round when it is
-time to do so, according to the above function. Given the threat model, there
-are always enough honest nodes such that the chain advances at the correct speed.
-In case this is not true at some point in time, please refer to the [catchup
-section](#catchup-mode) for more information.
+Each node starts sending their partial signature for a given round when it is time to do so, according to the above function. Given the threat model, there are always enough honest nodes such that the chain advances at the correct speed. In case this is not true at some point in time, please refer to the [catchup section](#catchup-mode) for more information.
 
 #### Beacon Chain
 
-Drand binds the different random beacons together so they form a chain of random
-beacons. Remember a drand beacon is structured as follows:
+Drand binds the different random beacons together so they form a chain of random beacons. Remember a drand beacon is structured as follows:
 
 ```go
 type Beacon struct {
@@ -536,19 +376,13 @@ type Beacon struct {
 }
 ```
 
-- The `Round` is the round at which the beacon was created, as explained in the
-  previous section.
-- The `PreviousSignature` is the signature of the beacon that was created at
-  round `Round - 1`
-- `Signature` is the final BLS signature created by aggregating at least
-  `Threshold` of partial signatures from nodes.
+- The `Round` is the round at which the beacon was created, as explained in the previous section.
+- The `PreviousSignature` is the signature of the beacon that was created at round `Round - 1`
+- `Signature` is the final BLS signature created by aggregating at least `Threshold` of partial signatures from nodes.
 
-This structure makes it so that each beacon created is building on the previous
-one, thus forming a randomness chain.
+This structure makes it so that each beacon created is building on the previous one, thus forming a randomness chain.
 
-**Partial Beacon Creation**: At each new round, a node creates a `PartialBeacon`
-with the current round number, the previous signature and the partial signature
-over the message:
+**Partial Beacon Creation**: At each new round, a node creates a `PartialBeacon` with the current round number, the previous signature and the partial signature over the message:
 
 ```go
 func Message(currRound uint64, prevSig []byte) []byte {
@@ -559,16 +393,14 @@ func Message(currRound uint64, prevSig []byte) []byte {
 }
 ```
 
-To determine the "current round" and the "previous signature", the node loads its
-last generated beacon and sets the following:
+To determine the _current round_ and the _previous signature_, the node loads its last generated beacon and sets the following:
 
 ```
 currentRound = lastBeacon.Round + 1
 previousSignature = lastBeacon.Signature
 ```
 
-It is important to note that the current round may not be necessarily the round
-of the current time. More information in the following section.
+It is important to note that the current round may not be necessarily the round of the current time. More information in the following section.
 
 **Partial Beacon Broadcast**:
 
@@ -591,15 +423,9 @@ message PartialBeaconPacket {
 }
 ```
 
-**Final Beacon Creation**: For each incoming partial beacon packet, a
-node must first verify it, using the [partial signature verification routine](#partial-beacon-signature)
-and then stores it in a temporary cache if it is valid. As soon as there are at
-least a threshold of valid partial signatures, the node can aggregate them to
-create the final signature.
+**Final Beacon Creation**: For each incoming partial beacon packet, a node must first verify it, using the [partial signature verification routine](#partial-beacon-signature) and then stores it in a temporary cache if it is valid. As soon as there are at least a threshold of valid partial signatures, the node can aggregate them to create the final signature.
 
-**Validation of beacon and storage**: Once the new beacon is created, the node
-verifies its signature, loads the last saved beacon from the database and checks
-if the following routine returns true:
+**Validation of beacon and storage**: Once the new beacon is created, the node verifies its signature, loads the last saved beacon from the database and checks if the following routine returns true:
 
 ```go
 func isAppendable(lastBeacon, newBeacon *Beacon) bool {
@@ -608,50 +434,21 @@ func isAppendable(lastBeacon, newBeacon *Beacon) bool {
 }
 ```
 
-There should never be any gaps in the rounds.
-A node can now save the beacon locally in its database and expose it to the
-external API.
+There should never be any gaps in the rounds. A node can now save the beacon locally in its database and expose it to the external API.
 
 #### Catchup mode
 
-Nodes must have a ticker that kicks in periodically, started at the
-genesis time, with the time interval defined in the group configuration.
-At each tick, a node loads its last beacon generated and runs
-the protocol as shown above. Under normal circumstances, the `Round` field
-should be the round corresponding to the current time.
+Nodes must have a ticker that kicks in periodically, started at the genesis time, with the time interval defined in the group configuration. At each tick, a node loads its last beacon generated and runs the protocol as shown above. Under normal circumstances, the `Round` field should be the round corresponding to the current time.
 
-**Network Halting**: However, it may happen that there are not enough partial
-beacons being broadcast at one time, therefore there will not be any random
-beacon created for this round. Under these circumstances, nodes can enter a
-"catchup" mode.
+**Network Halting**: However, it may happen that there are not enough partial beacons being broadcast at one time, therefore there will not be any random beacon created for this round. Under these circumstances, nodes can enter a _catchup_ mode.
 
-To detect if the network is stalled, each node at each new tick must verify that
-the `lastBeacon.Round + 1` equals the current round given by their local clock.
-If that is not the case, that means there wasn't a random beacon generated in
-time in the previous round OR this node didn't receive enough partial beacons for
-some reason.
+To detect if the network is stalled, each node at each new tick must verify that the `lastBeacon.Round + 1` equals the current round given by their local clock. If that is not the case, that means there wasn't a random beacon generated in time in the previous round OR this node didn't receive enough partial beacons for some reason.
 
-If that condition is true, nodes must first try to sync with each other. Each node
-asks the other nodes if they have a random beacon at the round `lastBeacon.Round - 1`
-AND higher beacons as well. If a node receives a valid beacon for the
-requested round, that means the network is still producing randomness but for
-some reason (perhaps a network issue), the node didn't receive correctly the partial
-beacons. In this case, if the last beacon received corresponds to the current round, the
-node must wait on the next tick and continue as usual.
+If that condition is true, nodes must first try to sync with each other. Each node asks the other nodes if they have a random beacon at the round `lastBeacon.Round - 1` AND higher beacons as well. If a node receives a valid beacon for the requested round, that means the network is still producing randomness but for some reason (perhaps a network issue), the node didn't receive correctly the partial beacons. In this case, if the last beacon received corresponds to the current round, the node must wait on the next tick and continue as usual.
 
-If the sync didn't return any more recent valid beacons, that probably means the
-network is stalled. In that case, nodes must continue to broadcast the same
-partial beacon as usual at every tick.
+If the sync didn't return any more recent valid beacons, that probably means the network is stalled. In that case, nodes must continue to broadcast the same partial beacon as usual at every tick.
 
-**Network Catchup**: At some point, there will be enough honest & alive nodes to
-broadcast their partial signatures such that a new beacon can be aggregated, for
-the round R. However, that round R does not correspond to the current round
-given their local clock. In this situation, each node must produce their partial
-beacons until the current round as fast as possible. More concretely, each node
-broadcasts their new partial beacon from the last generated beacon until they
-reach the current round according to the local clock. As soon as a new beacon is
-aggregated, nodes check if the round corresponds to the current round, and if
-not, prepare to broadcast their next partial signatures.
+**Network Catchup**: At some point, there will be enough honest & alive nodes to broadcast their partial signatures such that a new beacon can be aggregated, for the round R. However, that round R does not correspond to the current round given their local clock. In this situation, each node must produce their partial beacons until the current round as fast as possible. More concretely, each node broadcasts their new partial beacon from the last generated beacon until they reach the current round according to the local clock. As soon as a new beacon is aggregated, nodes check if the round corresponds to the current round, and if not, prepare to broadcast their next partial signatures.
 
 **Example**:
 
@@ -665,7 +462,7 @@ not, prepare to broadcast their next partial signatures.
 - When the nodes come back online, they try to sync with each other
   - They all see that all nodes only have the beacon round 2 as the "head" of the
     chain
-  - Therefore, they go into "catchup mode"
+  - Therefore, they go into _catchup mode_
 - Nodes send a partial beacon for round 3 at time T = 100 (+ some delta for
   syncing)
 - As soon as a node has enough partial beacon for round 3, it creates the final
@@ -679,10 +476,7 @@ not, prepare to broadcast their next partial signatures.
 
 #### Syncing
 
-When a drand node is offline, restarted or detects a halt in the chain's
-progress (previous section), a node should sync to all other nodes in the
-network. A node indicates the last beacon saved in its database and calls the
-following RPC:
+When a drand node is offline, restarted or detects a halt in the chain's progress (previous section), a node should sync to all other nodes in the network. A node indicates the last beacon saved in its database and calls the following RPC:
 
 ```protobuf
 rpc SyncChain(SyncRequest) returns (stream BeaconPacket);
@@ -704,13 +498,9 @@ message BeaconPacket {
 }
 ```
 
-**Client side**: For each incoming `BeaconPacket`, the node runs the regular
-beacon verification routine as usual. The client stops the syncing process
-(closes the RPC call) when the last valid beacon's round returned is equal to
-the current round.
+**Client side**: For each incoming `BeaconPacket`, the node runs the regular beacon verification routine as usual. The client stops the syncing process (closes the RPC call) when the last valid beacon's round returned is equal to the current round.
 
-**Server side**: For sync request, the node must load the beacon which has the
-given round requested and sends back all subsequent beacons until the last one.
+**Server side**: For sync request, the node must load the beacon which has the given round requested and sends back all subsequent beacons until the last one.
 
 ## Cryptographic specification
 
