@@ -6,7 +6,7 @@ description: The home page for developer documentation for drand, a distributed 
 # ![Drand logo.](/images/drand-logo-text-black.svg)
 
 <p style="font-size: 24px;line-height: 1.1;font-weight: 100;margin-top: -10px;">
-Drand is a service that provides random numbers. While this may not sound revolutionary, what makes drand revolutionary is <i>how</i> these random numbers are created. This website is for developers looking to integrate drand into their projects, and for infrastructure specialists wanting to host a drand node.</p>
+Drand (pronouned <i>dee-rand</i>) is a service that provides random numbers. While this may not sound revolutionary, what makes drand special is <i>how</i> these random numbers are created. This website is for developers looking to integrate drand into their projects, and for infrastructure specialists wanting to host a drand node.</p>
 
 ## Get started
 
