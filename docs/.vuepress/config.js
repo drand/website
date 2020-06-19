@@ -72,6 +72,10 @@ module.exports = {
             ]
           },
           {
+            title: 'Build',
+            path: '/build/'
+          },
+          {
             title: 'Operate',
             path: '/operate/',
             children: [
@@ -79,10 +83,6 @@ module.exports = {
               '/operate/metrics',
               '/operate/drand-cli'
             ]
-          },
-          {
-            title: 'Build',
-            path: '/build/'
           },
           {
             title: 'Project',
