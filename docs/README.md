@@ -3,13 +3,11 @@ title: Drand Documentation
 description: The home page for developer documentation for drand, a distributed randomness beacon.
 ---
 
-# Drand
+# ![Drand logo.](/images/drand-logo-text-black.svg)
 
 <!-- What is Drand -->
 <p style="font-size: 22px;line-height: 1.1;font-weight: 100;margin-top: -10px;">
 Drand is a service that provides random numbers. While this doesn't sounds particularly exciting or ground-breaking, what makes drand important is <i>how</i> these random numbers are created.</p>
-
-![Drand logo.](/images/drand-logo.svg)
 
 ## Get started
 
