@@ -1,0 +1,7 @@
+---
+title: Golang
+---
+
+# Golang
+
+Asd.

@@ -62,6 +62,11 @@ module.exports = {
         nav: require('./nav/en'),
         sidebar: [
           {
+            title: 'Install',
+            path: '/install',
+            children: ['/install/golang', '/install/docker']
+          },
+          {
             title: 'Concepts',
             path: '/concepts/',
             children: [
