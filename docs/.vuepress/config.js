@@ -85,9 +85,10 @@ module.exports = {
             ]
           },
           {
-            title: 'Project',
-            path: '/project/',
-            children: ['/project/community', '/project/contributing']
+            title: 'Blog',
+            path: '/blog/',
+            collapsable: true,
+            children: ['/blog/20200527-test-blog-post/']
           }
         ]
       }
