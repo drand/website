@@ -5,10 +5,6 @@ description: Learn about the basics of Drand, how it works, and why it exists in
 
 # Overview
 
-Learn about the basics of Drand, how it works, and why it exists in the first place.
-
-## Randomness matters
-
 Randomness serves a vital role in nearly every aspect of modern civilization. Voting systems, traffic management, and financial services all depend on randomness in some way. But by far, the most important and widely used aspect of randomness is within the field of cryptography.
 
 WPA2 is the most widely used security protocol for connecting to Wifi networks. If a laptop wants to connect to a Wifi network, the Wifi access-point generates a large random number and sends it to the computer. At the same time, the laptop produces a large random number and sends it to the Wifi access point. Both devices use these numbers to perform a _handshake_ and ensure that no one else can eavesdrop on their communications. If the random numbers were predictable, an attacker could trick either device into sending messages to themselves rather than the intended user. This scenario is just one use-case where good randomness is essential.
