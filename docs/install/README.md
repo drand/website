@@ -6,8 +6,8 @@ title: Install
 
 The easiest way to install drand is to use the [official binaries](#official-release). If you'd prefer, you can manually install the project using [Golang](/install/golang). If you are installing drand in a production server environment, use [Docker](/install/docker).
 
-| [Linux](#linux)                                           | [macOS](#macos)                                           | [Raspberry Pi](#raspberry-pi)                                                  |
-| --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [Linux](#linux) | [macOS](#macos) | [Raspberry Pi](#raspberry-pi) |
+| --- | --- | --- |
 | [![Linux icon.](./images/install/linux-icon.png)](#linux) | [![macOS icon.](./images/install/apple-icon.png)](#macos) | [![Raspberry Pi icon.](./images/install/raspberry-pi-icon.png)](#raspberry-pi) |
 
 ## Linux
