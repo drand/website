@@ -70,8 +70,8 @@ module.exports = {
           ],
           '/build/': ['drand-js'],
           '/operate/': ['deploy', 'metrics', 'drand-cli'],
-          '/project/': ['community', 'contributing'],
-          '/blog/': ['20200527-test-blog-post']
+          '/project/': ['community', 'contributing']
+          // '/blog/': ['20200527-test-blog-post']
         }
       }
     }
