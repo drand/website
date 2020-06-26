@@ -29,6 +29,13 @@
       >
         <h2>{{ feature.title }}</h2>
         <p>{{ feature.details }}</p>
+        <div v-if="feature.actions && feature.actions.length" class="actions">
+          <template v-for="(action, index) in feature.actions">
+            <router-link :to="action.link" class="action-button">{{
+              action.text
+            }}</router-link>
+          </template>
+        </div>
       </div>
     </div>
 
@@ -88,24 +95,10 @@ export default {
       font-size 1.6rem
       line-height 1.3
       color white
-    .action-button
-      display inline-block
-      font-size 1.2rem
-      color #fff
-      background-color $accentColor
-      padding 0.8rem 1.6rem
-      border-radius 4px
-      transition background-color .1s ease
-      box-sizing border-box
-      border-bottom 1px solid darken($accentColor, 10%)
-      &:hover
-        background-color lighten($accentColor, 10%)
   .features
     max-width $homePageWidth
-    margin 0px auto
-    border-top 1px solid $borderColor
-    padding 1.2rem 0
-    margin-top 2.5rem
+    margin auto auto
+    padding 0 1.2rem
     display flex
     flex-wrap wrap
     align-items flex-start
@@ -113,16 +106,34 @@ export default {
     justify-content space-between
   .feature
     flex-grow 1
-    flex-basis 30%
-    max-width 30%
+    flex-basis 48%
+    max-width 48%
+    margin 3rem auto 6rem
     h2
-      font-size 1.4rem
-      font-weight 500
+      font-size 2rem
       border-bottom none
       padding-bottom 0
-      color lighten($textColor, 10%)
+      font-style italic
     p
-      color lighten($textColor, 25%)
+      margin 2rem auto
+    .action-button
+      display inline-block
+      font-size 1.2rem
+      color #fff
+      background-color $accentColor
+      margin-right 1rem
+      padding 0.8rem 1.6rem
+      min-width 8rem
+      border-radius 4px
+      transition background-color .1s ease
+      box-sizing border-box
+      border-bottom 1px solid darken($accentColor, 10%)
+      box-shadow #FF3956 4px 4px 0px
+      text-align center
+      &:nth-child(even)
+        box-shadow #FFDE52 4px 4px 0px
+      &:hover
+        background-color lighten($accentColor, 10%)
   .theme-default-content
     max-width $homePageWidth
     margin 0px auto
