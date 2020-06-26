@@ -73,9 +73,9 @@ module.exports = {
             ]
           },
           {
-            title: 'Build',
-            path: '/build/',
-            children: ['/build/drand-js']
+            title: 'Docs',
+            path: '/docs/',
+            children: ['/docs/drand-js']
           },
           {
             title: 'Operate',
@@ -87,16 +87,16 @@ module.exports = {
             ]
           },
           {
-            title: 'Project',
-            path: '/project/',
-            children: ['/project/community', '/project/contributing']
-          },
-          {
-            title: 'Blog',
-            path: '/blog/',
-            collapsable: true,
-            children: ['/blog/20200527-test-blog-post/']
+            title: 'About',
+            path: '/about/',
+            children: ['/about/community', '/about/contributing']
           }
+          // {
+          //   title: 'Blog',
+          //   path: '/blog/',
+          //   collapsable: true,
+          //   children: ['/blog/20200527-test-blog-post/']
+          // }
         ]
       }
     }

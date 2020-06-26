@@ -1,8 +1,8 @@
 ---
-title: Project
+title: About the drand project
 ---
 
-# Project
+# About
 
 > This page was originally posted on [Cloudflare's randomness beacon documentation website](https://developers.cloudflare.com/randomness-beacon/).
 
