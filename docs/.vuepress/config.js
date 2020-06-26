@@ -61,43 +61,18 @@ module.exports = {
           }
         },
         nav: require('./nav/en'),
-        sidebar: [
-          {
-            title: 'Concepts',
-            path: '/concepts/',
-            children: [
-              '/concepts/overview',
-              '/concepts/cryptography',
-              '/concepts/security-model',
-              '/concepts/specification'
-            ]
-          },
-          {
-            title: 'Docs',
-            path: '/docs/',
-            children: ['/docs/drand-js']
-          },
-          {
-            title: 'Operate',
-            path: '/operate/',
-            children: [
-              '/operate/deploy',
-              '/operate/metrics',
-              '/operate/drand-cli'
-            ]
-          },
-          {
-            title: 'About',
-            path: '/about/',
-            children: ['/about/community', '/about/contributing']
-          }
-          // {
-          //   title: 'Blog',
-          //   path: '/blog/',
-          //   collapsable: true,
-          //   children: ['/blog/20200527-test-blog-post/']
-          // }
-        ]
+        sidebar: {
+          '/concepts/': [
+            'overview',
+            'cryptography',
+            'security-model',
+            'specification'
+          ],
+          '/build/': ['drand-js'],
+          '/operate/': ['deploy', 'metrics', 'drand-cli'],
+          '/project/': ['community', 'contributing']
+          // '/blog/': ['20200527-test-blog-post']
+        }
       }
     }
   },
