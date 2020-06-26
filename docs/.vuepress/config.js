@@ -5,7 +5,7 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Drand Docs',
+      title: 'Drand - Distributed Randomness Beacon.',
       description: 'Drand Documentation'
     }
   },
@@ -45,7 +45,8 @@ module.exports = {
     nextLinks: false,
     prevLinks: false,
     // ui/ux
-    logo: '/images/drand-logo.svg',
+    logo: '/images/logo-drand-text-right-dark.png',
+    repo: 'http://github.com/drand/drand',
     locales: {
       '/': {
         label: 'English',
