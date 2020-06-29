@@ -69,7 +69,14 @@ module.exports = {
           ],
           '/docs/': ['drand-js'],
           '/operate/': ['deploy', 'metrics', 'drand-cli'],
-          '/about/': ['community', 'contributing']
+          '/about/': [
+            'community',
+            'contributing',
+            {
+              title: 'Status',
+              path: 'https://drand.statuspage.io/'
+            }
+          ]
           // '/blog/': ['20200527-test-blog-post']
         }
       }
