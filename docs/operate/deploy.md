@@ -20,52 +20,40 @@ nodes generate randomness. On a high-level, the workflow looks like this:
 
 The setup process for a drand node consists of the following steps:
 
-1. Generate the long-term key pair for each node
-2. Each node starts their daemon
-3. Leader starts the command as a coordinator & every participant connects to the
-   coordinator to setup the network
+1. Generate the long-term key pair for each node.
+1. Start the drand daemon on each node.
+1. Leader starts the command as a coordinator & every participant connects to the
+   coordinator to setup the network.
 
-This document explains how to do the setup with the drand binary itself. drand
-also offers a docker image to run the setup. You can find the information for
-running with docker [here](https://github.com/drand/drand/blob/master/docker/README.md).
+This document explains how to do the setup with the drand binary itself. If you want to install drand using docker, follow the [Docker instructions instead](/operate/docker).
 
 ### Long-Term Key
 
-To generate the long-term key pair `drand_id.{secret,public}` of the drand
-daemon, execute
+Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run `drand generate-keypair` followed by the address of your node:
 
 ```bash
-drand generate-keypair <address>
+drand generate-keypair 127.0.0.1
 ```
 
-where `<address>` is the address from which your drand daemon is reachable. The
-address must be reachable over a TLS connection directly or via a reverse proxy
-setup. In case you need non-secured channel, you can pass the `--tls-disable`
-flag.
+The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a [local deployment](/operate/local-deploy).
+
+The default location for your keys is `/home/<USERNAME>/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
+
+```bash
+drand generate-keypair 127.0.0.1 --folder ~/.drand-node-0
+```
 
 ### Starting drand daemon
 
-The daemon does not go automatically in background, so you must run it with `&` in your terminal, within a screen / tmux session, or with the `-d` option
-enabled for the docker commands. Once the daemon is running, the way to issue
-commands to the daemon is to use the control functionalities. The control
-client has to run on the same server as the drand daemon, so only drand
-administrators can issue command to their drand daemons.
+The daemon does not automatically run in background. To run the daemon in the background you must add ` &` to the end of your command. If you are installing drand on docker you can use the `-d` option. Once the daemon is running, the best way to issue commands is to use the control functionalities. The control client has to run on the same server as the drand daemon, so only drand administrators can issue command to their drand daemons.
 
-To choose where drand listens, use the `--private-listen` (and optionally
-`--public-listen`) flags. These allow specifying the interface and/or port
-for drand to listen on. `--private-listen` is the primary listener used
-to expose a GRPC service for inter-group-member communication.
-`--public-listen` exposes a public, limited HTTP service designed to be
-CDN friendly and providing information for drand users.
+To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users.
 
-There are two ways to run a drand daemon: using TLS or using plain old regular
-unencrypted connections. Drand by default tries to use TLS connections.
+The drand daemon can run using TLS, or using unencrypted connections. Drand tries to use TLS by default.
 
 #### With TLS
 
-Drand nodes attempt to communicate by default over TLS-protected connections.
-Therefore, you need to point your node to the TLS certificate chain and
-corresponding private key you wish to use via:
+Drand nodes attempt to communicate by default over TLS-protected connections. Therefore, you need to point your node to the TLS certificate chain and corresponding private key you wish to use via:
 
 ```bash
 drand start \
@@ -73,76 +61,64 @@ drand start \
     --tls-key <privkey.pem>
 ```
 
-To get TLS certificates for free you can use, for example, [Let's
-Encrypt](https://letsencrypt.org/) with its official CLI tool [EFF's
-certbot](https://certbot.eff.org/).
+To get TLS certificates for free you can use, for example, [Let's Encrypt](https://letsencrypt.org/) with its official CLI tool [EFF's certbot](https://certbot.eff.org/).
 
-#### TLS setup: Nginx with Let's Encrypt
+##### TLS setup: Nginx with Let's Encrypt
 
-Running drand behind a reverse proxy is the **default** method of deploying
-drand. Such a setup greatly simplify TLS management issues (renewal of
-certificates, etc). We provide here the minimum setup using
-[Nginx](https://www.nginx.com/) and
-[certbot](https://certbot.eff.org/instructions/) - make sure you have both
-binaries installed with the latest version; Nginx version must be at least >=
-1.13.10 for gRPC compatibility.
+Running drand behind a reverse proxy is the **default** method of deploying drand. Such a setup greatly simplify TLS management issues (renewal of certificates, etc). We provide here the minimum setup using [Nginx](https://www.nginx.com/) and [certbot](https://certbot.eff.org/instructions/) - make sure you have both binaries installed with the latest version; Nginx version must be at least >= `1.13.10` for gRPC compatibility.
 
-- First, add an entry in the Nginx configuration for drand:
+1. First, add an entry in the Nginx configuration for drand:
 
-```bash
-# /etc/nginx/sites-available/default
-server {
-  server_name drand.nikkolasg.xyz;
-  listen 443 ssl http2;
+    ```bash
+    # /etc/nginx/sites-available/default
+    server {
+    server_name drand.nikkolasg.xyz;
+    listen 443 ssl http2;
 
-  location / {
-    grpc_pass grpc://localhost:8080;
-    grpc_set_header X-Real-IP $remote_addr;
-  }
+    location / {
+        grpc_pass grpc://localhost:8080;
+        grpc_set_header X-Real-IP $remote_addr;
+    }
 
-  location /public/ {
-    proxy_pass http://localhost:4444;
-    proxy_set_header Host $host;
-  }
-  location /info {
-    proxy_pass http://localhost:4444;
-    proxy_set_header Host $host;
-  }
-  # Add ssl certificates by running certbot --nginx
-}
-```
+    location /public/ {
+        proxy_pass http://localhost:4444;
+        proxy_set_header Host $host;
+    }
+    location /info {
+        proxy_pass http://localhost:4444;
+        proxy_set_header Host $host;
+    }
+    # Add ssl certificates by running certbot --nginx
+    }
+    ```
 
-**Note**: you can change:
+    You can change:
 
-1. the port on which you want drand to be accessible by changing the line
-   `listen 443 ssl http2` to use any port.
-2. the port on which the drand binary will listen locally by changing the line
-   `grpc_pass grpc://localhost:8080;` to the private API port and
-   `proxy_pass http://localhost:8080;` to the public API port
+    -. the port on which you want drand to be accessible by changing the line `listen 443 ssl http2` to use any port.
+    -. the port on which the drand binary will listen locally by changing the line `grpc_pass grpc://localhost:8080;` to the private API port and `proxy_pass http://localhost:8080;` to the public API port
 
-You can use different `server` blocks to apply different configurations (DNS
-names for example) for the private and public API.
+    You can use different `server` blocks to apply different configurations (DNS names for example) for the private and public API.
 
-- Run certbot to get a TLS certificate:
+1. Run certbot to get a TLS certificate:
 
-```bash
-sudo certbot --nginx
-```
+    ```bash
+    sudo certbot --nginx
+    ```
 
-- **Running** drand uses two ports: one for group member communication, and one for a public-facing API for distributing randomness. These ports, and interfaces should be specified with flags.
+1. Running drand uses two ports: one for group member communication, and one for a public-facing API for distributing randomness. These ports and interfaces should be specified with flags.
 
-```bash
-drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen 192.168.0.1:8080
-```
+    ```bash
+    drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen 192.168.0.1:8080
+    ```
 
-The `--private-listen` flag tells drand to listen on the given address. The public facing address associated with this listener is given to other group members in the setup phase (see below).
+    The `--private-listen` flag tells drand to listen on the given address. The public facing address associated with this listener is given to other group members in the setup phase (see below).
 
-If no `private-listen` address is provided, it will default to the
-discovered public address of the drand node.
+    If no `private-listen` address is provided, it will default to the
+    discovered public address of the drand node.
 
-If no `public-listen` flag is provided, drand will not expose a public HTTP interface.
+    If no `public-listen` flag is provided, drand will not expose a public HTTP interface.
 
-#### TLS setup: Apache for HTTP
+##### TLS setup: Apache for HTTP
 
 The equivalent Apache config block to the NGinX config above for forwarding HTTP requests back to the drand public port would be:
 
@@ -159,7 +135,7 @@ allow from all
 
 #### Without TLS
 
-Although we **do not recommend** it, you can always disable TLS in drand via:
+Although we **do not recommend** turning off TLS, you can disable it by using the `--tls-disable` flag.
 
 ```bash
 drand start --tls-disable
@@ -167,25 +143,25 @@ drand start --tls-disable
 
 ### Test the connection to a node
 
-To test the gRPC endpoint of your or another drand node, you can use the following command:
+Use `drand util check <address>` to test the gRPC endpoint a drand node.
 
 ```bash
-drand util check <address>
+drand util check example.com
+
+> drand: id example.com answers correctly
 ```
 
-where address is the address as listed in the public key. If you disabled TLS,
-you need to add the `--tls-disable` flag.
+If the address used is a DNS name, this command will try to resolve the DNS name to IP.
 
-Note that if the address is a DNS name (as it usually is), this command will try
-to resolve the DNS name to IP.
+If you disabled TLS, you need to add the `--tls-disable` flag:
+
+```bash
+drand util check --tls-disable 127.0.0.1:3000
+```
 
 ### Run the setup phase
 
-To setup a new network, drand uses the notion the of a coordinator that collects
-the public key of the participants, setups the group configuration once all keys
-are received and then start the distributed key generation phase. Once the DKG
-phase is performed, the participants can see the list of members in the group
-configuration file
+To setup a new network, drand uses the notion the of a coordinator that collects the public key of the participants, setups the group configuration once all keys are received and then start the distributed key generation phase. Once the DKG phase is performed, the participants can see the list of members in the group configuration file
 
 **Coordinator**: The designated coordinator node must run the following command
 **before** everyone else:
