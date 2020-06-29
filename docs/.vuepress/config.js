@@ -68,7 +68,7 @@ module.exports = {
             'specification'
           ],
           '/docs/': ['drand-js'],
-          '/operate/': ['deploy', 'metrics', 'drand-cli'],
+          '/operate/': ['deploy', 'metrics', 'drand-cli', 'local-deploy'],
           '/about/': [
             'community',
             'contributing',
