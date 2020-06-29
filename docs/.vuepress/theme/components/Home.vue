@@ -39,6 +39,45 @@
       </div>
     </div>
 
+    <article class="loe">
+      <header>
+        <h2 title="League of Entropy">
+          <img src="/images/logo-loe.png" alt="League of Entropy logo" />
+        </h2>
+        <p>
+          The <strong>League of Entropy</strong> is a collaborative project
+          between the founding members <strong>Cloudflare</strong>,
+          <strong>École polytechnique fédérale de Lausanne</strong>,
+          <strong>Kudelski Security</strong>, <strong>Protocol Labs</strong>,
+          and <strong>University of Chile</strong> to provide a verifiable,
+          decentralized randomness beacon. A decentralized randomness beacon
+          combines randomness from multiple independent high entropy sources to
+          generate a truly unbiased random number for anyone that may need a
+          public source of randomness.
+        </p>
+      </header>
+      <div class="history">
+        <h3>Latest Randomness</h3>
+        <p>
+          Here's the latest random value that was generated, round
+          #<strong>113106</strong>:
+        </p>
+        <p
+          class="latest"
+          title="2bddb4d394a3c7ef5b9ad9ea953739fc469e9feef4de5b532ca92a802fd8de3c"
+        >
+          2bddb4d394a3c7ef5b9ad9ea953739fc469e9feef4de5b532ca92a802fd8de3c
+        </p>
+        <p>The next randomness is expected in <strong>3 seconds</strong>.</p>
+        <p>
+          Learn how to retrieve randomness from the League of Entropy drand
+          nodes:<br /><router-link to="/docs" class="action-button"
+            >API Docs</router-link
+          >
+        </p>
+      </div>
+    </article>
+
     <Content class="theme-default-content custom" />
 
     <div v-if="data.footer" class="footer">
@@ -100,7 +139,7 @@ export default {
     margin auto auto
     padding 0 1.2rem
   .feature
-    margin 3rem auto 6rem
+    margin 3rem auto
     h2
       font-size 2rem
       border-bottom none
@@ -126,6 +165,55 @@ export default {
         box-shadow #FFDE52 4px 4px 0px
       &:hover
         background-color lighten($accentColor, 10%)
+  .loe
+    margin 3rem auto
+    padding 6rem 1.2rem
+    background-color #1477c6
+    background linear-gradient(to bottom, #069de2 0%,#2d3393 100%)
+    text-align center
+    color white
+    h2
+      border 0
+      margin 0
+      padding 0
+    img
+      width 512px
+      max-width 100%
+    strong
+      font-size 1.2rem
+      line-height 1.6
+    .history
+      h3
+        font-size 2rem
+      .latest
+        background white
+        margin 0 auto
+        padding 1rem
+        color #1266b4
+        font-size 1.5rem
+        font-weight bold
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+        border-radius 3px
+        max-width: 60rem
+        box-shadow 2px 2px 5px #2d3393
+      .action-button
+        display inline-block
+        font-size 1.2rem
+        color #fff
+        background-color #1477c6
+        margin 1rem
+        padding 0.8rem 1.6rem
+        min-width 8rem
+        border-radius 50px
+        transition background-color .1s ease
+        box-sizing border-box
+        border 2px solid white
+        box-shadow 2px 2px 5px #2d3393
+        text-align center
+        &:hover
+          background-color #0f86d1
   .theme-default-content
     max-width $homePageWidth
     margin 0px auto
@@ -163,4 +251,17 @@ export default {
       flex-grow 1
       flex-basis 48%
       max-width 48%
+    .loe
+      padding 6rem
+      header
+        display flex
+        align-items center
+        align-content stretch
+        justify-content space-evenly
+        p
+          text-align left
+        h2, p
+          flex-grow 1
+          flex-basis 50%
+          max-width 512px
 </style>
