@@ -99,15 +99,7 @@ export default {
     max-width $homePageWidth
     margin auto auto
     padding 0 1.2rem
-    display flex
-    flex-wrap wrap
-    align-items flex-start
-    align-content stretch
-    justify-content space-between
   .feature
-    flex-grow 1
-    flex-basis 48%
-    max-width 48%
     margin 3rem auto 6rem
     h2
       font-size 2rem
@@ -161,4 +153,14 @@ export default {
       > div
         flex none
         padding-bottom 3.65rem
+    .features
+      display flex
+      flex-wrap wrap
+      align-items flex-start
+      align-content stretch
+      justify-content space-between
+    .feature
+      flex-grow 1
+      flex-basis 48%
+      max-width 48%
 </style>
