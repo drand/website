@@ -5,7 +5,7 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Drand Docs',
+      title: 'Drand - Distributed Randomness Beacon.',
       description: 'Drand Documentation'
     }
   },
@@ -21,11 +21,10 @@ module.exports = {
     }
   },
   themeConfig: {
-    //   TODO: create Algolia account for Drand an throw API key into here.
-    // algolia: {
-    //   apiKey: 'e6dcd48beb5db629bf77c892d38fa091',
-    //   indexName: 'drand'
-    // },
+    algolia: {
+      apiKey: 'fcaf3b4aca77fcfeff32616ec6e35a86',
+      indexName: 'drand'
+    },
     defaultImage: '/images/social-card.png',
     author: {
       name: 'Drand Team',
@@ -45,7 +44,8 @@ module.exports = {
     nextLinks: false,
     prevLinks: false,
     // ui/ux
-    logo: '/images/drand-logo.svg',
+    logo: '/images/logo-drand-text-right-dark.png',
+    repo: 'http://github.com/drand/drand',
     locales: {
       '/': {
         label: 'English',
@@ -60,48 +60,25 @@ module.exports = {
           }
         },
         nav: require('./nav/en'),
-        sidebar: [
-          {
-            title: 'Install',
-            path: '/install',
-            children: ['/install/golang', '/install/docker']
-          },
-          {
-            title: 'Concepts',
-            path: '/concepts/',
-            children: [
-              '/concepts/overview',
-              '/concepts/cryptography',
-              '/concepts/security-model',
-              '/concepts/specification'
-            ]
-          },
-          {
-            title: 'Build',
-            path: '/build/',
-            children: ['/build/drand-js']
-          },
-          {
-            title: 'Operate',
-            path: '/operate/',
-            children: [
-              '/operate/deploy',
-              '/operate/metrics',
-              '/operate/drand-cli'
-            ]
-          },
-          {
-            title: 'Project',
-            path: '/project/',
-            children: ['/project/community', '/project/contributing']
-          },
-          {
-            title: 'Blog',
-            path: '/blog/',
-            collapsable: true,
-            children: ['/blog/20200527-test-blog-post/']
-          }
-        ]
+        sidebar: {
+          '/concepts/': [
+            'overview',
+            'cryptography',
+            'security-model',
+            'specification'
+          ],
+          '/docs/': ['drand-js'],
+          '/operate/': ['deploy', 'metrics', 'drand-cli'],
+          '/about/': [
+            'community',
+            'contributing',
+            {
+              title: 'Status',
+              path: 'https://drand.statuspage.io/'
+            }
+          ]
+          // '/blog/': ['20200527-test-blog-post']
+        }
       }
     }
   },

@@ -4,9 +4,9 @@ description: Learn how to deploy a Drand node onto your network.
 sidebarDepth: 2
 ---
 
-# Deploy a Drand Network Node
+# Drand node deployment guide
 
-This document explains in detail the workflow to have a working group of drand
+This document explains in details the workflow to have a working group of drand
 nodes generate randomness. On a high-level, the workflow looks like this:
 
 - **Setup**: generation of individual long-term key pair and the group file and
@@ -22,21 +22,19 @@ The setup process for a drand node consists of the following steps:
 
 1. Generate the long-term key pair for each node
 2. Each node starts their daemon
-3. Leader starts the command as a coordinator & every participant connect to the
+3. Leader starts the command as a coordinator & every participant connects to the
    coordinator to setup the network
 
-This document explains how to do the setup with the drand binary itself. drand also offers
-a docker image to run the setup. You can find the information for running with docker
-[here](https://github.com/drand/drand/blob/master/docker/README.md).
-
-If you have not already installed `drand`, please see the [installation guide](./drand-cli/#installing-drand)
+This document explains how to do the setup with the drand binary itself. drand
+also offers a docker image to run the setup. You can find the information for
+running with docker [here](https://github.com/drand/drand/blob/master/docker/README.md).
 
 ### Long-Term Key
 
 To generate the long-term key pair `drand_id.{secret,public}` of the drand
 daemon, execute
 
-```
+```bash
 drand generate-keypair <address>
 ```
 
@@ -82,7 +80,7 @@ certbot](https://certbot.eff.org/).
 #### TLS setup: Nginx with Let's Encrypt
 
 Running drand behind a reverse proxy is the **default** method of deploying
-drand. Such a setup greatly simplifies TLS management issues (renewal of
+drand. Such a setup greatly simplify TLS management issues (renewal of
 certificates, etc). We provide here the minimum setup using
 [Nginx](https://www.nginx.com/) and
 [certbot](https://certbot.eff.org/instructions/) - make sure you have both
@@ -98,10 +96,12 @@ server {
   listen 443 ssl http2;
 
   location / {
-    grpc_pass grpc://localhost:4444;
+    grpc_pass grpc://localhost:8080;
+    grpc_set_header X-Real-IP $remote_addr;
   }
+
   location /public/ {
-    proxy_pass http://localhost:8080;
+    proxy_pass http://localhost:4444;
     proxy_set_header Host $host;
   }
   location /info {
@@ -112,12 +112,12 @@ server {
 }
 ```
 
-**Note**: you can change
+**Note**: you can change:
 
 1. the port on which you want drand to be accessible by changing the line
    `listen 443 ssl http2` to use any port.
 2. the port on which the drand binary will listen locally by changing the line
-   `grpc_pass grpc://localhost:4444;` to the private API port and
+   `grpc_pass grpc://localhost:8080;` to the private API port and
    `proxy_pass http://localhost:8080;` to the public API port
 
 You can use different `server` blocks to apply different configurations (DNS
@@ -135,18 +135,12 @@ sudo certbot --nginx
 drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen 192.168.0.1:8080
 ```
 
-The `--tls-disable` flag tells drand not to use TLS, because Nginx is providing TLS termination for us.
-
-The `--private-listen` flag tells drand to listen for gRPC requests from other drand nodes on the given address. Note
-that we're using the loopback address of `127.0.0.1`, which is not publicly accessible. When sharing the gRPC address
-of your node with other nodes in the setup phase (see below), you must provide the public address that corresponds to
-your node.
+The `--private-listen` flag tells drand to listen on the given address. The public facing address associated with this listener is given to other group members in the setup phase (see below).
 
 If no `private-listen` address is provided, it will default to the
 discovered public address of the drand node.
 
-The `--public-listen` flag tells drand to expose a public HTTP interface on the given address for clients to fetch
-random values. If no `public-listen` flag is provided, drand will not expose a public HTTP interface.
+If no `public-listen` flag is provided, drand will not expose a public HTTP interface.
 
 #### TLS setup: Apache for HTTP
 
@@ -163,9 +157,6 @@ allow from all
 </Proxy>
 ```
 
-Note that this only forwards the HTTP requests for the public (client-facing) interface. The gRPC interface for
-inter-node communication is not proxied.
-
 #### Without TLS
 
 Although we **do not recommend** it, you can always disable TLS in drand via:
@@ -174,75 +165,74 @@ Although we **do not recommend** it, you can always disable TLS in drand via:
 drand start --tls-disable
 ```
 
-If you're running without TLS, your [long-term key](#long-term-key) must also be created with the `--tls-disable` flag.
-
 ### Test the connection to a node
 
-In order to test if your node is reachable from the internet and your setup is
-correct, you can run the following command:
+To test the gRPC endpoint of your or another drand node, you can use the following command:
 
-```
+```bash
 drand util check <address>
 ```
 
-where address is the gRPC listen address as listed in the public key. If you disabled TLS,
+where address is the address as listed in the public key. If you disabled TLS,
 you need to add the `--tls-disable` flag.
 
-The `drand util check` command can also be used to test that other nodes are accessible, for example to ensure that
-all participants are able to reach each other before entering the setup phase.
+Note that if the address is a DNS name (as it usually is), this command will try
+to resolve the DNS name to IP.
 
 ### Run the setup phase
 
-To setup a new network, drand uses the notion of a coordinator that collects
-the public keys of the participants, sets up the group configuration once all keys
-are received, and then starts the distributed key generation phase. Once the DKG
+To setup a new network, drand uses the notion the of a coordinator that collects
+the public key of the participants, setups the group configuration once all keys
+are received and then start the distributed key generation phase. Once the DKG
 phase is performed, the participants can see the list of members in the group
-configuration file.
+configuration file
 
 **Coordinator**: The designated coordinator node must run the following command
 **before** everyone else:
 
-```
-drand share --leader --nodes 10 --threshold 6 --secret mysecret --period 30s
+```bash
+drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s
 ```
 
 **Rest of participants**: Once the coordinator has run the previous command, the
 rest of the participants must run the following command:
 
-```
-drand share --connect <leaderaddress> --secret mysecret
+```bash
+drand share --connect <leaderaddress> --secret mysecret901234567890123456789012
 ```
 
-The flag usage is as follows:
+The flags usage is as follow:
 
-- `--leader` indicates this node is a coordinator
-- `--nodes` indicates how many nodes we expect to form the network
+- `--leader` indicates this node is a coordinator, `
+- `--nodes` indicates how many nodes do we expect to form the network
 - `--threshold` indicates the threshold the network should use, i.e. how many
   nodes amongst the total needs to be online for the network to be live at any
   point.
 - `--period` indicates the period of the randomness beacon to use. It must be
   valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method.
-- `--secret` indicates the secret that the coordinator uses to authenticate the
-  nodes that wants to participate in the network.
+- `--secret` indicates the secret that the coordinator uses to authentify the
+  nodes that wants to participate to the network. it must be at least 32 bytes.
 - `--connect` is the `host:port` address of the leader. By default, drand will
   connect to the leader by using tls. If you are not using tls, use the
   `--tls-disable` flag.
 
-**Interactive command**: The command will run until the DKG protocol is complete.
-If you quit the command, the `drand` daemon will continue the DKG, but the group file will not
+**Interactive command**: The command will run as long as the DKG is not finished
+yet. You can quit the command, the DKG will proceed but the group file will not
 be written down. In that case, once the DKG is done, you get the group file by
 running:
 
-```
+```bash
 drand show group --out group.toml
 ```
 
 **Secret**: For participants to be included in the group, they need to have a
-secret string shared by all. This method offers some basic security,
+secret string shared by all. This method is offering some basic security
 however drand will provide more manual checks later-on and/or different secrets
 for each participants. However, since the set of participants is public and consistent
 accross all participants after a setup, nodes can detect if there are some unwanted nodes
-after the setup and in that case, setup a new network again.
+after the setup and in that case, setup a new network again. the secret must be at least
+32 bytes. If the `DRAND_SHARE_SECRET` environment variable is set, the command line flag
+can be omitted.
 
 **Custom entropy source**: By default drand takes its entropy for the setup
 phase from the OS's entropy source (`/dev/urandom` on Unix systems). However,
@@ -250,7 +240,7 @@ it is possible for a participant to inject their own entropy source into the
 creation of their secret. To do so, one must have an executable that produces
 random data when called and pass the name of that executable to drand:
 
-```
+```bash
 drand share <regular options> --source <entropy-exec>
 ```
 
@@ -260,7 +250,7 @@ default with `crypto/rand` to create a random stream. In order to introduce
 reproducibility, the flag `user-source-only` can be set to impose that only the
 user-specified entropy source is used. Its use should be limited to testing.
 
-```
+```bash
 drand share <group-file> --source <entropy-exec> --user-source-only
 ```
 
@@ -271,39 +261,37 @@ containing the distributed public key. Using the previous commands shown, the
 group file will be written to `group.toml`. That updated group file is needed by
 drand to securely contact drand nodes on their public interface to gather
 private or public randomness. A drand administrator can get the updated group
-file via the following command:
+file it via the following:
 
 ```bash
 drand show group
 ```
 
-This will print the group file in its regular TOML format. If you want to save it
+It will print the group file in its regular TOML format. If you want to save it
 to a file, append the `--out <file>` flag.
 
 ## Randomness Generation
 
 After a successful setup phase, drand will switch to the randomness generation
-mode _at the genesis time_ specified in the group file.
-
-At that time, each node broadcasts randomness shares at regular intervals. Every
+mode _at the genesis time_ specified in the group file they agreed to upon. At
+that time, each node broadcasts randomness shares at regular intervals. Every
 new random beacon is linked to the previous one in a chain of randomness.
 Once a node has collected a threshold of shares in the current round, it
 computes the public random value and stores it in its local instance of
-[BoltDB](https://github.com/etcd-io/bbolt).
+[BoltDB](https://github.com/coreos/bbolt).
 
 **Chain Information**: More generally, for third party implementation of
 randomness beacon verification, one only needs the distributed public key
 generated during the setup phase, the period and the genesis time of the chain.
-
-As an administrator of a drand node, you can use the control port to retrieve this
-information using the following command:
+you are an administrator of a drand node, you can use the control port as the
+following:
 
 ```bash
 drand show chain-info
 ```
 
-A non-administrator can contact an external drand node to ask for its current
-distributed public key by specifying an address:
+Otherwise, you can contact an external drand node to ask him for its current
+distributed public key:
 
 ```bash
 drand get chain-info <address>
@@ -325,19 +313,17 @@ number of rounds elapsed from the genesis time. That means there is a 1-1
 mapping between a given time and a drand round.
 
 **Daemon downtime & Chain Sync**: Due to the threshold nature of drand, a drand
-network can support some number of nodes offline at any given point. This
+network can support some numbers of nodes offline at any given point. This
 number is determined by the threshold: `max_offline = group_len - threshold`.
 When a drand node goes back up, it will sync rapidly with the other nodes to
 catch up its local chain and participate in the next upcoming drand round.
 
 **Drand network failure**: If for some reason drand goes down for some time and
-then comes back up, the drand nodes will enter a "catchup phase," during which
-they will produce random beacons for the rounds that were missed. During the
-catchup phase, each node will broadcast partial signatures and collect them
-into full random beacons as quickly as possible. This continues until they
-reach the round corresponding to the current wall-clock time, at which point
-the nodes leave the catchup phase and return to producing beacons at regular
-intervals as usual.
+then backs up, the new randomn beacon will be built over the _last successfully
+generated beacon_. For example, if the network goes down at round 10 (i.e. last
+beacon generated contained `round: 10`), and back up again at round 20 (i.e.
+field `round: 20`), then this new randomness contains the field
+`previous_round:10`.
 
 ## Control Functionalities
 
@@ -390,14 +376,14 @@ The JSON-formatted output has the following form:
 }
 ```
 
-The "gid" simply indicates which group of bls12-381 the data belongs to. It is present for
-scalars and points on the curve, even though scalars are the same on the three
-groups of bls12-381. The field is included to be able to accommodate different curves in the
-future without modifying the JSON structure.
+The "gid" simply indicates which group the data belongs to. It is present for
+scalar and points on the curve, even though scalars are the same on the three
+groups of bls12-381. The field is present already to be able to accommodate
+different curves later on.
 
 ### Chain Information
 
-To retrieve the information for the beacon chain this node participates in, run:
+To retrieve the chain information this node participates to, run:
 
 ```bash
 drand show chain-info
@@ -414,65 +400,52 @@ offers the following:
   not wish to operate drand anymore.
 - nodes can update the threshold associated with their current distributed
   public key.
+- refresh the shares (similar to using a new private key)
 
 The main advantage of this method is that the distributed public key stays the
 _same_ even with new nodes coming in. That can be useful when the distributed
-public key is embedded inside an application using drand, and hence is
+public key is embedded inside the application using drand, and hence is
 difficult to update.
 
 **Setting up the coordinator**: The coordinator must be a member of the current
 network. To run the coordinator, run the following:
 
-```
-drand share --leader --transition --nodes 15 --threshold 10 --secret mysecret2 --out
+```bash
+drand share --leader --transition --secret mysecret901234567890123456789012 --nodes 15 --threshold 10 --out
 group2.toml
 ```
-
-This is similar to the procedure for the initial DKG, with the additional `--transition`
-flag that indicates that we're resharing to a new group.
 
 **Setting up the current members for the resharing**: The current members can
 simply run the following command:
 
+```bash
+drand share --connect <coordinator> --transition --secret mysecret901234567890123456789012 --out group2.toml
 ```
-drand share --transition --nodes 15 --threshold 10 --secret mysecret2 --out
-group2.toml
-```
-
-Unlike a fresh DKG, the members do not need to specify a `--connect <address>` flag,
-as they can use the contact information from the current group configuration to
-coordinate with the other nodes.
 
 **Setting up the new members**: The new members need the current group file to
-proceed. As mentioned in the [Distributed Key Generation section](#distributed-key-generation),
-one of the current node operators can run `drand show group` to output the current
-group file.
+proceed. Check how to get the group file in the "Using the drand daemon"
+section. Then run the command:
 
-If the new member has the current group file written to `group.toml`, they can run the command:
-
-```
-drand share --from group.toml --nodes 15 --threshold 10 --secret mysecret2 --out
-group2.toml
+```bash
+drand share connect <coordinator> --from group.toml --secret mysecret901234567890123456789012 --out group2.toml
 ```
 
 After the protocol is finished, each node will have the new group file written
-out as `group2.toml`. The randomness generation starts only at the transition
-time specified in the new group file.
+out as `group2.toml`. The randomness generation starts only at the specified
+transition time specified in the new group file.
 
 ## Metrics
 
 The `--metrics <metrics-address>` flag may be used to launch a metrics server at
 the provided address. The address may be specified as `127.0.0.1:port`, or as
 `:port` to bind to the default network interface.
-
 The web server at this port will serve [pprof](https://golang.org/pkg/net/http/pprof/)
 runtime profiling data at `<metrics>/debug/pprof`, allow triggering golang
 garbage collection at `<metrics>/debug/gc`, and will serve
 [prometheus](https://prometheus.io/docs/guides/go-application/) metrics at
-`<metrics>:/metrics`.
-
-Prometheus counters track the number of gRPC requests sent and received by the drand node,
-as well as the number of HTTP API requests. This **endpoint should not be exposed publicly**.
-If desired, prometheus metrics can be used as a data source for [grafana
+`<metrics>:/metrics`. Prometheus counters track the number of gRPC
+requests sent and received by the drand node, as well as the number of HTTP API
+requests. This endpoint should not be exposed publicly. If desired, prometheus
+metrics can be used as a data source for [grafana
 dashboards](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/)
 or other monitoring services.
