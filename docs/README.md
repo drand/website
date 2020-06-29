@@ -18,7 +18,7 @@ features:
       - text: golang
         link: /docs/clients/go
       - text: JS
-        link: /docs/drand-js/
+        link: /docs/clients/js
 ---
 
 ## Learn more
