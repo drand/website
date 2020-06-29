@@ -56,14 +56,22 @@ That's the set up done!
 
 ## Gossip relay
 
+You need to have `jq` installed to run this section:
+
+```bash
+sudo apt install jq
+```
+
+You'll also need to drand-gossip-relay binary built, and added to your path.
+
 <!-- TODO: What is the gossip relay? What does it do? Is it a built in function within drand, or something that already exists on the internet? -->
 
 ```sh
 # GRPC
-go run ./main.go -chain-hash=$(curl http://127.0.0.1:3002/info -s | jq -r .hash) run -grpc-connect=127.0.0.1:3000 -insecure
+go run ./main.go run -hash=$(curl http://127.0.0.1:3002/info -s | jq -r .hash) -grpc-connect=127.0.0.1:3000 -insecure
 
 # HTTP
-go run ./main.go -chain-hash=$(curl http://127.0.0.1:3002/info -s | jq -r .hash) run -http-connect=http://127.0.0.1:3002
+go run ./main.go run -hash=$(curl http://127.0.0.1:3002/info -s | jq -r .hash) -url=http://127.0.0.1:3002
 ```
 
 ## Gossip client
