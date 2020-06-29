@@ -67,7 +67,9 @@
         <p class="latest"></p>
         <p>
           The next randomness is expected in
-          <strong><span class="secs">0</span> seconds</strong>.
+          <strong class="next-round-time"
+            ><span class="secs">0</span> seconds</strong
+          >.
         </p>
         <p>
           Learn how to retrieve randomness from the League of Entropy drand
@@ -267,6 +269,8 @@ export default {
         border-radius 3px
         max-width: 60rem
         box-shadow 2px 2px 5px #2d3393
+      .next-round-time
+        white-space nowrap
       .action-button
         display inline-block
         font-size 1.2rem
