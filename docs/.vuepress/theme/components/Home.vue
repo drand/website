@@ -59,16 +59,16 @@
       <div class="history">
         <h3>Latest Randomness</h3>
         <p>
-          Here's the latest random value that was generated, round
-          #<strong>113106</strong>:
+          Here's the latest random value that was generated, round #<strong
+            class="round"
+            >0</strong
+          >:
         </p>
-        <p
-          class="latest"
-          title="2bddb4d394a3c7ef5b9ad9ea953739fc469e9feef4de5b532ca92a802fd8de3c"
-        >
-          2bddb4d394a3c7ef5b9ad9ea953739fc469e9feef4de5b532ca92a802fd8de3c
+        <p class="latest"></p>
+        <p>
+          The next randomness is expected in
+          <strong><span class="secs">0</span> seconds</strong>.
         </p>
-        <p>The next randomness is expected in <strong>3 seconds</strong>.</p>
         <p>
           Learn how to retrieve randomness from the League of Entropy drand
           nodes:<br /><router-link to="/docs" class="action-button"
@@ -88,6 +88,75 @@
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+
+async function startLOERandomness() {
+  // TODO: import drandjs
+
+  const genesis = 1590032610 * 1000 // Genesis time in ms (provided in seconds from drand)
+  const period = 30 * 1000 // Period in ms (provided in seconds from drand)
+
+  const roundEl = document.querySelector('.history .round')
+  const secsEl = document.querySelector('.history .secs')
+  const latestEl = document.querySelector('.history .latest')
+
+  const currentRound = (genesis, period) =>
+    Math.floor((Date.now() - genesis) / period)
+
+  const nextRoundInfo = (genesis, period) => {
+    const round = currentRound(genesis, period) + 1
+    return { time: genesis + round * period, round }
+  }
+
+  setInterval(() => {
+    const nextInfo = nextRoundInfo(genesis, period)
+    const secs = Math.round((nextInfo.time - Date.now()) / 1000)
+    secsEl.textContent = secs
+  }, 100)
+
+  const fakeRandomness = () => {
+    const chars = '0123456789abcdef'
+    return Array.from(
+      Array(64),
+      () => chars[Math.floor(Math.random() * chars.length)]
+    ).join('')
+  }
+
+  const client = {
+    watch: () => ({
+      [Symbol.asyncIterator]() {
+        return this
+      },
+      first: true,
+      next() {
+        if (this.first) {
+          this.first = false
+          return {
+            value: {
+              round: currentRound(genesis, period),
+              randomness: fakeRandomness()
+            }
+          }
+        }
+        return new Promise((resolve, reject) => {
+          const nextInfo = nextRoundInfo(genesis, period)
+          setTimeout(() => {
+            resolve({
+              value: { round: nextInfo.round, randomness: fakeRandomness() }
+            })
+          }, nextInfo.time - Date.now())
+        })
+      }
+    })
+  }
+
+  for await (const res of client.watch()) {
+    roundEl.textContent = res.round
+    latestEl.textContent = res.randomness
+    latestEl.setAttribute('title', res.randomness)
+  }
+}
+
+setTimeout(startLOERandomness, 1000)
 
 export default {
   name: 'Home',
