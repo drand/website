@@ -21,11 +21,10 @@ module.exports = {
     }
   },
   themeConfig: {
-    //   TODO: create Algolia account for Drand an throw API key into here.
-    // algolia: {
-    //   apiKey: 'e6dcd48beb5db629bf77c892d38fa091',
-    //   indexName: 'drand'
-    // },
+    algolia: {
+      apiKey: 'fcaf3b4aca77fcfeff32616ec6e35a86',
+      indexName: 'drand'
+    },
     defaultImage: '/images/social-card.png',
     author: {
       name: 'Drand Team',
