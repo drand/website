@@ -9,7 +9,7 @@ This guide walks you through spinning up three drand nodes on your local machine
 
 ## Set up your drand nodes
 
-1. First up we need to create key-pairs for each of your nodes:
+1. Create key-pairs for each of your nodes:
 
     ```bash
     drand generate-keypair --tls-disable --folder ~/.drand0 127.0.0.1:3000
@@ -17,9 +17,9 @@ This guide walks you through spinning up three drand nodes on your local machine
     drand generate-keypair --tls-disable --folder ~/.drand2 127.0.0.1:3200
     ```
 
-    <!-- TODO: what does --tls-disable do? -->
-    <!-- TODO: what does folder do? -->
-    <!-- TODO: assuming ~/.drand0 is the save location, 127.0.0.1 is the server IP, and :3000 is the port number.  -->
+    - `--tls-disable` disables TLS for all communications.
+    - `--folder ~/.drand0` specifies where to keep all drand cryptographic information.
+    - `127.0.0.1` and `3000` are the IP address and port of the drand service.
 
 1. Start the daemons for each node:
 
@@ -29,9 +29,9 @@ This guide walks you through spinning up three drand nodes on your local machine
     drand start --tls-disable --folder ~/.drand2 --private-listen 127.0.0.1:3200 --control 3201 --public-listen 127.0.0.1:3202
     ```
 
-    <!-- TODO: what does --private-listen 127.0.0.1:3000 do? Listen for public randomness here maybe? -->
-    <!-- TODO: what does --control 3001 do? Some kind of remote control access port? -->
-    <!-- TODO: what does --public-listen 127.0.0.1:3002 do? Listen for private randomness here maybe? -->
+    - `--private-listen 127.0.0.1:3000` sets the listening (binding) address of the private API.
+    - `--control 3001` sets the port you want to listen to for control port commands. If this isn't specified `8888` is used. Since we're running multiple local nodes, we have to specify different ports.
+    - `--public-listen 127.0.0.1:3002` sets the listening (binding) address of the public API.
 
 1. Set the first node as the _leader_:
 
@@ -39,7 +39,11 @@ This guide walks you through spinning up three drand nodes on your local machine
     drand share --tls-disable --control 3001 --leader --nodes 3 --threshold 2 --secret mysecret --period 10s
     ```
 
-    <!-- TODO: what does --period do? -->
+    - `--leader` sets _this_ node as the leader of the group. Only one node can have this flag.
+    - `--nodes` sets the number of nodes within this group.
+    - `--threshold 2` sets the number of signatures each ndoe needs to collect when generating randomness.
+    - `--secret` sets the _password_ that is used to access the group. All nodes within the group need to know this secret.
+    - `--period 10s` specifies how often a randomness round will be issued.
 
 1. Set the other two nodes as _participants_:
 
