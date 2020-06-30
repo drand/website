@@ -1,5 +1,5 @@
 ---
-title: 'API and Client Library Documentation'
+title: 'API and client library documentation'
 ---
 
 # Docs

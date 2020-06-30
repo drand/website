@@ -1,6 +1,6 @@
 ---
 title: Community
-description: Join in with the Drand community!
+description: Join in with the drand community!
 ---
 
 # Community

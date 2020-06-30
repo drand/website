@@ -1,10 +1,10 @@
 ---
-title: Drand Documentation
+title: Drand documentation
 description: The home page for developer documentation for drand, a distributed randomness beacon.
 home: true
 heroImage: images/logo-drand-text-bottom-dark.svg
 heroAlt: drand logo
-heroText: Distributed Randomness Beacon.
+heroText: Distributed randomness beacon.
 tagline: Verifiable, unpredictable and unbiased random numbers as a service.
 features:
   - title: HTTP API

@@ -1,5 +1,5 @@
 ---
-title: Drand Command Line Tools
+title: Command-line tools
 sidebarDepth: 2
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Drand Metrics
+title: Drand metrics
 ---
 
 # Drand Metrics

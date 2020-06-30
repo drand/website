@@ -1,5 +1,5 @@
 ---
-title: Deploying a Drand Network
+title: Deploy
 description: Learn how to deploy a drand node onto your network.
 sidebarDepth: 2
 ---
