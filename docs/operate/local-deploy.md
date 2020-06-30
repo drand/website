@@ -5,7 +5,7 @@ description: If you want to test things out before deploying to production serve
 
 # Local deploy
 
-If you want to test things out before deploying to production servers, follow this guide to deploy three drand nodes quickly on your local machine.
+If you want to test things out before deploying to production servers, follow this guide to deploy three drand nodes quickly on your local machine. All the steps in this guide are intended to be ran on one local computer. Some commands need to be ran in their own terminal windows, and they must stay open while waiting for commands from _other_ terminal windows to finish. With this in mind, keep a look out for where the steps say commands should be ran.
 
 ## Set up your drand nodes
 
