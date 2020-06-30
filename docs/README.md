@@ -29,4 +29,4 @@ Billions of devices around the world use random numbers to keep computers secure
 
 Help the internet by generating truely random numbers with drand. [Manage a node →](/operate)
 
-The Drand project is maintained by contributors from many different fields, companies, and research labs. If you'd like to contribute code, submit issues, improve documentation, or get the word out, [find out how to get involved with the project →](/about)
+The drand project is maintained by contributors from many different fields, companies, and research labs. If you'd like to contribute code, submit issues, improve documentation, or get the word out, [find out how to get involved with the project →](/about)

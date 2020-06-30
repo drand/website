@@ -1,6 +1,6 @@
 # Drand documentation
 
-Welcome to the Drand documentation website! We're sorry, but there's no much to see right now. We're in the process of building and writing, so we'll have something for you soon. In the meantime you can check out the [Drand GitHub repository](https://github.com/drand/drand) for more info.
+Welcome to the drand documentation website! We're sorry, but there's no much to see right now. We're in the process of building and writing, so we'll have something for you soon. In the meantime you can check out the [drand GitHub repository](https://github.com/drand/drand) for more info.
 
 ## Project set up
 
@@ -31,7 +31,7 @@ If you want to build this site locally, run the following:
 
 ## Creating a blog post
 
-There are two steps to creating a post for the Drand site:
+There are two steps to creating a post for the drand site:
 
 1. Content management
 1. Sidebar management

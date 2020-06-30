@@ -60,7 +60,7 @@ about a running drand network:
 - Nodes: A list of nodes information that represents all nodes on the network.
 - Threshold: The number of nodes that are necessary to participate to a
   randomness generation round to produce a new random value. Given the security
-  model of Drand, the threshold must be superior to 50% of the number of nodes.
+  model of drand, the threshold must be superior to 50% of the number of nodes.
 - Period: The period at which the network creates new random value
 - GenesisTime: An UNIX timestamp in seconds that represents the time at which
   the first round of the drand chain starts. See the [beacon
@@ -355,7 +355,7 @@ Example:
   `JustificationPhase` _if there was no complaint response received_ OR in
   `FinishPhase` otherwise.
 
-**Fast Sync**: Drand uses a _fast sync_ mode that allows to make the setup
+**Fast Sync**: drand uses a _fast sync_ mode that allows to make the setup
 phase proceeds faster at the cost of higher bandwidth usage. Given the
 relatively low size of the network, the latter is not a concern. The general
 idea is to move to the next step before the ticker kicks in if we received the

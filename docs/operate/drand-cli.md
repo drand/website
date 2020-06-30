@@ -5,10 +5,10 @@ sidebarDepth: 2
 
 # Drand Command Line Tools
 
-Drand's main functionality is provided by the `drand` program, which allows you to run a Drand server and control its operation. You can also
-use `drand` as a client to fetch randomness from a Drand network.
+Drand's main functionality is provided by the `drand` program, which allows you to run a drand server and control its operation. You can also
+use `drand` as a client to fetch randomness from a drand network.
 
-See the [Supplemental Tools](#supplemental-tools) for some other helpful tools for scaling Drand, as well as a standalone client for consuming
+See the [Supplemental Tools](#supplemental-tools) for some other helpful tools for scaling drand, as well as a standalone client for consuming
 randomness.
 
 ## Installing `drand`
@@ -47,7 +47,7 @@ of `make install`. This will create the `drand` binary in the current directory.
 ## Usage
 
 This section gives a basic overview of the main `drand` CLI interface to give an idea of the options available.
-If you're setting up a Drand network deployment, please see the [Deployment Guide](./deploy.md), which walks through
+If you're setting up a drand network deployment, please see the [Deployment Guide](./deploy.md), which walks through
 using `drand` to run a live network.
 
 The `drand` command has several subcommands. Among the most important is `drand help`, which will introduce you to
@@ -160,7 +160,7 @@ OPTIONS:
 
 `drand` exposes up to four endpoints, depending on the flags passed in.
 
-The **private Drand API endpoint** is used to communicate with other nodes using gRPC. The private API is always enabled.
+The **private drand API endpoint** is used to communicate with other nodes using gRPC. The private API is always enabled.
 If no flag is given, `drand` will bind to the address used when [generating the node's keypair](#drand-generate-keypair).
 If you want `drand` to listen on a different interface and/or port, you can pass the `--private-listen` flag and
 specify the `host:port` to bind to. Note that the addresss associated with the keypair must be publicly accessible
@@ -192,7 +192,7 @@ information and is safe to expose to the internet. Alternatively, you may keep t
 expose randomness to the public with the help of a relay server such as [`drand-relay-http`](#drand-relay-http).
 
 Finally, the **metrics endpoint** provides an API for observing runtime metrics about the drand node. It can be enabled
-with the `--metrics <metrics-port>` flag. See [Drand Metrics](./metrics/) for more details on accessing the metrics.
+with the `--metrics <metrics-port>` flag. See [drand Metrics](./metrics/) for more details on accessing the metrics.
 
 ::: danger
 The metrics API may expose sensitive information about the running `drand` daemon, and should not be exposed to the public internet.
@@ -226,8 +226,8 @@ when running `drand stop`.
 The `share` command tells the `drand` daemon to begin the Distributed Key Generation (DKG) protocol to create private key shares
 with the other Drand nodes.
 
-The `share` command must be used when setting up a new Drand network before randomness generation can begin. It may also be
-used after the network is running to "re-share" the key material, which allows us to change the members of the Drand network
+The `share` command must be used when setting up a new drand network before randomness generation can begin. It may also be
+used after the network is running to "re-share" the key material, which allows us to change the members of the drand network
 without interrupting the generation of randomness.
 
 For details about to running the initial DKG, see the [Deployment Guide](./deploy/).
@@ -262,14 +262,14 @@ in the address of the leader. All of the nodes must specify the following values
 
 - `--secret` - a secret value, shared out-of-band with the other node operators. When re-sharing, this may be distinct from
   the secrets used for any prior DKG rounds.
-- `--period` - sets the interval between rounds of the Drand beacon chain. This must be a string that's parse-able by Golang's
+- `--period` - sets the interval between rounds of the drand beacon chain. This must be a string that's parse-able by Golang's
   [time.ParseDuration function](https://golang.org/pkg/time/#ParseDuration), for example "30s" or "1m".
 - `--nodes` - the number of nodes expected to take part in the DKG. Note that the DKG will succeed even if fewer nodes participate,
   so long as there are enough to meet the threshold.
 - `--threshold` - the number of nodes required to generate randomness. The DKG will fail if fewer than `threshold` nodes participate
   in the DKG before the timeout.
 
-When re-sharing to nodes that are not members of the existing Drand group, the new nodes must obtain a copy of the group configuration file
+When re-sharing to nodes that are not members of the existing drand group, the new nodes must obtain a copy of the group configuration file
 from an existing member, and use the `--from <group-file-path>` flag to specify the path to the `group.toml` file. Members of
 the existing group may omit the `--from` flag, as they already posess the current group configuration.
 
@@ -281,8 +281,8 @@ but should not be used in production.
 
 ### `drand get`
 
-The `get` command allows you to fetch public information from a running Drand node, including random values and the public
-distributed key. Note that you do not need to be a node operator or a member of the Drand group in order to use `drand get`,
+The `get` command allows you to fetch public information from a running drand node, including random values and the public
+distributed key. Note that you do not need to be a node operator or a member of the drand group in order to use `drand get`,
 but you will need a copy of the group configuration file. You will also need access to the gRPC API endpoint, which may be
 protected by firewall rules.
 
@@ -291,7 +291,7 @@ There are three main subcommands for `drand get`:
 - `drand get public <path-to-group.toml>` returns the latest public random value from the group described in `group.toml`.
   You may fetch a specific round instead of the latest by supplying the `--round <round-number>` flag.
 - `drand get private <path-to-group.toml>` sends an encrypted request for private randomness to one of the nodes in `group.toml`.
-- `drand get cokey <path-to-group.toml>` returns the distributed public key shared by all Drand nodes in the `group.toml`.
+- `drand get cokey <path-to-group.toml>` returns the distributed public key shared by all drand nodes in the `group.toml`.
 
 For full usage information, run `drand get --help`.
 
@@ -327,7 +327,7 @@ For full usage information, run `drand util --help`.
 ## Supplemental Tools
 
 In addition to the main `drand` cli app, there are several supplemental tools that can be used to consume randomness from
-a Drand network or help securely scale a Drand deployment.
+a drand network or help securely scale a drand deployment.
 
 The following tools do not yet have binary releases and must be installed from source. The basic procedure is the same
 as [installing drand from source](#source-code), but instead of `make install` or `make build`, you'll run one of:
@@ -338,9 +338,9 @@ as [installing drand from source](#source-code), but instead of `make install` o
 
 ### `drand-client`
 
-The `drand-client` command is a standalone Drand client that's optimized to fetch randomness from a Drand network and provide it over a CDN.
+The `drand-client` command is a standalone drand client that's optimized to fetch randomness from a drand network and provide it over a CDN.
 
-The client is configured with the URL for a Drand HTTP endpoint, and may optionally be configured with the addresses of one or more
+The client is configured with the URL for a drand HTTP endpoint, and may optionally be configured with the addresses of one or more
 libp2p relay nodes. If libp2p relays are configured, the HTTP endpoint will be used as a fallback if the libp2p relays fail to deliver
 randomness at the expected interval.
 
@@ -359,6 +359,6 @@ To see full usage information, run `drand-relay-http help`.
 
 ### `drand-relay-gossip`
 
-The `drand-relay-gossip` command provides a relay server that connects to a Drand node over gRPC and provides randomness to consumers over
+The `drand-relay-gossip` command provides a relay server that connects to a drand node over gRPC and provides randomness to consumers over
 a [libp2p PubSub](https://docs.libp2p.io/concepts/publish-subscribe/) topic. Randomness provided by a gossip relay may be consumed directly
 over PubSub by libp2p-capable programs, and/or via a CDN which has been configured to listen to a PubSub topic using `drand-client`.
