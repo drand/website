@@ -1,6 +1,6 @@
 # HTTP API reference
 
-Drand provides an HTTP interface that clients can use to fetch randomness from the Drand network. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/docs/client-libraries/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
+Drand provides a JSON HTTP interface that clients can use to fetch randomness from the Drand network. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/docs/client-libraries/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
 All that's required is the address of the HTTP interface and way to fetch from HTTP, e.g. `curl`.
 
@@ -14,7 +14,7 @@ The public [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) H
 
 ## `/info`
 
-Retrieves the randomness chain information.
+Retrieves the randomness chain information. It returns a JSON object with the following structure:
 
 ```json
 {
