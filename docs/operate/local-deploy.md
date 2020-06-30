@@ -107,6 +107,8 @@ If you want to test things out before deploying to production servers, follow th
     > Hash of the group configuration: 9f5ebfaf9d4911acf43750a7bec8a38c1e0693964cee4d266eb0af6981b664a7
     ```
 
+    Copy this output and paste it into a new file at `~/.drand/group.toml`.
+
 That's the set up done!
 
 ## Gossip relay
@@ -145,9 +147,11 @@ The drand gossip relay is a program that relays drand randomness rounds over lib
 
 <!-- TODO: what is a gossip client? How does it relate to the gossip relay? -->
 
+With everything else set up, creating a connection to the Gossip client should be fairly straight-forward:
+
 ```sh
 go run ./main.go -chain-hash=$(curl http://127.0.0.1:3002/info -s | jq -r .hash) client -peer-with=/ip4/127.0.0.1/tcp/44544/p2p/12D3KooWBHSzkTUCVrkSaND1PmayysgHA5QK2DA73u3AfzTk14uP -http-failover=http://127.0.0.1:3002 -http-failover-grace=1s
-```
+```e
 
 ## Relay combinations
 
