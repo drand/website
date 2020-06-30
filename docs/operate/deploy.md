@@ -170,8 +170,7 @@ To setup a new network, drand uses the notion the of a coordinator that collects
 drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s
 ```
 
-**Rest of participants**: Once the coordinator has run the previous command, the
-rest of the participants must run the following command:
+**Rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
 
 ```bash
 drand share --connect <leaderaddress> --secret mysecret901234567890123456789012
@@ -179,65 +178,42 @@ drand share --connect <leaderaddress> --secret mysecret901234567890123456789012
 
 The flags usage is as follow:
 
-- `--leader` indicates this node is a coordinator, `
-- `--nodes` indicates how many nodes do we expect to form the network
-- `--threshold` indicates the threshold the network should use, i.e. how many
-  nodes amongst the total needs to be online for the network to be live at any
-  point.
-- `--period` indicates the period of the randomness beacon to use. It must be
-  valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method.
-- `--secret` indicates the secret that the coordinator uses to authentify the
-  nodes that wants to participate to the network. it must be at least 32 bytes.
-- `--connect` is the `host:port` address of the leader. By default, drand will
-  connect to the leader by using tls. If you are not using tls, use the
-  `--tls-disable` flag.
+| Flag | Description |
+| ---- | ----------- |
+| `--leader` | _This_ node is the group coordinator. |
+| `--nodes` | The amount of nodes in this group. |
+| `--threshold` | The minimum number of nodes that need to be online for the network to be live. |
+| `--period` | The period of the randomness beacon to use. It must be valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
+| `--secret` | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long.
 
-**Interactive command**: The command will run as long as the DKG is not finished
-yet. You can quit the command, the DKG will proceed but the group file will not
-be written down. In that case, once the DKG is done, you get the group file by
-running:
+The `drand share` command will run until the DKG has finished. If you quit the command the DKG will contiune, but the group file will not be created. In that case, once the DKG is done you can get the group file by running:
 
 ```bash
 drand show group --out group.toml
 ```
 
-**Secret**: For participants to be included in the group, they need to have a
-secret string shared by all. This method is offering some basic security
-however drand will provide more manual checks later-on and/or different secrets
-for each participants. However, since the set of participants is public and consistent
-accross all participants after a setup, nodes can detect if there are some unwanted nodes
-after the setup and in that case, setup a new network again. the secret must be at least
-32 bytes. If the `DRAND_SHARE_SECRET` environment variable is set, the command line flag
-can be omitted.
+#### Secret
 
-**Custom entropy source**: By default drand takes its entropy for the setup
-phase from the OS's entropy source (`/dev/urandom` on Unix systems). However,
-it is possible for a participant to inject their own entropy source into the
-creation of their secret. To do so, one must have an executable that produces
-random data when called and pass the name of that executable to drand:
+As a basic security method, partificipants my include a shared secret before they can be accepted into a group. This secret is set by the leader.
+The secret must be at least 32 characters long. If the `DRAND_SHARE_SECRET` environment variable is set, the command line flag can be omitted.
+
+#### Custom entropy source
+
+By default drand takes its entropy for the setup phase from the OS's entropy source (`/dev/urandom` on Unix systems). However, it is possible for a participant to inject their own entropy source into the creation of their secret. To do so, one must have an executable that produces random data when called and pass the name of that executable to drand:
 
 ```bash
 drand share <regular options> --source <entropy-exec>
 ```
 
-where `<entropy-exec>` is the path to the executable which produces the user's
-random data on STDOUT. As a precaution, the user's randomness is mixed by
-default with `crypto/rand` to create a random stream. In order to introduce
-reproducibility, the flag `user-source-only` can be set to impose that only the
-user-specified entropy source is used. Its use should be limited to testing.
+In this command `<entropy-exec>` is the path to the executable which produces the user's random data on `STDOUT`. As a precaution, the user's randomness is mixed by default with `crypto/rand` to create a random stream. In order to introduce reproducibility, the flag `--user-source-only` can be set to impose that only the user-specified entropy source is used. We recommend only using this flag during testing.
 
 ```bash
 drand share <group-file> --source <entropy-exec> --user-source-only
 ```
 
-## Distributed Key Generation
+## Distributed Key Generation (DKG)
 
-Once the DKG phase is done, each node has both a private share and a group file
-containing the distributed public key. Using the previous commands shown, the
-group file will be written to `group.toml`. That updated group file is needed by
-drand to securely contact drand nodes on their public interface to gather
-private or public randomness. A drand administrator can get the updated group
-file it via the following:
+Once the DKG phase is done, each node has both a private share and a group file containing the distributed public key. Using the previous commands shown, the group file will be written to `group.toml`. That updated group file is needed by drand to securely contact drand nodes on their public interface to gather private or public randomness. A drand administrator can get the updated group file it via the following:
 
 ```bash
 drand show group
