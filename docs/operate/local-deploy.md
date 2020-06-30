@@ -24,7 +24,7 @@ If you want to test things out before deploying to production servers, follow th
     | `127.0.0.1` | The IP address of the drand service. |
     | `:3000` | The port of the drand service |
 
-1. Start the daemons for each node:
+1. Start the daemons for each node in seperate terminals:
 
     ```bash
     drand start --tls-disable --folder ~/.drand0 --private-listen 127.0.0.1:3000 --control 3001 --public-listen 127.0.0.1:3002
@@ -38,10 +38,23 @@ If you want to test things out before deploying to production servers, follow th
     | `--control 3001` | Sets the port you want to listen to for control port commands. If this isn't specified `8888` is used. Since we're running multiple local nodes, we have to specify different ports. |
     | `--public-listen 127.0.0.1:3002` | Sets the listening (binding) address of the public API. |
 
-1. Set the first node as the _leader_:
+1. In a new terminal, check that each node is responding properly:
 
     ```bash
-    drand share --tls-disable --control 3001 --leader --nodes 3 --threshold 2 --secret mysecret --period 10s
+    drand util check --tls-disable 127.0.0.1:3000
+    > drand: id 127.0.0.1:3000 answers correctly
+
+    drand util check --tls-disable 127.0.0.1:3100
+    > drand: id 127.0.0.1:3100 answers correctly
+
+    drand util check --tls-disable 127.0.0.1:3200
+    > drand: id 127.0.0.1:3200 answers correctly
+    ```
+
+1. In the same terminal set the first node as the _leader_:
+
+    ```bash
+    drand share --tls-disable --control 3001 --leader --nodes 3 --threshold 2 --secret DrandIsMyFavoriteRandomnessSolution -period 10s
     ```
 
     | Flag | Description |
@@ -52,11 +65,46 @@ If you want to test things out before deploying to production servers, follow th
     | `--secret` | Sets the _password_ that is used to access the group. All nodes within the group need to know this secret. |
     | `--period 10s` | Specifies how often a randomness round will be issued. |
 
-1. Set the other two nodes as _participants_:
+1. In seperate terminals, set the other two nodes as _participants_:
 
     ```bash
-    drand share --tls-disable --control 3101 --connect 127.0.0.1:3000 --nodes 3 --threshold 2 --secret mysecret
-    drand share --tls-disable --control 3201 --connect 127.0.0.1:3000 --nodes 3 --threshold 2 --secret mysecret
+    drand share --tls-disable --control 3101 --connect 127.0.0.1:3000 --nodes 3 --threshold 2 --secret DrandIsMyFavoriteRandomnessSolution
+    drand share --tls-disable --control 3201 --connect 127.0.0.1:3000 --nodes 3 --threshold 2 --secret DrandIsMyFavoriteRandomnessSolution
+    ```
+
+    After running the final command has completed, the terminals where you supplied a `drand share` command will finish their processes and output the `group.toml` file.
+
+    ```bash
+    > Copy the following snippet into a new group.toml file
+    > Threshold = 2
+    > Period = "10s"
+    > GenesisTime = 1593537820
+    > TransitionTime = 0
+    > GenesisSeed = "77c88df0534d3859c96cb827d0cdff20749bfd742d994d4c9216b15dc696c4cb"
+    > 
+    > [[Nodes]]
+    > Address = "127.0.0.1:3200"
+    > Key = "85d4ebe22b1d80094ecd89b20582e5d65a6787c78b1dd7427adcb1d29efa67e53d4fd88fd336eff87cc0e2a54d0907dc"
+    > TLS = false
+    > Index = 0
+    > 
+    > [[Nodes]]
+    > Address = "127.0.0.1:3100"
+    > Key = "8786b74f492061b19df68e4f85456f28f490a5a8a694cd4f7ddd17ab31567d85e631a6bbf5dd92ad7384263140ea8a2b"
+    > TLS = false
+    > Index = 1
+    > 
+    > [[Nodes]]
+    > Address = "127.0.0.1:3000"
+    > Key = "8a1d687151ed7edb9b780159bde238d8c6308bdb9d1cda5b50d29d1fb2c3db5b80d31edd9d78e5daed54f9a78c19c29c"
+    > TLS = false
+    > Index = 2
+    > 
+    > [PublicKey]
+    > Coefficients = ["ae0e903b33a6452f6203aaa14e7d2791c1d7b0ffee38205d09207104afe440dae7dfa9577a02d3da870618283a841cf9", "aee57ec9b0d90356c99e89c51758588d35d5b5e4a4e46a676fe9aa729d9d2e320ce5fdbe8b4246e2e3140429cc8ed5e3"]
+    > 
+    > 
+    > Hash of the group configuration: 9f5ebfaf9d4911acf43750a7bec8a38c1e0693964cee4d266eb0af6981b664a7
     ```
 
 That's the set up done!
