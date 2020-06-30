@@ -29,7 +29,7 @@ curl <address>/public/latest
 > }
 ```
 
-## Using DrandJS
+## Using drand.js
 
 Drand can easily be used from JavaScript using [DrandJS](https://github.com/drand/drandjs). The main `fetchAndVerify` method of this JavaScript
 library fetches from a drand node the latest random beacon generated and then verifies it against the distributed key. For more details on the

@@ -3,7 +3,7 @@ title: Command-line tools
 sidebarDepth: 2
 ---
 
-# Drand Command Line Tools
+# Command-line tools
 
 Drand's main functionality is provided by the `drand` program, which allows you to run a drand server and control its operation. You can also
 use `drand` as a client to fetch randomness from a drand network.
@@ -11,9 +11,9 @@ use `drand` as a client to fetch randomness from a drand network.
 See the [Supplemental Tools](#supplemental-tools) for some other helpful tools for scaling drand, as well as a standalone client for consuming
 randomness.
 
-## Installing `drand`
+## Installing drand
 
-### Binary Releases
+### Binary releases
 
 The simplest way to get `drand` is to [download a pre-built binary release](https://github.com/drand/drand/releases) for your platform.
 
@@ -24,7 +24,7 @@ contains the SHA-256 checsum for each release archive. To check your local downl
 shasum -a 256 <path-to-drand.tar.gz>
 ```
 
-### Source Code
+### Source code
 
 You can compile `drand` from source code by cloning the [drand GitHub repository](https://github.com/drand/drand) and building the project.
 
@@ -198,7 +198,7 @@ with the `--metrics <metrics-port>` flag. See [drand Metrics](./metrics/) for mo
 The metrics API may expose sensitive information about the running `drand` daemon, and should not be exposed to the public internet.
 :::
 
-#### TLS Configuration
+#### TLS configuration
 
 The `--tls-cert` and `--tls-key` commands give the path to TLS certificates and keys needed for `drand` to provide TLS protection
 to its connections with other `drand` nodes. If you are using a reverse proxy as described in the [Deployment Guide](./deploy/),
@@ -324,7 +324,7 @@ The `util` command provides several subcommands that are useful for debugging an
 
 For full usage information, run `drand util --help`.
 
-## Supplemental Tools
+## Supplemental tools
 
 In addition to the main `drand` cli app, there are several supplemental tools that can be used to consume randomness from
 a drand network or help securely scale a drand deployment.

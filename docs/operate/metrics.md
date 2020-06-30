@@ -2,12 +2,12 @@
 title: Drand metrics
 ---
 
-# Drand Metrics
+# Drand metrics
 
 Drand uses [prometheus](https://prometheus.io/) instrumentation for helping
 operators monitor and understand the runtime behavior of system.
 
-## Local Metrics
+## Local metrics
 
 The local drand node exposes metrics on an HTTP server listening as specified
 by the `--metrics` comamnd line flag. You can view the reported metrics
@@ -17,7 +17,7 @@ in a browser at `http://localhost:<metrics port>/metrics`. This page includes
 - Statistics on the drand beacon and group behavior
 - Statistics on the HTTP public listener request load if enabled.
 
-## Shared Group Metrics
+## Shared group metrics
 
 In addition to the metrics collected within the local node, the drand
 GRPC group protocol supports re-export and sharing of group metrics
@@ -30,7 +30,7 @@ the node. It is meant to allow better visibility when debugging
 network issues, and helping operators understand where problems
 originate.
 
-# Drand Client Metrics
+# Drand client metrics
 
 The drand client is capable of collecting metrics on the health of the sources
 of randomness that it is connected to.
