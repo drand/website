@@ -15,10 +15,8 @@ features:
   - title: Client Libraries
     details: Use drand client libraries to easily consume randomness from your applications, over HTTP, gRPC or libp2p PubSub.
     actions:
-      - text: golang
-        link: /docs/clients/go
-      - text: JS
-        link: /docs/clients/js
+      - text: Client Libraries
+        link: /docs/client-libraries
 ---
 
 ## Learn more
