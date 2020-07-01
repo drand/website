@@ -4,7 +4,7 @@ title: 'API and client library documentation'
 
 # Docs
 
-This section helps you build applications that use drand as a source of randomness. For help running a drand network, see the [Operator's Guide](../operators/).
+This section helps you build applications that use drand as a source of randomness. For help running a drand network, see the [Operator's Guide](/operate/).
 
 There are several ways to consume randomness from a drand network:
 
