@@ -265,8 +265,8 @@ DKG as well and start the ticker as explained below.
 
 ### Distributed Key Generation
 
-The distributed key generation protocol implements the Pedersen's protocol, best
-described from [Gennaro's
+The distributed key generation protocol implements the Joint Feldman protocol,
+best described from [Gennaro's
 paper](https://www.researchgate.net/publication/225722958_Secure_Distributed_Key_Generation_for_Discrete-Log_Based_Cryptosystems):
 
 > Distributed key generation (DKG) is a main component of threshold

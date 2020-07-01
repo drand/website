@@ -33,11 +33,11 @@ module.exports = {
     keywords:
       'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, documentation, docs, Protocol Labs',
     domain: 'https://docs.drand.love',
-    docsRepo: 'drand/drand-docs',
+    docsRepo: 'drand/website',
     docsDir: 'docs',
     docsBranch: 'master',
     feedbackWidget: {
-      docsRepoIssue: 'drand/drand-docs'
+      docsRepoIssue: 'drand/website'
     },
     editLinks: false,
     // page nav
