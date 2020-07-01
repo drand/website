@@ -21,6 +21,8 @@ go get github.com/drand/drand
 
 ### Usage
 
+[API reference on pkg.go.dev](https://pkg.go.dev/github.com/drand/drand/client)
+
 First import the base client, which wraps clients operating over different transports (HTTP, gRPC, libp2p PubSub etc.) with configured aggregation, caching, and retry logic:
 
 ```go
@@ -213,10 +215,6 @@ func newPubSub() *pubsub.Pubsub {
 
 Consult the [libp2p PubSub client API reference](https://pkg.go.dev/github.com/drand/drand/lp2p/client) for more information.
 
-### API
-
-[API reference on pkg.go.dev](https://pkg.go.dev/github.com/drand/drand/client)
-
 ## JS
 
 ### Install
@@ -235,6 +233,8 @@ npm install drandjs
 
 ### Usage
 
+[API reference on npmjs.com](https://www.npmjs.com/package/drandjs#api)
+
 In the browser use the `window.drandjs` variable to interact with the API.
 
 In Node.js, require or import the `drandjs` module as normal:
@@ -244,7 +244,3 @@ const drandjs = require('drandjs')
 ```
 
 For more information, please refer to the [usage docs here](https://www.npmjs.com/package/drandjs#usage).
-
-### API
-
-[API reference on npmjs.com](https://www.npmjs.com/package/drandjs#api)
