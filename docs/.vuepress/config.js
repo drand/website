@@ -67,7 +67,7 @@ module.exports = {
             'security-model',
             'specification'
           ],
-          '/docs/': ['clients', 'http-api'],
+          '/docs/': ['clients', 'http-api', 'cli'],
           '/operate/': ['deploy', 'metrics', 'drand-cli'],
           '/about/': [
             'community',
