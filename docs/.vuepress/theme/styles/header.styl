@@ -1,14 +1,7 @@
 header.navbar {
-	background: #222;
-	border-bottom-color: #000;
-
 	.sidebar-button {
-		color: white;
 		top: 0.8rem;
-	}
-
-	.links {
-		background: #222;
+		color: white;
 	}
 
 	.nav-item a, .repo-link {
@@ -22,10 +15,6 @@ header.navbar {
 			border-bottom: 0;
 		}
 	}
-}
-
-header.navbar .site-name.can-hide {
-	display: none;
 }
 
 header .search-box {
@@ -57,6 +46,16 @@ header .search-box {
 	}
 }
 
+@media (min-width: $MQMobile) {
+	header .search-box {
+		margin-right: 0;
+
+		input {
+			left: 0;
+		}
+	}
+}
+
 @media (max-width: $MQMobile) {
 	header.navbar .links {
 		input {
@@ -65,7 +64,7 @@ header .search-box {
 			font-size: 1rem;
 
 			&:focus {
-				width: 87.5vw;
+				width: calc(100vw - 3rem);
 			}
 		}
 	}

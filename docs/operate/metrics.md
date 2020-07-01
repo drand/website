@@ -1,13 +1,13 @@
 ---
-title: Drand Metrics
+title: Drand metrics
 ---
 
-# Drand Metrics
+# Drand metrics
 
 Drand uses [prometheus](https://prometheus.io/) instrumentation for helping
 operators monitor and understand the runtime behavior of system.
 
-## Local Metrics
+## Local metrics
 
 The local drand node exposes metrics on an HTTP server listening as specified
 by the `--metrics` comamnd line flag. You can view the reported metrics
@@ -17,7 +17,7 @@ in a browser at `http://localhost:<metrics port>/metrics`. This page includes
 - Statistics on the drand beacon and group behavior
 - Statistics on the HTTP public listener request load if enabled.
 
-## Shared Group Metrics
+## Shared group metrics
 
 In addition to the metrics collected within the local node, the drand
 GRPC group protocol supports re-export and sharing of group metrics
@@ -30,17 +30,17 @@ the node. It is meant to allow better visibility when debugging
 network issues, and helping operators understand where problems
 originate.
 
-# Drand Client Metrics
+# Drand client metrics
 
-The Drand client is capable of collecting metrics on the health of the sources
+The drand client is capable of collecting metrics on the health of the sources
 of randomness that it is connected to.
 
 For each HTTP endpoint, every 10 seconds, the client sends "heartbeat"
 requests for the "current" randomness, wherein the requested "current" randomness round
-is calculated based on the current time and the genenesis time of the Drand network.
+is calculated based on the current time and the genenesis time of the drand network.
 The outcomes of these requests are used to generate the following metrics:
 
-- _Heartbeat latency_: This is the duration, in milliseconds, between the time when the randomness response was received and the time when it was meant to be produced by the Drand nodes (based on the genesis time of the network and the round number). The corresponding Prometheus metric is the gauge `client_http_heartbeat_latency`. In normal conditions, when the network latency is sub-second, one expects the heartbeat latency to be roughly evenly distributed between 0 and 30 seconds. This is caused by the fact that there are multiple heartbeats during a single round, which lasts 30 seconds, as well as the fact that each request blocks until the randomness becomes available. This metric is implemented in [https://github.com/drand/drand/blob/master/client/http/metric.go#L59].
+- _Heartbeat latency_: This is the duration, in milliseconds, between the time when the randomness response was received and the time when it was meant to be produced by the drand nodes (based on the genesis time of the network and the round number). The corresponding Prometheus metric is the gauge `client_http_heartbeat_latency`. In normal conditions, when the network latency is sub-second, one expects the heartbeat latency to be roughly evenly distributed between 0 and 30 seconds. This is caused by the fact that there are multiple heartbeats during a single round, which lasts 30 seconds, as well as the fact that each request blocks until the randomness becomes available. This metric is implemented in [https://github.com/drand/drand/blob/master/client/http/metric.go#L59].
 
 - _Heartbeat success and failure_: These are two counters, "success" and "failure", whose Prometheus names are `client_http_heartbeat_success` and `client_http_heartbeat_latency`. The success counter is increments after an HTTP request returns a successful response HTTP, otherwise the the failure counter is incremented. This metric is implemented in [https://github.com/drand/drand/blob/master/client/http/metric.go#L50].
 

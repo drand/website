@@ -1,20 +1,20 @@
 ---
-title: 'API and Client Library Documentation'
+title: 'API and client library documentation'
 ---
 
 # Docs
 
-This section helps you build applications that use Drand as a source of randomness. For help running a Drand network, see the [Operator's Guide](../operators/).
+This section helps you build applications that use drand as a source of randomness. For help running a drand network, see the [Operator's Guide](../operators/).
 
-There are several ways to consume randomness from a Drand network:
+There are several ways to consume randomness from a drand network:
 
 - [Fetching randomness over HTTP](#fetching-randomness-over-http)
-- [Using a Drand client library](#using-a-drand-client-library)
+- [Using a drand client library](#using-a-drand-client-library)
 - [Using the `drand` binary](#using-the-drand-command-to-fetch-randomness)
 
 ## Fetching randomness over HTTP
 
-Drand provides an HTTP interface that clients can use to fetch randomness from the Drand network.
+Drand provides an HTTP interface that clients can use to fetch randomness from the drand network.
 
 All that's required is the address of the HTTP interface and way to fetch from HTTP, e.g. `curl`:
 
@@ -29,7 +29,7 @@ curl <address>/public/latest
 > }
 ```
 
-## Using DrandJS
+## Using drand.js
 
 Drand can easily be used from JavaScript using [DrandJS](https://github.com/drand/drandjs). The main `fetchAndVerify` method of this JavaScript
 library fetches from a drand node the latest random beacon generated and then verifies it against the distributed key. For more details on the
@@ -37,8 +37,8 @@ procedure and instructions on how to use it, refer to the readme.
 
 ## Using the `drand` command to fetch randomness
 
-The `drand` command can be used to fetch randomness from a running Drand network. To do so, you'll need the group configuration file,
-which can be obtained from a Drand node operator using the [`drand show group` command](../operators/drand-cli/#drand-show).
+The `drand` command can be used to fetch randomness from a running drand network. To do so, you'll need the group configuration file,
+which can be obtained from a drand node operator using the [`drand show group` command](../operators/drand-cli/#drand-show).
 
 Once you have the group file, the latest randomness can be obtained with `drand get public`. The output will be in the same JSON format
 as when fetching via HTTP. For more information, see the [Command Line Tools section](/operators/drand-cli/#drand-get).
