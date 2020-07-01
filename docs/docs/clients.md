@@ -23,7 +23,7 @@ go get github.com/drand/drand
 
 [API reference on pkg.go.dev](https://pkg.go.dev/github.com/drand/drand/client)
 
-First import the base client, which wraps clients operating over different transports (HTTP, gRPC, libp2p PubSub etc.) with configured aggregation, caching, and retry logic:
+The drand client library is structured with a base client interface in `/client`, and with protocol-specific transport implementations in `/client/http`, `/client/grpc` and `/lp2p/client`. The main `client` package holds transport agnostic logic for retrying, validation, and caching.
 
 ```go
 package main
