@@ -1,0 +1,28 @@
+├───drand.love
+    ├─── / (homepage)
+	|   ├───What is Drand?
+	|   ├───Why is it important?
+	|   ├───Who is it for?
+	|   ├───How can I use it?
+    ├─── Quickstart
+    |   ├───Generate randomness.
+    |   └───Import into a project.
+    ├─── Concepts
+    |   ├───How drand works
+    |   └───Original specification
+    ├─── Operators
+    |   ├───What does an operator do?
+    |   └───Deploy a network
+    ├─── Builders
+    |   ├───What does a builder do?
+    |   └───Build the project
+    └───Project
+        ├───Who is building this project?
+        |   ├───Leauge of Entropy
+        |   ├───PL
+        ├───Project map
+        |   ├───What each repo does.
+        |   ├───External dependencies.
+        |   └───How the repos interact with each other.
+        ├───Community
+        └───Contributing
