@@ -303,6 +303,7 @@ There are several subcommands for `drand show`:
 
 - `drand show share` prints the private distributed key share for the local node.
 - `drand show group` prints the group configuration file. If a DKG has been performed, this will include the distributed public key.
+- `drand show chain-info` prints the information for the randomness chain the local node is participating in.
 - `drand show cokey` prints the distributed public key, if a DKG has been performed.
 - `drand show private` prints the long-term private key of the local node.
 - `drand show public` prints the long-term public key of the local node.
