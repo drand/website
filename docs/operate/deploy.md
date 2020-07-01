@@ -6,12 +6,12 @@ sidebarDepth: 2
 
 # Drand node deployment guide
 
-This document explains in detail the workflow to have a working group of drand
-nodes generate randomness. On a high-level, the workflow looks like this:
+This document explains the workflow to have a working group of drand nodes generate randomness. There are three main sections to this guide:
 
-- **Setup**: generation of individual long-term key pair and the group file and starting the drand daemon.
-- **Distributed Key Generation**: each drand node collectively participates in the DKG.
-- **Randomness Generation**: the randomness beacon automatically starts as soon as the DKG protocol is finished.
+- generate the long-term key pairs and the group file.
+- start the daemons.
+- have each node collectively particiate in the distributed key generation (DKG).
+- genearte randomness.
 
 ## Setup
 
@@ -28,7 +28,7 @@ This document explains how to do the setup with the drand binary itself. If you 
 Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run `drand generate-keypair` followed by the address of your node:
 
 ```bash
-drand generate-keypair 127.0.0.1
+drand generate-keypair drand.example.com
 ```
 
 The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a [local deployment](/operate/local-deploy).
@@ -36,16 +36,16 @@ The address must be reachable over a TLS connection directly, or via a reverse p
 The default location for your keys is `/home/<USERNAME>/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
 
 ```bash
-drand generate-keypair 127.0.0.1 --folder ~/.drand-node-0
+drand generate-keypair drand0.example.com --folder ~/.drand-node-0
 ```
 
 ### Starting drand daemon
 
-The daemon does not automatically run in the background. To run the daemon in the background, you must add ` &` to the end of your command. If you are installing drand on Docker, you can use the `-d` option. Once the daemon is running, the best way to issue commands is to use the control functionalities. The control client has to run on the same server as the drand daemon, so only drand administrators can issue a command to their drand daemons.
+The daemon does not automatically run in the background. To run the daemon in the background, you must add ` &` to the end of your command. Docker users can use the `-d` option. Once the daemon is running, the best way to issue commands is to use the control functionalities. The control client has to run on the same server as the drand daemon, so only drand administrators can issue a command to their drand daemons.
 
 To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users.
 
-The drand daemon can run using TLS, or using unencrypted connections. Drand tries to use TLS by default.
+The drand daemon can run using [TLS](#with-tls), or using [unencrypted connections](#unencrypted-connections). Drand tries to use TLS by default.
 
 #### With TLS
 
@@ -68,7 +68,7 @@ Running drand behind a reverse proxy is the **default** method of deploying dran
     ```bash
     # /etc/nginx/sites-available/default
     server {
-    server_name drand.nikkolasg.xyz;
+    server_name drand0.example.com;
     listen 443 ssl http2;
 
     location / {
@@ -104,7 +104,7 @@ Running drand behind a reverse proxy is the **default** method of deploying dran
 1. Running drand uses two ports: one for group member communication, and one for a public-facing API for distributing randomness. These ports and interfaces should be specified with flags.
 
     ```bash
-    drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen 192.168.0.1:8080
+    drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen drand0.example.com:8080
     ```
 
     The `--private-listen` flag tells drand to listen on the given address. The public-facing address associated with this listener is given to other group members in the setup phase (see below).
@@ -128,7 +128,7 @@ allow from all
 </Proxy>
 ```
 
-#### Without TLS
+#### Unencrypted-connections
 
 Although we **do not recommend** turning off TLS, you can disable it by using the `--tls-disable` flag.
 
@@ -146,12 +146,10 @@ drand util check example.com
 > drand: id example.com answers correctly
 ```
 
-If the address used is a DNS name, this command will try to resolve the DNS name to IP.
-
-If you disabled TLS, you need to add the `--tls-disable` flag:
+If the address used is a DNS name, this command will try to resolve the DNS name to IP. If you disabled TLS, you need to add the `--tls-disable` flag:
 
 ```bash
-drand util check --tls-disable 127.0.0.1:3000
+drand util check --tls-disable drand0.example.com
 ```
 
 ### Run the setup phase
@@ -183,10 +181,14 @@ The flags usage is as follow:
 
 The `drand share` command will run until the DKG has finished. If you quit the command, the DKG will continue, but the group file will not be created. In that case, once the DKG is done, you can get the group file by running:
 
-<!-- TODO: how do you know that the DKG has finished if you close the process early? -->
-
 ```bash
 drand show group --out group.toml
+```
+
+If you specified a `--control` in when you started the drand node, you will have to supply the same port with this command:
+
+```bash
+drand show group --out group.toml --control 3001
 ```
 
 #### Secret
@@ -241,16 +243,21 @@ In this command, `<address>` is the address of a drand node. Use the`--tls-cert`
 
 When using the `get chain-info` method, a drand node _can_ lie about the key if no out-of-band verification is performed. That information is usually best gathered from a trusted drand operator and then embedded in any applications using drand.
 
-**Timings of randomness generation**: At each new period, each node will try to broadcast their partial signatures for the corresponding round and try to generate full randomness from the partial signatures. The corresponding round is the number of rounds elapsed from the genesis time. That means there is a 1-1 mapping between a given time and a drand round.
+### Timings
 
-**Daemon downtime & chain sync**: Due to the threshold nature of drand, a drand network can support some numbers of nodes offline at any given point. This number is determined by the threshold: `max_offline = group_len - threshold`. When a drand node goes back up, it will sync rapidly with the other nodes to catch up its local chain and participate in the next upcoming drand round.
+At each new period, each node will try to broadcast their partial signatures for the corresponding round and try to generate full randomness from the partial signatures. The corresponding round is the number of rounds elapsed from the genesis time. That means there is a 1-1 mapping between a given time and a drand round.
 
-**Drand network failure**: If, for some reason, drand goes down for some time and then backs up, the new random beacon will be built over the _last successfully generated beacon_. For example, if the network goes down at round `10` (i.e., the last beacon generated contained `round: 10`), and back up again at round `20` (i.e., field `round: 20`), then this new randomness contains the field `previous_round:10`.
+### Daemon downtime and chain sync
+
+Due to the threshold nature of drand, a drand network can support some numbers of nodes offline at any given point. This number is determined by the threshold: `max_offline = group_len - threshold`. When a drand node goes back up, it will sync rapidly with the other nodes to catch up its local chain and participate in the next upcoming drand round.
+
+### Drand network failure
+
+If, for some reason, drand goes down for some time and then backs up, the new random beacon will be built over the _last successfully generated beacon_. For example, if the network goes down at round `10` (i.e., the last beacon generated contained `round: 10`), and back up again at round `20` (i.e., field `round: 20`), then this new randomness contains the field `previous_round:10`.
 
 ## Control Functionalities
 
-Drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon
-listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
+Drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
 
 ```bash
 drand start --control 1234
