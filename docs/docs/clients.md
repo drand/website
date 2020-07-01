@@ -56,6 +56,15 @@ The `From` option allows you to specify clients that work over particular transp
 When using the client you _should_ use the `WithChainHash` or `WithChainInfo` option in order for your client to validate the randomness it receives is from the correct chain. You _may_ use the `Insecurely` option to bypass this validation but it is not recommended.
 :::
 
+In an application that uses the drand client, the following options are likely to be needed/customized:
+
+- `WithCacheSize` should be set to something sensible for your application.
+- `WithVerifiedResult` / `WithFullChainVerification` should be set for increased security if you have persistent state and expect to be following the chain.
+- `WithAutoWatch` will pre-load new results as they become available, adding them to the cache for speedy retreival when you need them.
+- `WithPrometheus` enables metrics reporting on speed and performance to a provided prometheus registry.
+
+Consult the [API reference](https://pkg.go.dev/github.com/drand/drand/client) for more information.
+
 #### HTTP
 
 The HTTP client uses the [JSON HTTP API](/docs/http-api/) to fetch randomness. Watching is implemented by polling the endpoint at the expected round time. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provides a set of public HTTP API endpoints, which are listed in the [HTTP API reference](/docs/http-api/).
