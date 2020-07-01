@@ -1,11 +1,11 @@
 ---
 title: Contributing
-description: Learn how you can help the Drand project by submitting code, fixing bugs, and updating documentation!
+description: Learn how you can help the drand project by submitting code, fixing bugs, and updating documentation!
 ---
 
 # Contributing
 
-Learn how you can help the Drand project by submitting code, fixing bugs, and updating documentation!
+Learn how you can help the drand project by submitting code, fixing bugs, and updating documentation!
 
 ## Core project
 
@@ -19,4 +19,4 @@ This documentation platform is constatly growing, evolving, and being updated. I
 
 ## Submitting issues
 
-Have you found a bug, or have a feature request for the Drand project? All issues can be submitted [through Github](https://github.com/drand/drand/issues).
+Have you found a bug, or have a feature request for the drand project? All issues can be submitted [through Github](https://github.com/drand/drand/issues).

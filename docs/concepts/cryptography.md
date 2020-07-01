@@ -5,7 +5,7 @@ sidebarDepth: 2
 
 # Cryptography
 
-This document provides an overview of the cryptographic building blocks that Drand uses to generate
+This document provides an overview of the cryptographic building blocks that drand uses to generate
 publicly-verifiable, unbiased, and unpredictable randomness in a distributed manner. The drand beacon has two phases (a setup phase, and a beacon phase), which we describe below.
 
 Generally, we assume that there are $n$ participants, out of which at most $f<n$ are malicious. Drand heavily relies on [threshold cryptography](https://en.wikipedia.org/wiki/Threshold_cryptosystem) primitives, where (at least) a threshold of $t=f+1$ nodes have to work together to execute certain cryptographic operations successfully.
@@ -14,20 +14,20 @@ Threshold cryptography has many applications, as it avoids single points of fail
 
 **Note**: This document is intended for a general audience, and no in-depth cryptographic background knowledge is necessary to understand the presented concepts.
 
-## Setup Phase
+## Setup phase
 
-The purpose of the Drand setup phase is to create a collective private, and public key pair shared among $n$ participants. This is done through a $t$-of-$n$ [Distributed Key Generation (DKG)](https://en.wikipedia.org/wiki/Distributed_key_generation) process at the end of which each of the $n$ participants obtains a copy of the **collective public key**, together with a **private key share** of the **collective private key**. The key shares are computed such that no individual node knows the entire collective private key.
+The purpose of the drand setup phase is to create a collective private, and public key pair shared among $n$ participants. This is done through a $t$-of-$n$ [Distributed Key Generation (DKG)](https://en.wikipedia.org/wiki/Distributed_key_generation) process at the end of which each of the $n$ participants obtains a copy of the **collective public key**, together with a **private key share** of the **collective private key**. The key shares are computed such that no individual node knows the entire collective private key.
 
 Each private key share can then be used to perform cryptographic threshold computations, such as generating threshold signatures, where at least $t$ contributions produced using the individual private key shares are required to successfully finish the collective operation.
 
 A DKG is performed in a fully distributed manner, avoiding any single points of failure. We give an overview of the different sub-components of the drand
 [DKG implementation](https://github.com/dedis/kyber/tree/master/share/dkg/pedersen) in the following subsections.
 
-### Secret Sharing
+### Secret sharing
 
 [Secret sharing](https://en.wikipedia.org/wiki/Secret_sharing) is an important technique that many advanced threshold cryptography mechanisms rely on. Secret sharing allows one to split a secret value $s$ into $n$ shares $s_1,\ldots,s_n$ such that $s$ can only be reconstructed if a threshold of $t$ shares is available.
 
-[Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) (SSS) scheme is one of the most well-known and widely used secret sharing approaches, and it is a core component of Drand. SSS works over an arbitrary finite field, but for simplicity, we use the integers modulo $p$ denoted by $\mathbb{Z}_p$. Let $s \in \mathbb{Z}_p$ denote the secret to be shared.
+[Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) (SSS) scheme is one of the most well-known and widely used secret sharing approaches, and it is a core component of drand. SSS works over an arbitrary finite field, but for simplicity, we use the integers modulo $p$ denoted by $\mathbb{Z}_p$. Let $s \in \mathbb{Z}_p$ denote the secret to be shared.
 
 **Share Distribution**: To share $s$ a **dealer** first creates a polynomial $q(x) = a_0 + a_1x + ... + a_{t-1}x^{t-1}$ with $a_0 = s$ and (random) $a \in \mathbb{Z}p$ for $i = 1,\ldots,t-1$
 
@@ -37,7 +37,7 @@ The dealer then creates one share $s_i$ for each participant $i$ by evaluating $
 
 Note that any subset of $t$-of-$n$ shares can be used to perform Lagrange interpolation and uniquely determine $s$. Having any subset of fewer than $t$ shares does not allow one to learn anything about $s$, though.
 
-### Verifiable Secret Sharing
+### Verifiable secret sharing
 
 Shamir's Secret Sharing scheme assumes that the dealer is honest but this assumption might not always hold in practice.
 
@@ -54,7 +54,7 @@ These commitments enable each participant $i$ to verify that their share $s_i = 
 
 **Secret Reconstruction**: The recovery of secret $s$ works as in regular SSS with the difference that verified to be valid shares are used.
 
-### Distributed Key Generation
+### Distributed key generation (DKG)
 
 Although VSS schemes protect against a malicious dealer, the dealer still knows the secret itself. To create a collectively shared secret $s$ such that no individual node gets any information about it, participants can utilize a [Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation) (DKG) protocol.
 
@@ -70,7 +70,7 @@ The collective public key associated with the valid shares can be computed as $S
 
 **Note**: Even though the secret created using Pedersen's DKG can be biased, it is safe to use for threshold signing as shown by [Rabin et al.](https://link.springer.com/content/pdf/10.1007%2F3-540-48910-X_21.pdf)
 
-## Beacon Phase
+## Beacon phase
 
 In the previous section, we gave an overview of how to produce a collective distributed key pair via a DKG protocol. In this section, we describe how to use this collective key pair to generate publicly-verifiable, unbiased, and unpredictable randomness in a distributed manner
 
@@ -78,9 +78,9 @@ We first give an overview of [pairing-based cryptography](https://en.wikipedia.o
 
 Afterward, we show how drand uses PBC in the randomness beacon generation phase for [threshold Boneh-Lynn-Shacham (BLS) signatures](https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham).
 
-Finally, we explain how Drand links the generated threshold BLS signatures into a randomness chain.
+Finally, we explain how drand links the generated threshold BLS signatures into a randomness chain.
 
-### Pairing-Based Cryptography
+### Pairing-based cryptography
 
 Pairing-based cryptography is based on _bilinear groups_ $(\mathbb{G}_1,\mathbb{G}_2,\mathbb{G_t})$ where $\mathbb{G}_1,\mathbb{G}_2,$ and $\mathbb{G_t}$ are cyclic groups of prime order $p$ with generators $g_1$, $g_2$, and $g_t$ respectively, and a pairing operation $e : \mathbb{G}_1  \times \mathbb{G}_2 \to \mathbb{G}_t$ with the following properties:
 
@@ -93,20 +93,20 @@ $\forall a,b \in \mathbb{Z}_p^{\ast}, \forall P \in \mathbb{G}_1, \forall Q \in 
 
 Drand currently uses the [BLS12-381 curve](https://electriccoin.co/fr/blog/new-snark-curve/).
 
-### Randomness Generation
+### Randomness generation
 
-To generate publicly-verifiable, unbiased, distributed randomness, Drand utilizes [threshold Boneh-Lynn-Shacham (BLS) signatures](https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham).
+To generate publicly-verifiable, unbiased, distributed randomness, drand utilizes [threshold Boneh-Lynn-Shacham (BLS) signatures](https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham).
 
 Below we first describe regular [BLS signatures](https://www.iacr.org/archive/asiacrypt2001/22480516.pdf) followed by the threshold variant.
 
-#### BLS Signature
+#### BLS signature
 
 BLS signatures are short signatures that rely on bilinear pairings and consist only of a single element in $\mathbb{G}_1$.
 
 They are _deterministic_ in the sense that a BLS signature depends only on the message and the signer's key unlike other signature schemes, such as
 [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm), which requires a fresh random value for each signed message to be secure.
 
-Put differently, any two BLS signatures on a given message produced with the same key are identical. In Drand, we utilize this property to achieve unbiasability for the randomness generation. The BLS signature scheme consists of the following sub-procedures:
+Put differently, any two BLS signatures on a given message produced with the same key are identical. In drand, we utilize this property to achieve unbiasability for the randomness generation. The BLS signature scheme consists of the following sub-procedures:
 
 **Key Generation**: To generate a key pair, a signer first chooses a private key $x \in \mathbb{Z}_p^{\ast}$ at random and then computes the corresponding public key as $X = g_2^x \in \mathbb{G}_2$.
 
@@ -118,7 +118,7 @@ To compute a BLS signature $\sigma$ on a message $m$, the signer simply computes
 
 It is easy to see that this equation holds for valid signatures since $e(H(m),X) = e(H(m),g_2^x) = e(H(m),g_2)^x = e(xH(m),g_2) = e(\sigma,g_2)$
 
-#### Threshold BLS Signatures
+#### Signature threshold
 
 The goal of a threshold signature scheme is to collectively compute a signature by combining individual partial signatures independently generated by the participants. A threshold BLS signature scheme has the following sub-procedures:
 
@@ -138,9 +138,9 @@ Additionally, Lagrange interpolation also guarantees that no set of less than $t
 
 In summary, a threshold BLS signature $\sigma$ exhibits all properties required for publicly-verifiable, unbiased, unpredictable, and distributed randomness.
 
-### Chained Randomness
+### Chained randomness
 
-The Drand randomness beacon operates in discrete rounds $r$. In every round, Drand produces a new random value using threshold BLS signatures which are linked together into a chain of randomness.
+The drand randomness beacon operates in discrete rounds $r$. In every round, drand produces a new random value using threshold BLS signatures which are linked together into a chain of randomness.
 
 To extend this chain of randomness, each drand participant $i$ creates in round $r$ the partial BLS signature $\sigma_i^r$ on the message $m = H(r || \sigma_{r-1})$ where $\sigma_{r-1}$ denotes the (full) BLS threshold signature from round $r - 1$ and $H$ a cryptographic hash function.
 
@@ -150,7 +150,7 @@ At that point, the random value of round $r$ is simply its hash $H(\sigma_r)$.
 
 Afterward, drand nodes move to round $r+1$ and reiterate the above process.
 
-For round $r=0$, Drand participants sign a seed fixed during the Drand setup. This process
+For round $r=0$, drand participants sign a seed fixed during the drand setup. This process
 ensures that every new random value depends on all previously generated signatures. Since the
 signature is deterministic, there is also no possibility for an adversary of forking the chain and presenting two distinct signatures $\sigma_r$ and $\sigma_r^{'}$ in a given round $r$ to generate inconsistencies in the systems relying on public randomness.
 
@@ -158,9 +158,9 @@ In a nutshell, this construction of using the hash of a BLS signature can be con
 
 ## Conclusion
 
-To summarize, Drand is an efficient randomness beacon daemon that utilizes pairing-based cryptography, $t$-of-$n$ distributed key generation, and threshold BLS signatures to generate publicly-verifiable, unbiased, unpredictable, distributed randomness.
+To summarize, drand is an efficient randomness beacon daemon that utilizes pairing-based cryptography, $t$-of-$n$ distributed key generation, and threshold BLS signatures to generate publicly-verifiable, unbiased, unpredictable, distributed randomness.
 
-To learn more about the background of Drand, we refer to the [corresponding slides](https://docs.google.com/presentation/d/1t2ysit78w0lsySwVbQOyWcSDnYxdOBPzY7K2P9UE1Ac/edit?usp=sharing).
+To learn more about the background of drand, we refer to the [corresponding slides](https://docs.google.com/presentation/d/1t2ysit78w0lsySwVbQOyWcSDnYxdOBPzY7K2P9UE1Ac/edit?usp=sharing).
 
 Finally, for more formal background on public randomness, we refer to the research paper titled ["Scalable Bias-Resistant Distributed Randomness"](https://eprint.iacr.org/2016/1067.pdf) published at the [38th IEEE Symposium on Security and Privacy](https://www.ieee-security.org/TC/SP2017/).
 

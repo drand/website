@@ -4,7 +4,7 @@ title: Blog
 
 # Blog
 
-Here you can find project updates, upcoming events, and breaking news about the Drand project.
+Here you can find project updates, upcoming events, and breaking news about the drand project.
 
 ---
 

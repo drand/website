@@ -2,7 +2,7 @@
 title: Organization
 ---
 
-# Drand Code Organization
+# Code organization
 
 ## Top level packages
 
