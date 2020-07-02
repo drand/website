@@ -3,7 +3,7 @@ title: Security model
 sidebarDepth: 2
 ---
 
-# Security model of drand
+# Security model
 
 ## Notations
 
@@ -53,7 +53,7 @@ than one 1s of offset).
 **Reliable Broadcast Channel**: When a node broadcasts a packet to all other
 nodes, each other node is guaranteed to receive the same exact packet after some
 bounded amount of time. This assumption is not strictly realized by drand
-currently. See [DKG attacks](#dkg-attacks) section to understand the impact.
+currently. See [DKG attacks](#distributed-key-generation-ceremony) section to understand the impact.
 
 **Authenticated Channel**: Every communication between nodes must be
 authenticated. Drand achieves this by signing every outgoing DKG packets with

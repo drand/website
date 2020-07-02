@@ -61,14 +61,14 @@ module.exports = {
         },
         nav: require('./nav/en'),
         sidebar: {
-          '/concepts/': [
+          '/docs/': [
             'overview',
             'cryptography',
             'security-model',
             'specification'
           ],
-          '/docs/': ['clients', 'http-api', 'cli'],
-          '/operate/': ['deploy', 'metrics', 'drand-cli'],
+          '/developer/': ['clients', 'http-api', 'cli'],
+          '/operator/': ['deploy', 'metrics', 'drand-cli'],
           '/about/': [
             'community',
             'contributing',

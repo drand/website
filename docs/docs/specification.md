@@ -1,8 +1,4 @@
----
-title: Specification
----
-
-# Drand specifications
+# Specification
 
 Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
 in Golang. Servers running drand can be linked with each other to produce
@@ -331,7 +327,7 @@ message Packet {
 All messages of the DKG have a canonical hash representation and each node signs
 that hash before sending out the packet, therefore providing authentication of
 the messages. The signature scheme is the regular BLS signature as explained in
-the [cryptography](#cryptography) section.
+the [cryptography](#cryptographic-specification) section.
 
 #### Phase transitions
 
@@ -486,7 +482,7 @@ ticker kicks in to go into the `FinishPhase`.
 In the `FinishPhase`, each node locally look at the shares they received and
 compute both their final share and the distributed public key. For the DKG to be
 sucessful, there must be at least more than a threshold of valid shares. For
-more detail, see the [cryptography](#cryptography) section. Each node must save
+more detail, see the [cryptography](#cryptographic-specification) section. Each node must save
 the group configuration file augmented with the distributed key. This
 configuration file is now representative of functional current drand network.
 
@@ -547,7 +543,7 @@ Each node starts sending their partial signature for a given round when it is
 time to do so, according to the above function. Given the threat model, there
 is always enough honest nodes such that the chain advances at the correct speed.
 In case this is not true at some point in time, please refer to the [catchup
-section](#catchup) for more information.
+section](#catchup-mode) for more information.
 
 #### Beacon chain
 
@@ -603,8 +599,6 @@ rpc PartialBeacon(PartialBeaconPacket) returns (drand.Empty);
 ```
 
 with the following protobuf packets:
-
-XXX: protobuf shown is assuming [issue 256](https://github.com/drand/drand/issues/256)is fixed.
 
 ```protobuf
 message PartialBeaconPacket {
@@ -903,7 +897,7 @@ index of its public key in the list of participants.
 
 Each packet of each phases is authenticated using a regular BLS signature with
 the private key of the issuer of the packet over the hash of the packet. You can
-find the complete description of the packets in the [Appendix A](#appendix-a).
+find the complete description of the packets in the [Appendix A](#appendix-a-dkg-packets).
 
 #### Setup
 

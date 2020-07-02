@@ -1,6 +1,6 @@
 # HTTP API reference
 
-Drand provides a JSON HTTP interface that clients can use to fetch randomness from the drand network. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/docs/client-libraries/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
+Drand provides a JSON HTTP interface that clients can use to fetch randomness from the drand network. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/developer/clients/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
 All that's required is the address of the HTTP interface and way to fetch from HTTP, e.g. `curl`.
 

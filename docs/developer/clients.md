@@ -9,7 +9,7 @@ Choose a drand client library that matches the language in which your applicatio
 - [Go](#go)
 - [JS](#js)
 
-Language not listed? You can make raw requests to the [HTTP API](/docs/http-api/). If you have created a client library or know of a client library not listed here, [please let us know by opening an issue](https://github.com/drand/website/issues/new).
+Language not listed? You can make raw requests to the [HTTP API](/developer/http-api/). If you have created a client library or know of a client library not listed here, [please let us know by opening an issue](https://github.com/drand/website/issues/new).
 
 ## Go
 
@@ -67,7 +67,7 @@ Consult the [API reference](https://pkg.go.dev/github.com/drand/drand/client) fo
 
 #### HTTP
 
-The HTTP client uses the [JSON HTTP API](/docs/http-api/) to fetch randomness. Watching is implemented by polling the endpoint at the expected round time. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provides a set of public HTTP API endpoints, which are listed in the [HTTP API reference](/docs/http-api/).
+The HTTP client uses the [JSON HTTP API](/developer/http-api/) to fetch randomness. Watching is implemented by polling the endpoint at the expected round time. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provides a set of public HTTP API endpoints, which are listed in the [HTTP API reference](/developer/http-api/).
 
 ```go
 package main
@@ -146,7 +146,7 @@ This client can only be used to `Watch` for new randomness rounds and `Get` rand
 If you need to `Get` arbitrary rounds from the chain then you must combine this client with a [HTTP](#http) or [gRPC](#grpc) client.
 :::
 
-Drand _does not_ publish randomness rounds over libp2p PubSub by default but provides a [relay tool](/operate/drand-cli/#drand-relay-gossip) that performs this task. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provide the following public drand libp2p PubSub relays:
+Drand _does not_ publish randomness rounds over libp2p PubSub by default but provides a [relay tool](/operator/drand-cli/#drand-relay-gossip) that performs this task. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provide the following public drand libp2p PubSub relays:
 
 - `/dns4/todo/p2p/QmPeerID`
 

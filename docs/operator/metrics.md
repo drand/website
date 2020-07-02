@@ -1,8 +1,8 @@
 ---
-title: Drand metrics
+title: Metrics
 ---
 
-# Drand metrics
+# Metrics guide
 
 Drand uses [prometheus](https://prometheus.io/) instrumentation for helping
 operators monitor and understand the runtime behavior of system.
@@ -30,7 +30,7 @@ the node. It is meant to allow better visibility when debugging
 network issues, and helping operators understand where problems
 originate.
 
-# Drand client metrics
+## Client metrics
 
 The drand client is capable of collecting metrics on the health of the sources
 of randomness that it is connected to.

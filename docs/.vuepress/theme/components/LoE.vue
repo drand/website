@@ -31,7 +31,7 @@
       </p>
       <p>
         Learn how to retrieve randomness from the League of Entropy drand
-        nodes:<br /><router-link to="/docs" class="action-button"
+        nodes:<br /><router-link to="/developer/" class="action-button"
           >API Docs</router-link
         >
       </p>
@@ -144,7 +144,7 @@ export default {
 <style lang="stylus">
 .loe
   margin 3rem auto
-  padding 6rem 1.2rem
+  padding 6rem 2rem
   background-color #1477c6
   background linear-gradient(to bottom, #069de2 0%,#2d3393 100%)
   text-align center

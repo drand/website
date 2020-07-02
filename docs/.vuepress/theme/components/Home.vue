@@ -132,6 +132,7 @@ export default {
   .theme-default-content
     max-width $homePageWidth
     margin 0px auto
+    padding 0 2rem
   .footer
     max-width $homePageWidth
     margin 0px auto
