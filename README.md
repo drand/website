@@ -12,7 +12,7 @@ If you want to build this site locally, run the following:
    git clone https://github.com/drand/website.git
    ```
 
-1. Move into the `website` folder and install the NPM dependencies:
+1. Move into the `website` folder and install the npm dependencies:
 
    ```bash
    cd website

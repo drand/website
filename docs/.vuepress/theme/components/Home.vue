@@ -43,9 +43,7 @@
 
     <Content class="theme-default-content custom" />
 
-    <div v-if="data.footer" class="footer">
-      {{ data.footer }}
-    </div>
+    <Content class="footer" slot-key="footer" />
   </main>
 </template>
 
@@ -76,6 +74,11 @@ export default {
 <style lang="stylus">
 .home
   display block
+  h2
+    font-size 2rem
+    border-bottom none
+    padding-bottom 0
+    font-style italic
   .hero
     background #0B1232
     padding 3rem
@@ -104,11 +107,6 @@ export default {
     padding 0 1.2rem
   .feature
     margin 3rem auto
-    h2
-      font-size 2rem
-      border-bottom none
-      padding-bottom 0
-      font-style italic
     p
       margin 2rem auto
     .action-button
@@ -131,7 +129,7 @@ export default {
         background-color lighten($accentColor, 10%)
   .theme-default-content
     max-width $homePageWidth
-    margin 0px auto
+    margin 3rem auto
     padding 0 2rem
   .footer
     max-width $homePageWidth
@@ -140,6 +138,8 @@ export default {
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
+    p:first-child
+      margin-top 0
 
 @media (min-width: $MQNarrow)
   .home
