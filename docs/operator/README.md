@@ -1,11 +1,7 @@
----
-title: 'Operators'
----
-
 # Operator
 
-This section contains information for `drand` node operators - the people deploying and maintaining `drand` networks.
-For information about consuming the randomness from a `drand` network, see the [Developer's Guide](/developer/) instead.
+This section contains information for drand node operators - the people deploying and maintaining drand networks.
+For information about consuming the randomness from a drand network, see the [Developer's Guide](/developer/) instead.
 
 The following guides are available:
 
