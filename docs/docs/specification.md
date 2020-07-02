@@ -1478,27 +1478,3 @@ type AuthJustifBundle struct {
 	Signature []byte
 }
 ```
-
-## Things to review
-
-- Setup phase: now it doesn't require any manual downloading from operators, and
-  it's a huge win given the manual errors we've seen previously. But the
-  coordinator is trusted to setup the group correctly.
-  Given the setup phase is done in a controlled fashion, it hasn't been a been a
-  practical problem but we should think about a best practice here.
-  One idea is to add an additional step such that a participant can inspect the
-  group file and accept or reject it, manually. Depending on that, the node can
-  either sign the new group configuration, and when the leader has received
-  all the signatures on the group file, he can push that signed group
-  configuration again to participants and start the DKG. Another slightly
-  different model is to simply say that a participate could refuse to run the
-  DKG if the group configuration is deemed invalid.
-- DKG Resharing potential optimzation: the check that a dealer must have used
-  the commitment of its share is done twice in the response phase and in the
-  justification phase. However, dealers that don't provide a regular valid
-  polynomial in the response phase are already excluded. That means we could
-  move the check about resharing already before looking at the shares of a deal.
-  If we do so, we only need to run the check once there, and not during
-  justification phase. In case a dealer does not reshare its share, in the
-  justification phase, honest nodes will already have the dealer excluded
-  because its polynomial was invalid.
