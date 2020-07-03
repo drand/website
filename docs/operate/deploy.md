@@ -1,6 +1,6 @@
 ---
-title: Deploying a Drand Network
-description: Learn how to deploy a Drand node onto your network.
+title: Deploy
+description: Learn how to deploy a drand node onto your network.
 sidebarDepth: 2
 ---
 
@@ -23,7 +23,7 @@ The setup process for a drand node consists of the following steps:
 
 This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operate/docker).
 
-### Long-Term Key
+### Long-term key
 
 Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run `drand generate-keypair` followed by the address of your node:
 
@@ -255,7 +255,7 @@ Due to the threshold nature of drand, a drand network can support some numbers o
 
 If, for some reason, drand goes down for some time and then backs up, the new random beacon will be built over the _last successfully generated beacon_. For example, if the network goes down at round `10` (i.e., the last beacon generated contained `round: 10`), and back up again at round `20` (i.e., field `round: 20`), then this new randomness contains the field `previous_round:10`.
 
-## Control Functionalities
+## Control functionalities
 
 Drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
 
@@ -265,7 +265,7 @@ drand start --control 1234
 
 In that case, you need to specify the control port for each of the following commands.
 
-### Long-Term Private Key
+### Long-term private key
 
 To retrieve the long-term private key of our node, run:
 
@@ -273,7 +273,7 @@ To retrieve the long-term private key of our node, run:
 drand show private
 ```
 
-### Long-Term Public Key
+### Long-term public key
 
 To retrieve the long-term public key of our node, run:
 
@@ -281,7 +281,7 @@ To retrieve the long-term public key of our node, run:
 drand show public
 ```
 
-### Private Key Share
+### Private key share
 
 To retrieve the private key share of our node, as determined during the DKG, run the following command:
 
@@ -303,7 +303,7 @@ The JSON-formatted output has the following form:
 
 The "gid" simply indicates which group the data belongs to. It is present for scalar and points on the curve, even though scalars are the same on the three groups of bls12-381. The field is present already to be able to accommodate different curves later on.
 
-### Chain Information
+### Chain information
 
 To retrieve the chain information, this node participates to, run:
 
@@ -311,7 +311,7 @@ To retrieve the chain information, this node participates to, run:
 drand show chain-info
 ```
 
-## Updating Drand Group
+## Updating drand group
 
 Drand allows for "semi-dynamic" group update with a _resharing_ protocol that offers the following:
 

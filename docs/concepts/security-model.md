@@ -1,9 +1,9 @@
 ---
-title: Security Model
+title: Security model
 sidebarDepth: 2
 ---
 
-# Security Model of drand
+# Security model of drand
 
 ## Notations
 
@@ -33,13 +33,13 @@ document tries to clarify in which context when relevant.
 the context) and sends packets out to the Internet that are correctly received by
 the endpoint(s).
 
-## Security Model
+## Security model
 
 In drand, there are two phases which do not require the same security
 assumptions. This section highlights both models and the practical realization
 or assumptions taken.
 
-### Distributed Key Generation Ceremony (setup phase)
+### Distributed key generation set up
 
 The DKG protocol model follows the one from the Pedersen's protocol. [Gennaro's paper](https://www.researchgate.net/publication/225722958_Secure_Distributed_Key_Generation_for_Discrete-Log_Based_Cryptosystems) explains the protocol and its assumptions.
 
@@ -137,14 +137,14 @@ For this to happen, there needs to be at least `tA` nodes from network A and
 there are going to be at least `tB` nodes that are qualified and have private shares
 to generate randomness.
 
-## Attack Vectors
+## Attack vectors
 
-### Randomness Generation
+### Randomness generation
 
 There can be multiple ways of attacking the drand network during the randomness
 generation phase, each with different consequences.
 
-#### Front Running
+#### Front running
 
 1. Passive Adversary Scenario
 
@@ -251,7 +251,7 @@ the initial group now.
 As such, it is recommended to reshare often, _even if_ between the same nodes,
 as it creates new shares.
 
-### Distributed Key Generation Ceremony
+### Distributed key generation ceremony
 
 #### DoS attacks
 
@@ -279,7 +279,7 @@ DKG. This scenario is similar to the scenario 2 for the randomness generation
 since even before the DKG: attacker can know before the end of the DKG the whole
 randomness chain (since he can see the honest shares before sending them).
 
-#### Broadcast Channel Assumption
+#### Broadcast channel assumption
 
 Attacker is at least one node in the group and broadcasts inconsistent shares
 and public polynomial to different parties. Given drand does not use a

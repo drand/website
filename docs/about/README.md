@@ -1,5 +1,5 @@
 ---
-title: About the drand project
+title: About
 ---
 
 # About

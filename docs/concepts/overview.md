@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: Learn about the basics of Drand, how it works, and why it exists in the first place.
+description: Learn about the basics of drand, how it works, and why it exists in the first place.
 ---
 
 # Overview
@@ -29,7 +29,7 @@ There have been cases where attackers have rigged lotteries and elections by inf
 - Decentralized: a set of independent parties produces random numbers.
 - Always available: the system must always be able to provide random numbers.
 
-The Drand project aims to create a random number generator that has all five of these properties.
+The drand project aims to create a random number generator that has all five of these properties.
 
 ## How drand works
 
@@ -43,7 +43,7 @@ This is an incredibly simplified outline of how drand works. Check out the proje
 
 ## Public randomness
 
-Generating public randomness is the primary functionality of Drand. Public randomness is generated collectively by Drand nodes and made publicly available. The main challenge in generating good randomness is that no party involved in the randomness generation process should be able to predict or bias the final output. Additionally, the final result has to be verifiable by a third-party to make it actually useful for applications like lotteries, sharding, or parameter generation in security protocols.
+Generating public randomness is the primary functionality of drand. Public randomness is generated collectively by drand nodes and made publicly available. The main challenge in generating good randomness is that no party involved in the randomness generation process should be able to predict or bias the final output. Additionally, the final result has to be verifiable by a third-party to make it actually useful for applications like lotteries, sharding, or parameter generation in security protocols.
 
 A drand randomness beacon is composed of a distributed set of nodes and has two phases:
 
