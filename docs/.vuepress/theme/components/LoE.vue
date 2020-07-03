@@ -64,10 +64,6 @@ export default {
       { chainHash: TESTNET_CHAIN_HASH }
     )
 
-    const rand = await client.get()
-    this.round = rand.round
-    this.randomness = rand.randomness
-
     const info = await client.info()
 
     const nextRoundETA = () => {
@@ -77,7 +73,6 @@ export default {
       return Math.round((time - now) / 1000)
     }
 
-    this.eta = nextRoundETA()
     this.intervalID = setInterval(() => {
       this.eta = nextRoundETA()
     }, 100)
