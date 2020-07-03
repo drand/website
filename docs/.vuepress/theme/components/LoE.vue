@@ -10,10 +10,8 @@
         <strong>École polytechnique fédérale de Lausanne</strong>,
         <strong>Kudelski Security</strong>, <strong>Protocol Labs</strong>, and
         <strong>University of Chile</strong> to provide a verifiable,
-        decentralized randomness beacon. A decentralized randomness beacon
-        combines randomness from multiple independent high entropy sources to
-        generate a truly unbiased random number for anyone that may need a
-        public source of randomness.
+        decentralized randomness beacon for anyone that may need a public source
+        of randomness.
       </p>
     </header>
     <div class="history">
@@ -31,8 +29,8 @@
       </p>
       <p>
         Learn how to retrieve randomness from the League of Entropy drand
-        nodes:<br /><router-link to="/docs" class="action-button"
-          >API Docs</router-link
+        nodes:<br /><router-link to="/developer/" class="action-button"
+          >Developer Docs</router-link
         >
       </p>
     </div>
@@ -144,7 +142,7 @@ export default {
 <style lang="stylus">
 .loe
   margin 3rem auto
-  padding 6rem 1.2rem
+  padding 6rem 2rem
   background-color #1477c6
   background linear-gradient(to bottom, #069de2 0%,#2d3393 100%)
   text-align center

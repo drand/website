@@ -1,8 +1,4 @@
----
-title: Specification
----
-
-# Drand specifications
+# Specification
 
 Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
 in Golang. Servers running drand can be linked with each other to produce
@@ -331,7 +327,7 @@ message Packet {
 All messages of the DKG have a canonical hash representation and each node signs
 that hash before sending out the packet, therefore providing authentication of
 the messages. The signature scheme is the regular BLS signature as explained in
-the [cryptography](#cryptography) section.
+the [cryptography](#cryptographic-specification) section.
 
 #### Phase transitions
 
@@ -486,7 +482,7 @@ ticker kicks in to go into the `FinishPhase`.
 In the `FinishPhase`, each node locally look at the shares they received and
 compute both their final share and the distributed public key. For the DKG to be
 sucessful, there must be at least more than a threshold of valid shares. For
-more detail, see the [cryptography](#cryptography) section. Each node must save
+more detail, see the [cryptography](#cryptographic-specification) section. Each node must save
 the group configuration file augmented with the distributed key. This
 configuration file is now representative of functional current drand network.
 
@@ -547,7 +543,7 @@ Each node starts sending their partial signature for a given round when it is
 time to do so, according to the above function. Given the threat model, there
 is always enough honest nodes such that the chain advances at the correct speed.
 In case this is not true at some point in time, please refer to the [catchup
-section](#catchup) for more information.
+section](#catchup-mode) for more information.
 
 #### Beacon chain
 
@@ -603,8 +599,6 @@ rpc PartialBeacon(PartialBeaconPacket) returns (drand.Empty);
 ```
 
 with the following protobuf packets:
-
-XXX: protobuf shown is assuming [issue 256](https://github.com/drand/drand/issues/256)is fixed.
 
 ```protobuf
 message PartialBeaconPacket {
@@ -903,7 +897,7 @@ index of its public key in the list of participants.
 
 Each packet of each phases is authenticated using a regular BLS signature with
 the private key of the issuer of the packet over the hash of the packet. You can
-find the complete description of the packets in the [Appendix A](#appendix-a).
+find the complete description of the packets in the [Appendix A](#appendix-a-dkg-packets).
 
 #### Setup
 
@@ -1484,27 +1478,3 @@ type AuthJustifBundle struct {
 	Signature []byte
 }
 ```
-
-## Things to review
-
-- Setup phase: now it doesn't require any manual downloading from operators, and
-  it's a huge win given the manual errors we've seen previously. But the
-  coordinator is trusted to setup the group correctly.
-  Given the setup phase is done in a controlled fashion, it hasn't been a been a
-  practical problem but we should think about a best practice here.
-  One idea is to add an additional step such that a participant can inspect the
-  group file and accept or reject it, manually. Depending on that, the node can
-  either sign the new group configuration, and when the leader has received
-  all the signatures on the group file, he can push that signed group
-  configuration again to participants and start the DKG. Another slightly
-  different model is to simply say that a participate could refuse to run the
-  DKG if the group configuration is deemed invalid.
-- DKG Resharing potential optimzation: the check that a dealer must have used
-  the commitment of its share is done twice in the response phase and in the
-  justification phase. However, dealers that don't provide a regular valid
-  polynomial in the response phase are already excluded. That means we could
-  move the check about resharing already before looking at the shares of a deal.
-  If we do so, we only need to run the check once there, and not during
-  justification phase. In case a dealer does not reshare its share, in the
-  justification phase, honest nodes will already have the dealer excluded
-  because its polynomial was invalid.
