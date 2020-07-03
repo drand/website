@@ -2,9 +2,9 @@
 title: Docker
 ---
 
-# Drand on docker
+# Install Drand with Docker
 
-This is meant as a production setup; it notably involves generating TLS certificates for your public-facing server. If you simply want a local demo of drand, run `make demo` in the root folder instead.
+This page describes how to run a _production_ version of `drand` based on `docker-compose`. This is meant as a **production setup**. It notably involves generating TLS certificates for your public-facing server. Check out the [simple install if you just want a local drand demo →](/install)
 
 ## Prerequisites for this guide
 
@@ -29,8 +29,8 @@ $ pwd
 $ tree
 .
 ├── data
-│   ├── tls_certificates
-│   └── tls_keypair
+│   ├── tls_certificates
+│   └── tls_keypair
 ├── docker-compose.yml
 └── README.md
 ```
@@ -83,7 +83,7 @@ by:
 
 This guide will continue focusing on drand; jump to the end of this guide to configure the reverse proxy.
 
-## Public HTTP API
+## Public HTTP api
 
 The compose file also opens a public http API to be consumed by the clients.
 This public endpoint is exposed on the 8081 port (specified with `--public-listen`]).
@@ -121,7 +121,7 @@ To check what is happening, access the docker-compose logs via
 docker-compose logs
 ```
 
-## Distributed key generation (DKG)
+## Distributed Key Generation
 
 If you did the setup above, you have a container running the drand deamon, loaded with your keys. It still misses two things:
 
