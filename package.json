@@ -5,6 +5,7 @@
   "author": "cwaring",
   "license": "(Apache-2.0 OR MIT)",
   "devDependencies": {
+    "@alanshaw/drand-client": "0.0.5",
     "@centerforopenscience/markdown-it-video": "^1.0.0",
     "@vuepress/plugin-active-header-links": "^1.5.2",
     "@vuepress/plugin-back-to-top": "^1.5.2",

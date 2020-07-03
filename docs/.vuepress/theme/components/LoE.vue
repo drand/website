@@ -25,7 +25,7 @@
       <p class="latest" :title="randomness">{{ randomness }}</p>
       <p>
         The next randomness is expected in
-        <strong class="next-round-time">{{ nextRoundTime }} seconds</strong>.
+        <strong class="eta">{{ eta }} seconds</strong>.
       </p>
       <p>
         Learn how to retrieve randomness from the League of Entropy drand
@@ -39,78 +39,51 @@
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import Client, { HTTP } from '@alanshaw/drand-client'
 
-// TODO: import drandjs
-
-const genesis = 1590032610 * 1000 // Genesis time in ms (provided in seconds from drand)
-const period = 30 * 1000 // Period in ms (provided in seconds from drand)
-
-const currentRound = (genesis, period) =>
-  Math.floor((Date.now() - genesis) / period)
-
-const nextRoundInfo = (genesis, period) => {
-  const round = currentRound(genesis, period) + 1
-  return { time: genesis + round * period, round }
-}
+const TESTNET_CHAIN_HASH =
+  '138a324aa6540f93d0dad002aa89454b1bec2b6e948682cde6bd4db40f4b7c9b'
+const TESTNET_URLS = [
+  'https://pl-eu.testnet.drand.sh',
+  'https://pl-us.testnet.drand.sh',
+  'https://pl-sin.testnet.drand.sh'
+]
 
 const chars = '0123456789abcdef'
 const randomChar = () => chars[Math.floor(Math.random() * chars.length)]
 const randomChars = num => Array.from(Array(num), randomChar).join('')
 
-const client = {
-  watch: options => ({
-    [Symbol.asyncIterator]() {
-      return this
-    },
-    first: true,
-    next() {
-      if (this.first) {
-        this.first = false
-        return {
-          value: {
-            round: currentRound(genesis, period),
-            randomness: randomChars(64)
-          }
-        }
-      }
-      return new Promise((resolve, reject) => {
-        const nextInfo = nextRoundInfo(genesis, period)
-        const timeoutID = setTimeout(() => {
-          options.signal.removeEventListener('abort', onAbort)
-          resolve({
-            value: { round: nextInfo.round, randomness: randomChars(64) }
-          })
-        }, nextInfo.time - Date.now())
-
-        const onAbort = () => {
-          clearTimeout(timeoutID)
-          resolve({ done: true })
-        }
-
-        options.signal.addEventListener('abort', onAbort)
-      })
-    }
-  })
-}
-
 export default {
   name: 'LoE',
 
-  data: () => ({
-    round: currentRound(),
-    nextRoundTime: 0,
-    randomness: randomChars(64)
-  }),
+  data: () => ({ round: 0, eta: 0, randomness: '' }),
 
-  mounted() {
+  async mounted() {
+    const client = await Client.wrap(
+      HTTP.forURLs(TESTNET_URLS, TESTNET_CHAIN_HASH),
+      { chainHash: TESTNET_CHAIN_HASH }
+    )
+
+    const rand = await client.get()
+    this.round = rand.round
+    this.randomness = rand.randomness
+
+    const info = await client.info()
+
+    const nextRoundETA = () => {
+      const now = Date.now()
+      const round = client.roundAt(now) + 1
+      const time = info.genesis_time * 1000 + round * info.period * 1000
+      return Math.round((time - now) / 1000)
+    }
+
+    this.eta = nextRoundETA()
     this.intervalID = setInterval(() => {
-      const nextInfo = nextRoundInfo(genesis, period)
-      this.nextRoundTime = Math.round((nextInfo.time - Date.now()) / 1000)
+      this.eta = nextRoundETA()
     }, 100)
-
     this.aborter = new AbortController()
 
-    const watch = async () => {
+    try {
       for await (const res of client.watch({ signal: this.aborter.signal })) {
         this.round = res.round
         let nextRandomness = ''
@@ -127,9 +100,11 @@ export default {
           }, i * 25)
         }
       }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error(err)
+      }
     }
-
-    watch()
   },
 
   beforeDestroy() {
@@ -174,7 +149,7 @@ export default {
         border-radius 3px
         max-width: 60rem
         box-shadow 2px 2px 5px #2d3393
-      .next-round-time
+      .eta
         white-space nowrap
       .action-button
         display inline-block

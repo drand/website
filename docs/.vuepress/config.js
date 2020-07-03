@@ -167,5 +167,6 @@ module.exports = {
         app: ['./docs/.vuepress/public-path.js', config.entry.app[0]]
       }
     }
-  }
+  },
+  evergreen: true
 }
