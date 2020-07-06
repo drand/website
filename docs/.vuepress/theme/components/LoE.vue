@@ -42,7 +42,7 @@ import NavLink from '@theme/components/NavLink.vue'
 import Client, { HTTP } from '@alanshaw/drand-client'
 
 const TESTNET_CHAIN_HASH =
-  '138a324aa6540f93d0dad002aa89454b1bec2b6e948682cde6bd4db40f4b7c9b'
+  'bec303dc34b6d535388773470fa064bdf9aa50e6064fcf02ca96d90ec5cab846'
 const TESTNET_URLS = [
   'https://pl-eu.testnet.drand.sh',
   'https://pl-us.testnet.drand.sh',
@@ -104,7 +104,9 @@ export default {
 
   beforeDestroy() {
     clearInterval(this.intervalID)
-    this.aborter.abort()
+    if (this.aborter) {
+      this.aborter.abort()
+    }
   }
 }
 </script>

@@ -5,8 +5,9 @@
   "author": "cwaring",
   "license": "(Apache-2.0 OR MIT)",
   "devDependencies": {
-    "@alanshaw/drand-client": "0.0.5",
+    "@alanshaw/drand-client": "0.1.0-pre.1",
     "@centerforopenscience/markdown-it-video": "^1.0.0",
+    "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "@vuepress/plugin-active-header-links": "^1.5.2",
     "@vuepress/plugin-back-to-top": "^1.5.2",
     "@vuepress/plugin-google-analytics": "^1.5.2",
@@ -56,8 +57,10 @@
     "start": "npm run docs:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format:styles": "stylus-supremacy format ./docs/.vuepress/**/*.styl --replace",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:dev": "npm run docs:build:wasm && vuepress dev docs",
+    "docs:build": "npm run docs:build:vuepress && npm run docs:build:wasm",
+    "docs:build:vuepress": "vuepress build docs",
+    "docs:build:wasm": "cp ./node_modules/@alanshaw/drand-client/wasm/drand.wasm ./docs/.vuepress/public/wasm",
     "docs:all-relative": "cd ./docs/.vuepress/dist && all-relative",
     "docs:build:ipfs": "npm run docs:build && npm run docs:all-relative"
   }
