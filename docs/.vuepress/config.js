@@ -167,6 +167,10 @@ module.exports = {
         app: ['./docs/.vuepress/public-path.js', config.entry.app[0]]
       }
     }
+    config.module.rules.push({
+      test: /\.js$/,
+      loader: require.resolve('@open-wc/webpack-import-meta-loader')
+    })
   },
   evergreen: true
 }
