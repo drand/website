@@ -39,7 +39,7 @@
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
-import Client, { HTTP } from '@alanshaw/drand-client'
+import Client, { HTTP } from 'drand-client'
 
 const TESTNET_CHAIN_HASH =
   'bec303dc34b6d535388773470fa064bdf9aa50e6064fcf02ca96d90ec5cab846'
