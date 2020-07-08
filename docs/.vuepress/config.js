@@ -80,7 +80,8 @@ module.exports = {
           // '/blog/': ['20200527-test-blog-post']
         }
       }
-    }
+    },
+    displayAllHeaders: true
   },
   plugins: [
     ['@vuepress/plugin-back-to-top', true],
