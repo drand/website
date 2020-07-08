@@ -228,28 +228,79 @@ Consult the [libp2p PubSub client API reference](https://pkg.go.dev/github.com/d
 
 ### Install
 
-In the browser, add the following script to your page:
+In the browser or [Deno](https://deno.land) you can grab and use the client from a CDN e.g. [https://cdn.jsdelivr.net/npm/drand-client/drand.js](https://cdn.jsdelivr.net/npm/drand-client/drand.js).
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/drandjs/dist/drandjs.js"></script>
-```
-
-In Node.js, install with npm or yarn:
+In [Node.js](https://nodejs.org), install with:
 
 ```sh
-npm install drandjs
+npm install drand-client
 ```
 
 ### Usage
 
-[API reference on npmjs.com](https://www.npmjs.com/package/drandjs#api)
+[API reference on github.com](https://github.com/drand/drand-client#api)
 
-In the browser use the `window.drandjs` variable to interact with the API.
+```html
+<script type="module">
+  import Client, {
+    HTTP
+  } from 'https://cdn.jsdelivr.net/npm/drand-client/drand.js'
 
-In Node.js, require or import the `drandjs` module as normal:
+  const chainHash = 'TODO-LOE-CHAIN-HASH' // (hex encoded)
+  const url = 'https://drand.cloudflare.com'
 
-```js
-const drandjs = require('drandjs')
+  async function main() {
+    const options = { chainHash }
+
+    const client = await Client.wrap(HTTP.forURLs([url], chainHash), options)
+
+    // e.g. use the client to get the latest randomness round:
+    const res = await client.get()
+
+    console.log(res.round, res.randomness)
+  }
+
+  main()
+</script>
 ```
 
-For more information, please refer to the [usage docs here](https://www.npmjs.com/package/drandjs#usage).
+::: details The client also works in Deno and Node.js.
+Usage in Deno is the same as in the browser, minus the HTML `<script>` tag. Ensure you run your script with the the `--allow-net` flag e.g. `deno run --allow-net client.js`.
+
+If you'd like to run it in Node.js, add [`fetch`](http://npm.im/node-fetch) and [`AbortController`](http://npm.im/abort-controller) as globals e.g.
+
+```js
+import Client, { HTTP } from 'drand-client'
+import fetch from 'node-fetch'
+import AbortController from 'abort-controller'
+
+global.fetch = fetch
+global.AbortController = AbortController
+
+// Use as per browser example...
+```
+
+**From common.js:**
+
+```js
+const fetch = require('node-fetch')
+const AbortController = require('abort-controller')
+const { default: Client, HTTP } = await import('drand-client')
+
+global.fetch = fetch
+global.AbortController = AbortController
+
+// Use as per browser example...
+```
+
+:::
+
+The `wrap` function provides a single entrypoint for wrapping concrete client implementation(s) with configured aggregation, caching, and retry logic. Only HTTP transport is available in the JS client currently. Note that you are not restricted to just one client. You can use multiple clients of the same type or of different types. The base client will periodically "speed test" it's clients, failover, cache results and aggregate calls to `watch` to reduce requests.
+
+::: warning
+When using the client you _should_ use the `chainHash` or `chainInfo` option in order for your client to validate the randomness it receives is from the correct chain. You _may_ use the `insecure` option to bypass this validation but it is not recommended.
+:::
+
+The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) run a network of drand nodes and provide a set of public HTTP API endpoints, which are listed in the [HTTP API reference](/developer/http-api/).
+
+Consult the [API reference](https://github.com/drand/drand-client#api) for more information.
