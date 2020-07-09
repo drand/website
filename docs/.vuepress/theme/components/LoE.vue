@@ -2,11 +2,17 @@
   <article class="loe">
     <header>
       <h2 title="League of Entropy">
-        <img src="/images/logo-loe.png" alt="League of Entropy logo" />
+        <a href="https://blog.cloudflare.com/league-of-entropy/"
+          ><img src="/images/logo-loe.png" alt="League of Entropy logo"
+        /></a>
       </h2>
       <p>
-        The <strong>League of Entropy</strong> is a collaborative project
-        between the founding members <strong>Cloudflare</strong>,
+        The
+        <a href="https://blog.cloudflare.com/league-of-entropy/"
+          ><strong>League of Entropy</strong></a
+        >
+        is a collaborative project between the founding members
+        <strong>Cloudflare</strong>,
         <strong>École polytechnique fédérale de Lausanne</strong>,
         <strong>Kudelski Security</strong>, <strong>Protocol Labs</strong>, and
         <strong>University of Chile</strong> to provide a verifiable,
@@ -14,7 +20,7 @@
         of randomness.
       </p>
     </header>
-    <div class="history">
+    <div v-if="!error" class="history">
       <h3>Latest Randomness</h3>
       <p>
         Here's the latest random value that was generated, round #<strong>{{
@@ -32,6 +38,21 @@
         nodes:<br /><router-link to="/developer/" class="action-button"
           >Developer Docs</router-link
         >
+      </p>
+    </div>
+    <div v-if="error" class="history">
+      <h3>Latest Randomness</h3>
+      <p>
+        <span style="color: yellow;">⚠️</span> An error occurred loading the
+        latest randomness:
+      </p>
+      <p class="error">Error: {{ error.message }}</p>
+      <p>
+        Check the <a href="https://drand.statuspage.io/">network status</a> for
+        information on outages and planned maintenance.
+        <a href="https://github.com/drand/drand/issues/new"
+          >Report this problem</a
+        >.
       </p>
     </div>
   </article>
@@ -56,29 +77,29 @@ const randomChars = num => Array.from(Array(num), randomChar).join('')
 export default {
   name: 'LoE',
 
-  data: () => ({ round: 0, eta: 0, randomness: '' }),
+  data: () => ({ round: 0, eta: 0, randomness: '', error: null }),
 
   async mounted() {
-    const client = await Client.wrap(
-      HTTP.forURLs(TESTNET_URLS, TESTNET_CHAIN_HASH),
-      { chainHash: TESTNET_CHAIN_HASH }
-    )
-
-    const info = await client.info()
-
-    const nextRoundETA = () => {
-      const now = Date.now()
-      const round = client.roundAt(now) + 1
-      const time = info.genesis_time * 1000 + round * info.period * 1000
-      return Math.round((time - now) / 1000)
-    }
-
-    this.intervalID = setInterval(() => {
-      this.eta = nextRoundETA()
-    }, 100)
-    this.aborter = new AbortController()
-
     try {
+      const client = await Client.wrap(
+        HTTP.forURLs(TESTNET_URLS, TESTNET_CHAIN_HASH),
+        { chainHash: TESTNET_CHAIN_HASH }
+      )
+
+      const info = await client.info()
+
+      const nextRoundETA = () => {
+        const now = Date.now()
+        const round = client.roundAt(now) + 1
+        const time = info.genesis_time * 1000 + round * info.period * 1000
+        return Math.round((time - now) / 1000)
+      }
+
+      this.intervalID = setInterval(() => {
+        this.eta = nextRoundETA()
+      }, 100)
+      this.aborter = new AbortController()
+
       for await (const res of client.watch({ signal: this.aborter.signal })) {
         this.round = res.round
         let nextRandomness = ''
@@ -98,6 +119,7 @@ export default {
     } catch (err) {
       if (err.name !== 'AbortError') {
         console.error(err)
+        this.error = err
       }
     }
   },
@@ -129,9 +151,13 @@ export default {
   strong
       font-size 1.2rem
       line-height 1.6
+  a
+    color white
   .history
       h3
         font-size 2rem
+      a
+        text-decoration underline
       .latest
         background white
         margin 0 auto
@@ -151,6 +177,7 @@ export default {
       .action-button
         display inline-block
         font-size 1.2rem
+        text-decoration none
         color #fff
         background-color #1477c6
         margin 1rem
@@ -164,6 +191,9 @@ export default {
         text-align center
         &:hover
             background-color #0f86d1
+      .error
+        font-family 'Courier New', Courier, monospace
+        word-break break-word
 
 @media (min-width: $MQNarrow)
   .loe
