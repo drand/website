@@ -90,7 +90,7 @@ export default {
 
       const nextRoundETA = () => {
         const now = Date.now()
-        const round = client.roundAt(now) + 1
+        const round = client.roundAt(now)
         const time = info.genesis_time * 1000 + round * info.period * 1000
         return Math.round((time - now) / 1000)
       }
