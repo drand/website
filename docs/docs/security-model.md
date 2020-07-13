@@ -310,11 +310,3 @@ equivocation during the DKG phase is to move to a libp2p pubsub overlay to be cl
 an attacker that would send different public polynomials is likely to end up as
 not a qualified dealer since honest nodes would relay its packet and find the
 inconsistency.
-
-## To review
-
-Drand must make sure that if a DKG went _wrong_ during a resharing because of
-the broadcast channel assumption being violated, it keeps the previous share
-to be able to start a new DKG again. Currently it erases the previous share
-when DKG finishes. For a fresh DKG it is fine since nodes can restart from
-scratch as before.
