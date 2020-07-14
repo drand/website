@@ -21,7 +21,7 @@ The setup process for a drand node consists of the following steps:
 1. Start the drand daemon on each node.
 1. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
 
-This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operate/docker).
+This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operate/docker/).
 
 ### Long-term key
 
