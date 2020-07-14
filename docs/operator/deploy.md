@@ -177,7 +177,7 @@ The flags usage is as follow:
 | `--nodes` | The number of nodes in this group. |
 | `--threshold` | The minimum number of nodes that need to be online for the network to be live. |
 | `--period` | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
-| `--secret` | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long.
+| `--secret` | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long. |
 
 The `drand share` command will run until the DKG has finished. If you quit the command, the DKG will continue, but the group file will not be created. In that case, once the DKG is done, you can get the group file by running:
 
