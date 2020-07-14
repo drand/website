@@ -8,10 +8,10 @@ sidebarDepth: 2
 
 This document explains the workflow to have a working group of drand nodes generate randomness. There are three main sections to this guide:
 
-- generate the long-term key pairs and the group file.
-- start the daemons.
-- have each node collectively particiate in the distributed key generation (DKG).
-- genearte randomness.
+1. Generate the long-term key pairs and the group file.
+1. Start the daemons.
+1. Have each node collectively participate in the distributed key generation (DKG).
+1. Generate randomness.
 
 ## Setup
 
