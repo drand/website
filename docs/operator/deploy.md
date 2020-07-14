@@ -163,7 +163,7 @@ To setup a new network, drand uses the notion of a coordinator that collects the
 drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s
 ```
 
-** rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
+**Rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
 
 ```bash
 drand share --connect <leaderaddress> --secret mysecret901234567890123456789012
