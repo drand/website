@@ -80,7 +80,8 @@ module.exports = {
           // '/blog/': ['20200527-test-blog-post']
         }
       }
-    }
+    },
+    displayAllHeaders: true
   },
   plugins: [
     ['@vuepress/plugin-back-to-top', true],
@@ -167,5 +168,10 @@ module.exports = {
         app: ['./docs/.vuepress/public-path.js', config.entry.app[0]]
       }
     }
-  }
+    config.module.rules.push({
+      test: /\.js$/,
+      loader: require.resolve('@open-wc/webpack-import-meta-loader')
+    })
+  },
+  evergreen: true
 }

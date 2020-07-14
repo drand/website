@@ -2,11 +2,17 @@
   <article class="loe">
     <header>
       <h2 title="League of Entropy">
-        <img src="/images/logo-loe.png" alt="League of Entropy logo" />
+        <a href="https://blog.cloudflare.com/league-of-entropy/"
+          ><img src="/images/logo-loe.png" alt="League of Entropy logo"
+        /></a>
       </h2>
       <p>
-        The <strong>League of Entropy</strong> is a collaborative project
-        between the founding members <strong>Cloudflare</strong>,
+        The
+        <a href="https://blog.cloudflare.com/league-of-entropy/"
+          ><strong>League of Entropy</strong></a
+        >
+        is a collaborative project between the founding members
+        <strong>Cloudflare</strong>,
         <strong>École polytechnique fédérale de Lausanne</strong>,
         <strong>Kudelski Security</strong>, <strong>Protocol Labs</strong>, and
         <strong>University of Chile</strong> to provide a verifiable,
@@ -14,7 +20,7 @@
         of randomness.
       </p>
     </header>
-    <div class="history">
+    <div v-if="!error" class="history">
       <h3>Latest Randomness</h3>
       <p>
         Here's the latest random value that was generated, round #<strong>{{
@@ -25,7 +31,7 @@
       <p class="latest" :title="randomness">{{ randomness }}</p>
       <p>
         The next randomness is expected in
-        <strong class="next-round-time">{{ nextRoundTime }} seconds</strong>.
+        <strong class="eta">{{ eta }} seconds</strong>.
       </p>
       <p>
         Learn how to retrieve randomness from the League of Entropy drand
@@ -34,83 +40,66 @@
         >
       </p>
     </div>
+    <div v-if="error" class="history">
+      <h3>Latest Randomness</h3>
+      <p>
+        <span style="color: yellow;">⚠️</span> An error occurred loading the
+        latest randomness:
+      </p>
+      <p class="error">Error: {{ error.message }}</p>
+      <p>
+        Check the <a href="https://drand.statuspage.io/">network status</a> for
+        information on outages and planned maintenance.
+        <a href="https://github.com/drand/drand/issues/new"
+          >Report this problem</a
+        >.
+      </p>
+    </div>
   </article>
 </template>
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import Client, { HTTP } from 'drand-client'
 
-// TODO: import drandjs
-
-const genesis = 1590032610 * 1000 // Genesis time in ms (provided in seconds from drand)
-const period = 30 * 1000 // Period in ms (provided in seconds from drand)
-
-const currentRound = (genesis, period) =>
-  Math.floor((Date.now() - genesis) / period)
-
-const nextRoundInfo = (genesis, period) => {
-  const round = currentRound(genesis, period) + 1
-  return { time: genesis + round * period, round }
-}
+const TESTNET_CHAIN_HASH =
+  '5107ecb951646809bf9d56c44168182986e8469aadb906597ede430e24a0408b'
+const TESTNET_URLS = [
+  'https://pl-eu.testnet.drand.sh',
+  'https://pl-us.testnet.drand.sh',
+  'https://pl-sin.testnet.drand.sh'
+]
 
 const chars = '0123456789abcdef'
 const randomChar = () => chars[Math.floor(Math.random() * chars.length)]
 const randomChars = num => Array.from(Array(num), randomChar).join('')
 
-const client = {
-  watch: options => ({
-    [Symbol.asyncIterator]() {
-      return this
-    },
-    first: true,
-    next() {
-      if (this.first) {
-        this.first = false
-        return {
-          value: {
-            round: currentRound(genesis, period),
-            randomness: randomChars(64)
-          }
-        }
-      }
-      return new Promise((resolve, reject) => {
-        const nextInfo = nextRoundInfo(genesis, period)
-        const timeoutID = setTimeout(() => {
-          options.signal.removeEventListener('abort', onAbort)
-          resolve({
-            value: { round: nextInfo.round, randomness: randomChars(64) }
-          })
-        }, nextInfo.time - Date.now())
-
-        const onAbort = () => {
-          clearTimeout(timeoutID)
-          resolve({ done: true })
-        }
-
-        options.signal.addEventListener('abort', onAbort)
-      })
-    }
-  })
-}
-
 export default {
   name: 'LoE',
 
-  data: () => ({
-    round: currentRound(),
-    nextRoundTime: 0,
-    randomness: randomChars(64)
-  }),
+  data: () => ({ round: 0, eta: 0, randomness: '', error: null }),
 
-  mounted() {
-    this.intervalID = setInterval(() => {
-      const nextInfo = nextRoundInfo(genesis, period)
-      this.nextRoundTime = Math.round((nextInfo.time - Date.now()) / 1000)
-    }, 100)
+  async mounted() {
+    try {
+      const client = await Client.wrap(
+        HTTP.forURLs(TESTNET_URLS, TESTNET_CHAIN_HASH),
+        { chainHash: TESTNET_CHAIN_HASH }
+      )
 
-    this.aborter = new AbortController()
+      const info = await client.info()
 
-    const watch = async () => {
+      const nextRoundETA = () => {
+        const now = Date.now()
+        const round = client.roundAt(now)
+        const time = info.genesis_time * 1000 + round * info.period * 1000
+        return Math.round((time - now) / 1000)
+      }
+
+      this.intervalID = setInterval(() => {
+        this.eta = nextRoundETA()
+      }, 100)
+      this.aborter = new AbortController()
+
       for await (const res of client.watch({ signal: this.aborter.signal })) {
         this.round = res.round
         let nextRandomness = ''
@@ -127,14 +116,19 @@ export default {
           }, i * 25)
         }
       }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error(err)
+        this.error = err
+      }
     }
-
-    watch()
   },
 
   beforeDestroy() {
     clearInterval(this.intervalID)
-    this.aborter.abort()
+    if (this.aborter) {
+      this.aborter.abort()
+    }
   }
 }
 </script>
@@ -157,9 +151,13 @@ export default {
   strong
       font-size 1.2rem
       line-height 1.6
+  a
+    color white
   .history
       h3
         font-size 2rem
+      a
+        text-decoration underline
       .latest
         background white
         margin 0 auto
@@ -174,11 +172,12 @@ export default {
         border-radius 3px
         max-width: 60rem
         box-shadow 2px 2px 5px #2d3393
-      .next-round-time
+      .eta
         white-space nowrap
       .action-button
         display inline-block
         font-size 1.2rem
+        text-decoration none
         color #fff
         background-color #1477c6
         margin 1rem
@@ -192,6 +191,9 @@ export default {
         text-align center
         &:hover
             background-color #0f86d1
+      .error
+        font-family 'Courier New', Courier, monospace
+        word-break break-word
 
 @media (min-width: $MQNarrow)
   .loe
