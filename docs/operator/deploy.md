@@ -6,7 +6,7 @@ sidebarDepth: 2
 
 # Deployment guide
 
-This document explains the workflow to have a working group of drand nodes generate randomness. There are three main sections to this guide:
+This document explains the workflow to have a working group of drand nodes generate randomness. There are four sections to this guide:
 
 1. Generate the long-term key pairs and the group file.
 1. Start the daemons.
@@ -25,7 +25,7 @@ This document explains how to do the setup with the drand binary itself. If you 
 
 ### Long-term key
 
-Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run `drand generate-keypair` followed by the address of your node:
+Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run [`drand generate-keypair`](/operator/drand-cli/#drand-generate-keypair) followed by the address of your node:
 
 ```bash
 drand generate-keypair drand.example.com
