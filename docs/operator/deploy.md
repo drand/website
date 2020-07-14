@@ -305,7 +305,7 @@ The "gid" simply indicates which group the data belongs to. It is present for sc
 
 ### Chain information
 
-To retrieve the chain information, this node participates to, run:
+To retrieve information about the chain this node participates in, run:
 
 ```bash
 drand show chain-info
