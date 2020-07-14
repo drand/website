@@ -223,9 +223,9 @@ After a successful setup phase, drand will switch to the randomness generation m
 
 For third party implementations of randomness beacon verification, you need:
 
-- the distributed public key generated during the setup phase.
-- the period
-- the genesis time of the chain
+- The distributed public key generated during the setup phase.
+- The period.
+- The genesis time of the chain.
 
 As an administrator of a drand node, you can use the control port to access the chain information:
 
