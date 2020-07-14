@@ -315,9 +315,9 @@ drand show chain-info
 
 Drand allows for "semi-dynamic" group update with a _resharing_ protocol that offers the following:
 
-- new nodes can join an existing group and get new shares. Note that, in fact, all nodes get _new_ shares after running the resharing protocol.
-- nodes can leave their current group. It may be necessary for nodes that do not wish to operate drand anymore.
-- nodes can update the threshold associated with their current distributed public key.
+- New nodes can join an existing group and get new shares. Note that, in fact, all nodes get _new_ shares after running the resharing protocol.
+- Nodes can leave their current group. It may be necessary for nodes that do not wish to operate drand anymore.
+- Nodes can update the threshold associated with their current distributed public key.
 - refresh the shares (similar to using a new private key)
 
 The main advantage of this method is that the distributed public key stays the _same_ even with new nodes coming in. That can be useful when the distributed public key is embedded inside the application using drand, and hence is difficult to update.
