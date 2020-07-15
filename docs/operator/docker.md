@@ -83,7 +83,7 @@ by:
 
 This guide will continue focusing on drand; jump to the end of this guide to configure the reverse proxy.
 
-## Public HTTP api
+## Public HTTP API
 
 The compose file also opens a public http API to be consumed by the clients.
 This public endpoint is exposed on the 8081 port (specified with `--public-listen`]).
