@@ -65,53 +65,33 @@ Running drand behind a reverse proxy is the **default** method of deploying dran
 
 1. First, add an entry in the Nginx configuration for drand:
 
-```bash
-# /etc/nginx/sites-available/default
-server {
-  server_name drand.example.xyz;
-  listen 443 ssl http2;
+    ```nginx
+    # /etc/nginx/sites-available/default
+    server {
+      server_name drand.example.xyz;
+      listen 443 ssl http2;
 
-  location / {
-    grpc_pass grpc://localhost:4444;
-    grpc_set_header X-Real-IP $remote_addr;
-  }
+      location / {
+        grpc_pass grpc://localhost:4444;
+        grpc_set_header X-Real-IP $remote_addr;
+      }
 
-  location /public/ {
-    proxy_pass http://localhost:8080;
-    proxy_set_header Host $host;
-  }
-  location /info {
-    proxy_pass http://localhost:8080;
-    proxy_set_header Host $host;
-  }
-  # Add ssl certificates by running certbot --nginx
-}
-```
-
-    location /public/ {
-        proxy_pass http://localhost:4444;
+      location /public/ {
+        proxy_pass http://localhost:8080;
         proxy_set_header Host $host;
-    }
-    location /info {
-        proxy_pass http://localhost:4444;
+      }
+      location /info {
+        proxy_pass http://localhost:8080;
         proxy_set_header Host $host;
-    }
-    # Add SSL certificates by running certbot --nginx
+      }
+      # Add ssl certificates by running certbot --nginx
     }
     ```
 
-<<<<<<< HEAD
     You can change:
-=======
-1. the port on which you want drand to be accessible by changing the line
-   `listen 443 ssl http2` to use any port.
-2. the port on which the drand binary will listen locally by changing the line
-   `grpc_pass grpc://localhost:4444;` to the private API port and
-   `proxy_pass http://localhost:8080;` to the public API port
->>>>>>> release/beta
 
-    -. the port on which you want drand to be accessible by changing the line `listen 443 ssl http2` to use any port.
-    -. the port on which the drand binary will listen locally by changing the line `grpc_pass grpc://localhost:8080;` to the private API port and `proxy_pass http://localhost:8080;` to the public API port
+    1. the port on which you want drand to be accessible by changing the line `listen 443 ssl http2` to use any port.
+    2. the port on which the drand binary will listen locally by changing the line `grpc_pass grpc://localhost:4444;` to the private API port and `proxy_pass http://localhost:8080;` to the public API port.
 
     You can use different `server` blocks to apply different configurations (DNS names, for example) for the private and public API.
 
