@@ -21,7 +21,7 @@ The setup process for a drand node consists of the following steps:
 1. Start the drand daemon on each node.
 1. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
 
-This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operate/docker/).
+This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operator/docker/).
 
 ### Long-term key
 
@@ -31,7 +31,7 @@ Each drand node needs a public and secret key to interact with the rest of the n
 drand generate-keypair drand.example.com
 ```
 
-The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a [local deployment](/operate/local-deploy/).
+The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a [local deployment](/operator/local-deploy/).
 
 The default location for your keys is `/home/<USERNAME>/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
 
