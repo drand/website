@@ -92,7 +92,7 @@ also show help with the `--help` flag after the subcommand name, e.g.: `drand ge
 ### `drand generate-keypair`
 
 The `generate-keypair` command creates a long-term public/private keypair for a drand node. It should
-be run before starting the node, and you must provide the address that your Drand
+be run before starting the node, and you must provide the address that your drand
 node will listen on, including the publicly reachable port number. This may be different than the port specified
 when starting the daemon, for example if you've set up `drand` to run behind a reverse proxy as described in
 the [Deployment Guide](./deploy/).
@@ -224,7 +224,7 @@ when running `drand stop`.
 ### `drand share`
 
 The `share` command tells the `drand` daemon to begin the Distributed Key Generation (DKG) protocol to create private key shares
-with the other Drand nodes.
+with the other drand nodes.
 
 The `share` command must be used when setting up a new drand network before randomness generation can begin. It may also be
 used after the network is running to "re-share" the key material, which allows us to change the members of the drand network
@@ -349,7 +349,7 @@ To see full usage information, run `drand-client help`.
 
 ### `drand-relay-http`
 
-The `drand-relay-http` command provides a gRPC to HTTP relay server that can be used to relay requests from the public internet to a Drand
+The `drand-relay-http` command provides a gRPC to HTTP relay server that can be used to relay requests from the public internet to a drand
 daemon. This is an alternative to the public HTTP endpoint that runs in the main `drand` process when starting `drand` with the `--public-listen`
 flag.
 
