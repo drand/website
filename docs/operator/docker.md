@@ -121,7 +121,7 @@ To check what is happening, access the docker-compose logs via
 docker-compose logs
 ```
 
-## Distributed Key Generation
+## Distributed key generation
 
 If you did the setup above, you have a container running the drand deamon, loaded with your keys. It still misses two things:
 
