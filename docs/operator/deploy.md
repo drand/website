@@ -33,7 +33,7 @@ drand generate-keypair drand.example.com
 
 The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a development or test deployment.
 
-The default location for your keys is `/home/<USERNAME>/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
+The default location for your keys is `~/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
 
 ```bash
 drand generate-keypair drand0.example.com --folder ~/.drand-node-0
