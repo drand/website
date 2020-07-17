@@ -68,7 +68,7 @@ module.exports = {
             'specification'
           ],
           '/developer/': ['clients', 'http-api', 'cli'],
-          '/operator/': ['deploy', 'metrics', 'drand-cli'],
+          '/operator/': ['deploy', 'docker', 'metrics', 'drand-cli'],
           '/about/': [
             'community',
             'contributing',
