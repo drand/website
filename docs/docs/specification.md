@@ -548,7 +548,7 @@ section](#catchup-mode) for more information.
 #### Beacon chain
 
 Drand binds the different random beacon together so they form a chain of random
-beacons. Remember a drand beacon is structured as follow:
+beacons. Remember a drand beacon is structured as follows:
 
 ```go
 type Beacon struct {
@@ -566,7 +566,7 @@ type Beacon struct {
   `Threshold` of partial signatures from nodes.
 
 This structure makes it so that each beacon created is building on the previous
-one therefor forming a randomness chain.
+one therefore forming a randomness chain.
 
 **Partial beacon creation**: At each new round, a node creates a `PartialBeacon`
 with the current round number, the previous signature and the partial signature
@@ -592,7 +592,7 @@ previousSignature = lastBeacon.Signature
 It is important to note that the current round may not be necessarily the round
 of the current time. More information in the following section.
 
-**Partial beacon broadcast**:Each node then calls the following RPC call
+**Partial beacon broadcast**: Each node then calls the following RPC call:
 
 ```protobuf
 rpc PartialBeacon(PartialBeaconPacket) returns (drand.Empty);
@@ -639,11 +639,11 @@ information:
 
 ```go
 type Info struct {
-	// Period of the randomness generation in seconds
+	// Period of the randomness generation in seconds.
 	Period uint32
-	// Time at which the drand nodes started the chain, UNIX in seconds.
+	// GenesisTime at which the drand nodes started the chain, UNIX in seconds.
 	GenesisTime int64
-	// PublicKey necessary to validate any randomness beacon of the chain
+	// PublicKey necessary to validate any randomness beacon of the chain.
 	PublicKey []byte
 }
 ```
@@ -680,7 +680,7 @@ beacon created for this round. Under these circumstances, nodes can enter a
 To detect if the network is stalled, each node at each new tick must verify that
 the `lastBeacon.Round + 1` equals the current round given by their local clock.
 If that is not the case, that means there wasn't a random beacon generated in
-time in the previous round OR this node didn't receive enoug partial beacons for
+time in the previous round OR this node didn't receive enough partial beacons for
 some reasons.
 
 If that condition is true, nodes must first try to sync with each other: each node
