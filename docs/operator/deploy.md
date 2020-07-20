@@ -177,6 +177,7 @@ The flags usage is as follow:
 | `--nodes` | The number of nodes in this group. |
 | `--threshold` | The minimum number of nodes that need to be online for the network to be live. |
 | `--period` | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
+| `--catchup-period` | The period of randomness when recovering from a failure. A valid Golang duration, it may be 0 to catch up as fast as possible. |
 | `--secret` | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long. |
 
 The `drand share` command will run until the DKG has finished. If you quit the command, the DKG will continue, but the group file will not be created. In that case, once the DKG is done, you can get the group file by running:
@@ -335,8 +336,21 @@ group2.toml
 drand share --connect <coordinator> --transition --secret mysecret901234567890123456789012 --out group2.toml
 ```
 
-**Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the "Using the drand daemon" section. Then run the command:
+**Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the "Using the drand daemon" section.
 
+:::tip
+A new member will need the full history of randomness beacons to participate in a group, so that it can field requests for previous rounds.
+This process can take a while.
+:::
+
+A new member can synchronize with a chain before joining. This can be done by anyone, and does not require resharing to have started.
+```bash
+drand follow --sync-nodes <cooridinator> --chain-hash <chain hash>
+```
+This command will not exit, but will keep adding new beacons to the local database as they are produced.
+If you wish for the command to terminate once it has synchronized up to 'now', you can add the option `--up-to=<round>` where round is the current randomness round.
+
+To join the group, the incoming member should execute:
 ```bash
 drand share connect <coordinator> --from group.toml --secret mysecret901234567890123456789012 --out group2.toml
 ```
