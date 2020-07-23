@@ -62,12 +62,13 @@
 import NavLink from '@theme/components/NavLink.vue'
 import Client, { HTTP } from 'drand-client'
 
-const TESTNET_CHAIN_HASH =
-  '84b2234fb34e835dccd048255d7ad3194b81af7d978c3bf157e3469592ae4e02'
-const TESTNET_URLS = [
-  'https://pl-eu.testnet.drand.sh',
-  'https://pl-us.testnet.drand.sh',
-  'https://pl-sin.testnet.drand.sh'
+const CHAIN_HASH =
+  '8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce'
+const URLS = [
+  'https://api.drand.sh',
+  'https://api2.drand.sh',
+  'https://api3.drand.sh',
+  'https://drand.cloudflare.com'
 ]
 
 const chars = '0123456789abcdef'
@@ -81,10 +82,9 @@ export default {
 
   async mounted() {
     try {
-      const client = await Client.wrap(
-        HTTP.forURLs(TESTNET_URLS, TESTNET_CHAIN_HASH),
-        { chainHash: TESTNET_CHAIN_HASH }
-      )
+      const client = await Client.wrap(HTTP.forURLs(URLS, CHAIN_HASH), {
+        chainHash: CHAIN_HASH
+      })
 
       const info = await client.info()
 
