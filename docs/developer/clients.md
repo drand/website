@@ -29,24 +29,24 @@ The drand client library is structured with a base client interface in `/client`
 package main
 
 import (
-    "context"
-    "encoding/hex"
-    "fmt"
-    "github.com/drand/drand/client"
+	"context"
+	"encoding/hex"
+	"fmt"
+	"github.com/drand/drand/client"
 )
 
-var chainHash, _ = hex.DecodeString("TODO-LOE-CHAIN-HASH")
+var chainHash, _ = hex.DecodeString("8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce")
 
 func main() {
-    c, err := client.New(
-        client.From(/* add concrete client implementations here (see below) */),
-        client.WithChainHash(chainHash),
-    )
+	c, err := client.New(
+		client.From(/* add concrete client implementations here (see below) */),
+		client.WithChainHash(chainHash),
+	)
 
-    // e.g. use the client to get the latest randomness round:
-    r := c.Get(context.Background(), 0)
+	// e.g. use the client to get the latest randomness round:
+	r := c.Get(context.Background(), 0)
 
-    fmt.Println(r.Round(), r.Randomness())
+	fmt.Println(r.Round(), r.Randomness())
 }
 ```
 
@@ -73,22 +73,26 @@ The HTTP client uses the [JSON HTTP API](/developer/http-api/) to fetch randomne
 package main
 
 import (
-    "context"
-    "encoding/hex"
-    "fmt"
-    "github.com/drand/drand/client"
-    "github.com/drand/drand/client/http"
+	"context"
+	"encoding/hex"
+	"fmt"
+	"github.com/drand/drand/client"
+	"github.com/drand/drand/client/http"
 )
 
-const url = "https://drand.cloudflare.com"
+var urls = []string{
+	"https://api.drand.sh",
+	"https://drand.cloudflare.com",
+	// ...
+}
 
-var chainHash, _ = hex.DecodeString("TODO-LOE-CHAIN-HASH")
+var chainHash, _ = hex.DecodeString("8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce")
 
 func main() {
-    c, err := client.New(
-        client.From(http.ForURLs([]string{url}, chainHash)...),
-        client.WithChainHash(chainHash),
-    )
+	c, err := client.New(
+		client.From(http.ForURLs(urls, chainHash)...),
+		client.WithChainHash(chainHash),
+	)
 }
 ```
 
@@ -108,27 +112,27 @@ The [gRPC](https://grpc.io/) client connects to a drand gRPC endpoint to fetch r
 package main
 
 import (
-    "context"
-    "encoding/hex"
-    "fmt"
-    "github.com/drand/drand/client"
-    "github.com/drand/drand/client/grpc"
+	"context"
+	"encoding/hex"
+	"fmt"
+	"github.com/drand/drand/client"
+	"github.com/drand/drand/client/grpc"
 )
 
 const (
-    grpcAddr  = "example.drand.grpc.server:4444"
-    certPath  = "/path/to/drand-grpc.cert"
+	grpcAddr  = "example.drand.grpc.server:4444"
+	certPath  = "/path/to/drand-grpc.cert"
 )
 
-var chainHash, _ = hex.DecodeString("TODO-LOE-CHAIN-HASH")
+var chainHash, _ = hex.DecodeString("8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce")
 
 func main() {
-    gc, err := grpc.New(grpcAddr, certPath, false)
+	gc, err := grpc.New(grpcAddr, certPath, false)
 
-    c, err := client.New(
-        client.From(gc),
-        client.WithChainHash(chainHash),
-    )
+	c, err := client.New(
+		client.From(gc),
+		client.WithChainHash(chainHash),
+	)
 }
 ```
 
@@ -148,7 +152,9 @@ If you need to `Get` arbitrary rounds from the chain then you must combine this 
 
 Drand _does not_ publish randomness rounds over libp2p PubSub by default but provides a [relay tool](/operator/drand-cli/#drand-relay-gossip) that performs this task. The [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) provide the following public drand libp2p PubSub relays:
 
-- `/dns4/todo/p2p/QmPeerID`
+- `/dnsaddr/api.drand.sh`
+- `/dnsaddr/api2.drand.sh`
+- `/dnsaddr/api3.drand.sh`
 
 :::tip
 Connect your libp2p host to one or more of these relays to ensure you continue to receive randomness rounds.
@@ -163,29 +169,29 @@ package main
 
 import (
 	"context"
-    "fmt"
-    "github.com/drand/drand/chain"
+	"fmt"
+	"github.com/drand/drand/chain"
 	"github.com/drand/drand/client"
-    gclient "github.com/drand/drand/lp2p/client"
-    pubsub "github.com/libp2p/go-libp2p-pubsub"
+	gclient "github.com/drand/drand/lp2p/client"
+	pubsub "github.com/libp2p/go-libp2p-pubsub"
 )
 
 func main() {
-    ps := newPubSub()
+	ps := newPubSub()
 	info := readChainInfo()
 
 	c, err := client.New(
-        gclient.WithPubsub(ps),
-        client.WithChainInfo(info),
-    )
+		gclient.WithPubsub(ps),
+		client.WithChainInfo(info),
+	)
 }
 
 func newPubSub() *pubsub.Pubsub {
-    /* ... */
+	/* ... */
 }
 
 func readChainInfo() *chain.Info {
-    /* ... */
+	/* ... */
 }
 ```
 
@@ -196,29 +202,33 @@ package main
 
 import (
 	"context"
-    "fmt"
-    "github.com/drand/drand/chain"
+	"fmt"
+	"github.com/drand/drand/chain"
 	"github.com/drand/drand/client"
-    gclient "github.com/drand/drand/lp2p/client"
-    pubsub "github.com/libp2p/go-libp2p-pubsub"
+	gclient "github.com/drand/drand/lp2p/client"
+	pubsub "github.com/libp2p/go-libp2p-pubsub"
 )
 
-const url = "https://drand.cloudflare.com"
+var urls = []string{
+	"https://api.drand.sh",
+	"https://drand.cloudflare.com",
+	// ...
+}
 
-var chainHash, _ = hex.DecodeString("TODO-LOE-CHAIN-HASH")
+var chainHash, _ = hex.DecodeString("8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce")
 
 func main() {
-    ps := newPubSub()
+	ps := newPubSub()
 
 	c, err := client.New(
-        gclient.WithPubsub(ps),
-        client.WithChainHash(chainHash),
-        client.From(http.ForURLs([]string{url}, chainHash)...),
-    )
+		gclient.WithPubsub(ps),
+		client.WithChainHash(chainHash),
+		client.From(http.ForURLs(urls, chainHash)...),
+	)
 }
 
 func newPubSub() *pubsub.Pubsub {
-    /* ... */
+	/* ... */
 }
 ```
 
@@ -242,17 +252,19 @@ npm install drand-client
 
 ```html
 <script type="module">
-  import Client, {
-    HTTP
-  } from 'https://cdn.jsdelivr.net/npm/drand-client/drand.js'
+  import Client, { HTTP } from 'https://cdn.jsdelivr.net/npm/drand-client/drand.js'
 
-  const chainHash = 'TODO-LOE-CHAIN-HASH' // (hex encoded)
-  const url = 'https://drand.cloudflare.com'
+  const chainHash = '8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce' // (hex encoded)
+  const urls = [
+    'https://api.drand.sh',
+    'https://drand.cloudflare.com'
+    // ...
+  ]
 
   async function main() {
     const options = { chainHash }
 
-    const client = await Client.wrap(HTTP.forURLs([url], chainHash), options)
+    const client = await Client.wrap(HTTP.forURLs(urls, chainHash), options)
 
     // e.g. use the client to get the latest randomness round:
     const res = await client.get()

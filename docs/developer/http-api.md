@@ -6,13 +6,18 @@ All that's required is the address of the HTTP interface and way to fetch from H
 
 The public [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) HTTP APIs are available at:
 
-- [https://drand.cloudflare.com](https://drand.cloudflare.com)
-- [https://drand.protocol.ai:8081](https://drand.protocol.ai:8081)
-- [https://ln.soc1024.com:8888](https://ln.soc1024.com:8888)
-- [https://drand.nikkolasg.xyz:4444](https://drand.nikkolasg.xyz:4444)
-- [https://drand2.kudelskisecurity.com](https://drand2.kudelskisecurity.com)
+- Protocol Labs
+    - [https://api.drand.sh](https://api.drand.sh)
+    - [https://api2.drand.sh](https://api2.drand.sh)
+    - [https://api3.drand.sh](https://api3.drand.sh)
+- Cloudflare
+    - [https://drand.cloudflare.com](https://drand.cloudflare.com)
 
-The chain hash for the League of Entropy drand group is `TODO-LOE-CHAIN-HASH`
+The chain hash for the League of Entropy drand group is:
+
+```
+8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
+```
 
 ## `/info`
 
@@ -20,10 +25,10 @@ Retrieves the randomness chain information. It returns a JSON object with the fo
 
 ```json
 {
-  "public_key": "aaddd53d2c92454b698c52495990162bc999778a32fd570dad2ef3de2915a5b397d80ec5508919e84cd10944955b7318",
-  "period": 10,
-  "genesis_time": 1592226590,
-  "hash": "c599c267a0dd386606f7d6132da8327d57e1004760897c9dd4fb8495c29942b2"
+  "public_key": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31",
+  "period": 30,
+  "genesis_time": 1595431050,
+  "hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"
 }
 ```
 
@@ -39,16 +44,16 @@ Retrives the latest round of randomness. It returns a JSON object with the follo
 ```json
 {
   "round": 367,
-  "signature": "b62dd642e939191af1f9e15bef0f0b0e9562a5f570a12a231864afe468377e2a6424a92ccfc34ef1471cbd58c37c6b020cf75ce9446d2aa1252a090250b2b1441f8a2a0d22208dcc09332eaa0143c4a508be13de63978dbed273e3b9813130d5",
-  "previous_signature": "afc545efb57f591dbdf833c339b3369f569566a93e49578db46b6586299422483b7a2d595814046e2847494b401650a0050981e716e531b6f4b620909c2bf1476fd82cf788a110becbc77e55746a7cccd47fb171e8ae2eea2a22fcc6a512486d",
-  "randomness": "d7aed3686bf2be657e6d38c20999831308ee6244b68c8825676db580e7e3bec6"
+  "randomness": "3439d92d58e47d342131d446a3abe264396dd264717897af30525c98408c834f",
+  "signature": "90957ebc0719f8bfb67640aff8ca219bf9f2c5240e60a8711c968d93370d38f87b38ed234a8c63863eb81f234efce55b047478848c0de025527b3d3476dfe860632c1b799550de50a6b9540463e9fb66c8016b89c04a9f52dabdc988e69463c1",
+  "previous_signature": "859504eade86790ad09b2b3474d5e09d1718b549ef7107d7bbd18f5e221765ce8252d7db02664c1f6b20f40c6e8e138704d2acfeb6c5abcc14c77e3a842b2f84515e7366248ca37b1460d23b4f98493c246fbb02851f2a43a710c968a349f8d6"
 }
 ```
 
 - `round` is an sequentially increasing integer - the randomness round index
+- `randomness` is a SHA-512 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
-- `randomness` is a SHA-512 hash of the signature
 
 ## `/public/{round}`
 
@@ -57,13 +62,13 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 ```json
 {
   "round": 367,
-  "signature": "b62dd642e939191af1f9e15bef0f0b0e9562a5f570a12a231864afe468377e2a6424a92ccfc34ef1471cbd58c37c6b020cf75ce9446d2aa1252a090250b2b1441f8a2a0d22208dcc09332eaa0143c4a508be13de63978dbed273e3b9813130d5",
-  "previous_signature": "afc545efb57f591dbdf833c339b3369f569566a93e49578db46b6586299422483b7a2d595814046e2847494b401650a0050981e716e531b6f4b620909c2bf1476fd82cf788a110becbc77e55746a7cccd47fb171e8ae2eea2a22fcc6a512486d",
-  "randomness": "d7aed3686bf2be657e6d38c20999831308ee6244b68c8825676db580e7e3bec6"
+  "randomness": "3439d92d58e47d342131d446a3abe264396dd264717897af30525c98408c834f",
+  "signature": "90957ebc0719f8bfb67640aff8ca219bf9f2c5240e60a8711c968d93370d38f87b38ed234a8c63863eb81f234efce55b047478848c0de025527b3d3476dfe860632c1b799550de50a6b9540463e9fb66c8016b89c04a9f52dabdc988e69463c1",
+  "previous_signature": "859504eade86790ad09b2b3474d5e09d1718b549ef7107d7bbd18f5e221765ce8252d7db02664c1f6b20f40c6e8e138704d2acfeb6c5abcc14c77e3a842b2f84515e7366248ca37b1460d23b4f98493c246fbb02851f2a43a710c968a349f8d6"
 }
 ```
 
 - `round` is an sequentially increasing integer - the randomness round index
+- `randomness` is a SHA-512 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
-- `randomness` is a SHA-512 hash of the signature
