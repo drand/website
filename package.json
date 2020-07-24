@@ -60,7 +60,7 @@
     "format:styles": "stylus-supremacy format ./docs/.vuepress/**/*.styl --replace",
     "docs:dev": "run-s docs:dev:*",
     "docs:dev:wasm": "run-s docs:build:wasm",
-    "docs:dev:vuepress": "vuepress dev docs",
+    "docs:dev:vuepress": "vuepress --no-clear-screen dev docs",
     "docs:build": "run-s docs:build:wasm docs:build:vuepress",
     "docs:build:wasm": "run-s docs:build:wasm:*",
     "docs:build:wasm:mkdirp": "mkdir -p ./docs/.vuepress/public/node_modules/drand-client/wasm",
