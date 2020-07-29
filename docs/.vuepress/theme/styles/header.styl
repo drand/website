@@ -1,14 +1,57 @@
+header.navbar {
+	.sidebar-button {
+		top: 0.8rem;
+		color: white;
+	}
+
+	.nav-item a, .repo-link {
+		color: #9D9D9D;
+
+		&:hover, &.router-link-active {
+			color: white;
+		}
+
+		&:not(.router-link-active) {
+			border-bottom: 0;
+		}
+	}
+}
+
+header .search-box {
+	input {
+		border-color: #000;
+		border-radius: 0.5rem;
+		background-color: #4B4B4B;
+
+		&:focus {
+			background-color: #fff;
+		}
+
+		&:not(.focused) {
+			// so the icon appears centred input is mini
+			background-position: 0.75rem 0.5rem;
+		}
+	}
+}
+
 @media (min-width: $MQNarrow) {
 	header.navbar .links {
-		display: flex;
-		flex-direction: row-reverse;
-
 		input, .suggestions {
 			width: 10em;
 		}
 
 		input:focus, .suggestions {
 			width: 20em;
+		}
+	}
+}
+
+@media (min-width: $MQMobile) {
+	header .search-box {
+		margin-right: 0;
+
+		input {
+			left: 0;
 		}
 	}
 }
@@ -21,16 +64,8 @@
 			font-size: 1rem;
 
 			&:focus {
-				width: 87.5vw;
+				width: calc(100vw - 3rem);
 			}
 		}
-	}
-}
-
-@media (max-width: $MQMobile) {
-	.home-link {
-		position: absolute;
-		width: 45px;
-		left: calc(50% - 45px / 2);
 	}
 }
