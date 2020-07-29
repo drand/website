@@ -17,7 +17,7 @@ The current public League of Entropy drand mainnet API endpoints are:
 * `/dnsaddr/api3.drand.sh` (1st-level gossip relay endoint)
 * Mainnet chain hash: `8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce`
 
-In order to retrieve randomness form a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
+In order to retrieve randomness from a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
 
 Alternatively you can interact directly with the endpoints (remembering to manually verify every value):
 
