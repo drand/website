@@ -89,13 +89,16 @@ with drand servers.
 
 ## Acknowledgments
 
-Thanks to @herumi for providing support on his optimized pairing-based
-cryptographic library used in the first version. Thanks to Apostol Vassilev for
-its interest in drand and the extensive and helpful discussions on the drand
-design. Thanks to @Bren2010 and @grittygrease for providing the native Golang
+Thanks to  [@herumi](https://github.com/herumi)for providing support on his
+optimized pairing-based cryptographic library used in the first version. Thanks
+to Apostol Vassilev for its interest in drand and the extensive and helpful
+discussions on the drand design. Thanks to
+[@Bren2010](https://github.com/Bren2010) and
+[@grittygrease](https://github.com/grittygrease) for providing the native Golang
 bn256 implementation and for their help in the design of drand and future ideas.
 
 Finally, two special notes:
-* Bryan Ford from the DEDIS lab for supporting its PhD student Nicolas to develop drand 
-* Juan Benet, from Protocol Labs, to believe in the project and providing the
-  push to make drand a production ready network.
+* [Bryan Ford](https://bford.info/) from the [DEDIS lab](https://dedis.ch) for
+  supporting the development of drand 
+* Juan Benet, from [Protocol Labs](https://protocol.ai), to believe in the
+  project and providing the push to make drand a production ready network.
