@@ -1,4 +1,4 @@
-# drand-client
+# drand-client CLI
 
 The `drand-client` command-line-interface application can be used to fetch randomness from a drand network. It is a CLI frontend for the [drand client libraries](/developer/clients/).
 
