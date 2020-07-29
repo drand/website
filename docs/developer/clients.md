@@ -1,6 +1,6 @@
 # Client libraries
 
-Client libraries enable easy access to drand randomness in specific programming languages. They also provide piece of mind by _verifying_ randomness rounds and add additional features like failover, racing, aggregation, and caching.
+Client libraries enable easy access to drand randomness in specific programming languages. They also provide peace of mind by _verifying_ randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
 Drand randomness is available over [HTTP](/developer/http-api/), [libp2p PubSub](/developer/gossipsub/) and gRPC.
 
