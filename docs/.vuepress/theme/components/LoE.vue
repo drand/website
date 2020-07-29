@@ -1,21 +1,123 @@
 <template>
   <article class="loe">
-    <header>
-      <h2 title="League of Entropy">
-        <a href="https://blog.cloudflare.com/league-of-entropy/"
-          ><img src="/images/logo-loe.png" alt="League of Entropy logo"
-        /></a>
-      </h2>
-      <p>
-        The
-        <a href="https://blog.cloudflare.com/league-of-entropy/"
-          ><strong>League of Entropy</strong></a
-        >
-        is a collaborative project to provide a verifiable, decentralized
-        randomness beacon for anyone that may need a public source of
-        randomness.
-      </p>
-    </header>
+    <div>
+      <header>
+        <h2 title="League of Entropy">
+          <a href="https://blog.cloudflare.com/league-of-entropy/"
+            ><img src="/images/logo-loe.png" alt="League of Entropy logo"
+          /></a>
+        </h2>
+        <p>
+          The
+          <a href="https://blog.cloudflare.com/league-of-entropy/"
+            ><strong>League of Entropy</strong></a
+          >
+          is a collaborative project to provide a verifiable, decentralized
+          randomness beacon for anyone that may need a public source of
+          randomness.
+        </p>
+      </header>
+      <div class="members">
+        <h3>Members</h3>
+        <div class="logos">
+          <a href="https://chainsafe.io/" class="logo" title="ChainSafe">
+            <img src="/images/loe/logo-chainsafe.svg" alt="ChainSafe logo" />
+          </a>
+          <a href="http://clabs.org/" class="logo" title="cLabs">
+            <img
+              src="/images/loe/logo-clabs.png"
+              alt="cLabs logo"
+              class="wide"
+            />
+          </a>
+          <a href="https://cloudflare.com/" class="logo" title="Cloudflare">
+            <img
+              src="/images/loe/logo-cloudflare.temp.png"
+              alt="Cloudflare logo"
+              class="wide"
+            />
+          </a>
+          <a
+            href="https://www.c4dt.org/"
+            class="logo"
+            title="Center for Digital Trust"
+          >
+            <img
+              src="/images/loe/logo-c4dt.svg"
+              alt="Centre for Digital Trust logo"
+            />
+          </a>
+          <a
+            href="https://www.epfl.ch/labs/dedis/"
+            class="logo"
+            title="Decentralized and Distributed Systems Laboratory"
+          >
+            <img
+              src="/images/loe/logo-dedis.png"
+              alt="Decentralized and Distributed Systems Laboratory logo"
+            />
+          </a>
+          <a
+            href="https://emeraldonion.org/"
+            class="logo"
+            title="Emerald Onion"
+          >
+            <img
+              src="/images/loe/logo-emerald-onion.png"
+              alt="Emerald Onion logo"
+            />
+          </a>
+          <a
+            href="https://ethereum.org/"
+            class="logo"
+            title="Ethereum Foundation"
+          >
+            <img
+              src="/images/loe/logo-eth.png"
+              alt="Ethereum Foundation logo"
+            />
+          </a>
+          <a href="https://www.initc3.org/" class="logo" title="IC3">
+            <img src="/images/loe/logo-ic3.png" alt="IC3 logo" />
+          </a>
+          <a
+            href="https://www.kudelskisecurity.com/"
+            class="logo"
+            title="Kudelski Security"
+          >
+            <img
+              src="/images/loe/logo-kudelski-security.png"
+              alt="Kudelski Security logo"
+              class="wide"
+            />
+          </a>
+          <a href="https://protocol.ai/" class="logo" title="Protocol Labs">
+            <img src="/images/loe/logo-pl.svg" alt="Protocol Labs logo" />
+          </a>
+          <a href="https://ptisp.pt/" class="logo" title="PTisp">
+            <img
+              src="/images/loe/logo-ptisp.png"
+              alt="PTisp logo"
+              class="wide"
+            />
+          </a>
+          <a
+            href="https://www.uchile.cl/"
+            class="logo"
+            title="University of Chile"
+          >
+            <img
+              src="/images/loe/logo-uchile.png"
+              alt="University of Chile logo"
+              class="wide"
+            />
+          </a>
+          <a href="https://www.ucl.ac.uk/" class="logo" title="UCL">
+            <img src="/images/loe/logo-ucl.svg" alt="UCL logo" class="wide" />
+          </a>
+        </div>
+      </div>
+    </div>
     <div v-if="!error" class="history">
       <h3>Latest Randomness</h3>
       <p>
@@ -138,17 +240,41 @@ export default {
   text-align center
   color white
   h2
-      border 0
-      margin 0
-      padding 0
-  img
+    border 0
+    margin 0
+    padding 0
+    img
       width 512px
       max-width 100%
   strong
-      font-size 1.2rem
-      line-height 1.6
+    font-size 1.2rem
+    line-height 1.6
   a
     color white
+  .members
+    .logos
+      display flex
+      justify-content center
+      flex-wrap wrap
+    .logo
+      display flex
+      align-items center
+      justify-content center
+      background white
+      margin 0.7rem
+      width 80px
+      height 80px
+      border-radius 50%
+      text-align center
+      box-shadow 2px 2px 5px #2d3393
+      transition: box-shadow 1s
+      &:hover
+        box-shadow 4px 4px 5px #2d3393
+      img
+        max-width 50px
+        max-height 50px
+        &.wide // give wide images a bit more horizontal space
+          max-width 60px
   .history
       h3
         font-size 2rem
@@ -194,15 +320,16 @@ export default {
 @media (min-width: $MQNarrow)
   .loe
     padding 6rem
-    header
+    div:first-child
       display flex
       align-items center
       align-content stretch
       justify-content space-evenly
       p
         text-align left
-      h2, p
-        flex-grow 1
-        flex-basis 50%
+      header, .members
         max-width 512px
+      .members
+        h3
+          margin-top: 0
 </style>
