@@ -28,7 +28,7 @@ As a side note, IPFS can be used to subscribe to pubsub topics (running with `ip
 
 ```sh
 ipfs swarm connect /dnsaddr/api.drand.sh
-ipfs pubsub sub /drand/pubsub/v0.0.0/8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce/8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
+ipfs pubsub sub /drand/pubsub/v0.0.0/8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
 ```
 
 (note that you will only see raw protobuf as the output though).
