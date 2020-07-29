@@ -11,13 +11,9 @@
         <a href="https://blog.cloudflare.com/league-of-entropy/"
           ><strong>League of Entropy</strong></a
         >
-        is a collaborative project between the founding members
-        <strong>Cloudflare</strong>,
-        <strong>École polytechnique fédérale de Lausanne</strong>,
-        <strong>Kudelski Security</strong>, <strong>Protocol Labs</strong>, and
-        <strong>University of Chile</strong> to provide a verifiable,
-        decentralized randomness beacon for anyone that may need a public source
-        of randomness.
+        is a collaborative project to provide a verifiable, decentralized
+        randomness beacon for anyone that may need a public source of
+        randomness.
       </p>
     </header>
     <div v-if="!error" class="history">
