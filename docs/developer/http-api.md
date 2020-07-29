@@ -4,6 +4,8 @@ Drand provides a JSON HTTP interface that clients can use to fetch randomness fr
 
 All that's required is the address of the HTTP interface and way to fetch from HTTP, e.g. `curl`.
 
+## Public endpoints
+
 The public [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) HTTP APIs are available at:
 
 - Protocol Labs

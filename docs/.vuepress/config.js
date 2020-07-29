@@ -1,6 +1,7 @@
 // .vuepress/config.js
 module.exports = {
   base: '/',
+  port: 8082,
   head: require('./head'),
   locales: {
     '/': {
@@ -67,7 +68,7 @@ module.exports = {
             'security-model',
             'specification'
           ],
-          '/developer/': ['clients', 'http-api', 'cli'],
+          '/developer/': ['clients', 'http-api', 'gossipsub', 'drand-client'],
           '/operator/': ['deploy', 'docker', 'metrics', 'drand-cli'],
           '/about/': [
             'community',
