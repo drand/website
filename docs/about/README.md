@@ -13,9 +13,9 @@ in Golang. Servers running drand can be linked with each other to produce
 collective, publicly verifiable, unbiased, unpredictable random values at fixed
 intervals using bilinear pairings and threshold cryptography.
 
-Drand is meant to be a Internet infrastructure level service that provides
+Drand is meant to be an Internet infrastructure level service that provides
 randomness to applications, similar to how NTP provides timing information and
-Certificate Transparency servers provides certificates revocation information.
+Certificate Transparency servers provide certificate revocation information.
 
 ## Why decentralized randomness is important
 
@@ -63,7 +63,7 @@ verification and shorter transcript.
 
 In early 2007, the DEDIS team started a collaboration with
 [DFINITY](https://dfinity.org) on various topics including public randomness.
-Indeed, DFINITY's architecture include the notion of a randomness source that
+Indeed, DFINITY's architecture included the notion of a randomness source that
 uses the same cryptographic techniques as drand. Additionally, they had
 implemented an optimized pairing library in C++ for the BN256 curve. After
 integrating this implementation into the DEDIS’ crypto library
@@ -73,7 +73,7 @@ using pairings.
 
 Thanks to the use of pairing based cryptography, drand is able to generate
 randomness in a very simple and efficient manner and to deliver it in a reliable
-way to the client. Drand's was meant to be from the ground up a distributed
+way to the client. Drand was meant to be from the ground up a distributed
 service providing public randomness in an application-agnostic, secure, and
 efficient way. And _nothing else_. The idea is that instead of having each
 blockchain systems re-inventing the wheel internally, often poorly, drand would
