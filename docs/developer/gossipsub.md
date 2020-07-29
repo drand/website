@@ -20,7 +20,7 @@ for the public network being `/drand/pubsub/v0.0.0/8990e7a9aaed2ffed73dbd7092123
 
 ## Usage
 
-The published messages are encoded protobufs of type [`PublicRandResponse`](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto#L46).
+The published messages are encoded protobufs of type [`PublicRandResponse`](https://github.com/drand/drand/blob/799190bff8e1a2ce46dccfcf4e7f7d75075495b2/protobuf/drand/api.proto#L42-L53).
 
 In order to receive randomness using this method you will to run an application that creates a libp2p host that can connect to a pubsub relay and subscribe to the pubsub topic. We recommend using drand's [client libraries](/developer/clients/) or the [drand-client](/developer/drand-client/) tool, which automatically perform *verification* for this task.
 
