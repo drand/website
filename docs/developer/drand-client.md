@@ -23,7 +23,7 @@ docker run drandorg/drand-client
 
 ## Usage
 
-Run `drand-client --help` for a list of supported options. As an example, here is how to launch the client in order to read randomness for the current Leage Of Entropy mainnet endpoints (with automatic verification, failover and fastest-endpoint optimizations):
+Run `drand-client --help` for a list of supported options. As an example, here is how to launch the client in order to read randomness for the current League of Entropy mainnet endpoints (with automatic verification, failover and fastest-endpoint optimizations):
 
 ```sh
 drand-client --watch \
