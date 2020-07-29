@@ -24,4 +24,4 @@ Alternatively you can interact directly with the endpoints (remembering to manua
 
 - [HTTP API reference](/developer/http-api/)
 - [Pubsub-based randomness distribution](/developer/gossipsub/)
-- GRPC API: usually not publicly accessible. GRPC API is supported by the drand client libraries, the `drand-client` CLI application and the [drand application](/operator/drand-cli/) itself (using `drand get public`).
+- gRPC API: usually not publicly accessible. A gRPC API is supported by the drand client libraries, the `drand-client` CLI application and the [drand application](/operator/drand-cli/) itself (using `drand get public`).
