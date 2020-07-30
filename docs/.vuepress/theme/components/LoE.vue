@@ -68,7 +68,7 @@
             />
           </a>
           <a
-            href="https://ethereum.org/"
+            href="https://ethereum.foundation/"
             class="logo"
             title="Ethereum Foundation"
           >
