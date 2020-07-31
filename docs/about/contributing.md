@@ -13,9 +13,9 @@ This software is considered experimental and is receiving constant updates. With
 
 ## Documentation
 
-Found an error in the drand docs? You can file an issue in the [GitHub repository](https://github.com/drand/website/issues). If you've got a feature request, or want something clarifiying, feel free to [raise it here](https://github.com/drand/website/issues).
-
-This documentation platform is constatly growing, evolving, and being updated. If you'd like to test upcomming documentation, take a look at [beta.drand.love](https://beta.drand.love), that's the staging area before new content gets pushed into the main [drand.love](https://drand.love) website.
+This documentation platform is constantly growing, evolving, and being updated. If you've got a feature request, or want something clarifiying, feel free to [raise it here](https://github.com/drand/website/issues).
+ 
+Found an error in the drand docs? You can file an issue in the [GitHub repository](https://github.com/drand/website/issues).
 
 ## Submitting issues
 
