@@ -20,7 +20,7 @@ Randomness is at the core of many business critical operations and protocols tha
 
 Drand provides a mechanism for a universally accessible source of publicly-verifiable, unbiasable, and unpredictable randomness. Following an initial multi-party computation to establish a distributed key, drand nodes operated by independent parties periodically broadcast information that gets aggregated into a final random beacon whose validity can be easily verified by users. 
 
-Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/) and the first network was launched as an experiment in 2019. Now it is time to transform drand into a userproduction-ready public serviceutility. We’ve a host of new changes and improvements to drand and it’s largest deployment, the [League of Entropy](http://leagueofentropy.com/), that we are sharing with you here today.
+Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/) and the first network was launched as an experiment in 2019. After nearly a year in the research stage, it was time to transform drand into a production level public service. Over the past few months, we’ve rolled out a host of new changes and improvements to drand and it’s largest deployment, the [League of Entropy](http://leagueofentropy.com/), that we are sharing with you here today.
 
 We believe that drand can be a foundational Internet core service for randomness, one that everyone online can access and use in the same way as other foundational protocols, like DNS or NTP.
 
@@ -50,7 +50,7 @@ The drand protocol now has a [full specification](/docs/specification/) and a do
 
 ### Security Audit
 
-The drand implementation underwent an end-to-end security audit by SigmaPrime, the results of which can be found here, and all relevant issues were resolved.
+The drand implementation underwent an end-to-end security audit by SigmaPrime, and all relevant issues were resolved.
 
 ### Code Quality, Refactor & Testing
 
@@ -58,7 +58,7 @@ Improved development practices, including a testnet for pre-deployment evaluatio
 
 General improvements to the codebase, with over 400 merged pull requests in the last couple months.
 
-With these changes, drand got the upgrades it needed to become  a reliable production environment.
+With these changes, drand got the upgrades it needed to become a reliable production environment.
 
 ## The League of Entropy Main Network (LoE Mainnet) becomes a production service
 
