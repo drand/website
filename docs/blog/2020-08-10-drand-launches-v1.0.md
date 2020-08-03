@@ -1,6 +1,6 @@
 ---
-title: Drand launches v1.0 and the League of Entropy becomes a production service!
-summary: Welcome to the brand new website for the drand project! Drand is now in production providing publicly verifiable randomness as a foundational internet service.
+title: Drand launches v1.0, and the League of Entropy becomes a production service!
+summary: Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 date: 2020-08-10
 tags:
     - Release
@@ -12,15 +12,15 @@ tags:
 
 Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 
-Below you’ll find an introduction to drand, information on recent protocol upgrades, details about the expansion and strengthening of drand’s largest deployment, the League of Entropy, and glimpses into the future of drand and the League of Entropy.
+Below you'll find an introduction to drand, information on recent protocol upgrades, details about the expansion and strengthening of drand's largest deployment, the League of Entropy, and glimpses into the future of drand and the League of Entropy.
 
 ## New to drand? Here is a primer
 
-Randomness is at the core of many business critical operations and protocols that we rely on every day (e.g. the cryptography of secure communications, the execution of public lotteries and so on). However, despite being such a huge requirement, there has never been a source of public randomness capable of providing truly unbiased randomness at scale. Drand was created to change that. 
+Randomness is at the core of many business-critical operations and protocols that we rely on every day (e.g., the cryptography of secure communications, the execution of public lotteries, and so on). However, despite being such a huge requirement, there has never been a source of public randomness capable of providing truly unbiased randomness at scale. Drand was created to change that. 
 
 Drand provides a mechanism for a universally accessible source of publicly-verifiable, unbiasable, and unpredictable randomness. Following an initial multi-party computation to establish a distributed key, drand nodes operated by independent parties periodically broadcast information that gets aggregated into a final random beacon whose validity can be easily verified by users. 
 
-Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/) and the first network was launched as an experiment in 2019. After nearly a year in the research stage, it was time to transform drand into a production level public service. Over the past few months, we’ve rolled out a host of new changes and improvements to drand and it’s largest deployment, the [League of Entropy](http://leagueofentropy.com/), that we are sharing with you here today.
+Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/), and the first network was launched as an experiment in 2019. After nearly a year in the research stage, it was time to transform drand into a production-level public service. Over the past few months, we have rolled out a host of new changes and improvements to the service. We've also deployed drand's largest network, the [League of Entropy](http://leagueofentropy.com/).
 
 We believe that drand can be a foundational Internet core service for randomness, one that everyone online can access and use in the same way as other foundational protocols, like DNS or NTP.
 
@@ -28,11 +28,11 @@ We believe that drand can be a foundational Internet core service for randomness
 
 Drand reached v1.0 in July 2020 with many new features and architecture improvements. Chief among them are:
 
-### 3 layered Architecture
+### 3 layered architecture
 
 The network architecture was split into three layers, offering enhanced protection to the drand nodes while increasing scalability, with a distribution network utilizing CDNs, [libp2p Gossipsub](https://blog.ipfs.io/2020-05-20-gossipsub-v1.1/) relays, Tor relays, and [Twitter bots](https://twitter.com/loebot).
 
-### New Features
+### New features
 
 * **Round-to-timestamps guarantees** with a catch-up functionality where, after a downtime, nodes quickly generate randomness to be up-to-date.
 * The ability for a node to **download a full copy of an existing chain prior to joining the group**.
@@ -40,29 +40,29 @@ The network architecture was split into three layers, offering enhanced protecti
 * Solid client implementation with provider **failover** and **optimizations** in Go and JS.
 * A broadcast channel enabling more **robust set-up ceremonies**.
 
-### Deployment Monitoring
+### Deployment monitoring
 
-A set of tools is now used to monitor the various drand nodes and alert operators to incidents. A [status page](https://drand.statuspage.io/) that shows both system status and any planned maintenance is now available for the network. We have also established a network observatory to measure network performance and reliability from the perspective of the end user, with vantage points around the world.
+A set of tools is now used to monitor the various drand nodes and alert operators to incidents. A [status page](https://drand.statuspage.io/) that shows both system status and any planned maintenance is now available for the network. We have also established a network observatory to measure network performance and reliability from the perspective of the end-user, with vantage points around the world.
 
-### Drand’s Specification & Security Model
+### Drand’s specification & security model
 
 The drand protocol now has a [full specification](/docs/specification/) and a documented [security model](/docs/security-model/). 
 
-### Security Audit
+### Security audit
 
 The drand implementation underwent an end-to-end security audit by SigmaPrime, and all relevant issues were resolved.
 
-### Code Quality, Refactor & Testing
+### Code quality, refactor & testing
 
-Improved development practices, including a testnet for pre-deployment evaluation of new versions and greatly increased code coverage.
+Improved development practices, including a testnet for pre-deployment evaluation of new versions, and greatly increased code coverage.
 
-General improvements to the codebase, with over 400 merged pull requests in the last couple months.
+General improvements to the codebase, with over 400 merged pull requests in the last couple of months.
 
 With these changes, drand got the upgrades it needed to become a reliable production environment.
 
-## The League of Entropy Main Network (LoE Mainnet) becomes a production service
+## The League of Entropy main network (LoE Mainnet) becomes a production service
 
-The true power of drand comes not from its implementation but from a strong, decentralised network of independent nodes contributing to the randomness generation. In addition to significant protocol upgrades, we also strengthened the League of Entropy.
+The true power of drand comes not from its implementation but from a strong, decentralized network of independent nodes contributing to the randomness generation. In addition to significant protocol upgrades, we also strengthened the League of Entropy.
 
 In 2019, Cloudflare, EPFL, the University of Chile, Kudelski Security, and Protocol Labs came together to start the League of Entropy and run the drand network. Since then, the group has expanded to include partners in six countries, spanning the spectrum from universities to infrastructure companies. 
 
@@ -85,24 +85,24 @@ With the LoE Main Network upgrade, a set of new partners joined the league to in
 * [UCL](https://www.ucl.ac.uk/)
 * [University of Chile](https://www.uchile.cl)
 
-More partners have signed up to join soon, and we’ll keep growing the network over the years to come.
+More partners have signed up to join soon, and we'll keep growing the network over the years to come.
 
-### League of Entropy’s Governance
+### League of Entropy's governance
 
-Our changes start with the drand community. Drand’s strength and resilience are ensured by the number and diversity of its nodes. But a key requirement for the overall security of the network is that no single entity retains complete and centralized control over the drand network. This calls for an explicit and decentralized governance model for the drand community of operators. So one of the first changes was to draft a new model of collaborative governance for the League of Entropy – the consortium supporting and sustaining the drand network.
+Our changes start with the drand community. Drand's strength and resilience are ensured by the number and diversity of its nodes. But a key requirement for the overall security of the network is that no single entity retains complete and centralized control over the drand network. This calls for an explicit and decentralized governance model for the drand community of operators. So one of the first changes was to draft a new model of collaborative governance for the League of Entropy – the consortium supporting and sustaining the drand network.
 
-With this new governance model, we’ve established the rules and requirements that the League of Entropy needs in order to maintain a high level of network security, ensure that the League operates effectively, and establish the right conditions for ongoing improvement to the production quality of drand. We’ve also laid down the procedures for adding new members to the League of Entropy in an equitable, fair, and decentralized way. All told, we think these changes set up the drand project for continued success as we find new users and implement new features.
+With this new governance model, we've established the rules and requirements that the League of Entropy needs in order to maintain a high level of network security, ensure that the League operates effectively, and establish the right conditions for ongoing improvement to the production quality of drand. We've also laid down the procedures for adding new members to the League of Entropy in an equitable, fair, and decentralized way. All told, we think these changes set up the drand project for continued success as we find new users and implement new features.
 
-## New Website & Logo
+## New website & logo
 
-We built this website to be the drand community’s primary repository for the growing body of documentation about drand. We also want this to be the new home for the drand community of developers, operators, and end-users. We’ll use it to host our blog and  share important updates and news about the project..
+We built this website to be the drand community's primary repository for the growing body of documentation about drand. We also want this to be the new home for the drand community of developers, operators, and end-users. We'll use it to host our blog and share important updates and news about the project.
 
 In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [here](LINK TO LOGO ASSETS FOLDER) for a logo kit. 
 
-## Filecoin Becomes Drand’s First Production User
+## Filecoin becomes Drand's first production user
  
-In this first post to our new website, we’ve talked about the changes and upgrades we’re making to realize the future of drand as a production-ready service. We’re thrilled to report that the Filecoin project at Protocol Labs has [announced](https://filecoin.io/blog/filecoin-testnet-phase-2-is-here/) they are adopting drand as the source of unbiased randomness for leader election on the Filecoin blockchain. Filecoin has thus become the first known production user of drand!  
+In this first post to our new website, we've talked about the changes and upgrades we're making to realize the future of drand as a production-ready service. We're thrilled to report that the Filecoin project at Protocol Labs has [announced](https://filecoin.io/blog/filecoin-testnet-phase-2-is-here/) they are adopting drand as the source of unbiased randomness for leader election on the Filecoin blockchain. Filecoin has thus become the first known production user of drand!  
 
-This is a huge announcement that couldn’t come at a better time. One of the most promising production use cases of drand is in the blockchain space. Filecoin is already a cutting-edge blockchain-based technology, and its incorporation of drand as its preferred randomness source will power some incredible innovation, testing and development for the drand network. We’re excited for what the future holds for both Filecoin and drand. 
+This is a huge announcement that couldn't come at a better time. One of the most promising production use cases of drand is in the blockchain space. Filecoin is already a cutting-edge blockchain-based technology, and its incorporation of drand as its preferred randomness source will power some incredible innovation, testing, and development for the drand network. We're excited for what the future holds for both Filecoin and drand. 
 
-That’s all for now, but there will be more to come in the weeks and months ahead. We hope you’ll join us again at drand’s new online home to hear about the next round of news and updates to the project. 
+That's all for now, but there will be more to come in the weeks and months ahead. We hope you'll join us again at drand's new online home to hear about the next round of news and updates to the project. 
