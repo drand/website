@@ -1,5 +1,5 @@
 ---
-title: Drand launches v1.0, and the League of Entropy becomes a production service!
+title: The League of Entropy launches drand v1.0 to become the Internet’s first production-grade, publicly verifiable randomness beacon!
 summary: Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 date: 2020-08-10
 tags:
@@ -30,13 +30,13 @@ Drand reached v1.0 in July 2020 with many new features and architecture improvem
 
 ### 3 layered architecture
 
-The network architecture was split into three layers, offering enhanced protection to the drand nodes while increasing scalability, with a distribution network utilizing CDNs, [libp2p Gossipsub](https://blog.ipfs.io/2020-05-20-gossipsub-v1.1/) relays, Tor relays, and [Twitter bots](https://twitter.com/loebot).
+The network architecture was split into three layers, offering enhanced protection to the drand nodes while increasing scalability, with a distribution network utilizing CDNs, [libp2p Gossipsub](https://blog.ipfs.io/2020-05-20-gossipsub-v1.1/) relays, and [Twitter bots](https://twitter.com/loebot).
 
 ### New features
 
 * **Round-to-timestamps guarantees** with a catch-up functionality where, after a downtime, nodes quickly generate randomness to be up-to-date.
 * The ability for a node to **download a full copy of an existing chain prior to joining the group**.
-* A new curve ([BLS12-381](https://electriccoin.co/blog/new-snark-curve/)) for **improved security** and **compatibility with major blockchains**.
+* A new curve ([BLS12-381](https://electriccoin.co/blog/new-snark-curve/)) for **improved security** and **compatibility with major blockchains like Filecoin and Ethereum 2.0**.
 * Solid client implementation with provider **failover** and **optimizations** in Go and JS.
 * A broadcast channel enabling more **robust set-up ceremonies**.
 
@@ -50,11 +50,17 @@ The drand protocol now has a [full specification](/docs/specification/) and a do
 
 ### Code quality, refactor & testing
 
-Improved development practices, including a testnet for pre-deployment evaluation of new versions, and greatly increased code coverage.
+Improved development practices, including a testnet for pre-deployment evaluation of new versions and greatly increased code coverage, as well as linting and regression testing.
 
-General improvements to the codebase, with over 400 merged pull requests in the last couple of months.
+General improvements to the codebase, with over 400 merged pull requests in the last couple months.
 
-With these changes, drand got the upgrades it needed to become a reliable production environment.
+With these changes, drand got the upgrades it needed to become  a reliable production environment.
+
+## New website & logo
+
+We built this website to be the drand community's primary repository for the growing body of documentation about drand. We also want this to be the new home for the drand community of developers, operators, and end-users. We'll use it to host our blog and share important updates and news about the project.
+
+In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [download the logo kit](/drand-logo-kit.zip).
 
 ## The League of Entropy main network (LoE Mainnet) becomes a production service
 
@@ -88,12 +94,6 @@ More partners have signed up to join soon, and we'll keep growing the network ov
 Our changes start with the drand community. Drand's strength and resilience are ensured by the number and diversity of its nodes. But a key requirement for the overall security of the network is that no single entity retains complete and centralized control over the drand network. This calls for an explicit and decentralized governance model for the drand community of operators. So one of the first changes was to draft a new model of collaborative governance for the League of Entropy – the consortium supporting and sustaining the drand network.
 
 With this new governance model, we've established the rules and requirements that the League of Entropy needs in order to maintain a high level of network security, ensure that the League operates effectively, and establish the right conditions for ongoing improvement to the production quality of drand. We've also laid down the procedures for adding new members to the League of Entropy in an equitable, fair, and decentralized way. All told, we think these changes set up the drand project for continued success as we find new users and implement new features.
-
-## New website & logo
-
-We built this website to be the drand community's primary repository for the growing body of documentation about drand. We also want this to be the new home for the drand community of developers, operators, and end-users. We'll use it to host our blog and share important updates and news about the project.
-
-In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [download the logo kit](/drand-logo-kit.zip).
 
 ## Filecoin becomes drand's first production user
  
