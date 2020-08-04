@@ -95,7 +95,7 @@ We built this website to be the drand community's primary repository for the gro
 
 In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [download the logo kit](/drand-logo-kit.zip).
 
-## Filecoin becomes Drand's first production user
+## Filecoin becomes drand's first production user
  
 In this first post to our new website, we've talked about the changes and upgrades we're making to realize the future of drand as a production-ready service. We're thrilled to report that the Filecoin project at Protocol Labs has [announced](https://filecoin.io/blog/filecoin-testnet-phase-2-is-here/) they are adopting drand as the source of unbiased randomness for leader election on the Filecoin blockchain. Filecoin has thus become the first known production user of drand!  
 
