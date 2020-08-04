@@ -53,7 +53,7 @@ Retrives the latest round of randomness. It returns a JSON object with the follo
 ```
 
 - `round` is an sequentially increasing integer - the randomness round index
-- `randomness` is a SHA-512 hash of the signature
+- `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
 
@@ -71,6 +71,6 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 ```
 
 - `round` is an sequentially increasing integer - the randomness round index
-- `randomness` is a SHA-512 hash of the signature
+- `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
