@@ -24,9 +24,9 @@ Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl
 
 We believe that drand can be a foundational Internet core service for randomness, one that everyone online can access and use in the same way as other foundational protocols, like DNS or NTP.
 
-## Drand reaches v1.0
+## Drand v1.1
 
-Drand reached v1.0 in July 2020 with many new features and architecture improvements. Chief among them are:
+Drand launched v1.0 in July and updgraded to v1.1 in August, rolling out many new features and architecture improvements. Chief among them are:
 
 ### 3 layered architecture
 
