@@ -93,7 +93,7 @@ With this new governance model, we've established the rules and requirements tha
 
 We built this website to be the drand community's primary repository for the growing body of documentation about drand. We also want this to be the new home for the drand community of developers, operators, and end-users. We'll use it to host our blog and share important updates and news about the project.
 
-In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [here](LINK TO LOGO ASSETS FOLDER) for a logo kit. 
+In addition to a new site, we also created a logo for the drand project, which you can see at the top of this post or [download the logo kit](/drand-logo-kit.zip).
 
 ## Filecoin becomes Drand's first production user
  
