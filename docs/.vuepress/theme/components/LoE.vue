@@ -50,11 +50,12 @@
           <a
             href="https://www.epfl.ch/labs/dedis/"
             class="logo"
-            title="Decentralized and Distributed Systems Laboratory"
+            title="EPFL - Decentralized and Distributed Systems Laboratory"
           >
             <img
-              src="/images/loe/logo-dedis.png"
-              alt="Decentralized and Distributed Systems Laboratory logo"
+              src="/images/loe/logo-epfl.svg"
+              alt="EPFL - Decentralized and Distributed Systems Laboratory logo"
+              class="wide"
             />
           </a>
           <a
