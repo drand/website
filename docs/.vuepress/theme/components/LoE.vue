@@ -102,6 +102,13 @@
               class="wide"
             />
           </a>
+          <a href="https://tierion.com/" class="logo" title="Tierion">
+            <img
+              src="/images/loe/logo-tierion.svg"
+              alt="Tierion logo"
+              class="wide"
+            />
+          </a>
           <a
             href="https://www.uchile.cl/"
             class="logo"
