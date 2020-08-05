@@ -30,7 +30,7 @@ Drand launched v1.0 in July and updgraded to v1.1 in August, rolling out many ne
 
 ### 3 layered architecture
 
-The network architecture was split into three layers, offering enhanced protection to the drand nodes while increasing scalability, with a distribution network utilizing CDNs, [libp2p Gossipsub](https://blog.ipfs.io/2020-05-20-gossipsub-v1.1/) relays, and [Twitter bots](https://twitter.com/loebot).
+The network architecture was split into three layers, offering enhanced protection to the drand nodes while increasing scalability, with a distribution network utilizing [HTTP CDNs](http://api.drand.sh/public/latest), [libp2p Gossipsub](https://blog.ipfs.io/2020-05-20-gossipsub-v1.1/) relays, a [Tor hidden service](http://drandeokfd5aaz3hr4hfk7mlr23vc63boxrpr44ertumtbousmdgbhad.onion/public/latest), and a [Twitter bot](https://twitter.com/loebot).
 
 ### New features
 
