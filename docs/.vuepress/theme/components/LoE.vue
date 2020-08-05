@@ -32,7 +32,7 @@
           </a>
           <a href="https://cloudflare.com/" class="logo" title="Cloudflare">
             <img
-              src="/images/loe/logo-cloudflare.temp.png"
+              src="/images/loe/logo-cloudflare.svg"
               alt="Cloudflare logo"
               class="wide"
             />
