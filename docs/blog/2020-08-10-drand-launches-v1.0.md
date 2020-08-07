@@ -8,7 +8,7 @@ tags:
     - League of Entropy
 ---
 
-![Placeholder launch image](/images/social-card.png)
+![Banner for drand v1.0](./images/drand-launch-banner.png)
 
 Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 
