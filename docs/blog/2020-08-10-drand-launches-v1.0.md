@@ -102,3 +102,11 @@ In this first post to our new website, we've talked about the changes and upgrad
 This is a huge announcement that couldn't come at a better time. One of the most promising production use cases of drand is in the blockchain space. Filecoin is already a cutting-edge blockchain-based technology, and its incorporation of drand as its preferred randomness source will power some incredible innovation, testing, and development for the drand network. We're excited for what the future holds for both Filecoin and drand. 
 
 That's all for now, but there will be more to come in the weeks and months ahead. We hope you'll join us again at drand's new online home to hear about the next round of news and updates to the project. 
+
+## One last announcement: Join us on August 13 for The Randomness Summit
+
+To help celebrate this exciting launch, the drand team, ETHGlobal, Protocol Labs Research, and ResNetLab are pleased to announce a [one-day virtual summit](https://randomness2020.com/) on state of the art and future directions for randomness beacons.  
+
+[Register now](https://airtable.com/shrTsIV4Btd8Wugqb) to learn from top cryptographers and randomness beacon experts, League of Entropy partners, and drand developers. The Ethereum and Filecoin project leads will also be talking about the critical role of randomness in the operation of their networks.
+
+That’s all for now, but there will be more to come in the weeks and months ahead. We hope you’ll join us at drand’s new online home to stay informed of future news and updates to the project. 
