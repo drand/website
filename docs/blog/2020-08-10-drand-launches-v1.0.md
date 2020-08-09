@@ -48,6 +48,10 @@ A set of tools is now used to monitor the various drand nodes and alert operator
 
 The drand protocol now has a [full specification](/docs/specification/) and a documented [security model](/docs/security-model/). 
 
+### Security audit
+
+The drand implementation underwent an end-to-end security audit by SigmaPrime, the results of which can be found [here](https://drive.google.com/file/d/1fCy1ynO78gJLCNbqBruzHx7bh72Tu-q2/view?usp=sharing), and all relevant issues were resolved.
+
 ### Code quality, refactor & testing
 
 Improved development practices, including a testnet for pre-deployment evaluation of new versions and greatly increased code coverage, as well as linting and regression testing.
