@@ -1,6 +1,7 @@
 ---
 title: The League of Entropy launches drand v1.0 to become the Internet’s first production-grade, publicly verifiable randomness beacon!
 summary: Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
+image: /images/drand-launch-banner.png
 date: 2020-08-10
 tags:
     - Release
@@ -8,7 +9,7 @@ tags:
     - League of Entropy
 ---
 
-![Banner for drand v1.0](./images/drand-launch-banner.png)
+![Banner for drand v1.0](/images/drand-launch-banner.png)
 
 Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 

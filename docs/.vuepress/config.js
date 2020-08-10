@@ -183,13 +183,13 @@ module.exports = {
         frontmatters: [
           {
             // Unique ID of current classification
-            id: 'tags',
+            id: 'tag',
             // Decide that the frontmatter keys will be grouped under this classification
-            keys: ['tags'],
+            keys: ['tag', 'tags'],
             // Path of the `entry page` (or `list page`)
             path: '/tag/',
             // Layout of the `entry page`
-            layout: 'Tags',
+            layout: 'IndexTags',
             // Layout of the `scope page`
             scopeLayout: 'Tag'
           }
