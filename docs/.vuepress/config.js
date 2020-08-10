@@ -1,3 +1,5 @@
+const canonicalBaseURL = 'https://drand.love'
+
 // .vuepress/config.js
 module.exports = {
   base: '/',
@@ -33,7 +35,7 @@ module.exports = {
     },
     keywords:
       'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, documentation, docs, Protocol Labs',
-    domain: 'https://docs.drand.love',
+    domain: canonicalBaseURL,
     docsRepo: 'drand/website',
     docsDir: 'docs',
     docsBranch: 'master',
@@ -78,8 +80,8 @@ module.exports = {
               title: 'Status',
               path: 'https://drand.statuspage.io/'
             }
-          ]
-          // '/blog/': ['20200527-test-blog-post']
+          ],
+          '/blog/': []
         }
       }
     },
@@ -150,7 +152,7 @@ module.exports = {
       {
         // add <link rel="canonical" header (https://tools.ietf.org/html/rfc6596)
         // to deduplicate SEO across all copies loaded from various public gateways
-        baseURL: 'https://docs.drand.love'
+        baseURL: canonicalBaseURL
       }
     ],
     [
@@ -160,6 +162,39 @@ module.exports = {
         macros: {
           '*': '\\times'
         }
+      }
+    ],
+    [
+      '@vuepress/plugin-blog',
+      {
+        directories: [
+          {
+            // Unique ID of current classification
+            id: 'blog',
+            // Target directory
+            dirname: 'blog',
+            // Path of the `entry page` (or `list page`)
+            path: '/blog/',
+            itemPermalink: '/blog/:year/:month/:day/:slug'
+          }
+        ],
+        feed: {
+          canonical_base: canonicalBaseURL
+        },
+        frontmatters: [
+          {
+            // Unique ID of current classification
+            id: 'tag',
+            // Decide that the frontmatter keys will be grouped under this classification
+            keys: ['tag', 'tags'],
+            // Path of the `entry page` (or `list page`)
+            path: '/tag/',
+            // Layout of the `entry page`
+            layout: 'IndexTags',
+            // Layout of the `scope page`
+            scopeLayout: 'Tag'
+          }
+        ]
       }
     ]
   ],
