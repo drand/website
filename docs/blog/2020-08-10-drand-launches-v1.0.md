@@ -99,7 +99,7 @@ Our changes start with the drand community. Drand's strength and resilience are 
 
 With this new governance model, we've established the rules and requirements that the League of Entropy needs in order to maintain a high level of network security, ensure that the League operates effectively, and establish the right conditions for ongoing improvement to the production quality of drand. We've also laid down the procedures for adding new members to the League of Entropy in an equitable, fair, and decentralized way. All told, we think these changes set up the drand project for continued success as we find new users and implement new features.
 
-## Filecoin becomes drand's first production user
+## Filecoin becomes drand's first high-profile production user
  
 In this first post to our new website, we've talked about the changes and upgrades we're making to realize the future of drand as a production-ready service. We're thrilled to report that the Filecoin project at Protocol Labs has [announced](https://filecoin.io/blog/filecoin-testnet-phase-2-is-here/) they are adopting drand as the source of unbiased randomness for leader election on the Filecoin blockchain. Filecoin has thus become the first known production user of drand!  
 
