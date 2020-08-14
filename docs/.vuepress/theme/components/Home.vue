@@ -21,18 +21,6 @@
       </div>
     </header>
 
-    <a
-      id="cta-rand-sum-2020"
-      href="https://randomness2020.com"
-      target="_blank"
-      title="Randomness Summit 2020 - A one-day virtual conference for distributed systems and critical infrastructure enthusiasts about the state of the art in randomness beacon research and deployment."
-    >
-      <img
-        src="/images/randomness-summit-2020.png"
-        alt="Randomness Summit 2020 call to action"
-      />
-    </a>
-
     <div v-if="data.features && data.features.length" class="features">
       <div
         v-for="(feature, index) in data.features"
@@ -152,31 +140,6 @@ export default {
     color lighten($textColor, 25%)
     p:first-child
       margin-top 0
-  #cta-rand-sum-2020
-    animation shake 0.82s cubic-bezier(.36,.07,.19,.97) both
-    animation-delay 2s
-    transform translate3d(0, 0, 0)
-    backface-visibility hidden
-    perspective 1000px
-    display block
-    text-align center
-    margin 3rem 0
-    img
-      width 172px
-      box-shadow: -2px -3px 0px 0px #fddd56, 3px 2px 0px 0px #00A3FF
-      transition all 0.3s
-      &:hover
-        transform translate(-2px, -2px)
-
-@keyframes shake
-  10%, 90%
-    transform translate3d(-1px, 0, 0)
-  20%, 80%
-    transform translate3d(2px, 0, 0)
-  30%, 50%, 70%
-    transform translate3d(-4px, 0, 0)
-  40%, 60%
-    transform translate3d(4px, 0, 0)
 
 @media (min-width: $MQNarrow)
   .home
@@ -204,11 +167,4 @@ export default {
       flex-grow 1
       flex-basis 48%
       max-width 48%
-    #cta-rand-sum-2020
-      margin 0
-      position absolute
-      top 7rem
-      right 3rem
-      img
-        box-shadow: -2px -3px 0px 0px #fddd56, 3px 2px 0px 0px #00A3FF, 0 0 35px black
 </style>
