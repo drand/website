@@ -4,7 +4,6 @@ summary: Protocol Labs is hiring a Project Operator and an Infrastructure Engine
 date: 2020-08-21
 tags:
     - Jobs
-    - League of Entropy
 ---
 
 Passionate about randomness, dependable public services, and collaborative endeavours? Protocol Labs is hiring for two roles on the drand team:
