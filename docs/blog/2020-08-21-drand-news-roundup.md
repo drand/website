@@ -17,3 +17,5 @@ Two weeks ago, we announced the launch of drand v1.0, the League of Entropy prod
 * [A PTisp juntou-se à “League of Entropy”](https://blog.ptisp.pt/a-ptisp-juntou-se-league-of-entropy/), PTisp, Aug 11 (in Portuguese)
 * [Announcing the League of Entropy Mainnet Upgrade](https://protocol.ai/blog/announcing-league-of-entropy-mainnet-upgrade/), Protocol Labs, Aug 12
 * [Filecoin Features: Distributed Randomness & Leader Elections](https://filecoin.io/blog/distributed-randomness-and-leader-elections/), Filecoin, Aug 12
+
+If you missed the [Randomness Summit](https://randomness2020.com/), stay tuned for edited videos coming online soon, or watch the full summit in the event website.
