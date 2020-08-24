@@ -1,13 +1,13 @@
 ---
 title: Drand news roundup
 summary: Summary of blog posts and news items related to the drand v1.0 announcement.
-date: 2020-08-21
+date: 2020-08-25
 tags:
     - News
     - League of Entropy
 ---
 
-Two weeks ago, we announced the launch of drand v1.0, the League of Entropy production-level service, and this very website. Here is a roundup of related blog posts and news items around the web:
+Two weeks ago, we announced the launch of drand v1.0, the League of Entropy production-level service, and this very website. Here is a roundup of related blog posts and news items from around the web:
 
 * [The League of Entropy Launches Production Drand Network, Providing the First Publicly Verifiable Distributed Randomness Beacon](https://www.prnewswire.com/news-releases/the-league-of-entropy-launches-production-drand-network-providing-the-first-publicly-verifiable-distributed-randomness-beacon-301109096.html), League of Entropy press release, Aug 10
 * [The League of Entropy launches drand v1.0 to become the Internet’s first production-grade, publicly verifiable randomness beacon!](https://drand.love/blog/2020/08/10/drand-launches-v1-0/), drand, Aug 10
@@ -18,4 +18,4 @@ Two weeks ago, we announced the launch of drand v1.0, the League of Entropy prod
 * [Announcing the League of Entropy Mainnet Upgrade](https://protocol.ai/blog/announcing-league-of-entropy-mainnet-upgrade/), Protocol Labs, Aug 12
 * [Filecoin Features: Distributed Randomness & Leader Elections](https://filecoin.io/blog/distributed-randomness-and-leader-elections/), Filecoin, Aug 12
 
-If you missed the [Randomness Summit](https://randomness2020.com/), stay tuned for edited videos coming online soon, or watch the full summit in the event website.
+If you missed the [Randomness Summit](https://randomness2020.com/), stay tuned. We'll post individual talk videos soon, or you can watch the full summit now on the event website.
