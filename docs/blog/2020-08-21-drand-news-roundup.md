@@ -1,7 +1,7 @@
 ---
 title: Drand news roundup
 summary: Summary of blog posts and news items related to the drand v1.0 announcement.
-date: 2020-08-25
+date: 2020-08-26
 tags:
     - News
     - League of Entropy
@@ -17,5 +17,6 @@ Two weeks ago, we announced the launch of drand v1.0, the League of Entropy prod
 * [A PTisp juntou-se à “League of Entropy”](https://blog.ptisp.pt/a-ptisp-juntou-se-league-of-entropy/), PTisp, Aug 11 (in Portuguese)
 * [Announcing the League of Entropy Mainnet Upgrade](https://protocol.ai/blog/announcing-league-of-entropy-mainnet-upgrade/), Protocol Labs, Aug 12
 * [Filecoin Features: Distributed Randomness & Leader Elections](https://filecoin.io/blog/distributed-randomness-and-leader-elections/), Filecoin, Aug 12
+* [drand: um serviço público de números aleatórios](https://pplware.sapo.pt/internet/drand-um-servico-publico-de-numeros-aleatorios/), Pplware, Aug 26 (in Portuguese)
 
 If you missed the [Randomness Summit](https://randomness2020.com/), stay tuned. We'll post individual talk videos soon, or you can watch the full summit now on the event website.
