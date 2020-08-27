@@ -1,7 +1,7 @@
 ---
-title: Drand is hiring!
+title: Drand is hiring! 
 summary: Protocol Labs is hiring a Project Operator and an Infrastructure Engineer to work on the drand team.
-date: 2020-08-21
+date: 2020-08-27
 tags:
     - Jobs
     - League of Entropy
