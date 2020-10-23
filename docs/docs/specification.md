@@ -581,12 +581,8 @@ func Message(currRound uint64, prevSig []byte) []byte {
 }
 ```
 
-with
-
-```go
-// RoundToBytes serializes a round number to bytes (8 bytes fixed length big-endian).
-func RoundToBytes(r uint64) []byte
-```
+with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
+being an 8 bytes fixed length big-endian serializer.
 
 To determine the "current round" and the "previous signature", the node loads it
 last generated beacon and sets the following:
@@ -832,12 +828,8 @@ func Message(currRound uint64, prevSig []byte) []byte {
 }
 ```
 
-with
-
-```go
-// RoundToBytes serializes a round number to bytes (8 bytes fixed length big-endian).
-func RoundToBytes(r uint64) []byte
-```
+with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
+being an 8 bytes fixed length big-endian serializer.
 
 The ciphersuite used is:
 
