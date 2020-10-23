@@ -575,10 +575,17 @@ over the message:
 ```go
 func Message(currRound uint64, prevSig []byte) []byte {
 	h := sha256.New()
-	h.Write(prevSig)
-	h.Write(roundToBytes(currRound))
+	_, _ = h.Write(prevSig)
+	_, _ = h.Write(RoundToBytes(currRound))
 	return h.Sum(nil)
 }
+```
+
+with
+
+```go
+// RoundToBytes serializes a round number to bytes (8 bytes fixed length big-endian).
+func RoundToBytes(r uint64) []byte
 ```
 
 To determine the "current round" and the "previous signature", the node loads it
@@ -819,10 +826,17 @@ A beacon signature is a regular [BLS signature](https://www.iacr.org/archive/asi
 ```go
 func Message(currRound uint64, prevSig []byte) []byte {
 	h := sha256.New()
-	h.Write(prevSig)
-	h.Write(roundToBytes(currRound))
+	_, _ = h.Write(prevSig)
+	_, _ = h.Write(RoundToBytes(currRound))
 	return h.Sum(nil)
 }
+```
+
+with
+
+```go
+// RoundToBytes serializes a round number to bytes (8 bytes fixed length big-endian).
+func RoundToBytes(r uint64) []byte
 ```
 
 The ciphersuite used is:
