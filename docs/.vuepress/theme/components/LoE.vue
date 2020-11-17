@@ -102,6 +102,9 @@
               class="wide"
             />
           </a>
+          <a href="https://theqrl.org/" class="logo" title="QRL">
+            <img src="/images/loe/logo-qrl.svg" alt="QRL logo" class="narrow" />
+          </a>
           <a href="https://tierion.com/" class="logo" title="Tierion">
             <img
               src="/images/loe/logo-tierion.svg"
@@ -283,6 +286,8 @@ export default {
         max-height 50px
         &.wide // give wide images a bit more horizontal space
           max-width 60px
+        &.narrow // give images a bit less horizontal space
+          max-width 40px
   .history
       h3
         font-size 2rem
