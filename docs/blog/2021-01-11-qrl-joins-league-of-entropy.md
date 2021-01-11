@@ -1,6 +1,6 @@
 ---
 title: QRL joins The League of Entropy
-summary: The Quantum Resistant Ledger becomes the latest member of the League of Entropy
+summary: The Quantum Resistant Ledger becomes the latest member of the League of Entropy.
 date: 2021-01-11
 tags:
     - New members
