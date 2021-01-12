@@ -19,6 +19,6 @@ the research and development of open-source post-quantum blockchain solutions.
 The League of Entropy evaluates, votes on, and onboards new members quarterly. If you 
 have experience running secure production services and are interested in 
 [operating a drand node](https://docs.google.com/document/d/1zy_ki3Qk6ecg_APEjYlT9DBwzdJx9I_ImHvaUaIwKHU/), 
-contact us at leagueofentropy@googlegroups.com.
+contact us at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com).
 
 Come join the randomness revolution!
