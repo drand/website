@@ -10,7 +10,7 @@ tags:
 
 On Wednesday, March 10, 2021, The League of Entropy added [ZenGo](http://zengo.com/) to its list of members. 
 ZenGo, the first keyless crypto wallet, aims to make it easy for anyone to start using crypto. 
-A ZenGo wallet is self-hosted and uses advanced threshold cryptography to remove the private key 
+A ZenGo wallet is non-custodial and uses advanced threshold cryptography to remove the private key 
 entirely while still working to ensure that users have full control over their crypto. We are 
 super excited to welcome ZenGo to the randomness revolution! 
 
