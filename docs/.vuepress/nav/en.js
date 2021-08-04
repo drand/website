@@ -3,5 +3,9 @@ module.exports = [
   { text: 'Developer', link: '/developer/' },
   { text: 'Operator', link: '/operator/' },
   { text: 'About', link: '/about/' },
-  { text: 'Blog', link: '/blog/' }
+  { text: 'Blog', link: '/blog/' },
+  {
+    text: "We're hiring",
+    link: 'https://jobs.lever.co/protocol/9afbc1c9-8b3b-4c03-856d-6b0cb5518eaa'
+  }
 ]
