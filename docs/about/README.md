@@ -4,10 +4,6 @@ title: About
 
 # About
 
-:::tip Get in touch
-If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com).
-:::
-
 > This page was originally posted on [Cloudflare's randomness beacon documentation website](https://developers.cloudflare.com/randomness-beacon/).
 
 ---
@@ -106,3 +102,7 @@ Finally, two special notes:
   supporting the development of drand 
 * Juan Benet, from [Protocol Labs](https://protocol.ai), to believe in the
   project and providing the push to make drand a production ready network.
+
+:::tip Get in touch
+If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com).
+:::
