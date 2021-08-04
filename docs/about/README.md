@@ -4,6 +4,10 @@ title: About
 
 # About
 
+:::tip Get in touch
+If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com).
+:::
+
 > This page was originally posted on [Cloudflare's randomness beacon documentation website](https://developers.cloudflare.com/randomness-beacon/).
 
 ---
