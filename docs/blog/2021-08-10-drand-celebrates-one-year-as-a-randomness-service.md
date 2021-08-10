@@ -1,7 +1,6 @@
 ---
 title: Drand celebrates one year as a randomness service!
 summary:  It's been a while year since Drand first launched it's mainnet distributed randomness beacon service.
-date: 2021-08-10
 tags: 
     - Jobs
     - Anniversary
