@@ -3,8 +3,8 @@ title: Drand is 1 year old
 summary:  It's been a while year since Drand first launched it's mainnet distributed randomness beacon service.
 date: 2021-08-10
 tags: 
-    - Drand 
-    - Birthday 
+    - Jobs
+    - Anniversary
     - Updates 
 ---
 
