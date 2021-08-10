@@ -1,5 +1,5 @@
 ---
-title: Drand is 1 year old
+title: Drand celebrates one year as a randomness service and has completed 1M rounds
 summary:  It's been a while year since Drand first launched it's mainnet distributed randomness beacon service.
 date: 2021-08-10
 tags: 
@@ -7,8 +7,6 @@ tags:
     - Anniversary
     - Updates 
 ---
-
-# Drand celebrates one year as a randomness service and has completed 1M rounds
 
 Drand, the distributed randomness beacon, introduced to serve as a foundational randomness service for the Internet, surpassed 1M rounds on July 7, 2021! Drand mainnet was launched in July 2020 and received a significant update on August 10, 2020. This update included a number of key features, such as its 3-layer network architecture, client implementations in Go, and Javascript, _round to timestamp_ guarantees, deployment monitoring, and [may other improvements](https://drand.love/blog/2020/08/10/drand-launches-v1-0/).
 
