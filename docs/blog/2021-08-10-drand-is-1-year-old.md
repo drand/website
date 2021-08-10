@@ -27,8 +27,6 @@ There are also several reasons that _you_ should be excited about the future of 
 1. A new Project Lead has joined the drand team who will focus on driving future development, and growth of drand in collaboration with the League of Entropy.
 1. Drand is hiring! The team is looking for top talent to join our efforts to establish drand as the default random value generator for the Internet. Open positions include Senior Software Engineer in Distributed Systems, and Infrastructure Engineer. [Take a look at our open roles](https://jobs.lever.co/protocol?team=Engineering).
 
-> Filecoin is a decentralized storage network that relies on drand as an off-chain source of randomness, and has benefited greatly from having a reliable, performant, and trustworthy randomness service that itself is decentralized. Using drand has reduced the complexity involved in building, and operating large scale Layer 1 blockchain protocols such as Filecoin. - _Molly McKinlay, Filecoin & IPFS Project Lead_
-
 Stay tuned for more exciting updates!
 
 Onwards to 2M rounds, and beyond!
