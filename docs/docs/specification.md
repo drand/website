@@ -20,7 +20,7 @@ what drand nodes knows about other drand nodes:
 
 ```go
 type Node struct {
-Key []byte  // public key on bls12-381 G1
+	Key []byte  // public key on bls12-381 G1
 	Addr string // publicly reachable address of the node
 	TLS bool // reachable via TLS
 	Index uint32 // index of the node w.r.t. to the network
@@ -31,7 +31,7 @@ A node can be referenced by its hash as follows:
 
 ```go
 func (n *Node) Hash() []byte {
-	h: = blake2b.New(nil)
+	h := blake2b.New(nil)
 	binary.Write(h, binary.LittleEndian, n.Index)
 	h.Write(n.Key)
 	return h.Sum(nil)
