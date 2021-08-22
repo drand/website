@@ -36,7 +36,7 @@ the given epoch. Decentralization helps for the liveness of the beacon.
 
 ## Origins of drand
 
-Drand's development originally started in 2007 at the [DEDIS](https://dedis.ch)
+Drand's development originally started in 2017 at the [DEDIS](https://dedis.ch)
 lab at [EPFL](https://epfl.ch) by Nicolas GAILLY, a PhD student at the time
 with the help of Philipp Jovanovic and under the supervision of Bryan Ford. 
 
@@ -61,7 +61,7 @@ recent development in the field of pairing based cryptography, we could devise
 the next generation of randomness beacon with a trivial protocol and with faster
 verification and shorter transcript.
 
-In early 2007, the DEDIS team started a collaboration with
+In early 2017, the DEDIS team started a collaboration with
 [DFINITY](https://dfinity.org) on various topics including public randomness.
 Indeed, DFINITY's architecture included the notion of a randomness source that
 uses the same cryptographic techniques as drand. Additionally, they had
