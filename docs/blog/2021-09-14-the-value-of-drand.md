@@ -1,3 +1,9 @@
+---
+title: The value of drand
+summary: We asked the League of Entropy some questions on why drand matters to them.
+date: 2021-09-14
+---
+
 # The value of drand
 
 The [League of Entropy](https://leagueofentropy.com/) (LoE) is a consortium of organizations that work together to maintain the number one distributed, bias-resistant and verifiable randomness beacon, called [drand](https://drand.love)! The consortium, formed initially in 2019, is currently supported by 16 member organizations: Cloudflare, École polytechnique fédérale de Lausanne (EPFL), University of Chile, Kudelski Security, Protocol Labs, ChainSafe, cLabs, C4DT, Emerald Onion, Ethereum Foundation, IC3, PTisp, Tierion, UCL, QRL Foundation, ZenGo.
