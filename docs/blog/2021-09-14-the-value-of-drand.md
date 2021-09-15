@@ -14,7 +14,7 @@ We hope you enjoy reading these insights, and come and join the LoE to grow and 
 
 ---
 
-> “Why is drand important as a protocol for the next generation of the Internet in your opinion?”
+**“Why is drand important as a protocol for the next generation of the Internet in your opinion?”**
 
 **Cloudflare**: When the League of Entropy was founded the only available public randomness beacons were provided by individual entities, which require a strong trust model for applications and a potential single point of failure. Drand provides an elegant solution to this problem as a distributed, verifiable randomness beacon, allowing applications to only trust an uncorrupted threshold of parties in the system rather than a single entity. Trusted public randomness has many applications in the modern Internet; for example, it can help to provide auditability of lotteries or transparency in leader election processes.
 
@@ -28,7 +28,7 @@ We hope you enjoy reading these insights, and come and join the LoE to grow and 
 
 ---
 
-> “Why did you decide to join the League of Entropy? What value do you see in drand that is important for your mission (what convinced you to join)?”
+**“Why did you decide to join the League of Entropy? What value do you see in drand that is important for your mission (what convinced you to join)?”**
 
 **Cloudflare**: Cloudflare is on a mission to help build a better Internet, and that means making it more secure, fast, and reliable for everyone. We see drand and the League of Entropy as foundational Internet infrastructure, and with that we are committed to supporting the project. We aim to be on the forefront of deploying next-generation cryptographic protocols and are excited to support this application of threshold cryptography that solves a real-world problem.
 
@@ -44,13 +44,13 @@ Many protocols need a reliable, unbiased, and publicly-verifiable source of rand
 
 ---
 
-> “How you use drand in your setup, infrastructure or application?”
+**“How you use drand in your setup, infrastructure or application?”**
 
 **TIERION**: We use drand to prove each [Chainpoint proof](https://tierion.com/chainpoint) was created between two points in time. Every 30 seconds drand publishes a random value which is injected into each Chainpoint Proof. Since drand’s random values can’t be known before they are published, we can assert that each Chainpoint proof was created after the timestamp of the drand value. 
 
 ---
 
-> “Where would you like to see drand in 2 years from now?”
+**“Where would you like to see drand in 2 years from now?”**
 
 **Cloudflare**: Continue to have more partners join the network with a focus on stability and operational resilience to ultimately strengthen the system, and to see continued growth in client adoption. Cloudflare is proud to be part of this, and we hope to see continued success of the network.
 
@@ -64,4 +64,4 @@ Many protocols need a reliable, unbiased, and publicly-verifiable source of rand
 
 ---
 
-**NOTE**: The League of Entropy evaluates, votes on, and onboards new members quarterly. If you want to be a part of the first production-grade distributed randomness beacon and help provide publicly verifiable randomness as a service, contact us at leagueofentropy@googlegroups.com. We are looking for enthusiastic teams with experience running secure production services who are interested in operating drand nodes and relays. We also encourage you to check out the drand GitHub repository for details.
+_The League of Entropy evaluates, votes on, and onboards new members quarterly. If you want to be a part of the first production-grade distributed randomness beacon and help provide publicly verifiable randomness as a service, contact us at leagueofentropy@googlegroups.com. We are looking for enthusiastic teams with experience running secure production services who are interested in operating drand nodes and relays. We also encourage you to check out the drand GitHub repository for details._
