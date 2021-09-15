@@ -3,7 +3,7 @@ title: The value of drand
 summary: "We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!"
 date: 2021-09-14
 ---
-
+_"We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!"_
 The [League of Entropy](https://leagueofentropy.com/) (LoE) is a consortium of independent, and diverse organizations that partner together to operate a  decentralized, bias-resistant, publicly verifiable, and reliable randomness beacon, called [drand](https://drand.love)! The consortium was originally formed in 2019, and is currently supported by 16 member organizations that includes: Cloudflare, École polytechnique fédérale de Lausanne (EPFL), University of Chile, Kudelski Security, Protocol Labs, ChainSafe, cLabs, C4DT, Emerald Onion, Ethereum Foundation, IC3, PTisp, Tierion, UCL, QRL Foundation, ZenGo.
 
 Drand recently celebrated 1 year of undisrupted service, and completed 1M+ rounds of randomness (emitted at 30s intervals). You can read more about drand’s recent achievements in our recent [blog post](​​https://drand.love/blog/2021/08/10/drand-celebrates-one-year-as-a-randomness-service/).
