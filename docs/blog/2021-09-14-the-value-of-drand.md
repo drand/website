@@ -1,10 +1,8 @@
 ---
 title: The value of drand
-summary: We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!
+summary: "We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!"
 date: 2021-09-14
 ---
-
-# The value of drand
 
 The [League of Entropy](https://leagueofentropy.com/) (LoE) is a consortium of independent, and diverse organizations that partner together to operate a  decentralized, bias-resistant, publicly verifiable, and reliable randomness beacon, called [drand](https://drand.love)! The consortium was originally formed in 2019, and is currently supported by 16 member organizations that includes: Cloudflare, École polytechnique fédérale de Lausanne (EPFL), University of Chile, Kudelski Security, Protocol Labs, ChainSafe, cLabs, C4DT, Emerald Onion, Ethereum Foundation, IC3, PTisp, Tierion, UCL, QRL Foundation, ZenGo.
 
@@ -13,6 +11,8 @@ Drand recently celebrated 1 year of undisrupted service, and completed 1M+ round
 As a free, and not-for-profit service, the League of Entropy (LoE) members believe in the value of randomness as a foundational Internet service, and commit resources in order to maintain and operate the randomness network as a public Internet service. In order to gain insights into the motivations, and vision for Drand shared by the LoE members, we  reached out to them with a few questions. In this blog post, we summarise answers shared by five members of the LoE (we will share responses from other members through future blog posts).
 
 We hope you enjoy reading these insights, and come and join the LoE to grow and strengthen the network! The larger the LoE, the stronger the security,  and reliability guarantees that drand provides, as any biasing attempt becomes significantly more difficult!
+
+---
 
 > “Why is drand important as a protocol for the next generation of the Internet in your opinion?”
 
@@ -25,6 +25,8 @@ We hope you enjoy reading these insights, and come and join the LoE to grow and 
 **DEDIS-EPFL**: The quality of the random numbers used in cryptographic systems directly impacts on the security of a system. Randomness plays a key role in establishing secure connections, generating cryptographic key pairs and system’s authentication. As an Internet infrastructure level service, Drand can provide true, verifiable randomness to applications. 
 
 **TIERION**: Security and trust are fundamental to a free and open Internet. Drand helps developers build secure systems that don’t rely on trusted authorities. 
+
+---
 
 > “Why did you decide to join the League of Entropy? What value do you see in drand that is important for your mission (what convinced you to join)?”
 
@@ -40,9 +42,13 @@ Many protocols need a reliable, unbiased, and publicly-verifiable source of rand
 
 **TIERION**: In 2017 Tierion announced its collaboration with the National Institute of Standards and Technology (NIST) to use the NIST Randomness Beacon to prove a timestamp proof was created between two points in time. Over time, development on the NIST Randomness Beacon slowed down and NIST experienced intermittent reliability issues. We began searching for a replacement and decided drand was by far the best option. 
 
+---
+
 > “How you use drand in your setup, infrastructure or application?”
 
 **TIERION**: We use drand to prove each [Chainpoint proof](https://tierion.com/chainpoint) was created between two points in time. Every 30 seconds drand publishes a random value which is injected into each Chainpoint Proof. Since drand’s random values can’t be known before they are published, we can assert that each Chainpoint proof was created after the timestamp of the drand value. 
+
+---
 
 > “Where would you like to see drand in 2 years from now?”
 
