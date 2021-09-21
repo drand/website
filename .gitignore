@@ -13,3 +13,6 @@ yarn-error.log*
 
 # editor
 .vscode
+
+#editor 2
+.idea

@@ -20,9 +20,10 @@ what drand nodes knows about other drand nodes:
 
 ```go
 type Node struct {
-	Key []byte  // public key on bls12-381 G1
+    Key []byte  // public key on bls12-381 G1
 	Addr string // publicly reachable address of the node
 	TLS bool // reachable via TLS
+	Signature []byte 
 	Index uint32 // index of the node w.r.t. to the network
 }
 ```
@@ -31,9 +32,9 @@ A node can be referenced by its hash as follows:
 
 ```go
 func (n *Node) Hash() []byte {
-	h := blake2b.New(nil)
-	binary.Write(h, binary.LittleEndian, n.Index)
-	h.Write(n.Key)
+	h := hashFunc()
+	_ = binary.Write(h, binary.LittleEndian, n.Index)
+	_, _ = n.Identity.Key.MarshalTo(h)
 	return h.Sum(nil)
 }
 ```
@@ -192,20 +193,11 @@ The relevant protobuf packets are the following:
 // keys and setups the group and sends them back to the nodes such that they can
 // start the DKG automatically.
 message SignalDKGPacket {
-    // the cryptographic key of the node as well as its address
     Identity node = 1;
-    // following parameters are helpful if leader and participants did not run
-    // with the same parameters, so the leader can reply if it's not consistent.
-    uint32 expected = 2;
-    uint32 threshold = 3;
-    uint64 dkg_timeout = 4;
-    string secret_proof = 5;
+    bytes secret_proof = 2;
     // In resharing cases, previous_group_hash is the hash of the previous group.
     // It is to make sure the nodes build on top of the correct previous group.
-    bytes previous_group_hash = 6;
-    // XXX uint32 period could be added to make sure nodes agree on the beacon
-    // frequency but it's not bringing real security on the table so leave it
-    // for now.
+    bytes previous_group_hash = 3;
 }
 ```
 
@@ -233,21 +225,26 @@ with the relevant protobuf packets as follow:
 // every node should start the DKG.
 message DKGInfoPacket {
     drand.GroupPacket new_group = 1;
-    string secret_proof = 2;
+    bytes secret_proof = 2;
+    // timeout in seconds
+    uint32 dkg_timeout = 3;
+    // signature from the coordinator to prove he is the one sending that group
+    // file.
+    bytes signature = 4;
 }
 // GroupPacket represents a group that is running a drand network (or is in the
 // process of creating one or performing a resharing).
 message GroupPacket {
-    repeated Node nodes = 1;
+    repeated Node nodes = 1; 
     uint32 threshold = 2;
     // period in seconds
     uint32 period = 3;
     uint64 genesis_time = 4;
     uint64 transition_time = 5;
     bytes genesis_seed = 6;
-    // is nil in this case, since the network
-    // hasn't run the setup phase yet
     repeated bytes dist_key = 7;
+    // catchup_period in seconds
+    uint32 catchup_period = 8;
 }
 ```
 
@@ -303,13 +300,15 @@ For a new setup, nodes exchanges the DKG packets
 using the following RPC call:
 
 ```protobuf
-rpc FreshDKG(DKGPacket) returns (drand.Empty);
+rpc BroadcastDKG(DKGPacket) returns (drand.Empty);
 ```
 
 and the following protobuf packets:
 
 ```protobuf
-message DKGPacket {
+// DKGPacket is the packet that nodes send to others nodes as part of the
+// broadcasting protocol.
+message DKGPacket{
     dkg.Packet dkg = 1;
 }
 // dkg.proto
@@ -318,9 +317,8 @@ message Packet {
     oneof Bundle {
         DealBundle deal = 1;
         ResponseBundle response = 2;
-        JustifBundle justification = 3;
+        JustificationBundle justification = 3;
     }
-    bytes signature = 4;
 }
 ```
 
@@ -385,11 +383,15 @@ signed.Here is the protobuf wire specification of the deals:
 message DealBundle {
     // Index of the dealer that issues these deals
     uint32 dealer_index = 1;
-    // Coefficients of the public polynomial that is created from the
+    // Coefficients of the public polynomial that is created from the 
     // private polynomial from which the shares are derived.
     repeated bytes commits = 2;
     // list of deals for each individual share holders.
     repeated Deal deals = 3;
+    // session identifier of the protocol run
+    bytes session_id = 4;
+    // signature over the hash of the deal
+    bytes signature = 5;
 }
 
 // Deal contains a share for a participant.
@@ -421,11 +423,15 @@ A node bundles all its responses into a `ResponseBundle` that is signed. Here is
 the protobuf description:
 
 ```protobuf
-// ResponseBundle is a packet issued by a share holder that contains all the
+// ResponseBundle is a packet issued by a share holder that contains all the 
 // responses (complaint and/or success) to broadcast.
 message ResponseBundle {
     uint32 share_index = 1;
     repeated Response responses = 2;
+    // session identifier of the protocol run
+    bytes session_id = 3;
+    // signature over the hash of the response
+    bytes signature = 4;
 }
 
 // Response holds the response that a participant broadcast after having
@@ -433,7 +439,7 @@ message ResponseBundle {
 message Response {
     // index of the dealer for which this response is for
     uint32 dealer_index = 1;
-    // Status represents a complaint if set to false, a success if set to
+    // Status represents a complaint if set to false, a success if set to 
     // true.
     bool status = 2;
 }
@@ -457,11 +463,15 @@ A node bundles all its `Justifications` into a `JustificationBundle` that is
 signed. Here is the protobuf description:
 
 ```protobuf
-// JustifBundle is a packet that holds all justifications a dealer must
+// JustificationBundle is a packet that holds all justifications a dealer must
 // produce
-message JustifBundle {
+message JustificationBundle {
     uint32 dealer_index = 1;
     repeated Justification justifications = 2;
+    // session identifier of the protocol run
+    bytes session_id = 3;
+    // signature over the hash of the justification
+    bytes signature = 4;
 }
 
 // Justification holds the justification from a dealer after a participant
@@ -608,9 +618,12 @@ message PartialBeaconPacket {
     // Round is the round for which the beacon will be created from the partial
     // signatures
     uint64 round = 1;
-    bytes partial_sig = 2;
-    // previous sig the signature of the beacon generated at round `round-1`
-    bytes previous_sig = 3;
+    // signature of the previous round - could be removed at some point but now
+    // is used to verify the signature even before accessing the store
+    bytes previous_sig = 2;
+    // partial signature - a threshold of them needs to be aggregated to produce
+    // the final beacon at the given round.
+    bytes partial_sig = 3;
 }
 ```
 
@@ -648,6 +661,7 @@ type Info struct {
 	GenesisTime int64
 	// PublicKey necessary to validate any randomness beacon of the chain.
 	PublicKey []byte
+	GroupHash []byte 
 }
 ```
 
@@ -1375,30 +1389,20 @@ type Deal struct {
 	EncryptedShare []byte
 }
 
+// DealBundle is a packet issued by a dealer that contains each individual
+// deals, as well as the coefficients of the public polynomial he used.
 type DealBundle struct {
-	DealerIndex uint32
-	Deals       []Deal
-	// Public coefficients of the public polynomial used to create the shares
-	Public []kyber.Point
-}
-
-// Hash hashes the index, public coefficients and deals
-func (d *DealBundle) Hash() []byte {
-	// first order the deals in a  stable order
-	sort.Slice(d.Deals, func(i, j int) bool {
-		return d.Deals[i].ShareIndex < d.Deals[j].ShareIndex
-	})
-	h := sha256.New()
-	binary.Write(h, binary.BigEndian, d.DealerIndex)
-	for _, c := range d.Public {
-		cbuff, _ := c.MarshalBinary()
-		h.Write(cbuff)
-	}
-	for _, deal := range d.Deals {
-		binary.Write(h, binary.BigEndian, deal.ShareIndex)
-		h.Write(deal.EncryptedShare)
-	}
-	return h.Sum(nil)
+	// Index of the dealer that issues these deals
+	DealerIndex uint32 
+	// Coefficients of the public polynomial that is created from the
+	// private polynomial from which the shares are derived.
+	Commits [][]byte 
+	// list of deals for each individual share holders.
+	Deals []*Deal 
+	// session identifier of the protocol run
+	SessionId []byte 
+	// signature over the hash of the deal
+	Signature []byte 
 }
 
 // Response holds the Response from another participant as well as the index of
@@ -1406,81 +1410,39 @@ func (d *DealBundle) Hash() []byte {
 type Response struct {
 	// Index of the Dealer for which this response is for
 	DealerIndex uint32
+	// Status represents a complaint if set to false, a success if set to
+	// true.
 	Status      bool
 }
 
+// ResponseBundle is a packet issued by a share holder that contains all the
+// responses (complaint and/or success) to broadcast.
 type ResponseBundle struct {
-	// Index of the share holder for which these reponses are for
-	ShareIndex uint32
-	Responses  []Response
+	ShareIndex uint32      
+	Responses  []*Response 
+	// session identifier of the protocol run
+	SessionId []byte 
+	// signature over the hash of the response
+	Signature []byte 
 }
 
-// Hash hashes the share index and responses
-func (r *ResponseBundle) Hash() []byte {
-	// first order the response slice in a canonical order
-	sort.Slice(r.Responses, func(i, j int) bool {
-		return r.Responses[i].DealerIndex < r.Responses[j].DealerIndex
-	})
-	h := sha256.New()
-	binary.Write(h, binary.BigEndian, r.ShareIndex)
-	for _, resp := range r.Responses {
-		binary.Write(h, binary.BigEndian, resp.DealerIndex)
-		if resp.Status {
-			binary.Write(h, binary.BigEndian, byte(1))
-		} else {
-			binary.Write(h, binary.BigEndian, byte(0))
-		}
-	}
-	return h.Sum(nil)
-}
-
-func (b *ResponseBundle) String() string {
-	var s = fmt.Sprintf("ShareHolder %d: ", b.ShareIndex)
-	var arr []string
-	for _, resp := range b.Responses {
-		arr = append(arr, fmt.Sprintf("{dealer %d, status %v}", resp.DealerIndex, resp.Status))
-	}
-	s += "[" + strings.Join(arr, ",") + "]"
-	return s
-}
-
+// JustificationBundle is a packet that holds all justifications a dealer must
+// produce
 type JustificationBundle struct {
-	DealerIndex    uint32
-	Justifications []Justification
+	DealerIndex    uint32           
+	Justifications []*Justification 
+	// session identifier of the protocol run
+	SessionId []byte 
+	// signature over the hash of the justification
+	Signature []byte 
 }
 
+// Justification holds the justification from a dealer after a participant
+// issued a complaint response because of a supposedly invalid deal.
 type Justification struct {
-	ShareIndex uint32
-	Share      kyber.Scalar
-}
-
-func (j *JustificationBundle) Hash() []byte {
-	// sort them in a canonical order
-	sort.Slice(j.Justifications, func(a, b int) bool {
-		return j.Justifications[a].ShareIndex < j.Justifications[b].ShareIndex
-	})
-	h := sha256.New()
-	binary.Write(h, binary.BigEndian, j.DealerIndex)
-	for _, just := range j.Justifications {
-		binary.Write(h, binary.BigEndian, just.ShareIndex)
-		sbuff, _ := just.Share.MarshalBinary()
-		h.Write(sbuff)
-	}
-	return h.Sum(nil)
-}
-
-type AuthDealBundle struct {
-	Bundle    *DealBundle
-	Signature []byte
-}
-
-type AuthResponseBundle struct {
-	Bundle    *ResponseBundle
-	Signature []byte
-}
-
-type AuthJustifBundle struct {
-	Bundle    *JustificationBundle
-	Signature []byte
+	// represents for who share holder this justification is
+	ShareIndex uint32 
+	// plaintext share so everyone can see it correct
+	Share []byte 
 }
 ```
