@@ -24,11 +24,9 @@ module.exports = {
     }
   },
   themeConfig: {
-    algolia: {
-      apiKey: 'fcaf3b4aca77fcfeff32616ec6e35a86',
-      indexName: 'drand'
-    },
     defaultImage: '/images/social-card.png',
+    search: true,
+    searchMaxSuggestions: 10,
     author: {
       name: 'Drand Team',
       twitter: ''
