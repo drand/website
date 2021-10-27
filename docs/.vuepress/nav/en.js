@@ -6,6 +6,6 @@ module.exports = [
   { text: 'Blog', link: '/blog/' },
   {
     text: "We're hiring",
-    link: 'https://jobs.lever.co/protocol/9afbc1c9-8b3b-4c03-856d-6b0cb5518eaa'
+    link: 'https://jobs.lever.co/protocol/ca0b97f4-6117-4004-8d7d-1a4520e2d5be'
   }
 ]
