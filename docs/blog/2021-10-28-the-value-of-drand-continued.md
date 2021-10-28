@@ -1,12 +1,12 @@
 ---
-title: "The value of drand continued"
+title: "The value of drand _(continued)_"
 summary: "This blog post covers the second set of responses we received from League of Entropy members on our question: What’s the value of drand for your organisation and why do you support it!"
 date: 2021-10-28
 ---
 
 This blog post covers the second set of responses we received from League of Entropy members on our question: _“What’s the value of drand for your organisation and why do you support it”_! We hope you enjoyed [the first part](../blog/2021-09-14-the-value-of-drand.md) as much as we did. Read on to get more inspiration and come join as an operator, or a [Software Engineer](https://jobs.lever.co/protocol/ca0b97f4-6117-4004-8d7d-1a4520e2d5be) to take drand to the next level, and establish it as a foundational Internet protocol!
 
-As a reminder, the [League of Entropy](https://leagueofentropy.com/) (LoE) is a consortium of independent, and diverse organizations that partner together to operate a  publicly verifiable, decentralized, bias-resistant, and reliable randomness beacon, called [drand](https://drand.love)! The consortium was originally formed in 2019, and is currently supported by 16 member organizations that includes: Cloudflare, École Polytechnique Fédérale de Lausanne (EPFL), University of Chile, Kudelski Security, Protocol Labs, ChainSafe, cLabs, C4DT, Emerald Onion, Ethereum Foundation, IC3, PTisp, Tierion, UCL, QRL Foundation, ZenGo.
+As a reminder, the [League of Entropy](https://leagueofentropy.com/) (LoE) is a consortium of independent, and diverse organizations that partner together to operate a  publicly verifiable, decentralized, bias-resistant, and reliable randomness beacon, called [drand](https://drand.love)! The consortium was originally formed in 2019, and is currently supported by 16 member organizations that include: Cloudflare, École Polytechnique Fédérale de Lausanne (EPFL), University of Chile, Kudelski Security, Protocol Labs, ChainSafe, cLabs, C4DT, Emerald Onion, Ethereum Foundation, IC3, PTisp, Tierion, UCL, QRL Foundation, and ZenGo.
 
 ---
 
@@ -65,4 +65,4 @@ In short, we are shooting to make drand a foundational protocol for randomness i
 
 ---
 
-_The [League of Entropy](https://leagueofentropy.com/) evaluates, votes on, and onboards new members quarterly. If you want to be a part of the first production-grade distributed randomness beacon and help provide publicly verifiable randomness as a service, contact us at leagueofentropy@googlegroups.com. We are looking for enthusiastic teams with experience running secure production services who are interested in operating drand nodes and relays. We also encourage you to check out the drand GitHub repository for details._
+_The [League of Entropy](https://leagueofentropy.com/) evaluates, votes on, and onboards new members quarterly. If you want to be a part of the first production-grade distributed randomness beacon and help provide publicly verifiable randomness as a service, contact us at leagueofentropy@googlegroups.com. We are looking for enthusiastic teams with experience running secure production services who are interested in operating drand nodes and relays. We also encourage you to check out the [drand GitHub repository for details(https://github.com/drand)]._
