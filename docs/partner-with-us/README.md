@@ -6,6 +6,7 @@ description: this is the description
 heroImage: ../images/drand-logo-dark-text.png
 heroImage2: ../images/logo-loe.png
 heroAlt: drand logo
+hero2Alt: loe logo
 heroText: Join us as a partner
 tagline: Let's make drand a foundational Internet protocol together.
 slideFeature:
@@ -20,7 +21,7 @@ detailsText:
     paragraph: Operating a node for the drand network is a highly responsible task. We require that League of Entropy members have previous experience with operating critical infrastructure that provides high degree of security, reliability, and resilience.
   - heading: Requirements
     paragraph: Operators of Nodes and/or Relays in the Network are expected to design, deploy and operate a robust drand stack that follows strong security, and resiliency principles.
-featureIntro: A Few Details
+featureIntro: A few details
 features:
   - info: A secure, DDoS-resistant stack that can weather targeted attacks in a fully self-contained fashion.
   - info: A fast service that can conveniently scale to serve thousands of clients.
@@ -30,7 +31,7 @@ recommendationsLink: https://docs.google.com/document/d/1p5vGdDOyBEAAMaCsDSEyI-B
 getStartedLink: https://google.com
 ---
 
-## Get started now
+### Get started now
 
 Fill in the [Form](https://google.com) to express your interest in joining the League of Entropy and one of our member organizations will get in touch shortly.
 
