@@ -98,6 +98,7 @@
           <img
             src="/images/loe/initiative-for-ccandc-logo.png"
             alt="IC3 logo"
+            class="narrow"
           />
         </a>
         <a
@@ -117,7 +118,7 @@
         >
           <img
             src="/images/loe/logo-emerald-onion.png"
-            alt="Emerald Onion logo"
+            alt="Emerald Onion logo narrow"
           />
         </a>
         <a href="https://www.ucl.ac.uk/" class="logo last-row" title="UCL">
@@ -168,11 +169,12 @@ export default {
       width 17%
       &.last-row
         width 14%
-    img
-      max-width 120px
-      max-height 60px
-      &.wide // give wide images a bit more horizontal space
-        max-width 140px
-      &.narrow // give images a bit less horizontal space
-        max-width 80px
+      img
+        max-width 120px
+        max-height 60px
+        &.wide // give wide images a bit more horizontal space
+          max-width 140px
+        &.narrow // give images a bit less horizontal space
+          max-width 100px
+          max-height 50px
 </style>
