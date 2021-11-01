@@ -19,7 +19,7 @@
     </Sidebar>
 
     <Home v-if="$page.frontmatter.home" />
-    <Partners v-if="$page.frontmatter.partners" />
+    <Partners v-else-if="$page.frontmatter.partners" />
 
     <Page v-else :sidebar-items="sidebarItems">
       <template #top>

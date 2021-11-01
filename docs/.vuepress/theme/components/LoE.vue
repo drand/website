@@ -136,6 +136,14 @@
         </div>
       </div>
     </div>
+    <div class="button">
+      <router-link
+        :to="'/partner-with-us'"
+        class="action-button reverse yellow"
+      >
+        Join the coalition!
+      </router-link>
+    </div>
     <div v-if="!error" class="history">
       <h3>Latest Randomness</h3>
       <p>
@@ -159,7 +167,7 @@
     <div v-if="error" class="history">
       <h3>Latest Randomness</h3>
       <p>
-        <span style="color: yellow;">⚠️</span> An error occurred loading the
+        <span style="color: yellow">⚠️</span> An error occurred loading the
         latest randomness:
       </p>
       <p class="error">Error: {{ error.message }}</p>
@@ -269,6 +277,23 @@ export default {
     line-height 1.6
   a
     color white
+    &.reverse.action-button
+      display inline-block
+      font-size 1.2rem
+      text-decoration none
+      color #1477c6
+      background-color #fff
+      margin 3rem 0 5rem
+      padding 0.8rem 1.6rem
+      min-width 8rem
+      border-radius 4px
+      transition background-color .1s ease
+      box-sizing border-box
+      border 2px solid white
+      box-shadow 4px 4px 0 #ffde52
+      text-align center
+      &:hover
+          opacity .9
   .members
     .logos
       display flex
@@ -294,7 +319,7 @@ export default {
         &.wide // give wide images a bit more horizontal space
           max-width 60px
         &.narrow // give images a bit less horizontal space
-          max-width 40px
+          max-width 140px
   .history
       h3
         font-size 2rem
