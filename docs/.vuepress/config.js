@@ -71,6 +71,10 @@ module.exports = {
           '/developer/': ['clients', 'http-api', 'gossipsub', 'drand-client'],
           '/operator/': ['deploy', 'docker', 'metrics', 'drand-cli'],
           '/about/': [
+            {
+              title: 'About',
+              path: '/about/'
+            },
             'code-of-conduct',
             'community',
             'contributing',

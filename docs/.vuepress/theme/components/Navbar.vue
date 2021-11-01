@@ -93,6 +93,23 @@ $navbar-horizontal-padding = 1.5rem
       position static
       flex 1 1 auto
       justify-content space-between
+  .nav-item:hover .dropdown-wrapper
+    .dropdown-title
+      color #ffffff
+  .dropdown-wrapper
+    height 2.5rem
+    .arrow
+      border-top-color #9d9d9d
+    &:hover .arrow
+      border-top-color initial
+    .nav-dropdown
+      background #222222
+      border none
+      border-radius 0
+      margin-right -50%
+      a.nav-link
+        color #9D9D9D
+        font-weight 500
 
 @media (max-width: $MQMobile)
   .navbar
