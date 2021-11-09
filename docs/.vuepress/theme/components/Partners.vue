@@ -63,7 +63,7 @@
           <div v-if="feature.actions && feature.actions.length" class="actions">
             <template v-for="(action, index) in feature.actions">
               <a :href="action.link" class="action-button" target="_blank">
-                Learn now
+                {{ action.text }}
               </a>
             </template>
           </div>

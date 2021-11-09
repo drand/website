@@ -15,7 +15,7 @@ slideFeature:
     details2: The League of Entropy is a coalition of 16 independent organizations that power the drand network and contribute to randomness generation.
     image: '../images/loe-slides.jpg'
     actions:
-      - text: Learn now
+      - text: Find out more
         link: https://ipfs.io/ipfs/bafybeigcoqsvy5z4mjtuigyvqywqillbadqzusx5jqlp5a7tvmzi7hg24q/Invitation%20to%20join%20the%20League%20of%20Entropy-v2.pdf
 detailsText:
   - heading: Guidelines
