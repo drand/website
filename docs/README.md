@@ -27,7 +27,7 @@ Billions of devices around the world use random numbers to keep computers secure
 
 ## Get involved
 
-The drand project is maintained by contributors from many different fields, companies, and research labs. If you'd like to contribute code, submit issues, improve documentation, or get the word out, [find out how to get involved with the project →](/about/)
+The drand project is maintained by contributors from many different fields, companies, and research labs. If you'd like to contribute code, submit issues, improve documentation, or get the word out, [find out how to get involved with the project →](/partner-with-us/)
 
 ::: slot footer
 Apache 2.0 or MIT Licensed · [Status](https://drand.statuspage.io/) · [GitHub](https://github.com/drand/drand) · Made with ❤️
