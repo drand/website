@@ -59,9 +59,12 @@
         <div class="left">
           <h3>{{ feature.title }}</h3>
           <p>{{ feature.details }}</p>
+          <p>{{ feature.details2 }}</p>
           <div v-if="feature.actions && feature.actions.length" class="actions">
             <template v-for="(action, index) in feature.actions">
-              <a :href="action.link" class="action-button"> Learn now </a>
+              <a :href="action.link" class="action-button" target="_blank">
+                Learn now
+              </a>
             </template>
           </div>
         </div>
@@ -103,8 +106,12 @@
 
     <Content class="theme-default-content custom" />
     <div class="form-button text-center">
-      <a :href="data.getStartedLink" class="action-button yellow">
-        Join the coalition
+      <a
+        :href="data.getStartedLink"
+        target="_blank"
+        class="action-button yellow"
+      >
+        Join the league
       </a>
     </div>
 
