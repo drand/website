@@ -2,7 +2,7 @@
 layout: Partners
 title: Partner with us
 partners: true
-description: this is the description
+description: Join us as a partner! Let's make drand a foundational Internet protocol together.
 heroImage: ../images/drand-logo-dark-text.png
 heroImage2: ../images/logo-loe.png
 heroAlt: drand logo
