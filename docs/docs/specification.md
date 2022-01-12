@@ -142,6 +142,30 @@ file for the intra-nodes protocols and in the
 [api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto)
 file.
 
+## Drand node
+
+Generating public randomness is the primary functionality of drand. Public
+randomness is generated collectively by drand nodes and publicly available.
+Each node can run multiple networks at the same time, simultaneously and independently,
+with its own set of parameters. They all will send messages to
+the same address and, the node will dispatch the request to the correct network (running
+internally) using an ID, known beacon id.
+
+The following diagram can explain more visually what it was written before.
+
+![multi-network-drand-nodes-full.png](images/drand_multinetwork_1.png)
+
+Each drand process is running 4 networks. Each internal process on each node is communicating with
+the rest of nodes' internal processes in order to achieve their goal: public randomness generation. 
+It is worth mentioning the fact nodes can be part of one network and miss other one. The following
+diagram shows this scenario.
+
+![multi-network-drand-nodes-partial.png](images/drand_multinetwork_2.png)
+
+Messages will be delivered to the correct internal process using beacon id existing inside the request
+
+![beacon-id-dispatching.png](images/beacon_id_dispatching.png)
+
 ## Drand versioning
 Each request sent by a drand node will contain the actual version on inside. Drand uses [semantic
 versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
@@ -161,14 +185,6 @@ message NodeVersion {
 `NodeVersion` will be present inside `Metadata` field. Please, check it for mode details.
 
 ## Drand modules
-
-Generating public randomness is the primary functionality of drand. Public
-randomness is generated collectively by drand nodes and publicly available.
-Each node can run multiple networks at the same time, simultaneously and independently,
-with its own set of parameters. They all will send messages to
-the same address and, the node will dispatch the request to the correct network (running
-internally) using an ID, known beacon id. Therefore, every time a new network is created 
-on a drand node, the same phases happen newly. 
 
 The A drand network is composed of a distributed set of nodes and has two
 phases / modules:
