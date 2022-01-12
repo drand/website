@@ -14,9 +14,12 @@ This document is a specification of the drand protocols.
 
 A drand node is a server that runs the drand code, that participates in the
 distributed key generations phases, in the randomness generation and that can
-reply to public request API.
-The following representation is what gets embedded in group configuration file,
-what drand nodes knows about other drand nodes:
+reply to public request API. It can instance and run multiple independent 
+internal processes, where each of them can participate in randomness generation
+process. 
+The following representation is what gets embedded in each group configuration 
+file, one per randomness process. This is what each process knows about other 
+drand nodes on its own network:
 
 ```go
 type Node struct {
@@ -49,6 +52,13 @@ used to derive the randomness. A beacon contains the signature of the previous
 beacon generated, the round of this beacon and signature. See the [beacon
 chain](#beacon-chain) section for more information.
 
+### Beacon ID
+It is the unique identifier among existing beacons running on drand node. Thanks to
+this ID, each drand node can dispatch messages received to the correct internal 
+process to attend it. It is set by the leader when starting a new beacon. For backward 
+compatibility reasons, the default id for pre-existing beacon is an empty string. The
+word `default` is reserved as an equivalent. 
+
 ### Group configuration
 
 Group configuration: A structure that contains all the necessary information
@@ -77,10 +87,10 @@ about a running drand network:
   field is empty is the network has never reshared yet. See TODO for more
   information.
 
-**Note**: This group information is only shared between drand nodes. Even
-though it doesn't expose private key materials it non-essential information from
-the point of view of users. A public struct derived from the group to share to
-clients is described in the [root of trust section](#root-of-trust).
+**Note**: This group information is only shared between internal processes of 
+drand nodes. Even though it doesn't expose private key materials it non-essential 
+information from the point of view of users. A public struct derived from 
+the group to share to clients is described in the [root of trust section](#root-of-trust).
 
 #### Group configuration hash
 
@@ -132,11 +142,35 @@ file for the intra-nodes protocols and in the
 [api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto)
 file.
 
+## Drand versioning
+Each request sent by a drand node will contain the actual version on inside. Drand uses [semantic
+versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
+MAJOR version will be allowed to communicate with each other. For backward-compatibility reasons, 
+the fallback value will be `0.0.0`, and nodes with this version will be always allowed to communicate
+with other nodes. The protobuf definition for this field is:
+
+```go
+message NodeVersion {
+    uint32 major = 1;
+    uint32 minor = 2;
+    uint32 patch = 3;
+}
+```
+
+**Notes**:
+`NodeVersion` will be present inside `Metadata` field. Please, check it for mode details.
+
 ## Drand modules
 
 Generating public randomness is the primary functionality of drand. Public
-randomness is generated collectively by drand nodes and publicly available. The
-A drand network is composed of a distributed set of nodes and has two
+randomness is generated collectively by drand nodes and publicly available.
+Each node can run multiple networks at the same time, simultaneously and independently,
+with its own set of parameters. They all will send messages to
+the same address and, the node will dispatch the request to the correct network (running
+internally) using an ID, known beacon id. Therefore, every time a new network is created 
+on a drand node, the same phases happen newly. 
+
+The A drand network is composed of a distributed set of nodes and has two
 phases / modules:
 
 - Setup: The nodes perform a distributed key generation (DKG) protocol to create
