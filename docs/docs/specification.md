@@ -59,6 +59,10 @@ about a running drand network:
   randomness generation round to produce a new random value. Given the security
   model of drand, the threshold must be superior to 50% of the number of nodes.
 - Period: The period at which the network creates new random value
+- ID: The ID which drand node uses to tag each message in order to run more than one 
+  beacon chain at the same time
+- Scheme: The id of the scheme the beacon chain uses to define a group of configuration
+  values related to the randomness generation process.
 - GenesisTime: An UNIX timestamp in seconds that represents the time at which
   the first round of the drand chain starts. See the [beacon
   chain](#beacon-chain) section for more information.
@@ -88,23 +92,33 @@ follow:
 
 ```go
 func (g *Group) Hash() []byte {
-	h, _ := blake2b.New256(nil)
-	// sort all nodes entries by their index
-	sort.Slice(nodes, func(i, j int) bool {
-		return nodes[i].Index < nodes[j].Index
+	h := hashFunc()
+
+	sort.Slice(g.Nodes, func(i, j int) bool {
+		return g.Nodes[i].Index < g.Nodes[j].Index
 	})
+
 	// all nodes public keys and positions
-	for _, n := range nodes {
-		h.Write(n.Hash())
+	for _, n := range g.Nodes {
+		_, _ = h.Write(n.Hash())
 	}
-	binary.Write(h, binary.LittleEndian, uint32(g.Threshold))
-	binary.Write(h, binary.LittleEndian, uint64(g.GenesisTime))
+
+	_ = binary.Write(h, binary.LittleEndian, uint32(g.Threshold))
+	_ = binary.Write(h, binary.LittleEndian, uint64(g.GenesisTime))
+
 	if g.TransitionTime != 0 {
-		binary.Write(h, binary.LittleEndian, g.TransitionTime)
+		_ = binary.Write(h, binary.LittleEndian, g.TransitionTime)
 	}
+
 	if g.PublicKey != nil {
-		h.Write(g.PublicKey.Hash())
+		_, _ = h.Write(g.PublicKey.Hash())
 	}
+
+	// Use it only if ID is not empty. Keep backward compatibility
+	if g.ID != "" {
+		_, _ = h.Write([]byte(g.ID))
+	}
+
 	return h.Sum(nil)
 }
 ```
@@ -167,7 +181,9 @@ The gRPC endpoint call is:
 ```protobuf
 rpc GetIdentity(IdentityRequest) returns (Identity);
 
-message IdentityRequest {}
+message IdentityRequest {
+    common.Metadata metadata = 1;
+}
 message Identity {
     string address = 1;
     bytes key = 2;
@@ -198,6 +214,8 @@ message SignalDKGPacket {
     // In resharing cases, previous_group_hash is the hash of the previous group.
     // It is to make sure the nodes build on top of the correct previous group.
     bytes previous_group_hash = 3;
+    //
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -231,6 +249,8 @@ message DKGInfoPacket {
     // signature from the coordinator to prove he is the one sending that group
     // file.
     bytes signature = 4;
+    //
+    common.Metadata metadata = 5;
 }
 // GroupPacket represents a group that is running a drand network (or is in the
 // process of creating one or performing a resharing).
@@ -245,11 +265,13 @@ message GroupPacket {
     repeated bytes dist_key = 7;
     // catchup_period in seconds
     uint32 catchup_period = 8;
+    string schemeID = 9;
+    common.Metadata metadata = 10;
 }
 ```
 
 As soon as a participant receives this information from the coordinator, then he
-must be ready to accept DKG packets, but he does not start immediatly sending
+must be ready to accept DKG packets, but he does not start immediately sending
 his packet. After the coordinator has successfully sent the group to all
 participants, he starts sending the first packet of the distributed key
 generation. All nodes that receive the first packet of the DKG from the
@@ -310,6 +332,7 @@ and the following protobuf packets:
 // broadcasting protocol.
 message DKGPacket{
     dkg.Packet dkg = 1;
+    common.Metadata metadata = 2;
 }
 // dkg.proto
 // Packet is a wrapper around the three different types of DKG messages
@@ -319,6 +342,7 @@ message Packet {
         ResponseBundle response = 2;
         JustificationBundle justification = 3;
     }
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -330,7 +354,7 @@ the [cryptography](#cryptographic-specification) section.
 #### Phase transitions
 
 The protocol runs in _at most_ 3 phases: `DealPhase`, `ResponsePhase` and
-`JustificationPhase`. The `FinishPhase` is an additiona local phase where nodes
+`JustificationPhase`. The `FinishPhase` is an additional local phase where nodes
 compute their local private share. However, it can finish after the first two
 phases if there is malicious interference or offline nodes during the first
 phase.
@@ -583,9 +607,12 @@ with the current round number, the previous signature and the partial signature
 over the message:
 
 ```go
-func Message(currRound uint64, prevSig []byte) []byte {
+func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
 	h := sha256.New()
-	_, _ = h.Write(prevSig)
+
+	if !v.scheme.DecouplePrevSig {
+		_, _ = h.Write(prevSig)
+	}
 	_, _ = h.Write(RoundToBytes(currRound))
 	return h.Sum(nil)
 }
@@ -624,6 +651,8 @@ message PartialBeaconPacket {
     // partial signature - a threshold of them needs to be aggregated to produce
     // the final beacon at the given round.
     bytes partial_sig = 3;
+    //
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -634,7 +663,7 @@ least a threshold of valid partial signatures, the node can aggregate them to
 create the final signature.
 
 **Validation of beacon and storage**: Once the new beacon is created, the node
-verifies its signature, loads the last saved beacom from the database and checks
+verifies its signature, loads the last saved beacon from the database and checks
 if the following routine returns true:
 
 ```go
@@ -654,14 +683,15 @@ In drand, we can uniquely identify a chain of randomness via a tuple of
 information:
 
 ```go
+// Info represents the public information that is necessary for a client to
+// very any beacon present in a randomness chain.
 type Info struct {
-	// Period of the randomness generation in seconds.
-	Period uint32
-	// GenesisTime at which the drand nodes started the chain, UNIX in seconds.
-	GenesisTime int64
-	// PublicKey necessary to validate any randomness beacon of the chain.
-	PublicKey []byte
-	GroupHash []byte 
+	PublicKey   kyber.Point   `json:"public_key"`
+	ID          string        `json:"id"`
+	Period      time.Duration `json:"period"`
+	Scheme      scheme.Scheme `json:"scheme"`
+	GenesisTime int64         `json:"genesis_time"`
+	GroupHash   []byte        `json:"group_hash"`
 }
 ```
 
@@ -673,11 +703,27 @@ simplicity, we also refer to the chain information by its hash of the `Info`
 structure:
 
 ```go
-func (i *Info) Hash() []byte {
+// Hash returns the canonical hash representing the chain information. A hash is
+// consistent throughout the entirety of a chain, regardless of the network
+// composition, the actual nodes, generating the randomness.
+func (c *Info) Hash() []byte {
 	h := sha256.New()
-	binary.Write(h, binary.BigEndian, i.Period)
-	binary.Write(h, binary.BigEndian, i.GenesisTime)
-	h.Write(i.PublicKey)
+	_ = binary.Write(h, binary.BigEndian, uint32(c.Period.Seconds()))
+	_ = binary.Write(h, binary.BigEndian, c.GenesisTime)
+
+	buff, err := c.PublicKey.MarshalBinary()
+	if err != nil {
+		log.DefaultLogger().Warnw("", "info", "failed to hash pubkey", "err", err)
+	}
+
+	_, _ = h.Write(buff)
+	_, _ = h.Write(c.GroupHash)
+
+	// Use it only if ID is not empty. Keep backward compatibility
+	if c.ID != "" {
+		_, _ = h.Write([]byte(c.ID))
+	}
+
 	return h.Sum(nil)
 }
 ```
@@ -761,12 +807,14 @@ with the following protobuf packet:
 // chain
 message SyncRequest {
     uint64 from_round = 1;
+    common.Metadata metadata = 2;
 }
 
 message BeaconPacket {
     bytes previous_sig = 1;
     uint64 round = 2;
     bytes signature = 3;
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -834,9 +882,12 @@ The first coefficient is needed to verify the final beacon signature.
 A beacon signature is a regular [BLS signature](https://www.iacr.org/archive/asiacrypt2001/22480516.pdf) over the message:
 
 ```go
-func Message(currRound uint64, prevSig []byte) []byte {
+func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
 	h := sha256.New()
-	_, _ = h.Write(prevSig)
+
+	if !v.scheme.DecouplePrevSig {
+		_, _ = h.Write(prevSig)
+	}
 	_, _ = h.Write(RoundToBytes(currRound))
 	return h.Sum(nil)
 }
