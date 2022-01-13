@@ -74,6 +74,24 @@ message Metadata {
 }
 ```
 
+### Scheme
+A scheme is a network-level configuration that a coordinator can set when starting a new network. There 
+is fixed quantity of possible values. Each one establishes a different set of parameters which affects 
+some working aspects of the network. If no scheme is set on network starting, a default value is used.
+The available scheme are:
+
+```go
+// DefaultSchemeID is the default scheme ID.
+const DefaultSchemeID = "pedersen-bls-chained"
+
+// UnchainedSchemeID is the scheme id used to set unchained randomness on beacons.
+const UnchainedSchemeID = "pedersen-bls-unchained"
+```
+
+As you can notice, the default value is `pedersen-bls-chained`. This is because of backward-compatibility
+reasons. Drand nodes older or equal to version `1.3.0`, which don't know anything about schemes, 
+use this set of parameters.
+
 ### Group configuration
 
 Group configuration: A structure that contains all the necessary information
@@ -684,6 +702,7 @@ In the second case, drand keeps binding the different random beacon together, bu
 chain integrity won't be required in other to verify a random value generated.
 
 **Notes**: Drand can choose between these two working modes using the `--scheme` flag. 
+See [scheme](#scheme) section for more information.
 
 **Partial beacon creation**: At each new round, a node creates a `PartialBeacon`
 with the current round number, the previous signature and the partial signature
@@ -1005,7 +1024,9 @@ func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
 ```
 
 with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
-being an 8 bytes fixed length big-endian serializer.
+being an 8 bytes fixed length big-endian serializer. As the function shows, the beacon signature 
+uses the previous signature as input or not depending on the scheme the network has set.
+See [scheme](#scheme) section for more information.
 
 The ciphersuite used is:
 
