@@ -1,6 +1,6 @@
 # HTTP API reference
 
-Drand provides a JSON HTTP interface that clients can use to fetch randomness from the drand network. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/developer/clients/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
+Drand provides a JSON HTTP interface that clients can use to fetch randomness from each drand network running on nodes. If you're using drand in an application, it may be easier and _more secure_ to use one of the [client libraries](/developer/clients/), which will also perform _verification_ of randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
 All that's required is the address of the HTTP interface and way to fetch from HTTP, e.g. `curl`.
 
@@ -21,7 +21,7 @@ The chain hash for the League of Entropy drand group is:
 8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
 ```
 
-## `/info`
+## `/{chain-hash}/info`
 
 Retrieves the randomness chain information. It returns a JSON object with the following structure:
 
@@ -39,7 +39,7 @@ Retrieves the randomness chain information. It returns a JSON object with the fo
 - `genesis_time` is the time in seconds since the Unix Epoch that the group began generating randomness
 - `hash` is the _chain hash_, which uniquely identifies the drand chain. It is used as a root of trust for validation of the first round of randomness.
 
-## `/public/latest`
+## `/{chain-hash}/public/latest`
 
 Retrives the latest round of randomness. It returns a JSON object with the following structure:
 
@@ -57,7 +57,7 @@ Retrives the latest round of randomness. It returns a JSON object with the follo
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
 
-## `/public/{round}`
+## `/{chain-hash}/public/{round}`
 
 Retrieves a previous round of randomness identified by the positive integer `round`. Note that specifying `0` will retrieve the latest round. It returns a JSON object with the following structure:
 
@@ -74,3 +74,6 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 - `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
+
+**Notes**: For backward-compatibility reasons, paths without `chain-hash` are attended by
+the default network running. 
