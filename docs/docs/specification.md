@@ -12,11 +12,10 @@ This document is a specification of the drand protocols.
 
 ### Drand node
 
-A drand node is a server that runs the drand code, that participates in the
-distributed key generations phases, in the randomness generation and that can
-reply to public request API. It can instance and run multiple independent 
-internal processes, where each of them can participate in randomness generation
-process. 
+A drand node is a server that runs the drand code, participates in the
+distributed key generation (DKG) process and the randomness generation and that can
+reply to public request API. It can instantiate and run multiple independent 
+internal randomness processes, where each of them has its own randomness generation frequency.
 The following representation is what gets embedded in each group configuration 
 file, one per randomness process. This is what each process knows about other 
 drand nodes on its own network:
@@ -53,9 +52,9 @@ beacon generated, the round of this beacon and signature. See the [beacon
 chain](#beacon-chain) section for more information.
 
 ### Beacon ID
-It is the unique identifier among existing beacons running on drand node. Thanks to
+The `Beacon ID` is the unique identifier among existing beacon processes running on a drand node. Thanks to
 this ID, each drand node can dispatch messages received to the correct internal 
-process to attend it. It is set by the leader when starting a new beacon. For backward 
+process to attend it. The `Beacon ID` is set by the leader when starting a new beacon and stays the same for the lifetime of the process. For backward 
 compatibility reasons, the default id for pre-existing beacon is an empty string. The
 word `default` is reserved as an equivalent. 
 
@@ -68,9 +67,9 @@ about a running drand network:
 - Threshold: The number of nodes that are necessary to participate to a
   randomness generation round to produce a new random value. Given the security
   model of drand, the threshold must be superior to 50% of the number of nodes.
-- Period: The period at which the network creates new random value
-- ID: The ID which drand node uses to tag each message in order to run more than one 
-  beacon chain at the same time
+- Period: The period at which the network creates new random value. Also referred to as "frequency".
+- ID: The ID which a drand node uses to tag each message in order to run more than one 
+  beacon processes (i.e., participate in more than one networks) at the same time.
 - Scheme: The id of the scheme the beacon chain uses to define a group of configuration
   values related to the randomness generation process.
 - GenesisTime: An UNIX timestamp in seconds that represents the time at which
@@ -145,32 +144,32 @@ file.
 ## Drand node
 
 Generating public randomness is the primary functionality of drand. Public
-randomness is generated collectively by drand nodes and publicly available.
-Each node can run multiple networks at the same time, simultaneously and independently,
-with its own set of parameters. They all will send messages to
-the same address and, the node will dispatch the request to the correct network (running
-internally) using an ID, known beacon id.
+randomness is generated collectively by drand nodes and is made publicly available.
+Each node can run multiple processes (i.e., participate in multiple networks) at the same time, each of which is independent of each other,
+with its own set of parameters. All processes use the same node address to send messages to
+and the node will identify and dispatch the request to the correct process/network (running
+internally) using an ID, known as the `Beacon ID`.
 
-The following diagram can explain more visually what it was written before.
+The following diagram explains visually the above operation.
 
 ![multi-network-drand-nodes-full.png](images/drand_multinetwork_1.png)
 
-Each drand process is running 4 networks. Each internal process on each node is communicating with
-the rest of nodes' internal processes in order to achieve their goal: public randomness generation. 
-It is worth mentioning the fact nodes can be part of one network and miss other one. The following
+In the above figure, each drand node is running 4 processes, i.e., participates in 4 different randomness generation networks. Each one of a node's processes communicates with
+the corresponding process running in the rest of the nodes, i.e., the process "Network A" in Node 1 communicates with the process "Network A" in nodes 2, 3 and 4, in order to achieve their common goal: generate public randomness.
+It is worth highlighting that not all nodes need to participate in all networks, i.e., run all existing processes. The following
 diagram shows this scenario.
 
 ![multi-network-drand-nodes-partial.png](images/drand_multinetwork_2.png)
 
-Messages will be delivered to the correct internal process using beacon id existing inside the request
+Messages are delivered to the correct internal process by a module that checks the `Beacon ID` inside the request and redirecting the message accordingly.
 
 ![beacon-id-dispatching.png](images/beacon_id_dispatching.png)
 
 ## Drand versioning
-Each request sent by a drand node will contain the actual version on inside. Drand uses [semantic
+Each request sent by a drand node will contain the actual drand protocol version that the node is using. Drand uses [semantic
 versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
 MAJOR version will be allowed to communicate with each other. For backward-compatibility reasons, 
-the fallback value will be `0.0.0`, and nodes with this version will be always allowed to communicate
+the fallback value will be `0.0.0`, and nodes with this version will always be allowed to communicate
 with other nodes. The protobuf definition for this field is:
 
 ```go
@@ -182,7 +181,7 @@ message NodeVersion {
 ```
 
 **Notes**:
-`NodeVersion` will be present inside `Metadata` field. Please, check it for mode details.
+The `NodeVersion` is present inside the `Metadata` field.
 
 ## Drand modules
 
