@@ -44,6 +44,10 @@ func (n *Node) Hash() []byte {
 **Public Key**: Public keys of drand nodes are points on the G1 group of the
 BLS12-381 curve. See the [curve](#drand-curve) section for more information.
 
+### Drand network
+Each group of nodes that runs a specific process (e.g., one with the same set of parameters) constitutes a separate network. 
+Each network will act as an independent beacon generator. 
+
 ### Drand beacon
 
 A drand beacon is what the drand network periodically creates and that can be
@@ -56,7 +60,19 @@ The `Beacon ID` is the unique identifier among existing beacon processes running
 this ID, each drand node can dispatch messages received to the correct internal 
 process to attend it. The `Beacon ID` is set by the leader when starting a new beacon and stays the same for the lifetime of the process. For backward 
 compatibility reasons, the default id for pre-existing beacon is an empty string. The
-word `default` is reserved as an equivalent. 
+word `default` is reserved as an equivalent.
+
+### Metadata
+Each request sent by a drand node will contain this field. It is used to hold any important message-related data
+nodes need to communicate to others. The protobuf definition for this field is:
+
+```go
+message Metadata {
+  NodeVersion node_version = 1;
+  string beaconID = 2;
+  bytes chain_hash = 3;
+}
+```
 
 ### Group configuration
 
@@ -70,7 +86,7 @@ about a running drand network:
 - Period: The period at which the network creates new random value. Also referred to as "frequency".
 - ID: The ID which a drand node uses to tag each message in order to run more than one 
   beacon processes (i.e., participate in more than one networks) at the same time.
-- Scheme: The id of the scheme the beacon chain uses to define a group of configuration
+- Scheme: The id of the scheme a network uses to define a group of configuration
   values related to the randomness generation process.
 - GenesisTime: An UNIX timestamp in seconds that represents the time at which
   the first round of the drand chain starts. See the [beacon
@@ -165,6 +181,7 @@ Messages are delivered to the correct internal process by a module that checks t
 
 ![beacon-id-dispatching.png](images/beacon_id_dispatching.png)
 
+
 ## Drand versioning
 Each request sent by a drand node will contain the actual drand protocol version that the node is using. Drand uses [semantic
 versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
@@ -180,8 +197,19 @@ message NodeVersion {
 }
 ```
 
-**Notes**:
-The `NodeVersion` is present inside the `Metadata` field.
+**Notes**: The `NodeVersion` is present inside the `Metadata` field.
+
+In the following diagram, we can see:
+
+- Node 2 will be able to interact the rest of the nodes. 
+- Node 4 will be only able to interact with nodes whose version is 2.X.X. In this case, it cannot communicate with any other node.
+- Nodes 1 and 3 will be only able to interact with nodes whose version is 1.X.X. In this case, they can communicate with each other.
+
+
+![drand_versioning.png](images/drand_versioning.png)
+
+**Notes**: Node 2 is a node where node-versioning feature is not supported. This node has not been updated to the latest version (above 1.3). In this case, 
+`Metadata` won't be present on requests, so the fallback version other nodes infer is `0.0.0`.
 
 ## Drand modules
 
@@ -628,9 +656,10 @@ is always enough honest nodes such that the chain advances at the correct speed.
 In case this is not true at some point in time, please refer to the [catchup
 section](#catchup-mode) for more information.
 
-#### Beacon chain
+#### Beacon: chained or unchained
 
-Drand binds the different random beacon together so they form a chain of random
+Drand has now the ability to work in two different modes regarding randomness generation: chained or unchained.
+In the first case, drand binds the different random beacon together so they form a chain of random
 beacons. Remember a drand beacon is structured as follows:
 
 ```go
@@ -651,24 +680,15 @@ type Beacon struct {
 This structure makes it so that each beacon created is building on the previous
 one therefore forming a randomness chain.
 
+In the second case, drand keeps binding the different random beacon together, but this is not strictly necessary. The 
+chain integrity won't be required in other to verify a random value generated.
+
+**Notes**: Drand can choose between these two working modes using the `--scheme` flag. 
+
 **Partial beacon creation**: At each new round, a node creates a `PartialBeacon`
 with the current round number, the previous signature and the partial signature
-over the message:
-
-```go
-func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
-	h := sha256.New()
-
-	if !v.scheme.DecouplePrevSig {
-		_, _ = h.Write(prevSig)
-	}
-	_, _ = h.Write(RoundToBytes(currRound))
-	return h.Sum(nil)
-}
-```
-
-with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
-being an 8 bytes fixed length big-endian serializer.
+over the messagem with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
+being an 8 bytes fixed length big-endian serializer. 
 
 To determine the "current round" and the "previous signature", the node loads it
 last generated beacon and sets the following:
@@ -711,20 +731,62 @@ then stores it in a temporary cache if it is valid. As soon as there is at
 least a threshold of valid partial signatures, the node can aggregate them to
 create the final signature.
 
+```go
+func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
+	h := sha256.New()
+
+	if !v.scheme.DecouplePrevSig {
+		_, _ = h.Write(prevSig)
+	}
+	_, _ = h.Write(RoundToBytes(currRound))
+	return h.Sum(nil)
+}
+```
+As you can notice here, the previous signature is taken into account
+only if the scheme configuration indicates it.
+
 **Validation of beacon and storage**: Once the new beacon is created, the node
-verifies its signature, loads the last saved beacon from the database and checks
-if the following routine returns true:
+verifies its signature, loads the last saved beacon from the database and tries to 
+put it on database, applying a series of checks before it:
 
 ```go
-func isAppendable(lastBeacon, newBeacon *Beacon) bool {
-	return newBeacon.Round == lastBeacon.Round+1 &&
-	 	bytes.Equal(lastBeacon.Signature, newBeacon.PreviousSig)
+func (a *appendStore) Put(b *chain.Beacon) error {
+	a.Lock()
+	defer a.Unlock()
+	if b.Round != a.last.Round+1 {
+		return fmt.Errorf("invalid round inserted: last %d, new %d", a.last.Round, b.Round)
+	}
+	if err := a.Store.Put(b); err != nil {
+		return err
+	}
+	a.last = b
+	return nil
+}
+
+
+func (a *schemeStore) Put(b *chain.Beacon) error {
+	a.Lock()
+	defer a.Unlock()
+
+	// If the scheme is unchained, previous signature is set to nil. In that case,
+	// relationship between signature in the previous beacon and previous signature
+	// on the actual beacon is not necessary. Otherwise, it will be checked.
+	if a.sch.DecouplePrevSig {
+		b.PreviousSig = nil
+	} else if !bytes.Equal(a.last.Signature, b.PreviousSig) {
+		return fmt.Errorf("invalid previous signature")
+	}
+
+	if err := a.Store.Put(b); err != nil {
+		return err
+	}
+
+	a.last = b
+	return nil
 }
 ```
 
-There should never be any gaps in the rounds.
-A node can now save the beacon locally in its database and exposes it to the
-external API.
+There should never be any gaps in the rounds. A node can now expose it to the external API.
 
 #### Root of trust
 
