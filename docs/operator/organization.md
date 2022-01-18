@@ -35,4 +35,4 @@ title: Organization
 - `net` - gRPC service handlers for inter-node communication.
 - `protobuf/drand` - Definitions for the wire format interface of inter-node communication.
 - `test` - Testing helper utilities.
-  - `test/docker` - Files and related scripts for testing drand networks on docker
+  - `test/docker` - Files and related scripts for testing drand networks on docker.

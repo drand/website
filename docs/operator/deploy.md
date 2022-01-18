@@ -9,9 +9,9 @@ sidebarDepth: 2
 This document explains the workflow to have a working group of drand nodes generate randomness. There are four sections to this guide:
 
 1. Start the daemons.
-1. Generate the long-term key pairs and the group file.
-1. Have each node collectively participate in the distributed key generation (DKG).
-1. Generate randomness.
+2. Generate the long-term key pairs and the group file.
+3. Have each node collectively participate in the distributed key generation (DKG).
+4. Generate randomness.
 
 You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
 skip that step. For each new network, a unique identifier, known as `Beacon ID` is required. 
@@ -21,8 +21,8 @@ skip that step. For each new network, a unique identifier, known as `Beacon ID` 
 The setup process for a drand node consists of the following steps:
 
 1. Start the drand daemon on each node.
-1. Generate the long-term key pair for each new network.
-1. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
+2. Generate the long-term key pair for each new network.
+3. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
 
 This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operator/docker/).
 
@@ -364,7 +364,7 @@ drand share connect <coordinator> --from group.toml --secret mysecret90123456789
 
 After the protocol is finished, each node will have the new group file written out as `group2.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
 
-In this case, the `Beacon ID` is not required as it is taken from group file.
+In this case, the `Beacon ID` is not required as it is taken from the group file.
 ## Metrics
 
 The `--metrics <metrics-address>` flag may be used to launch a metrics server at the provided address. The address may be specified as `127.0.0.1:port`, or as `:port` to bind to the default network interface. The webserver at this port will serve [pprof](https://golang.org/pkg/net/http/pprof/) runtime profiling data at `<metrics>/debug/pprof`, allow triggering golang garbage collection at `<metrics>/debug/gc`, and will serve [prometheus](https://prometheus.io/docs/guides/go-application/) metrics at `<metrics>:/metrics`. Prometheus counters track the number of gRPC requests sent and received by the drand node, as well as the number of HTTP API requests. This endpoint should not be exposed publicly. If desired, prometheus metrics can be used as a data source for [grafana dashboards](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) or other monitoring services.

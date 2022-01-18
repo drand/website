@@ -75,5 +75,5 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
 
-**Notes**: For backward-compatibility reasons, paths without `chain-hash` are attended by
-the default network running. 
+**Note**: For backward-compatibility reasons, paths without `chain-hash` are attended by
+the default network in operation. 
