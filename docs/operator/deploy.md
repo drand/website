@@ -141,10 +141,22 @@ drand start --tls-disable
 
 ### Test the connection to a node
 
-Use `drand util check <address>` to test the gRPC endpoint a drand node.
+Use `drand util remote-ping <address>` to test the gRPC endpoint on a drand node.
 
 ```bash
-drand util check example.com
+drand util remote-ping example.com
+
+> drand: id example.com answers correctly
+```
+
+If the address used is a DNS name, this command will try to resolve the DNS name to IP.
+
+### Test the connection to a network
+
+Use `drand util check <address> --id <beacon-id>` to test the gRPC endpoint of a drand network which has a specific beacon id.
+
+```bash
+drand util check example.com --id <beacon-id>
 
 > drand: id example.com answers correctly
 ```
@@ -152,7 +164,7 @@ drand util check example.com
 If the address used is a DNS name, this command will try to resolve the DNS name to IP. If you disabled TLS, you need to add the `--tls-disable` flag:
 
 ```bash
-drand util check --tls-disable drand0.example.com
+drand util check --tls-disable drand0.example.com --id <beacon-id>
 ```
 
 ### Run the setup phase

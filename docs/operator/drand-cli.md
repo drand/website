@@ -412,7 +412,7 @@ You must use ```--id``` flag to choose between all running networks on the node.
 The `util` command provides several subcommands that are useful for debugging and managing local node state:
 
 - `drand util check <address>` attempts to contact the node at the given address to see if it's online and responding to requests.
-  This can be used to check that a running network on your local node is reachable at its public address, or to make sure that a 
+  This can be used to check that a running network on your local node is reachable at its public address, or to make sure that a
   remote node can be reached before running `drand share`.
 - `drand util list-schemes` lists all scheme the node supports and can be used on share command.
 - `drand util remote-status` asks for the statuses of remote networks' nodes indicated by `ADDRESS1 ADDRESS2 ADDRESS3...`, 
@@ -420,6 +420,7 @@ The `util` command provides several subcommands that are useful for debugging an
 - `drand util status` gets the status of many modules of a running network on the local node.
 - `drand util migrate` runs the migration required the multi-beacon folder structure on the local node.
 - `drand util ping` sends a ping to the local `drand` daemon and prints its status.
+- `drand util remote-ping` attempts to ping the node at the given address to see if it's up and running. It accepts a group file as input. 
 - `drand util backup` backs up the primary drand database of a running network to a secondary location..
 - `drand util self-sign` signs the public identity of a running network. Needed for backward compatibility with previous versions.
 - `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from a network on the local node. It
