@@ -97,22 +97,24 @@ also show help with the `--help` flag after the subcommand name, e.g.: `drand ge
 The `generate-keypair` command creates a long-term public/private keypair for a drand network. You must provide the 
 address that your drand node will listen on, including the publicly reachable port number. This may be different 
 from the port specified when starting the daemon, for example if you've set up `drand` to run behind a reverse 
-proxy as described in the [Deployment Guide](./deploy/). 
+proxy as described in the [Deployment Guide](./deploy/). These new keys will be loaded on drand daemon if the daemon
+is up and running.
 
 ```
 $ drand help generate-keypair
 
 NAME:
-   drand generate-keypair - Generate the longterm keypair (drand.private, drand.public)for this node.
+   drand generate-keypair - Generate the longterm keypair (drand.private, drand.public) for this node, and load it on the drand daemon if it is up and running.
 
 
 USAGE:
    drand generate-keypair [command options] <address> is the address other nodes will be able to contact this node on (specified as 'private-listen' to the daemon)
 
 OPTIONS:
-   --folder value  Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/emmanuelmurano/.drand")
-   --tls-disable   Disable TLS for all communications (not recommended). (default: false)
-   --id value      Indicates the id for the randomness generation process which will be started
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
+   --folder value   Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/emmanuelmurano/.drand")
+   --tls-disable    Disable TLS for all communications (not recommended). (default: false)
+   --id value       Indicates the id for the randomness generation process which will be started
 ```
 
 The generated key and all other drand state will be stored in `$HOME/.drand` by default, but this
@@ -125,6 +127,9 @@ set to the default of `true`.
 The `--id` flag should be use when generating long-term public/private keypair for networks with beacon id different from
 default. If you don't provide a value, the default beacon id will be used. For example, a network with beacon id 
 `beacon_name_x`, you must set the flag `--id beacon_name_x`. 
+
+If you use a non-standard control port, you will also need to use the `--control` flag
+when running this command. 
 
 ### `drand start`
 
