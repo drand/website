@@ -166,7 +166,7 @@ OPTIONS:
    --push                  Push mode forces the daemon to start making beacon requests to the other node, instead of waiting the other nodes contact it to catch-up on the round (default: false)
    --verbose               If set, verbosity is at the debug level (default: false)
    --private-rand          Enables the private randomness feature on the daemon. By default, this feature is disabled. (default: false)
-   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is alreadyincluded in the current DKG.
+   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is already included in the current DKG.
    --skipValidation        skips bls verification of beacon rounds for faster catchup. (default: false)
    --json                  Set the output as json format (default: false)
 ```
