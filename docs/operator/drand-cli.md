@@ -326,7 +326,7 @@ All nodes must specify the following values:
 - `--secret` - a secret value, shared out-of-band with the other node operators. When re-sharing, this may be distinct from
   the secrets used for any prior DKG rounds.
 - `--id` - the unique identifier of the new network we will start. This value cannot be change on re-sharing. This identifier
-must be equal to the one used when generating long-term keypair. If you don't set this value, the default identifier will be use. 
+must be equal to the one used when generating long-term keypair. If you don't set this value, the default identifier will be used. 
 
 
 Only the leader must specify the following values:
