@@ -83,7 +83,7 @@ COMMANDS:
 
 GLOBAL OPTIONS:
    --verbose       If set, verbosity is at the debug level (default: false)
-   --folder value  Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/emmanuelmurano/.drand")
+   --folder value  Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
    --help, -h      show help (default: false)
    --version, -v   print the version (default: false)
 
@@ -112,7 +112,7 @@ USAGE:
 
 OPTIONS:
    --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --folder value   Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/emmanuelmurano/.drand")
+   --folder value   Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
    --tls-disable    Disable TLS for all communications (not recommended). (default: false)
    --id value       Indicates the id for the randomness generation process which will be started
 ```
@@ -154,7 +154,7 @@ USAGE:
    drand start [command options] [arguments...]
 
 OPTIONS:
-   --folder value          Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/emmanuelmurano/.drand")
+   --folder value          Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
    --tls-cert value        Set the TLS certificate chain (in PEM format) for this drand node. The certificates have to be specified as a list of whitespace-separated file paths. This parameter is required by default and can only be omitted if the --tls-disable flag is used.
    --tls-key value         Set the TLS private key (in PEM format) for this drand node. The key has to be specified as a file path. This parameter is required by default and can only be omitted if the --tls-disable flag is used.
    --tls-disable           Disable TLS for all communications (not recommended). (default: false)

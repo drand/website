@@ -139,7 +139,7 @@ Additionally, Lagrange interpolation also guarantees that no set of less than $t
 In summary, a threshold BLS signature $\sigma$ exhibits all properties required for publicly-verifiable, unbiased, unpredictable, and distributed randomness.
 
 ### Randomness
-Drand nodes can work in to modes: _chained_ or _unchained_. 
+Drand nodes can work in two modes: _chained_ or _unchained_. 
 
 The drand randomness beacon operates in discrete rounds $r$. In every round, drand produces a new random value using threshold BLS signatures which can be linked together, or not, into a chain of randomness.
 

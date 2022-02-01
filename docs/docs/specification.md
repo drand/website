@@ -814,7 +814,7 @@ information:
 
 ```go
 // Info represents the public information that is necessary for a client to
-// very any beacon present in a randomness chain.
+// verify any beacon present in a randomness chain.
 type Info struct {
 	PublicKey   kyber.Point   `json:"public_key"`
 	ID          string        `json:"id"`
