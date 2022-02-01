@@ -299,7 +299,7 @@ USAGE:
 OPTIONS:
    --tls-disable           Disable TLS for all communications (not recommended). (default: false)
    --control value         Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is alreadyincluded in the current DKG.
+   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is already included in the current DKG.
    --timeout value         Timeout to use during the DKG, in string format. Default is 10s
    --source value          Source flag allows to provide an executable which output will be used as additional entropy during resharing step.
    --user-source-only      user-source-only flag used with the source flag allows to only use the user's entropy to pick the dkg secret (won't be mixed with crypto/rand). Should be used for reproducibility and debbuging purposes. (default: false)
