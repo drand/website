@@ -70,9 +70,9 @@ COMMANDS:
    stop   Stop the drand daemon.
 
    share             Launch a sharing protocol.
-   reload            Launch a sharing protocol which has been previously stopped
+   load              Launch a sharing protocol from filesystem
    follow            follow and store a randomness chain
-   generate-keypair  Generate the longterm keypair (drand.private, drand.public)for this node.
+   generate-keypair  Generate the longterm keypair (drand.private, drand.public) for this node, and load it on the drand daemon if it is up and running.
 
    get  get allows for public information retrieval from a remote drand node.
 
@@ -252,24 +252,23 @@ If the daemon was started with a non-standard control port, you must use the `--
 when running `drand stop`.
 :::
 
-### `drand reload`
+### `drand load`
 
 The `reload` command tells the `drand` daemon to load a network which has been previously stopped. You
 must set `--id` flag to choose the correct network to load again.
 
 ```
-$ drand help reload
+$ drand help load
 
 NAME:
-   drand reload - Launch a sharing protocol which has been previously stopped
+   drand load - Launch a sharing protocol from filesystem
 
 USAGE:
-   drand reload [command options] [arguments...]
+   drand load [command options] [arguments...]
 
 OPTIONS:
    --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
    --id value       Indicates the id for the randomness generation process which will be started
-   --help, -h       show help (default: false)
 ```
 
 ::: tip
@@ -420,7 +419,6 @@ The `util` command provides several subcommands that are useful for debugging an
 - `drand util status` gets the status of many modules of a running network on the local node.
 - `drand util migrate` runs the migration required the multi-beacon folder structure on the local node.
 - `drand util ping` sends a ping to the local `drand` daemon and prints its status.
-- `drand util remote-ping` attempts to ping the node at the given address to see if it's up and running. It accepts a group file as input. 
 - `drand util backup` backs up the primary drand database of a running network to a secondary location..
 - `drand util self-sign` signs the public identity of a running network. Needed for backward compatibility with previous versions.
 - `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from a network on the local node. It

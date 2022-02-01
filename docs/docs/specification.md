@@ -691,7 +691,7 @@ type Beacon struct {
 - The `Round` is the round at which the beacon was created, as explained in the
   previous section.
 - The `PreviousSignature` is the signature of the beacon that was created at
-  round `Round - 1`
+  round `Round - 1`. It is not present if the network is running on unchained mode.
 - `Signature` is the final BLS signature created by aggregating at least
   `Threshold` of partial signatures from nodes.
 

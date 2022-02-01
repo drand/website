@@ -141,10 +141,10 @@ drand start --tls-disable
 
 ### Test the connection to a node
 
-Use `drand util remote-ping <address>` to test the gRPC endpoint on a drand node.
+Use `drand util check <address>` to test the gRPC endpoint on a drand node.
 
 ```bash
-drand util remote-ping example.com
+drand util check example.com --id <beacon-id>
 
 > drand: id example.com answers correctly
 ```

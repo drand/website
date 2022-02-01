@@ -21,6 +21,19 @@ The chain hash for the League of Entropy drand group is:
 8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
 ```
 
+## `/chains`
+
+Retrieves the _chain hash_ of every running network a user can interact with. It returns a JSON object with the following structure:
+
+```json
+[
+  "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce",
+  "859504eade86790ad09b2b3474d5e09d1718b549ef7107d7bbd18f5e221765ce",
+  "8252d7db02664c1f6b20f40c6e8e138704d2acfeb6c5abcc14c77e3a842b2f84",
+  "515e7366248ca37b1460d23b4f98493c246fbb02851f2a43a710c968a349f8d6"
+]
+```
+
 ## `/{chain-hash}/info`
 
 Retrieves the randomness chain information. It returns a JSON object with the following structure:
@@ -75,5 +88,5 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
 
-**Note**: For backward-compatibility reasons, paths without `chain-hash` are attended by
+**Note**: For backward-compatibility reasons, paths without `chain-hash` could be attended by
 the default network in operation. 

@@ -8,9 +8,9 @@ sidebarDepth: 2
 ## Notations
 
 **Drand node**: a node that is running the drand daemon and participating to the
-creation of the randomness. Each drand node have a longterm public key and a
-private share (after running the setup/resharing phase). The **drand network** is
-the set of drand nodes connected with each other.
+creation of the randomness in one or many networks at the same time. The **drand network** is
+the set of drand nodes connected with each other. Each drand network has a longterm public key and a
+private share (after running the setup/resharing phase). 
 
 **Relay node**: a node that is connected to a drand daemon and exposing a
 Internet-facing interface allowing to fetch the public randomness. The **relay
@@ -59,9 +59,9 @@ currently. See [DKG attacks](#distributed-key-generation-ceremony) section to un
 authenticated. Drand achieves this by signing every outgoing DKG packets with
 a BLS signature on the longterm public key of the sender node.
 
-**Public Group**: Every node willing to run the DKG must know the group
+**Public Group**: Every node willing to run the DKG on a new network must know the group
 formation before starting the DKG, including the longterm public keys of each
-node. During the DKG, there might be some nodes offline or misbehaving. The set
+node for that network. During the DKG, there might be some nodes offline or misbehaving. The set
 of nodes that _successfully_ passed the DKG are called the _qualified_ set of
 nodes (QUAL). Only these nodes have valid shares and are able to produce
 partial beacons that can be successfully validated with respect to the
