@@ -176,7 +176,7 @@ OPTIONS:
 `drand` exposes up to four endpoints, depending on the flags passed in.
 
 The **private drand API endpoint** is used to communicate with other nodes using gRPC. The private API is always enabled.
-As drand now support multi beacons, it will always need the private address to be set, in order to know where to listen.
+As drand can now support multiple beacons, it will always need the private address to be set, in order to know where to listen.
 You can pass the `--private-listen` flag and specify the `host:port` to bind to. Note that the addresss associated with 
 the keypair must be publicly accessible and mapped to the `--private-listen` address, for example using a reverse proxy.
 
