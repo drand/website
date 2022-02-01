@@ -419,7 +419,7 @@ The `util` command provides several subcommands that are useful for debugging an
 - `drand util status` gets the status of many modules of a running network on the local node.
 - `drand util migrate` runs the migration required the multi-beacon folder structure on the local node.
 - `drand util ping` sends a ping to the local `drand` daemon and prints its status.
-- `drand util backup` backs up the primary drand database of a running network to a secondary location..
+- `drand util backup` backs up the primary drand database of a running network to a secondary location.
 - `drand util self-sign` signs the public identity of a running network. Needed for backward compatibility with previous versions.
 - `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from a network on the local node. It
   does NOT delete the long-term keypair.
