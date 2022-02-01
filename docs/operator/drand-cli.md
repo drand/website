@@ -124,7 +124,7 @@ The `--tls-disable` flag should only be used if you intend to run an insecure te
 If either `drand` itself or a reverse proxy is providing TLS protection, the keypair must be generated with TLS
 set to the default of `true`.
 
-The `--id` flag should be use when generating long-term public/private keypair for networks with beacon id different from
+The `--id` flag should be used when generating long-term public/private keypair for networks with beacon id different from
 default. If you don't provide a value, the default beacon id will be used. For example, a network with beacon id 
 `beacon_name_x`, you must set the flag `--id beacon_name_x`. 
 
