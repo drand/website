@@ -9,9 +9,10 @@ sidebarDepth: 2
 This document explains the workflow to have a working group of drand nodes generate randomness. There are four sections to this guide:
 
 1. Start the daemons.
-2. Generate the long-term key pairs and the group file.
-3. Have each node collectively participate in the distributed key generation (DKG).
-4. Generate randomness.
+2. Choose a beacon id.
+3. Generate the long-term key pairs and the group file.
+4. Have each node collectively participate in the distributed key generation (DKG).
+5. Generate randomness.
 
 You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
 skip that step. For each new network, a unique identifier, known as `Beacon ID` is required. 
@@ -21,10 +22,17 @@ skip that step. For each new network, a unique identifier, known as `Beacon ID` 
 The setup process for a drand node consists of the following steps:
 
 1. Start the drand daemon on each node.
-2. Generate the long-term key pair for each new network.
-3. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
+2. Choose a beacon id for the new network.
+3. Generate the long-term key pair for each new network.
+4. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
 
 This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operator/docker/).
+
+
+### Beacon ID 
+
+Each drand network needs a **unique identifier** to run. The only constraint regarding possible values is it could not have been used before on another network. If you leave the id empty, the node will
+set it to `default`.
 
 ### Long-term key
 
@@ -141,10 +149,10 @@ drand start --tls-disable
 
 ### Test the connection to a node
 
-Use `drand util check <address>` to test the gRPC endpoint on a drand node.
+Use `drand util check <address>` to test the gRPC endpoint on a drand node (like a ping to the node).
 
 ```bash
-drand util check example.com --id <beacon-id>
+drand util check example.com
 
 > drand: id example.com answers correctly
 ```
@@ -245,7 +253,14 @@ For third party implementations of randomness beacon verification, you need:
 - The period.
 - The genesis time of the chain.
 
-As an administrator of a drand node, you can use the control port to access the chain information:
+As an administrator of a drand node, you can use the control port to access a series of important information:
+
+- For listing all running networks:
+```bash
+drand util status --list-ids
+```
+
+- For accessing the chain information of a network:
 
 ```bash
 drand show chain-info --id {beacon-id}

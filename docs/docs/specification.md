@@ -62,6 +62,10 @@ process to attend it. The `Beacon ID` is set by the leader when starting a new b
 compatibility reasons, the default id for pre-existing beacon is an empty string. The
 word `default` is reserved as an equivalent.
 
+**Note**: BeaconID is manually set by operators and is just a regular identifier. In the other hand, 
+the chain hash binds the public key of the network and is therefore a cryptographic identifier, 
+and it is needed by clients. Clients don't deal with beacon IDs at all.
+
 ### Metadata
 Each request sent by a drand node will contain this field. It is used to hold any important message-related data
 nodes need to communicate to others. The protobuf definition for this field is:
@@ -806,6 +810,9 @@ func (a *schemeStore) Put(b *chain.Beacon) error {
 ```
 
 There should never be any gaps in the rounds. A node can now expose it to the external API.
+
+_Note_: If the network is using on **unchained mode**, the previous signature will never be saved on the db. It will be
+set to nil before saving the round on the db.
 
 #### Root of trust
 
