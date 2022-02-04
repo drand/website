@@ -34,7 +34,7 @@ getStartedLink: https://docs.google.com/forms/d/e/1FAIpQLScaFa4UTTh7BQsAzz0bLDZ5
 
 ### Get started now
 
-Fill in the [Form](https://docs.google.com/forms/d/e/1FAIpQLScaFa4UTTh7BQsAzz0bLDZ5t3U8IO8dusy0dOK4iYYim6yLhA/viewform?usp=sf_link) to express your interest in joining the League of Entropy and one of our member organizations will get in touch shortly.
+Fill in the [Form](https://docs.google.com/forms/d/e/1FAIpQLScaFa4UTTh7BQsAzz0bLDZ5t3U8IO8dusy0dOK4iYYim6yLhA/viewform?usp=sf_link), or send us an email (leagueofentropy [ at ] googlegroups.com) to express your interest in joining the League of Entropy and one of our member organizations will get in touch shortly.
 
 
 ::: slot footer
