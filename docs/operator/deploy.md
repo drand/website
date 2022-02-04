@@ -14,8 +14,8 @@ This document explains the workflow to have a working group of drand nodes gener
 4. Have each node collectively participate in the distributed key generation (DKG).
 5. Generate randomness.
 
-You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
-skip that step. For each new network, a unique identifier, known as `Beacon ID` is required. 
+**You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
+skip that step. For each new network, a unique identifier, known as `Beacon ID` is required.** 
 
 ## Setup
 
