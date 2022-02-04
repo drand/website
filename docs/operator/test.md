@@ -33,7 +33,7 @@ docker-compose up -d
 - nohup docker exec -u drand drand_0 /bin/sh -c 'drand share --connect drand_3:8380 --tls-disable' &
 
 _Notes_
-- As it is de default network, the beacon id is not set on commands.
+- As it is thedefault network, the beacon id is not set on commands.
 - Long-term keys for default network are not explicitly created by the operator because they are created automatically by docker image on startup.
 
 ### Second network
@@ -71,7 +71,7 @@ _Notes_
 - nohup docker exec -u drand drand_4 /bin/sh -c 'drand share --connect drand_0:8080 --from ./data/drand/.drand/multibeacon/default/groups/drand_group.toml --tls-disable' &
 
 _Notes_
-- As it is de default network, the beacon id is not set on commands.
+- As it is thedefault network, the beacon id is not set on commands.
 - Nodes which are part of the running network must use the flag **--transition**
 - New nodes which will be part of this network must use the flag **--from**, providing the actual network group file. This file can be found on other nodes.
 
