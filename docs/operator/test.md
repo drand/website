@@ -19,6 +19,8 @@ make build_docker_all
 docker-compose up -d
 ```
 
+**Note**: This docker compose file is located in drand repository [here](https://github.com/drand/drand/blob/9627b87986bd855f93ed16b055d21496040dc865/test/docker/docker-compose.yml).
+
 ## Start new networks
 
 ---
