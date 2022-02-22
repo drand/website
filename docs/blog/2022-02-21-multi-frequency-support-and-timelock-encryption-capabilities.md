@@ -33,7 +33,7 @@ Both randomness generation and consumption procedures remain the same as previou
 
 We will deliver this API in the coming months but we provide a sneak peek at how it can look like:
 
-First a client encrypts a message towards a round in the future.
+First, a client encrypts a message towards a round in the future.
 
 ```plaintext
 ciphertext := client.EncryptToRound(msg, round)
