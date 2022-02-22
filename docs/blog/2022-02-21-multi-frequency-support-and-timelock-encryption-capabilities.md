@@ -39,7 +39,7 @@ First, a client encrypts a message towards a round in the future.
 ciphertext := client.EncryptToRound(msg, round)
 ```
 
-Then once the associated randomness is created, _anybody_ can decrypt the message:
+Then, once the associated randomness is created, _anybody_ can decrypt the message:
 
 ```plaintext
 // get the randomness associated with the round
