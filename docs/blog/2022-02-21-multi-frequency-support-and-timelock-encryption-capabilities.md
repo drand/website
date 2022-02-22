@@ -59,7 +59,7 @@ Drand is producing randomness every 30 seconds, by default, and this is how it h
 
 **What does it enable?**
 
-Multi-protocol support enables a single set of participants to generate multiple randomness beacons of different kinds and at any frequencies. For example, you could think of the LoE-operated network generating randomness at 3s as well as generating post quantum randomness every minute.
+Multi-protocol support enables a single set of participants to generate multiple randomness beacons of different kinds and at different frequencies. For example, you could think of the LoE-operated network generating randomness at 3s as well as generating post quantum randomness every minute.
 
 The full details of how the refactored protocol works will be made available in our documentation (once the features land in production), but, roughly, it works as follows.
 
