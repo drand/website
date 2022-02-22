@@ -55,7 +55,7 @@ With this feature, drand has the potential to solve problems that remain unsolve
 
 **What is this?**
 
-Drand is producing randomness every 30 seconds, by default, and this is how it has been programmed to operate ever since the network’s launch in August 2020 and up to the present day. However, several applications operate at higher frequencies (and quite likely some others at lower frequencies). We have heard the requests from our ecosystem of users and have worked hard to refactor the codebase and make drand capable of using different randomness schemes and/or frequencies
+Drand is producing randomness every 30 seconds, by default, and this is how it has been programmed to operate ever since the network’s launch in August 2020 and up to the present day. However, several applications operate at higher frequencies (and quite likely some others at lower frequencies). We have heard the requests from our ecosystem of users and have worked hard to refactor the codebase and make drand capable of using different randomness schemes and/or frequencies.
 
 **What does it enable?**
 
