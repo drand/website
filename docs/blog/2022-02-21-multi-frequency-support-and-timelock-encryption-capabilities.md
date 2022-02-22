@@ -25,7 +25,7 @@ According to the original drand design and implementation, every new beacon is l
 
 **What does it enable?**
 
-Although chained randomness provides some nice properties, having each beacon independent of the previous one presents a lot of potential for some applications: drand consumers can now enable timelock encryption in their applications, which means that they can securely encrypt a message for a specific round in the future, which can then be decrypted by anyone with the corresponding randomness. This is a very important feature which can mitigate front-running attacks in Decentralized Exchanges, and oracle platforms, as well as enabling seal bids auctions.
+Although chained randomness provides some nice properties, having each beacon independent of the previous one presents a lot of potential for some applications: drand consumers can now enable timelock encryption in their applications, which means that they can securely encrypt a message for a specific round in the future, which can then be decrypted by anyone with the corresponding randomness. This is a very important feature which can mitigate front-running attacks in Decentralized Exchanges, and oracle platforms, as well as enabling sealed bid auctions.
 
 **How does it work?**
 
