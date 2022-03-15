@@ -132,11 +132,11 @@ phases / modules:
   randomness.
 - Generation: After the setup, the nodes switch to the randomness generation
   mode. Each node periodically broadcasts a partial signature to all the other
-  participants sign using a t-of-n threshold version of the Boneh-Lynn-Shacham
+  participants signed using a t-of-n threshold version of the Boneh-Lynn-Shacham
   (BLS) signature scheme with their respective private key shares. Once any node
   (or third-party observer) has gathered t partial signatures, it can
   reconstruct the full BLS signature, that can be verified against the
-  distributed public key. The signature is then simply the hash of that
+  distributed public key. The public randomness is then simply the hash of that
   signature, to ensure that there is no bias in the byte representation of the
   final output.
 
