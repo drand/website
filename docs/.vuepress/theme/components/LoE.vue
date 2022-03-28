@@ -126,7 +126,7 @@
           <a href="https://www.ucl.ac.uk/" class="logo" title="UCL">
             <img src="/images/loe/logo-ucl.svg" alt="UCL logo" class="wide" />
           </a>
-          <a href="https://www.storswift.com/" class="logo" title="ZenGo">
+          <a href="https://www.storswift.com/" class="logo" title="StorSwift">
             <img
               src="/images/loe/storswift-logo.png"
               alt="StorSwift logo"
