@@ -11,7 +11,7 @@ We've asked StorSwift some key questions that we've previously asked other LoE m
 
 ---
 
-**Why is drand important as a protocol for the next generation of the Internet in your opinion?**
+**In your opinion, why is drand important as a protocol for the next generation of the Internet?**
 
 The drand protocol elegantly provides a truly decentralized robust solution to the random numbers quality problem, which indeed is fundamental for secure computer systems.
 
