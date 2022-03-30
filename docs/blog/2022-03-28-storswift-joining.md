@@ -8,6 +8,8 @@ _"StorSwift becomes the newest member of the League of Entropy. We've asked them
 
 We are excited to announce that [StorSwift](https://storswift.com/), a China-based cloud computing and storage services company, is joining forces with the [League of Entropy](https://leagueofentropy.com/) (LoE)! StorSwift is becoming the 15th member to join the LoE and the first partner joining from China - a significant milestone for the LoE!
 
+StorSwift has already deployed various workload-scalable enterprise storage systems in video surveillance, HPC, and AI industries and provides support for the many platforms in operation. Based on their extensive experience with large-scale infrastructure projects, StorSwift has recently focused on improving infrastructure management and security techniques for Web3.0 computing platforms - all of which make StorSwift a great addition to the LoE! Welcome!
+
 We've asked StorSwift some key questions that we've previously asked other LoE members - see [here](https://drand.love/blog/2021/09/14/the-value-of-drand/) and [here](https://drand.love/blog/2021/10/28/the-value-of-drand-continued/) - on the value of drand. Here are the answers.
 
 ---
