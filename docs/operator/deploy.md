@@ -17,6 +17,10 @@ This document explains the workflow to have a working group of drand nodes gener
 **You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
 skip that step. For each new network, a unique identifier, known as `Beacon ID` is required.** 
 
+::: warning
+As of Q2'22, the drand network operated by the [League of Entropy (LoE)](https://blog.cloudflare.com/league-of-entropy/) is running a testnet that integrates support for multi-frequency beacons and unchained randomness. You can read all the details in [this blogpost](https://drand.love/blog/2022/02/21/multi-frequency-support-and-timelock-encryption-capabilities/). The documentation in this site has been updated to include mention of these features, although they are not currently supported in LoE's drand mainnet. All changes are backward compatible. We expect that mainnet will switch to unchained randomness and support for multi-frequency beacons in Q4'22.
+:::
+
 ## Setup
 
 The setup process for a drand node consists of the following steps:
