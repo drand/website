@@ -358,7 +358,7 @@ The main advantage of this method is that the distributed public key stays the _
 **Setting up the coordinator**: The coordinator must be a member of the current network. To run the coordinator, run the following:
 
 ```bash
-drand share --leader --transition --secret-file path/to/my/secret/file --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
+drand share --leader --transition --secret-file /path/to/my/secret/file --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the current members for the resharing**: The current members can simply run the following command:
