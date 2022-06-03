@@ -364,7 +364,7 @@ drand share --leader --transition --secret-file /path/to/my/secret/file --nodes 
 **Setting up the current members for the resharing**: The current members can simply run the following command:
 
 ```bash
-drand share --connect <coordinator> --transition --secret-file path/to/my/secret/file --out group2.toml --id {beacon-id}
+drand share --connect <coordinator> --transition --secret-file /path/to/my/secret/file --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the [Deployment](https://beta.drand.love/operator/deploy/#group-toml-file) section.
