@@ -18,6 +18,7 @@ title: Organization
   - `cmd/relay` - A relay that pulls randomness from a drand group member and exposes an HTTP server interface.
   - `cmd/relay-gossip` - A relay that pulls randomness from a group member and publishes it over a libp2p gossipsub topic.
 - `core` - The primary Service interface of drand comamands.
+  - `core/migration` - A library for migrating drand files from single-beacon to multi-beacon version.
 - `demo` - A framework for integration testing.
 - `deploy` - Records of previous drand deployments.
 - `docker` - Helpers for docker image packaging.
@@ -34,3 +35,4 @@ title: Organization
 - `net` - gRPC service handlers for inter-node communication.
 - `protobuf/drand` - Definitions for the wire format interface of inter-node communication.
 - `test` - Testing helper utilities.
+  - `test/docker` - Files and related scripts for testing drand networks on docker.

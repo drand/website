@@ -8,27 +8,38 @@ sidebarDepth: 2
 
 This document explains the workflow to have a working group of drand nodes generate randomness. There are four sections to this guide:
 
-1. Generate the long-term key pairs and the group file.
 1. Start the daemons.
-1. Have each node collectively participate in the distributed key generation (DKG).
-1. Generate randomness.
+2. Choose a beacon id.
+3. Generate the long-term key pairs and the group file.
+4. Have each node collectively participate in the distributed key generation (DKG).
+5. Generate randomness.
+
+**You can repeat these steps every time you want to start a new network for randomness generation. If the drand daemon is already running, please
+skip that step. For each new network, a unique identifier, known as `Beacon ID` is required.** 
 
 ## Setup
 
 The setup process for a drand node consists of the following steps:
 
-1. Generate the long-term key pair for each node.
 1. Start the drand daemon on each node.
-1. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
+2. Choose a beacon id for the new network.
+3. Generate the long-term key pair for each new network.
+4. The leader starts the command as a coordinator & every participant connects to the coordinator to setup the network.
 
 This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operator/docker/).
 
+
+### Beacon ID 
+
+Each drand network needs a **unique identifier** to run. The only constraint regarding possible values is it could not have been used before on another network. If you leave the id empty, the node will
+set it to `default`.
+
 ### Long-term key
 
-Each drand node needs a public and secret key to interact with the rest of the network. To generate these keys run [`drand generate-keypair`](/operator/drand-cli/#drand-generate-keypair) followed by the address of your node:
+Each drand network needs a public and secret key to interact with the rest of the nodes. To generate these keys run [`drand generate-keypair`](/operator/drand-cli/#drand-generate-keypair) followed by the address of your node:
 
 ```bash
-drand generate-keypair drand.example.com
+drand generate-keypair --id {beacon-id} drand.example.com
 ```
 
 The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a development or test deployment.
@@ -36,7 +47,7 @@ The address must be reachable over a TLS connection directly, or via a reverse p
 The default location for your keys is `~/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
 
 ```bash
-drand generate-keypair drand0.example.com --folder ~/.drand-node-0
+drand generate-keypair --id {beacon-id} drand0.example.com --folder ~/.drand-node-0
 ```
 
 ### Starting drand daemon
@@ -138,7 +149,7 @@ drand start --tls-disable
 
 ### Test the connection to a node
 
-Use `drand util check <address>` to test the gRPC endpoint a drand node.
+Use `drand util check <address>` to test the gRPC endpoint on a drand node (like a ping to the node).
 
 ```bash
 drand util check example.com
@@ -146,10 +157,22 @@ drand util check example.com
 > drand: id example.com answers correctly
 ```
 
+If the address used is a DNS name, this command will try to resolve the DNS name to IP.
+
+### Test the connection to a network
+
+Use `drand util check <address> --id <beacon-id>` to test the gRPC endpoint of a drand network which has a specific beacon id.
+
+```bash
+drand util check example.com --id <beacon-id>
+
+> drand: id example.com answers correctly
+```
+
 If the address used is a DNS name, this command will try to resolve the DNS name to IP. If you disabled TLS, you need to add the `--tls-disable` flag:
 
 ```bash
-drand util check --tls-disable drand0.example.com
+drand util check --tls-disable drand0.example.com --id <beacon-id>
 ```
 
 ### Run the setup phase
@@ -160,36 +183,38 @@ To setup a new network, drand uses the notion of a coordinator that collects the
 **before** everyone else:
 
 ```bash
-drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s
+drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s --id {beacon-id} --scheme {scheme-id}
 ```
 
 **Rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
 
 ```bash
-drand share --connect <leaderaddress> --secret mysecret901234567890123456789012
+drand share --connect <leaderaddress> --secret mysecret901234567890123456789012 --id {beacon-id}
 ```
 
 The flags usage is as follow:
 
-| Flag | Description |
-| ---- | ----------- |
-| `--leader` | _This_ node is the group coordinator. |
-| `--nodes` | The number of nodes in this group. |
-| `--threshold` | The minimum number of nodes that need to be online for the network to be live. |
-| `--period` | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
-| `--catchup-period` | The period of randomness when recovering from a failure. A valid Golang duration, it may be 0 to catch up as fast as possible. |
-| `--secret` | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long. |
+| Flag               | Description                                                                                                                                                              |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--leader`         | _This_ node is the group coordinator.                                                                                                                                    |
+| `--nodes`          | The number of nodes in this group.                                                                                                                                       |
+| `--threshold`      | The minimum number of nodes that need to be online for the network to be live.                                                                                           |
+| `--period`         | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
+| `--catchup-period` | The period of randomness when recovering from a failure. A valid Golang duration, it may be 0 to catch up as fast as possible.                                           |
+| `--secret`         | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long.                        |
+| `--id`             | The unique identification for this new network. It allows drand to handle various networks running at the same time.                                                     |
+| `--scheme`         | The scheme the new network will use. It allows the network to work on chain or unchained mode.      |
 
 The `drand share` command will run until the DKG has finished. If you quit the command, the DKG will continue, but the group file will not be created. In that case, once the DKG is done, you can get the group file by running:
 
 ```bash
-drand show group --out group.toml
+drand show group --out group.toml --id {beacon-id}
 ```
 
 If you specified a `--control` in when you started the drand node, you will have to supply the same port with this command:
 
 ```bash
-drand show group --out group.toml --control 3001
+drand show group --out group.toml --control 3001 --id {beacon-id}
 ```
 
 #### Secret
@@ -215,7 +240,7 @@ drand share <group-file> --source <entropy-exec> --user-source-only
 Once the DKG phase is done, each node has both a private share and a group file containing the distributed public key. Using the previous commands, the group file will be written to `group.toml`. That updated group file is needed by drand to securely contact drand nodes on their public interface to gather private or public randomness. To view this file, run `drand show group`. If you want to save the output to a file, add the `--out <file>` flag:
 
 ```bash
-drand show group --out ~/group-config.toml
+drand show group --out ~/group-config.toml --id {beacon-id}
 ```
 
 ## Randomness Generation
@@ -228,16 +253,23 @@ For third party implementations of randomness beacon verification, you need:
 - The period.
 - The genesis time of the chain.
 
-As an administrator of a drand node, you can use the control port to access the chain information:
+As an administrator of a drand node, you can use the control port to access a series of important information:
+
+- For listing all running networks:
+```bash
+drand util status --list-ids
+```
+
+- For accessing the chain information of a network:
 
 ```bash
-drand show chain-info
+drand show chain-info --id {beacon-id}
 ```
 
 Non-administrators can contact an external drand node to ask for its current distributed public key:
 
 ```bash
-drand get chain-info <address>
+drand get chain-info --id {beacon-id} <address>
 ```
 
 In this command, `<address>` is the address of a drand node. Use the`--tls-cert` flag to specify the server's certificate if needed. The `group.toml` file does not need to be updated with the collective key.
@@ -271,7 +303,7 @@ In that case, you need to specify the control port for each of the following com
 To retrieve the long-term private key of our node, run:
 
 ```bash
-drand show private
+drand show private --id {beacon-id}
 ```
 
 ### Long-term public key
@@ -279,7 +311,7 @@ drand show private
 To retrieve the long-term public key of our node, run:
 
 ```bash
-drand show public
+drand show public --id {beacon-id}
 ```
 
 ### Private key share
@@ -287,7 +319,7 @@ drand show public
 To retrieve the private key share of our node, as determined during the DKG, run the following command:
 
 ```bash
-drand show share
+drand show share --id {beacon-id}
 ```
 
 The JSON-formatted output has the following form:
@@ -309,7 +341,7 @@ The "gid" simply indicates which group the data belongs to. It is present for sc
 To retrieve information about the chain this node participates in, run:
 
 ```bash
-drand show chain-info
+drand show chain-info --id {beacon-id}
 ```
 
 ## Updating drand group
@@ -326,14 +358,13 @@ The main advantage of this method is that the distributed public key stays the _
 **Setting up the coordinator**: The coordinator must be a member of the current network. To run the coordinator, run the following:
 
 ```bash
-drand share --leader --transition --secret mysecret901234567890123456789012 --nodes 15 --threshold 10 --out
-group2.toml
+drand share --leader --transition --secret mysecret901234567890123456789012 --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the current members for the resharing**: The current members can simply run the following command:
 
 ```bash
-drand share --connect <coordinator> --transition --secret mysecret901234567890123456789012 --out group2.toml
+drand share --connect <coordinator> --transition --secret mysecret901234567890123456789012 --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the [Deployment](https://beta.drand.love/operator/deploy/#group-toml-file) section.
@@ -360,6 +391,7 @@ drand share connect <coordinator> --from group.toml --secret mysecret90123456789
 
 After the protocol is finished, each node will have the new group file written out as `group2.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
 
+In this case, the `Beacon ID` is not required as it is taken from the group file.
 ## Metrics
 
 The `--metrics <metrics-address>` flag may be used to launch a metrics server at the provided address. The address may be specified as `127.0.0.1:port`, or as `:port` to bind to the default network interface. The webserver at this port will serve [pprof](https://golang.org/pkg/net/http/pprof/) runtime profiling data at `<metrics>/debug/pprof`, allow triggering golang garbage collection at `<metrics>/debug/gc`, and will serve [prometheus](https://prometheus.io/docs/guides/go-application/) metrics at `<metrics>:/metrics`. Prometheus counters track the number of gRPC requests sent and received by the drand node, as well as the number of HTTP API requests. This endpoint should not be exposed publicly. If desired, prometheus metrics can be used as a data source for [grafana dashboards](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) or other monitoring services.

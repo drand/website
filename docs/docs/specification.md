@@ -12,11 +12,13 @@ This document is a specification of the drand protocols.
 
 ### Drand node
 
-A drand node is a server that runs the drand code, that participates in the
-distributed key generations phases, in the randomness generation and that can
-reply to public request API.
-The following representation is what gets embedded in group configuration file,
-what drand nodes knows about other drand nodes:
+A drand node is a server that runs the drand code, participates in the
+distributed key generation (DKG) process and the randomness generation and that can
+reply to public request API. It can instantiate and run multiple independent 
+internal randomness processes, where each of them has its own randomness generation frequency.
+The following representation is what gets embedded in each group configuration 
+file, one per randomness process. This is what each process knows about other 
+drand nodes on its own network:
 
 ```go
 type Node struct {
@@ -42,12 +44,57 @@ func (n *Node) Hash() []byte {
 **Public Key**: Public keys of drand nodes are points on the G1 group of the
 BLS12-381 curve. See the [curve](#drand-curve) section for more information.
 
+### Drand network
+Each group of nodes that runs a specific process (e.g., one with the same set of parameters) constitutes a separate network. 
+Each network will act as an independent beacon generator. 
+
 ### Drand beacon
 
 A drand beacon is what the drand network periodically creates and that can be
 used to derive the randomness. A beacon contains the signature of the previous
 beacon generated, the round of this beacon and signature. See the [beacon
 chain](#beacon-chain) section for more information.
+
+### Beacon ID
+The `Beacon ID` is the unique identifier among existing beacon processes running on a drand node. Thanks to
+this ID, each drand node can dispatch messages received to the correct internal 
+process to attend it. The `Beacon ID` is set by the leader when starting a new beacon and stays the same for the lifetime of the process. For backward 
+compatibility reasons, the default id for pre-existing beacon is an empty string. The
+word `default` is reserved as an equivalent.
+
+**Note**: BeaconID is manually set by operators and is just a regular identifier. In the other hand, 
+the chain hash binds the public key of the network and is therefore a cryptographic identifier, 
+and it is needed by clients. Clients don't deal with beacon IDs at all.
+
+### Metadata
+Each request sent by a drand node will contain this field. It is used to hold any important message-related data
+nodes need to communicate to others. The protobuf definition for this field is:
+
+```go
+message Metadata {
+  NodeVersion node_version = 1;
+  string beaconID = 2;
+  bytes chain_hash = 3;
+}
+```
+
+### Scheme
+A scheme is a network-level configuration that a coordinator can set when starting a new network. There 
+is fixed quantity of possible values. Each one establishes a different set of parameters which affects 
+some working aspects of the network. If no scheme is set on network starting, a default value is used.
+The available scheme are:
+
+```go
+// DefaultSchemeID is the default scheme ID.
+const DefaultSchemeID = "pedersen-bls-chained"
+
+// UnchainedSchemeID is the scheme id used to set unchained randomness on beacons.
+const UnchainedSchemeID = "pedersen-bls-unchained"
+```
+
+As you can notice, the default value is `pedersen-bls-chained`. This is because of backward-compatibility
+reasons. Drand nodes older or equal to version `1.3.0`, which don't know anything about schemes, 
+use this set of parameters.
 
 ### Group configuration
 
@@ -58,7 +105,11 @@ about a running drand network:
 - Threshold: The number of nodes that are necessary to participate to a
   randomness generation round to produce a new random value. Given the security
   model of drand, the threshold must be superior to 50% of the number of nodes.
-- Period: The period at which the network creates new random value
+- Period: The period at which the network creates new random value. Also referred to as "frequency".
+- ID: The ID which a drand node uses to tag each message in order to run more than one 
+  beacon processes (i.e., participate in more than one networks) at the same time.
+- Scheme: The id of the scheme a network uses to define a group of configuration
+  values related to the randomness generation process.
 - GenesisTime: An UNIX timestamp in seconds that represents the time at which
   the first round of the drand chain starts. See the [beacon
   chain](#beacon-chain) section for more information.
@@ -73,10 +124,10 @@ about a running drand network:
   field is empty is the network has never reshared yet. See TODO for more
   information.
 
-**Note**: This group information is only shared between drand nodes. Even
-though it doesn't expose private key materials it non-essential information from
-the point of view of users. A public struct derived from the group to share to
-clients is described in the [root of trust section](#root-of-trust).
+**Note**: This group information is only shared between internal processes of 
+drand nodes. Even though it doesn't expose private key materials it non-essential 
+information from the point of view of users. A public struct derived from 
+the group to share to clients is described in the [root of trust section](#root-of-trust).
 
 #### Group configuration hash
 
@@ -88,23 +139,33 @@ follow:
 
 ```go
 func (g *Group) Hash() []byte {
-	h, _ := blake2b.New256(nil)
-	// sort all nodes entries by their index
-	sort.Slice(nodes, func(i, j int) bool {
-		return nodes[i].Index < nodes[j].Index
+	h := hashFunc()
+
+	sort.Slice(g.Nodes, func(i, j int) bool {
+		return g.Nodes[i].Index < g.Nodes[j].Index
 	})
+
 	// all nodes public keys and positions
-	for _, n := range nodes {
-		h.Write(n.Hash())
+	for _, n := range g.Nodes {
+		_, _ = h.Write(n.Hash())
 	}
-	binary.Write(h, binary.LittleEndian, uint32(g.Threshold))
-	binary.Write(h, binary.LittleEndian, uint64(g.GenesisTime))
+
+	_ = binary.Write(h, binary.LittleEndian, uint32(g.Threshold))
+	_ = binary.Write(h, binary.LittleEndian, uint64(g.GenesisTime))
+
 	if g.TransitionTime != 0 {
-		binary.Write(h, binary.LittleEndian, g.TransitionTime)
+		_ = binary.Write(h, binary.LittleEndian, g.TransitionTime)
 	}
+
 	if g.PublicKey != nil {
-		h.Write(g.PublicKey.Hash())
+		_, _ = h.Write(g.PublicKey.Hash())
 	}
+
+	// Use it only if ID is not empty. Keep backward compatibility
+	if g.ID != "" {
+		_, _ = h.Write([]byte(g.ID))
+	}
+
 	return h.Sum(nil)
 }
 ```
@@ -118,11 +179,63 @@ file for the intra-nodes protocols and in the
 [api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto)
 file.
 
-## Drand modules
+## Drand node
 
 Generating public randomness is the primary functionality of drand. Public
-randomness is generated collectively by drand nodes and publicly available. The
-A drand network is composed of a distributed set of nodes and has two
+randomness is generated collectively by drand nodes and is made publicly available.
+Each node can run multiple processes (i.e., participate in multiple networks) at the same time, each of which is independent of each other,
+with its own set of parameters. All processes use the same node address to send messages to
+and the node will identify and dispatch the request to the correct process/network (running
+internally) using an ID, known as the `Beacon ID`.
+
+The following diagram explains visually the above operation.
+
+![multi-network-drand-nodes-full.png](images/drand_multinetwork_1.png)
+
+In the above figure, each drand node is running 4 processes, i.e., participates in 4 different randomness generation networks. Each one of a node's processes communicates with
+the corresponding process running in the rest of the nodes, i.e., the process "Network A" in Node 1 communicates with the process "Network A" in nodes 2, 3 and 4, in order to achieve their common goal: generate public randomness.
+It is worth highlighting that not all nodes need to participate in all networks, i.e., run all existing processes. The following
+diagram shows this scenario.
+
+![multi-network-drand-nodes-partial.png](images/drand_multinetwork_2.png)
+
+Messages are delivered to the correct internal process by a module that checks the `Beacon ID` inside the request and redirecting the message accordingly.
+
+![beacon-id-dispatching.png](images/beacon_id_dispatching.png)
+
+
+## Drand versioning
+Each request sent by a drand node will contain the actual drand protocol version that the node is using. Drand uses [semantic
+versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
+MAJOR version will be allowed to communicate with each other. For backward-compatibility reasons, 
+the fallback value will be `0.0.0`, and nodes with this version will always be allowed to communicate
+with other nodes. The protobuf definition for this field is:
+
+```go
+message NodeVersion {
+    uint32 major = 1;
+    uint32 minor = 2;
+    uint32 patch = 3;
+}
+```
+
+**Notes**: The `NodeVersion` is present inside the `Metadata` field.
+
+In the following diagram, we can see:
+
+- Node 2 will be able to interact the rest of the nodes. 
+- Node 4 will be only able to interact with nodes whose version is 2.X.X. In this case, it cannot communicate with any other node.
+- Nodes 1 and 3 will be only able to interact with nodes whose version is 1.X.X. In this case, they can communicate with each other.
+
+
+![drand_versioning.png](images/drand_versioning.png)
+
+**Notes**: Node 2 is a node where node-versioning feature is not supported. This node has not been updated to the latest version (above 1.3). In this case, 
+`Metadata` won't be present on requests, so the fallback version other nodes infer is `0.0.0`.
+
+## Drand modules
+
+The A drand network is composed of a distributed set of nodes and has two
 phases / modules:
 
 - Setup: The nodes perform a distributed key generation (DKG) protocol to create
@@ -167,7 +280,9 @@ The gRPC endpoint call is:
 ```protobuf
 rpc GetIdentity(IdentityRequest) returns (Identity);
 
-message IdentityRequest {}
+message IdentityRequest {
+    common.Metadata metadata = 1;
+}
 message Identity {
     string address = 1;
     bytes key = 2;
@@ -198,6 +313,8 @@ message SignalDKGPacket {
     // In resharing cases, previous_group_hash is the hash of the previous group.
     // It is to make sure the nodes build on top of the correct previous group.
     bytes previous_group_hash = 3;
+    //
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -231,6 +348,8 @@ message DKGInfoPacket {
     // signature from the coordinator to prove he is the one sending that group
     // file.
     bytes signature = 4;
+    //
+    common.Metadata metadata = 5;
 }
 // GroupPacket represents a group that is running a drand network (or is in the
 // process of creating one or performing a resharing).
@@ -245,11 +364,13 @@ message GroupPacket {
     repeated bytes dist_key = 7;
     // catchup_period in seconds
     uint32 catchup_period = 8;
+    string schemeID = 9;
+    common.Metadata metadata = 10;
 }
 ```
 
 As soon as a participant receives this information from the coordinator, then he
-must be ready to accept DKG packets, but he does not start immediatly sending
+must be ready to accept DKG packets, but he does not start immediately sending
 his packet. After the coordinator has successfully sent the group to all
 participants, he starts sending the first packet of the distributed key
 generation. All nodes that receive the first packet of the DKG from the
@@ -310,6 +431,7 @@ and the following protobuf packets:
 // broadcasting protocol.
 message DKGPacket{
     dkg.Packet dkg = 1;
+    common.Metadata metadata = 2;
 }
 // dkg.proto
 // Packet is a wrapper around the three different types of DKG messages
@@ -319,6 +441,7 @@ message Packet {
         ResponseBundle response = 2;
         JustificationBundle justification = 3;
     }
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -330,7 +453,7 @@ the [cryptography](#cryptographic-specification) section.
 #### Phase transitions
 
 The protocol runs in _at most_ 3 phases: `DealPhase`, `ResponsePhase` and
-`JustificationPhase`. The `FinishPhase` is an additiona local phase where nodes
+`JustificationPhase`. The `FinishPhase` is an additional local phase where nodes
 compute their local private share. However, it can finish after the first two
 phases if there is malicious interference or offline nodes during the first
 phase.
@@ -555,9 +678,10 @@ is always enough honest nodes such that the chain advances at the correct speed.
 In case this is not true at some point in time, please refer to the [catchup
 section](#catchup-mode) for more information.
 
-#### Beacon chain
+#### Beacon: chained or unchained
 
-Drand binds the different random beacon together so they form a chain of random
+Drand has now the ability to work in two different modes regarding randomness generation: chained or unchained.
+In the first case, drand binds the different random beacon together so they form a chain of random
 beacons. Remember a drand beacon is structured as follows:
 
 ```go
@@ -571,28 +695,23 @@ type Beacon struct {
 - The `Round` is the round at which the beacon was created, as explained in the
   previous section.
 - The `PreviousSignature` is the signature of the beacon that was created at
-  round `Round - 1`
+  round `Round - 1`. It is not present if the network is running on unchained mode.
 - `Signature` is the final BLS signature created by aggregating at least
   `Threshold` of partial signatures from nodes.
 
 This structure makes it so that each beacon created is building on the previous
 one therefore forming a randomness chain.
 
+In the second case, drand keeps binding the different random beacon together, but this is not strictly necessary. The 
+chain integrity won't be required in other to verify a random value generated.
+
+**Notes**: Drand can choose between these two working modes using the `--scheme` flag. 
+See [scheme](#scheme) section for more information.
+
 **Partial beacon creation**: At each new round, a node creates a `PartialBeacon`
 with the current round number, the previous signature and the partial signature
-over the message:
-
-```go
-func Message(currRound uint64, prevSig []byte) []byte {
-	h := sha256.New()
-	_, _ = h.Write(prevSig)
-	_, _ = h.Write(RoundToBytes(currRound))
-	return h.Sum(nil)
-}
-```
-
-with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
-being an 8 bytes fixed length big-endian serializer.
+over the messagem with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
+being an 8 bytes fixed length big-endian serializer. 
 
 To determine the "current round" and the "previous signature", the node loads it
 last generated beacon and sets the following:
@@ -624,6 +743,8 @@ message PartialBeaconPacket {
     // partial signature - a threshold of them needs to be aggregated to produce
     // the final beacon at the given round.
     bytes partial_sig = 3;
+    //
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -633,20 +754,65 @@ then stores it in a temporary cache if it is valid. As soon as there is at
 least a threshold of valid partial signatures, the node can aggregate them to
 create the final signature.
 
+```go
+func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
+	h := sha256.New()
+
+	if !v.scheme.DecouplePrevSig {
+		_, _ = h.Write(prevSig)
+	}
+	_, _ = h.Write(RoundToBytes(currRound))
+	return h.Sum(nil)
+}
+```
+As you can notice here, the previous signature is taken into account
+only if the scheme configuration indicates it.
+
 **Validation of beacon and storage**: Once the new beacon is created, the node
-verifies its signature, loads the last saved beacom from the database and checks
-if the following routine returns true:
+verifies its signature, loads the last saved beacon from the database and tries to 
+put it on database, applying a series of checks before it:
 
 ```go
-func isAppendable(lastBeacon, newBeacon *Beacon) bool {
-	return newBeacon.Round == lastBeacon.Round+1 &&
-	 	bytes.Equal(lastBeacon.Signature, newBeacon.PreviousSig)
+func (a *appendStore) Put(b *chain.Beacon) error {
+	a.Lock()
+	defer a.Unlock()
+	if b.Round != a.last.Round+1 {
+		return fmt.Errorf("invalid round inserted: last %d, new %d", a.last.Round, b.Round)
+	}
+	if err := a.Store.Put(b); err != nil {
+		return err
+	}
+	a.last = b
+	return nil
+}
+
+
+func (a *schemeStore) Put(b *chain.Beacon) error {
+	a.Lock()
+	defer a.Unlock()
+
+	// If the scheme is unchained, previous signature is set to nil. In that case,
+	// relationship between signature in the previous beacon and previous signature
+	// on the actual beacon is not necessary. Otherwise, it will be checked.
+	if a.sch.DecouplePrevSig {
+		b.PreviousSig = nil
+	} else if !bytes.Equal(a.last.Signature, b.PreviousSig) {
+		return fmt.Errorf("invalid previous signature")
+	}
+
+	if err := a.Store.Put(b); err != nil {
+		return err
+	}
+
+	a.last = b
+	return nil
 }
 ```
 
-There should never be any gaps in the rounds.
-A node can now save the beacon locally in its database and exposes it to the
-external API.
+There should never be any gaps in the rounds. A node can now expose it to the external API.
+
+_Note_: If the network is using on **unchained mode**, the previous signature will never be saved on the db. It will be
+set to nil before saving the round on the db.
 
 #### Root of trust
 
@@ -654,14 +820,15 @@ In drand, we can uniquely identify a chain of randomness via a tuple of
 information:
 
 ```go
+// Info represents the public information that is necessary for a client to
+// verify any beacon present in a randomness chain.
 type Info struct {
-	// Period of the randomness generation in seconds.
-	Period uint32
-	// GenesisTime at which the drand nodes started the chain, UNIX in seconds.
-	GenesisTime int64
-	// PublicKey necessary to validate any randomness beacon of the chain.
-	PublicKey []byte
-	GroupHash []byte 
+	PublicKey   kyber.Point   `json:"public_key"`
+	ID          string        `json:"id"`
+	Period      time.Duration `json:"period"`
+	Scheme      scheme.Scheme `json:"scheme"`
+	GenesisTime int64         `json:"genesis_time"`
+	GroupHash   []byte        `json:"group_hash"`
 }
 ```
 
@@ -673,11 +840,27 @@ simplicity, we also refer to the chain information by its hash of the `Info`
 structure:
 
 ```go
-func (i *Info) Hash() []byte {
+// Hash returns the canonical hash representing the chain information. A hash is
+// consistent throughout the entirety of a chain, regardless of the network
+// composition, the actual nodes, generating the randomness.
+func (c *Info) Hash() []byte {
 	h := sha256.New()
-	binary.Write(h, binary.BigEndian, i.Period)
-	binary.Write(h, binary.BigEndian, i.GenesisTime)
-	h.Write(i.PublicKey)
+	_ = binary.Write(h, binary.BigEndian, uint32(c.Period.Seconds()))
+	_ = binary.Write(h, binary.BigEndian, c.GenesisTime)
+
+	buff, err := c.PublicKey.MarshalBinary()
+	if err != nil {
+		log.DefaultLogger().Warnw("", "info", "failed to hash pubkey", "err", err)
+	}
+
+	_, _ = h.Write(buff)
+	_, _ = h.Write(c.GroupHash)
+
+	// Use it only if ID is not empty. Keep backward compatibility
+	if c.ID != "" {
+		_, _ = h.Write([]byte(c.ID))
+	}
+
 	return h.Sum(nil)
 }
 ```
@@ -761,12 +944,14 @@ with the following protobuf packet:
 // chain
 message SyncRequest {
     uint64 from_round = 1;
+    common.Metadata metadata = 2;
 }
 
 message BeaconPacket {
     bytes previous_sig = 1;
     uint64 round = 2;
     bytes signature = 3;
+    common.Metadata metadata = 4;
 }
 ```
 
@@ -834,16 +1019,21 @@ The first coefficient is needed to verify the final beacon signature.
 A beacon signature is a regular [BLS signature](https://www.iacr.org/archive/asiacrypt2001/22480516.pdf) over the message:
 
 ```go
-func Message(currRound uint64, prevSig []byte) []byte {
+func (v Verifier) DigestMessage(currRound uint64, prevSig []byte) []byte {
 	h := sha256.New()
-	_, _ = h.Write(prevSig)
+
+	if !v.scheme.DecouplePrevSig {
+		_, _ = h.Write(prevSig)
+	}
 	_, _ = h.Write(RoundToBytes(currRound))
 	return h.Sum(nil)
 }
 ```
 
 with [RoundToBytes](https://github.com/drand/drand/blob/v1.2.1/chain/store.go#L39-L44)
-being an 8 bytes fixed length big-endian serializer.
+being an 8 bytes fixed length big-endian serializer. As the function shows, the beacon signature 
+uses the previous signature as input or not depending on the scheme the network has set.
+See [scheme](#scheme) section for more information.
 
 The ciphersuite used is:
 
