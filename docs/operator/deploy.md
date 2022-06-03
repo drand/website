@@ -201,7 +201,7 @@ The flags usage is as follow:
 | `--threshold`      | The minimum number of nodes that need to be online for the network to be live.                                                                                           |
 | `--period`         | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
 | `--catchup-period` | The period of randomness when recovering from a failure. A valid Golang duration, it may be 0 to catch up as fast as possible.                                           |
-| `--secret`         | The password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long.                        |
+| `--secret-file`    | The file that contains the password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long. This variable contains the path and name of the file. Notice that this flag takes precedence over the `DRAND_SHARE_SECRET` env variable if set.      |
 | `--id`             | The unique identification for this new network. It allows drand to handle various networks running at the same time.                                                     |
 | `--scheme`         | The scheme the new network will use. It allows the network to work on chain or unchained mode.      |
 
@@ -358,13 +358,13 @@ The main advantage of this method is that the distributed public key stays the _
 **Setting up the coordinator**: The coordinator must be a member of the current network. To run the coordinator, run the following:
 
 ```bash
-drand share --leader --transition --secret mysecret901234567890123456789012 --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
+drand share --leader --transition --secret-file /path/to/my/secret/file --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the current members for the resharing**: The current members can simply run the following command:
 
 ```bash
-drand share --connect <coordinator> --transition --secret mysecret901234567890123456789012 --out group2.toml --id {beacon-id}
+drand share --connect <coordinator> --transition --secret-file /path/to/my/secret/file --out group2.toml --id {beacon-id}
 ```
 
 **Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the [Deployment](https://beta.drand.love/operator/deploy/#group-toml-file) section.
