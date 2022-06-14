@@ -377,7 +377,7 @@ Getting the full history can take a while.
 A new member can synchronize with a chain before joining. This can be done by anyone, and does not require resharing to have started.
 
 ```bash
-drand follow --sync-nodes <cooridinator> --chain-hash <chain hash>
+drand follow --sync-nodes <coordinator> --chain-hash <chain hash>
 ```
 
 This command will not exit, but will keep adding new beacons to the local database as they are produced.
@@ -386,7 +386,7 @@ If you wish for the command to terminate once it has synchronized up to _now_, y
 To join the group, the incoming member should execute:
 
 ```bash
-drand share connect <coordinator> --from group.toml --secret mysecret901234567890123456789012 --out group2.toml
+drand share connect <coordinator> --from group.toml --secret-file /path/to/my/secret/file --out group2.toml
 ```
 
 After the protocol is finished, each node will have the new group file written out as `group2.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
