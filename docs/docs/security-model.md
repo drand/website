@@ -155,20 +155,20 @@ generation phase, each with different consequences.
 
    Consequence: The attacker in such position is able to aggregate the final
    beacon of the current round before any other drand nodes. However, the advantage
-   should as most as half of the RTT of the slowest of the link between the honest
+   should be at most half of the RTT of the slowest link between the honest
    drand nodes. Drand end users should be using the round number as a marker and
    not the time accuracy which may not be granular enough for some applications.
 
 2. Active Adversary Scenario
 
    Assuming the threshold is 50%+1, an adversary tries to "take down" N/2 drand
-   nodes by either running a DoS on those, or block outgoing traffic from these
+   nodes by either running a DoS on those, or blocking outgoing traffic from these
    drand nodes.
 
    Consequence: The adversary becomes the node that can decide whether to aggregate
    the final beacon of the current round or not, because the rest of the still
-   alive nodes will send their partal beacons to the adversary but the adversary
-   does not send its, effectively becoming the last "missing piece" to create the
+   alive nodes will send their partial beacons to the adversary but the adversary
+   does not send its own, effectively becoming the last "missing piece" to create the
    final beacon. The adversary has the choice to release now or later the final
    beacon and the adversary can already use the final beacon for the application
    while the rest of the network does not know it yet.
@@ -177,21 +177,21 @@ generation phase, each with different consequences.
 
 **Scenario**: There is a DoS attacks on multiple drand nodes and at least a
 threshold of honest drand nodes are now considered offline and can't get other's
-partial beacons. The attack is substained for a duration X. The threshold of
+partial beacons. The attack is sustained for a duration X. The threshold of
 nodes to DoS is the threshold from the group configuration as defined during
-the DKG phase (threshot must strictly be more than 50% of the nodes).
+the DKG phase (threshold must strictly be more than 50% of the nodes).
 
-**Consequence**: The chain halts for as long as the DoS attack is substained on
+**Consequence**: The chain halts for as long as the DoS attack is sustained on
 the drand nodes OR for as long as the drand operators didn't move their drand
-node to another IP / network not under attacked. That means there will not be
+node to another IP / network not under attack. That means there will not be
 any new drand beacon for the number of rounds contained in X.
 
 **Criteria for success**: The DoS attack must bring completely down the network
 around a threshold of nodes. Completely means there is not a _single_ outgoing
 partial beacon that leaves the drand's node network. That is a _critical
-distinction_ to make since, otherwise, a drand node could still collect the
-partial beacons of under-attacked drand nodes, one by one. As soon as this node
-gets a threhsold of them, it can reconstruct the final beacon and broadcast it
+distinction_ to make, otherwise a drand node could still collect the
+partial beacons of under-attack drand nodes, one by one. As soon as this node
+gets a threshold of them, it can reconstruct the final beacon and broadcast it
 to the relay network.
 
 **Defense mechanism**: To counter DoS attacks, the drand nodes must block the
@@ -204,7 +204,7 @@ met (it seems to be quite difficult to put in practice), there still needs to be
 at least one drand nodes that is not under attack to aggregate the partial
 beacons. To increase the chance of reconstructing the final random beacon from
 the partial beacons that "leaks" out from drand nodes under attack, it could
-also be possible to setup aggregator nodes. Such nodes could be under heavy
+also be possible to set up aggregator nodes. Such nodes could be under heavy
 protection, potentially with a more centralized governance, whose job is only
 collects the different partial beacons and aggregates them to deliver them to
 the relay network. There could be many such aggregators nodes such that the
@@ -218,7 +218,7 @@ drastically increases.
 In this scenario, the attacker corrupts _less_ than a threshold of drand nodes.
 _Consequence_: The attacker is _not_ able to derive any meaningful
 information with respect to beacon chain (i.e. he can't derive future beacons).
-However, it is assumed it has now access to the long term private key of each
+However, it is assumed it now has access to the long term private key of each
 compromised node.
 
 **Scenario #2**: Corruption of more than a threshold of nodes
@@ -292,7 +292,7 @@ respect to the other half.
 
 **Consequence**: Shares can be inconsistent with each other, and in such cases,
 nodes will not be able to verify partial beacons during the randomness
-generation phase. Another more subtil scenario is that nodes finish the DKG
+generation phase. Another more subtle scenario is that nodes finish the DKG
 with half of the honest nodes having a distributed public key different than the
 other half, a "split".
 
