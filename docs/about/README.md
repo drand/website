@@ -104,5 +104,5 @@ Finally, two special notes:
   project and providing the push to make drand a production ready network.
 
 :::tip Get in touch
-If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com).
+If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com) or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA).
 :::
