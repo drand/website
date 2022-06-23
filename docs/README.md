@@ -31,7 +31,7 @@ The drand project is maintained by contributors from many different fields, comp
 
 ## Get in touch
 
-For questions, comments, or to start a collaboration, please reach the drand team at: leagueofentropy [ at ] googlegroups.com to get the discussion going.
+For questions, comments, or to start a collaboration, please reach the drand team at: leagueofentropy [ at ] googlegroups.com or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to get the discussion going.
 
 
 ::: slot footer
