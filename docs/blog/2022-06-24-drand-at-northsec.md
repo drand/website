@@ -18,7 +18,7 @@ At North Sec you find plenty of security professionals and hackers alike in the 
 
 The Drand team attended North Sec to present a talk titled “Public, verifiable, and unbiasable randomness: wassat?” whose goal was to introduce the different flavours of randomness to the audience, as well as to explain some of the quirks that make randomness a sensitive topic, and why it’s especially difficult in the distributed, public case. Finally, we also did a recap about the current drand network being run by the League of Entropy and available to the public as a source of randomness. We have invited interested parties to start using drand in their projects, or to join the [League of Entropy](https://www.cloudflare.com/en-gb/leagueofentropy/) to contribute to a secure, distributed randomness network.
 
-![](images/2022-06-24-drand-at-northsec/Untitled.jpg)
+![Is that random?](./images/2022-06-24-drand-at-northsec/Untitled.jpg)
 
 ### Key takeaways from the talk
 
@@ -28,10 +28,11 @@ In case you need a refresher or are just curious about what this talk was about,
 - **Verifiable randomness is another kind of randomness that can be proven to have been generated in a given (honest) way**. This is useful in order to increase public trust in one’s system. If you run a lottery but nobody knows how you’re choosing the winning number, people might be wary, whereas if you chose the winning numbers by picking them live on TV in a jar, then people can see you’re unlikely to bias the result. In the same way, verifiable randomness aims at increasing trust by providing a means of verifying the random value is unbiased and generated in a fair manner.
 - **Secret randomness is the kind of randomness you’re most used to and is meant to stay secret**: every time you connect to a website, every time you generate a new SSH or PGP key, that’s the kind of randomness you’ll be using. For this kind of randomness, you usually want to source it from your very own computer and to rely on so-called “cryptographic PRNGs” when using it in your code to produce nonces, IVs or secret keys. It’s called “secret” because a leak or bias can have devastating consequences up to secret key leakage from a single signature, for example.
 
-![](images/2022-06-24-drand-at-northsec/Untitled1.jpg)
+![Why do we need randomness?](./images/2022-06-24-drand-at-northsec/Untitled1.jpg)
 
 - **Distributed randomness is what we call randomness that is meant to be used on a distributed system;** be it a smart contract on a blockchain, or any other random value on which a system needs to achieve consensus, maybe for leader election, or something else. It’s usually fairly difficult to achieve consensus on a random value in a way that will ensure that this random value is neither predictable nor biased. In general, care must be taken in the distributed case to avoid “[front-running](https://en.wikipedia.org/wiki/Front_running)”: if someone can race the distributed system as soon as the random value is public and get their own transaction in just after the random value became public, it might have pretty severe consequences for the system. Therefore, if the public randomness is used to designate a winner, or if there is any potential gain from knowing it before others, we recommend relying on a “locking period” just before public release of the random beacon where you stop accepting new submissions, in order to avoid [MEV attacks](https://ethereum.org/en/developers/docs/mev/#effects-of-mev-the-bad) and front-running.
 - **drand and the League of Entropy are running a network of nodes providing public, verifiable, distributed randomness** with 100% uptime since its launch in 2020! You can access it freely using our HTTP endpoints:
+
     - [https://api.drand.sh/public/latest](https://api.drand.sh/public/latest)
     - [https://api.drand.sh/info](https://api.drand.sh/info)
     - or Cloudflare’s endpoints:
@@ -40,7 +41,7 @@ In case you need a refresher or are just curious about what this talk was about,
     
     Just don’t forget to verify the randomness and don’t use it to produce secret keys!
     
-![](images/2022-06-24-drand-at-northsec/Untitled2.jpg)    
+![Facts and figures.](./images/2022-06-24-drand-at-northsec/Untitled2.jpg)
 
 ## Q&A
 
@@ -66,13 +67,13 @@ While we had many interesting questions during the cryptography session panel, h
 
 **A:** This is not a good solution either, as relying on floating point arithmetic also introduces bias, although not necessarily in the same places as a modulo bias. You can find more about the biases of floating point techniques in [this blog post](https://www.pcg-random.org/posts/bounded-rands.html#fp-multiply-biased).
 The real solution to sample an unbiased random value is to [rely on rejection sampling](https://research.kudelskisecurity.com/2020/07/28/the-definitive-guide-to-modulo-bias-and-how-to-avoid-it/#:~:text=The%20most%20common%20way:%20rejection%20sampling):
-    
+
     1. sample a random r
     2. check is r < range (alternatively any multiple of range closest to max)
         - if yes: return r (or r % range is the check was done against a multiple of range)
         - if no: go back to step 1
 
-![](images/2022-06-24-drand-at-northsec/Untitled3.jpg)
+![It's easy to have biased randomness.](./images/2022-06-24-drand-at-northsec/Untitled3.jpeg)
 
 ## Bonus: a solution to one of the CTF challenges
 
