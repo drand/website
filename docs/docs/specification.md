@@ -190,23 +190,23 @@ internally) using an ID, known as the `Beacon ID`.
 
 The following diagram explains visually the above operation.
 
-![multi-network-drand-nodes-full.png](images/drand_multinetwork_1.png)
+![multi-network-drand-nodes-full.png](./images/drand_multinetwork_1.png)
 
 In the above figure, each drand node is running 4 processes, i.e., participates in 4 different randomness generation networks. Each one of a node's processes communicates with
 the corresponding process running in the rest of the nodes, i.e., the process "Network A" in Node 1 communicates with the process "Network A" in nodes 2, 3 and 4, in order to achieve their common goal: generate public randomness.
 It is worth highlighting that not all nodes need to participate in all networks, i.e., run all existing processes. The following
 diagram shows this scenario.
 
-![multi-network-drand-nodes-partial.png](images/drand_multinetwork_2.png)
+![multi-network-drand-nodes-partial.png](./images/drand_multinetwork_2.png)
 
 Messages are delivered to the correct internal process by a module that checks the `Beacon ID` inside the request and redirecting the message accordingly.
 
-![beacon-id-dispatching.png](images/beacon_id_dispatching.png)
+![beacon-id-dispatching.png](./images/beacon_id_dispatching.png)
 
 
 ## Drand versioning
 Each request sent by a drand node will contain the actual drand protocol version that the node is using. Drand uses [semantic
-versionin](https://semver.org) as versioning protocol. This has a clear purpose. Only nodes with same 
+versioning](https://semver.org) as a versioning protocol. This has a clear purpose. Only nodes with same 
 MAJOR version will be allowed to communicate with each other. For backward-compatibility reasons, 
 the fallback value will be `0.0.0`, and nodes with this version will always be allowed to communicate
 with other nodes. The protobuf definition for this field is:
@@ -228,7 +228,7 @@ In the following diagram, we can see:
 - Nodes 1 and 3 will be only able to interact with nodes whose version is 1.X.X. In this case, they can communicate with each other.
 
 
-![drand_versioning.png](images/drand_versioning.png)
+![drand_versioning.png](./images/drand_versioning.png)
 
 **Notes**: Node 2 is a node where node-versioning feature is not supported. This node has not been updated to the latest version (above 1.3). In this case, 
 `Metadata` won't be present on requests, so the fallback version other nodes infer is `0.0.0`.
@@ -241,7 +241,7 @@ phases / modules:
 - Setup: The nodes perform a distributed key generation (DKG) protocol to create
   the collective public key and one private key share per node. The participants
   never see/use the actual (distributed) private key explicitly but instead
-  utilize their respectiveprivate key shares for the generation of public
+  utilize their respective private key shares for the generation of public
   randomness.
 - Generation: After the setup, the nodes switch to the randomness generation
   mode. Each node periodically broadcasts a partial signature to all the other
@@ -273,8 +273,8 @@ Participants needs to know at least the address _and_ public key of the coordina
 for simplicity of use. This protocol relies the TOFU ("Trust On First Use")
 approach: the coordinator is trusted for this and the subsequent phase and gives
 us a valid public key. A node/implementation can skip this step if it knows
-already the public key of the coordinator by another mean (out of band, gossip,
-etc)
+already the public key of the coordinator by another means (out of band, gossip,
+etc).  
 The gRPC endpoint call is:
 
 ```protobuf

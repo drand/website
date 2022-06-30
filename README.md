@@ -25,15 +25,16 @@ If you want to build this site locally, run the following:
    npm start
    ```
 
-1. Open [localhost:8080](http://localhost:8080) in your browser.
+1. Open [localhost:8084](http://localhost:8084) in your browser.
 1. Close the local server with `CTRL` + `c`.
 1. To restart the local server, run `npm start` from within the `website` folder.
 
 ## Creating a blog post
 
 1. Within the `/docs/blog` directory, create a new markdown document for the blog post. It should be the date of the post as `YYYY-MM-DD` followed by the post title in `kebab-case` and finally the extension `.md`. So, a post called _Bill and Teds Excellent Randomness Protocol_ created on Monday 25th May 2020 would look like `/docs/blog/2020-05-25-bill-and-teds-excellent-randomness-protocol.md`.
-1. If you need to add images into your post, first copy and paste them into the blog folder. Then reference them within your post using `[Image caption](./image-name.png)`.
-2. Before you write the post, add the following meta data using YAML front matter:
+2. If you need to add images into your post, first copy and paste them into the blog folder, then reference them within your post using `[Image caption](./image-name.png)`.  You _must_ prefix the path with `./` or the image will not display correctly on the website.
+
+3. Before you write the post, add the following meta data using YAML front matter:
       ```md
       ---
       title: The title of your blog post, note you do not need to repeat this in the post content
