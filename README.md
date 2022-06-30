@@ -50,3 +50,7 @@ If you want to build this site locally, run the following:
       ```
 
 Always test that you blog post is displaying correctly before merging anything into `master`.
+
+## Deployment to drand.love
+Commits on master automatically deploy the updated website to https://drand.love using [Fleek](https://fleek.co/).  Commits on side branches provide a preview build in their `fleek/build` check.  
+See [this entry](https://docs.fleek.co/hosting/site-deployment/) in Fleek's documentation for more details on how that happens.
