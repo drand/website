@@ -183,16 +183,16 @@ To setup a new network, drand uses the notion of a coordinator that collects the
 **before** everyone else:
 
 ```bash
-drand share --leader --nodes 10 --threshold 6 --secret mysecret901234567890123456789012 --period 30s --id {beacon-id} --scheme {scheme-id}
+drand share --leader --nodes 10 --threshold 6 --secret-file /path/to/secret/file --period 30s --id {beacon-id} --scheme {scheme-id}
 ```
 
 **Rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
 
 ```bash
-drand share --connect <leaderaddress> --secret mysecret901234567890123456789012 --id {beacon-id}
+drand share --connect <leaderaddress> --secret-file /path/to/secret/file --id {beacon-id}
 ```
 
-The flags usage is as follow:
+The flags usage is as follows:
 
 | Flag               | Description                                                                                                                                                              |
 |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -377,7 +377,7 @@ Getting the full history can take a while.
 A new member can synchronize with a chain before joining. This can be done by anyone, and does not require resharing to have started.
 
 ```bash
-drand follow --sync-nodes <cooridinator> --chain-hash <chain hash>
+drand follow --sync-nodes <coordinator> --chain-hash <chain hash>
 ```
 
 This command will not exit, but will keep adding new beacons to the local database as they are produced.
@@ -386,7 +386,7 @@ If you wish for the command to terminate once it has synchronized up to _now_, y
 To join the group, the incoming member should execute:
 
 ```bash
-drand share connect <coordinator> --from group.toml --secret mysecret901234567890123456789012 --out group2.toml
+drand share connect <coordinator> --from group.toml --secret-file /path/to/my/secret/file --out group2.toml
 ```
 
 After the protocol is finished, each node will have the new group file written out as `group2.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
