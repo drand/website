@@ -96,7 +96,7 @@
       </div>
       <div v-if="data.guidelinesLink || data.recommendationsLink">
         Find out more about the
-        <a :href="data.guidelinesLink">Operatior Guidelines</a>
+        <a :href="data.guidelinesLink">Operator Guidelines</a>
         and the
         <a :href="data.recommendationsLink"
           >Recommendations for drand Operators →</a
