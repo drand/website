@@ -4,7 +4,7 @@ title: Docker
 
 # Install drand with Docker
 
-This page describes how to run a _production_ version of `drand` based on `docker-compose`. This is meant as a **production setup**. It notably involves generating TLS certificates for your public-facing server. Check out the [simple install if you just want a local drand demo →](/install)
+This page describes how to run a _production_ version of `drand` based on `docker-compose`. This is meant as a **production setup**. It notably involves generating TLS certificates for your public-facing server. Check out the [simple install if you just want a local drand demo →](/operator/drand-cli/#installing-drand)
 
 ## Prerequisites for this guide
 
