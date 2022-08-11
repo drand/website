@@ -2,6 +2,8 @@
 title: "Multi Frequency Support and Timelock Encryption Capabilities are coming in drand!"
 summary: "The drand team has been hard at work the last couple of months to develop and integrate new and extremely valuable features into the drand codebase: timelock encryption, and multi-frequency support!"
 date: 2022-02-21
+tags:
+    - Features
 ---
 
 The drand team has been hard at work the last couple of months to develop and integrate new and extremely valuable features into the drand codebase! We have worked together with [Zondax](https://zondax.ch/), a research and software development company, and we are extremely excited to announce the completion of a very important project for the future of drand. The project focused on two important features that have the potential to unlock new capabilities for the drand randomness service, enable new application scenarios and make drand able to support many more applications and platforms.

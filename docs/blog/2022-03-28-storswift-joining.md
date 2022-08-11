@@ -2,6 +2,10 @@
 title: "StorSwift joins the League of Entropy"
 summary: "StorSwift becomes the newest member of the League of Entropy. We've asked them why they're motivated by drand and decided to contribute - check what they said!"
 date: 2022-03-30
+tags:
+    - New members
+    - League of Entropy
+    - News
 ---
 
 _"StorSwift becomes the newest member of the League of Entropy. We've asked them why they're motivated by drand and decided to contribute - check what they said!"_

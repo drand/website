@@ -2,6 +2,8 @@
 title: "The value of drand _(continued)_"
 summary: "This blog post covers the second set of responses we received from League of Entropy members on our question: What’s the value of drand for your organisation and why do you support it!"
 date: 2021-10-28
+tags:
+    - League of Entropy
 ---
 
 This blog post covers the second set of responses we received from League of Entropy members on our question: _“What’s the value of drand for your organisation and why do you support it”_! We hope you enjoyed [the first part](../blog/2021-09-14-the-value-of-drand.md) as much as we did. Read on to get more inspiration and come join as an operator, or a [Software Engineer](https://jobs.lever.co/protocol/ca0b97f4-6117-4004-8d7d-1a4520e2d5be) to take drand to the next level, and establish it as a foundational Internet protocol!

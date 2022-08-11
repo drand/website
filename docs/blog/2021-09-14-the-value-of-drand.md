@@ -2,6 +2,8 @@
 title: The value of drand
 summary: "We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!"
 date: 2021-09-14
+tags:
+    - League of Entropy
 ---
 _"We asked the League of Entropy members: “what’s the value of drand for you, and why do you support it?” Check out what they said!"_
  
