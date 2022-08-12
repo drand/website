@@ -2,6 +2,9 @@
 title: "drand @ NorthSec"
 summary: "Drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received."
 date: 2022-06-24
+tags:
+    - Conferences and Events
+    - News
 ---
 
 _Drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received._
