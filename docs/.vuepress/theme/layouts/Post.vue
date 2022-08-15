@@ -10,6 +10,9 @@
               {{ resolvePostDate($page.frontmatter.date) }}
             </time>
           </span>
+          <span v-if="$page.frontmatter.author" class="meta">
+            Author: {{ $page.frontmatter.author }}
+          </span>
           <span v-if="$page.frontmatter.tags" class="meta tags">
             <img src="/images/icon-tag.svg" />
             <router-link

@@ -27,6 +27,9 @@
             >{{ tag }}</router-link
           >
         </span>
+        <span v-if="page.frontmatter.author" class="meta">
+          Author: {{ page.frontmatter.author }}
+        </span>
       </footer>
     </article>
   </div>
