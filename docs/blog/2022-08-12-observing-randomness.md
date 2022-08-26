@@ -1,7 +1,7 @@
 ---
 title: "Observing Randomness"
 summary: "Monitoring distributed systems is a challenge. While there are established patterns and solutions for monitoring the most common types of applications, there is usually no silver bullet. In this blog post we outline the challenges that we faced when implementing monitoring for one such system, drand."
-date: 2022-08-11
+date: 2022-08-26
 author: Mario Camou
 tags: 
     - Features
