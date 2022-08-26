@@ -4,14 +4,14 @@
       <template #page-top>
         <div class="theme-post-header">
           <h1>{{ $page.title }}</h1>
+          <span v-if="$page.frontmatter.author" class="meta">
+            By: {{ $page.frontmatter.author }}
+          </span>
           <span class="meta">
             <img src="/images/icon-clock.svg" />
             <time pubdate :datetime="$page.frontmatter.date">
               {{ resolvePostDate($page.frontmatter.date) }}
             </time>
-          </span>
-          <span v-if="$page.frontmatter.author" class="meta">
-            Author: {{ $page.frontmatter.author }}
           </span>
           <span v-if="$page.frontmatter.tags" class="meta tags">
             <img src="/images/icon-tag.svg" />
