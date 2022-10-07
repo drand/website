@@ -1,11 +1,13 @@
-# Cryptosat takes drand to space
+---
+title: "Cryptosat takes drand to space"
+summary: "So far, all of the nodes that participate in the League of Entropy’s drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details."
+date: 2022-10-07
+author: Yan Michalevski, Yiannis Psaras, Yolan Romailler
+tags: 
+    - News
+---
 
-DRI: Anonymous
-Month: Sept
-Status: In Prep
-Tags: 2022
-
-drand is the next generation distributed randomness service. It requires several independent organisations to run a node that contributes a part of the randomness to the network. So far, all of the nodes that participate in the [League of Entropy’s](https://blog.cloudflare.com/league-of-entropy/) drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details.
+_drand is the next generation distributed randomness service. It requires several independent organisations to run a node that contributes a part of the randomness to the network. So far, all of the nodes that participate in the [League of Entropy’s](https://blog.cloudflare.com/league-of-entropy/) drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details._
 
 ## What is **Cryptosat**
 
@@ -53,6 +55,5 @@ In May 2022, [Cryptosat launched its first satellite](https://cointelegraph.com/
 
 As mentioned, the time-constrained ISS experiment doesn’t provide full insight into an ongoing operation of a node with spotty connectivity. We need to simulate a participant node that is only occasionally available to participate in beacon generation rounds. This would simulate the conditions of a satellite that is sometimes out of reach of any ground station.
 
-TBD: Some optimistic conclusion…
 
-The future is bright when it comes to this collaboration - not only for the two parties involved, but most importantly for the users of drand as a randomness service! Reach out if you have ideas on how to add further value to our upcoming experiments, or if you want to get involved and contribute to the drand’s vision. Make sure to join our [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA), or reach out by email at: leagueofentropy [ at ] [googlegroups.com](http://googlegroups.com/)
+The future is bright when it comes to this collaboration - not only for the two parties involved, but most importantly for the users of drand as a randomness service! Reach out if you have ideas on how to add further value to our upcoming experiments, or if you want to get involved and contribute to the drand’s vision. Make sure to join our [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA), or reach out by email at: leagueofentropy [ at ] googlegroups.com.
