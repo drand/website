@@ -7,23 +7,23 @@ tags:
     - News
 ---
 
-_drand is the next generation distributed randomness service. It requires several independent organisations to run a node that contributes a part of the randomness to the network. So far, all of the nodes that participate in the [League of Entropy’s](https://blog.cloudflare.com/league-of-entropy/) drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details._
+_drand is the next generation distributed randomness service. It requires several independent organizations to run a node that contributes a part of the randomness to the network. So far, all of the nodes that participate in the [League of Entropy’s](https://blog.cloudflare.com/league-of-entropy/) drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details._
 
 ## What is **Cryptosat**
 
-[Cryptosat](http://cryptosat.io) builds and launches satellites that power blockchain and cryptographic protocols. Satellites are physically inaccessible and can serve as the most secure root-of-trust that guarantees the confidentiality and integrity of sensitive computations and data. Such tamper-proof satellites can serve numerous use-cases including transaction signing, trusted setups for cryptographic schemes, a randomness oracle, time-oracle (VDF) and more.
+[Cryptosat](http://cryptosat.io) builds and launches satellites that power blockchain and cryptographic protocols. Satellites are physically inaccessible and can serve as the most secure root-of-trust that guarantees the confidentiality and integrity of sensitive computations and data. Such tamper-proof satellites can serve numerous use-cases including transaction signing, trusted setups for cryptographic schemes, a randomness oracle, a time-oracle (VDF) and more.
 
 ## What is **drand**
 
 drand is meant to be run by a network of nodes in order to produce verifiable, unpredictable and non-biasable random values. The primary drand network is operated by a group of partners known as the *League of Entropy* (LoE). The LoE currently consists of 16 independent member organizations located in several continents around the globe and operating 23 nodes in total across different cloud providers, data-centers and geographies.
 
-drand is based on a cryptography model, called “Threshold Cryptography”. According to this, a `threshold` number of “partial signatures” need to be collected from the different nodes in order to produce a valid signature for the whole group. In the LoE’s drand network the `threshold` is set to 50% of nodes +1, which gives a `threshold` of 12 for a 23-node network.
+drand is based on a cryptography model, called “Threshold Cryptography”. According to this model, a `threshold` number of “partial signatures” need to be collected from the different nodes in order to produce a valid signature for the whole group. In the LoE’s drand network the `threshold` is set to 50% of nodes +1, which gives a `threshold` of 12 for a 23-node network.
 
 The random numbers produced by drand are:
 
-- **Verifiable:** because anyone can verify that a random value was indeed produced by the LoE group, by checking the signature and re-deriving the randomness from it themselves.
+- **Verifiable:** because anyone can verify that a random value was indeed produced by the LoE group by checking the signature and re-deriving the randomness from it themselves.
 - **Unpredictable:** because a new random value can only be produced when a `threshold` number of parts (also called partials) of the final signature are collected and aggregated. Given that: i) there is no party running more than 3 nodes, ii) the`threshold` is well above 3, and iii) as long as there is not a `threshold` number of nodes colluding in the network, the nature of the cryptography ensures that the next random value is unpredictable by any single party.
-- **Non-biasable:** because again due to the inherent properties of the threshold signature scheme used, and the fact that LoE partners are independent organizations, it is impossible to influence any future random value without compromising a `threshold` number of nodes.
+- **Non-biasable:** because, again, due to the inherent properties of the threshold signature scheme used and the fact that LoE partners are independent organizations, it is impossible to influence any future random value without compromising a `threshold` number of nodes.
 
 The LoE drand network has been running since August 2020, has produced more than 2M random values (emitted every 30 seconds) as of September 2022 and has had zero downtime.
 
