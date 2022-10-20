@@ -1,11 +1,13 @@
 ---
 title: "Cryptosat takes drand to space"
 summary: "So far, all of the nodes that participate in the League of Entropy’s drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details."
-date: 2022-10-07
+date: 2022-10-20
 author: Yan Michalevski, Yiannis Psaras, Yolan Romailler
 tags: 
     - News
 ---
+
+![](./images/2022-10-20-cryptosat-takes-drand-to-space/cryptosat-blog-header3.png)
 
 _drand is the next generation distributed randomness service. It requires several independent organizations to run a node that contributes a part of the randomness to the network. So far, all of the nodes that participate in the [League of Entropy’s](https://blog.cloudflare.com/league-of-entropy/) drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details._
 
