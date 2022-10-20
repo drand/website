@@ -2,7 +2,7 @@
 title: "Cryptosat takes drand to space"
 summary: "So far, all of the nodes that participate in the League of Entropy’s drand network have been placed on Earth. But this has just changed! Temporarily for now, but hopefully, more permanently in the near future. Read on to find out all the details."
 date: 2022-10-20
-author: Yan Michalevski, Yiannis Psaras, Yolan Romailler
+author: Yan Michalevsky, Yiannis Psaras, Yolan Romailler
 tags: 
     - News
 ---
