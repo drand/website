@@ -165,7 +165,6 @@ OPTIONS:
    --certs-dir value       directory containing trusted certificates (PEM format). Useful for testing and self signed certificates
    --push                  Push mode forces the daemon to start making beacon requests to the other node, instead of waiting the other nodes contact it to catch-up on the round (default: false)
    --verbose               If set, verbosity is at the debug level (default: false)
-   --private-rand          Enables the private randomness feature on the daemon. By default, this feature is disabled. (default: false)
    --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is already included in the current DKG.
    --skipValidation        skips bls verification of beacon rounds for faster catchup. (default: false)
    --json                  Set the output as json format (default: false)
@@ -367,8 +366,6 @@ USAGE:
    drand get command [command options] [arguments...]
 
 COMMANDS:
-   private  Get private randomness from the drand beacon as specified in group.toml. Only one node is contacted by default. Requests are ECIES-encrypted towards the public key of the contacted node. This command attempts to connect to the drand beacon via TLS and falls back to plaintext communication if the contacted node has not activated TLS in which case it prints a warning.
-
    public  Get the latest public randomness from the drand beacon and verify it against the collective public key as specified in group.toml. Only one node is contacted by default. This command attempts to connect to the drand beacon via TLS and falls back to plaintext communication if the contacted node has not activated TLS in which case it prints a warning.
 
    chain-info  Get the binding chain information that this node participates to
@@ -383,7 +380,6 @@ There are three main subcommands for `drand get`:
 
 - `drand get public <path-to-group.toml>` returns the latest public random value from the group described in `group.toml`.
   You may fetch a specific round instead of the latest by supplying the `--round <round-number>` flag.
-- `drand get private <path-to-group.toml>` sends an encrypted request for private randomness to one of the nodes in `group.toml`.
 - `drand get chain-info --chain-hash <value>` returns the binding chain information that this node participates to. In order to choose
 a network among the running ones on a node, you must provide the chain hash of it.
 
