@@ -1,11 +1,13 @@
-# IPFSForce joins the LoE
-
-DRI: Anonymous
-Month: Jan
-Status: In Prep
-Year: 2023
-
-*Join us in welcoming IPFSForce as the newest member of the League of Entropy!*
+---
+title: "IPFSForce joins the LoE!"
+summary: "Join us in welcoming IPFSForce as the newest member of the League of Entropy!"
+date: 2023-01-27
+author: Yiannis Psaras
+tags: 
+    - New members
+    - League of Entropy
+    - News
+---
 
 We are excited to announce that IPFSForce has joined the League of Entropy!
 
@@ -36,3 +38,7 @@ As an IPFS/Filecoin service provider, we are using drand to provide Filecoin cha
 **Where would you like to see drand in 2 years from now?**
 
 We expect that the LoE network will be more accessible to Web 3.0 partners, thereby encouraging more developers to be involved and build infrastructure and dApps utilizing drand as a randomness service. It is only with more partners engaging that the LoE network will be able to grow and better serve the Web 3.0 globe.
+
+---
+
+_The League of Entropy evaluates, votes on, and onboards new members quarterly. If you want to be a part of the first production-grade distributed randomness beacon and help provide publicly verifiable randomness as a service, contact us at leagueofentropy@googlegroups.com. We are looking for enthusiastic teams with experience running secure production services who are interested in operating drand nodes and relays. We also encourage you to check out the drand GitHub repository for details._
