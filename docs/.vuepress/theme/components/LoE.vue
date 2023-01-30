@@ -135,7 +135,7 @@
           </a>
           <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
             <img
-              src="/images/loe/logo-ipfsforce.svg"
+              src="/images/loe/logo-IPFSForce.svg"
               alt="IPFSForce logo"
               class="wide"
             />
