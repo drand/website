@@ -165,7 +165,7 @@ Adding rejection sampling would be a matter of redrawing a new number any time w
 ```jsx
 let flip = fetchNumberFromZeroToTwoInclusive() 
 while (flip == 2) {   
-	zeroToTwo = fetchNumberFromZeroToTwoInclusive() 
+	flip = fetchNumberFromZeroToTwoInclusive() 
 }  
 if (flip == 0) {   
 	console.log("HEADS!") 
