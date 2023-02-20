@@ -32,6 +32,7 @@ In this tutorial we're going to fetch randomness using the [official javascript 
 First off, make sure you have a relatively recent version of node (17+) and npm installed (instructions to do so can be found here: [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)).
 
 Then create a new folder for your project by running `mkdir drand-client-tutorial` (or whatever name you wish to use), `cd` into it and run `npm init`, follow the prompts and finally install the latest drand-client package by running `npm install drand-client`.
+As the drand client is bundled as an esm module, you will need to add `"type": "module"` in your `package.json` to use it (lest we fall down the babel rabbit hole!).
 
 From there, create a new file at the root of the project called `index.js` and open it in your editor of choice.
 
@@ -58,26 +59,29 @@ chain.info().then(info => console.log(info))
 To run this, run `node --experimental-fetch index.js` in your console (node versions greater than 18 can skip the `--experimental-fetch` flag!)
 
 It's suggested to verify the public key out of band if you're planning on using a single network longer term! In order to verify the beacon, each request actually uses the `ChainInfo` object to verify the payload against the public key, so a helper class `HttpCachingChain` is provided that caches the `ChainInfo` after the first call so you don't need to make an additional network request every time.
-Let's use the `HttpCachingChain` to request the first round from mainnet:
+Let's combine the `HttpCachingChain` with an `HttpChainClient` to request the first round from mainnet:
 
 ```jsx
-import { HttpCachingChain, fetchBeacon } from "drand-client"  
+import { HttpCachingChain, HttpChainClient, fetchBeacon } from "drand-client"  
 
 const chain = new HttpCachingChain("https://api.drand.sh")  
-fetchBeacon(chain, 1).then(beacon => console.log(beacon))
+const client = new HttpChainClient(chain)
+
+fetchBeacon(client, 1).then(beacon => console.log(beacon))
 ```
 
-If you're sticking to a set chain, you could consider creating a custom chain implementation that uses a hardcoded set of info, as it shouldn't change (other than the `groupHash` which changes every time a key refresh or resharing is done, but it isn't used for verification).
+If you're sticking to a set chain, you could even consider creating a custom chain implementation that uses a hardcoded set of info, as it shouldn't change (other than the `groupHash` which changes every time a key refresh or resharing is done, but it isn't used for verification).
 
-Okay, we've managed to retrieve a beacon by it's round number - this could be useful if we want to commit to some specific future round (e.g. for a lottery), but plenty of uses cases want to retrieve the latest randomness instead.
+Okay, we've managed to retrieve a beacon by its round number - this could be useful if we want to commit to some specific future round (e.g. for a lottery), but plenty of uses cases want to retrieve the latest randomness instead.
 Out of the box, the drand client provides a few ways of doing that.
 Firstly, we could fetch the latest beacon for a given time and pass it the current time:
 
 ```jsx
-import { HttpCachingChain, fetchBeaconByTime } from "drand-client"  
+import { HttpCachingChain, HttpChainClient, fetchBeaconByTime } from "drand-client"  
 
 const chain = new HttpCachingChain("https://api.drand.sh")  
-fetchBeaconByTime(chain, Date.now()).then(beacon => console.log(beacon))
+const client = new HttpChainClient(chain)
+fetchBeaconByTime(client, Date.now()).then(beacon => console.log(beacon))
 ```
 
 This will nicely work out the round number last emitted on or before the time we provide (and will also fetch historical beacons for us).
@@ -85,13 +89,20 @@ If we're creating a real-time game however, we'd prefer to get the beacons as so
 Luckily the client provides an async iterator to do just that:
 
 ```jsx
-import { HttpCachingChain, watch } from "drand-client"  
+import { HttpCachingChain, HttpChainClient, watch } from "drand-client"
 
-const chain = new HttpCachingChain("https://api.drand.sh")  
-for (const beacon of watch(chain)) {   
-	console.log(beacon) 
+const chain = new HttpCachingChain("https://api.drand.sh")
+const client = new HttpChainClient(chain)
+const beacons = watch(client, new AbortController())
+
+for await (const beacon of beacons) {
+  console.log(beacon)
 }
 ```
+
+This will listen for all the new beacons being emitted and retrieve them at the relevant time. You will see the most recent beacon immediately and a pause before each subsequent beacon is emitted.
+`watch` takes an `AbortController` object so that we can manage cancellation of a request whenever we don't want to receive any further beacons. For more info on `AbortController`s, you can [read the docs from mozilla](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
+You can end the script with ctrl+c!
 
 Great - now we can do logic such as repainting our roulette wheel or announcing our winner as soon as the latest randomness is in... but that's not all!
 
@@ -102,10 +113,11 @@ A common (and often mistaken!) way to reduce randomness into something we can us
 Consider the following example: we want to use drand to flip a coin for us. A coinflip can have two outcomes: heads or tails. That maps conveniently to true or false for a programming paradigm, and in fact we can do that quite handily using drand randomness:
 
 ```jsx
-import { HttpCachingChain, fetchBeaconByTime } from "drand-client"  
+import { HttpCachingChain, HttpChainClient, fetchBeaconByTime } from "drand-client"  
 
 const chain = new HttpCachingChain("https://api.drand.sh") 
-fetchBeaconByTime(chain, Date.now()).then(beacon => {   
+const client = new HttpChainClient(chain)
+fetchBeaconByTime(client, Date.now()).then(beacon => {   
 
 	const flip = parseInt(Number("0x" + beacon.randomness)) % 2    
 
@@ -123,11 +135,12 @@ However this is not always a given: let's suppose instead of flipping a coin, we
 
 ```jsx
 // DON'T DO THIS 
-import { HttpCachingChain, fetchBeaconByTime } from "drand-client"  
+import { HttpCachingChain, HttpChainClient, fetchBeaconByTime } from "drand-client"  
 
 const participants = ["alice", "bob", "carol", "dave", "edward", "fiona", "georgina"] 
 const chain = new HttpCachingChain("https://api.drand.sh") 
-fetchBeaconByTime(chain, Date.now()).then(beacon => {   
+const client = new HttpChainClient(chain)
+fetchBeaconByTime(client, Date.now()).then(beacon => {   
 	const winnerIndex = parseInt(Number("0x" + beacon.randomness.slice(0,2))) % participants.length // there are 7 participants, we take 1 byte of output
 	console.log(`the winner is ${participants[winnerIndex]}`) 
 })
