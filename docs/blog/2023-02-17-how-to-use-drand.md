@@ -86,7 +86,7 @@ fetchBeaconByTime(client, Date.now()).then(beacon => console.log(beacon))
 
 This will nicely work out the round number last emitted on or before the time we provide (and will also fetch historical beacons for us).
 If we're creating a real-time game however, we'd prefer to get the beacons as soon as possible, without having to do the plumbing required to know exactly which time to request them at.
-Luckily the client provides an async iterator to do just that:
+Luckily the client provides an async iterator to do just that: (note if you're on some older versions of node, you might need to do some wizardry to get the async/await working as expected)
 
 ```jsx
 import { HttpCachingChain, HttpChainClient, watch } from "drand-client"
