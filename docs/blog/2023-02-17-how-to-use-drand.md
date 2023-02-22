@@ -122,9 +122,9 @@ fetchBeaconByTime(client, Date.now()).then(beacon => {
 	const flip = parseInt(Number("0x" + beacon.randomness)) % 2    
 
 	if (flip == 0) {     
-		console.log("HEADS!")   
+		console.log(beacon.round+": HEADS!")
 	} else {     
-		console.log("TAILS!")   
+		console.log(beacon.round+": TAILS!")   
 	} 
 })
 ```
