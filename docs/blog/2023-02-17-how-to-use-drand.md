@@ -147,7 +147,8 @@ fetchBeaconByTime(client, Date.now()).then(beacon => {
 ```
 
 On the face of it, this might look fine, but in fact it's biased!
-Because 7 does not factor evenly into 255, some output numbers are more likely than others to occur! For a deep dive into this, I suggest reading [this in-depth blog post](https://romailler.ch/2020/07/28/crypto-modulo_bias_guide/) about it.
+As 7 does not factor evenly into 255, some output numbers are more likely than others to occur! For a deep dive into this, I suggest reading [this in-depth blog post](https://romailler.ch/2020/07/28/crypto-modulo_bias_guide/) about it.
+Truth be told, if your desired range of random numbers is less than 2^64, using modulo will have only a negligible bias on the output - but let's continue for the sake of correctness!
 
 Okay, so how *should* we reduce our drand randomness into something useful?
 
@@ -163,7 +164,7 @@ For simplicity, let's consider our coinflip again, but assume we have a black bo
 If we were to take a modified version of our code from before, we would end up with twice the number of tails than heads:
 
 ```jsx
-const zeroToTwo = fetchNumberFromZeroToTwoInclusive() 
+const zeroToTwoInc = fetchNumberFromZeroToTwoInclusive() 
 const flip = zeroToTwoInc % 2  
 if (flip == 0) {   
 	console.log("HEADS!") 
