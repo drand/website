@@ -1,5 +1,5 @@
 ---
-title: "How to use drand properly"
+title: "A guide on how to use drand properly"
 summary: "Join us in discovering how to use drand in your applications."
 date: 2023-02-22
 author: Patrick McClurg
