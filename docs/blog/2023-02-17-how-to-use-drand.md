@@ -121,7 +121,7 @@ fetchBeaconByTime(client, Date.now()).then(beacon => {
 
 	const flip = parseInt(Number("0x" + beacon.randomness)) % 2    
 
-	if (flip == 0) {     
+	if (flip === 0) {     
 		console.log(beacon.round+": HEADS!")
 	} else {     
 		console.log(beacon.round+": TAILS!")   
@@ -166,7 +166,7 @@ If we were to take a modified version of our code from before, we would end up w
 ```jsx
 const zeroToTwoInc = fetchNumberFromZeroToTwoInclusive() 
 const flip = zeroToTwoInc % 2  
-if (flip == 0) {   
+if (flip === 0) {   
 	console.log("HEADS!") 
  else {   
 	console.log("TAILS!") 
@@ -178,10 +178,10 @@ Adding rejection sampling would be a matter of redrawing a new number any time w
 
 ```jsx
 let flip = fetchNumberFromZeroToTwoInclusive() 
-while (flip == 2) {   
+while (flip === 2) {   
 	flip = fetchNumberFromZeroToTwoInclusive() 
 }  
-if (flip == 0) {   
+if (flip === 0) {   
 	console.log("HEADS!") 
 } else {   
 	console.log("TAILS!") 
