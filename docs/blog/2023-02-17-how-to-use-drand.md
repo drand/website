@@ -121,7 +121,7 @@ fetchBeaconByTime(client, Date.now()).then(beacon => {
 
 	const flip = BigInt("0x" + beacon.randomness) % BigInt(2)
 
-	if (flip === 0) {      
+	if (flip === BigInt(0)) {      
 		console.log(beacon.round+": HEADS!")
 	} else {     
 		console.log(beacon.round+": TAILS!")   
@@ -129,7 +129,7 @@ fetchBeaconByTime(client, Date.now()).then(beacon => {
 })
 ```
 
-A small note: we have to use `BigInt` here, because javascript only supports 53 bit integers safely! Additionally, because drand mainnet emits randomness every 30 seconds, you will see the same output for multiple runs until the newest round is emitted.
+A small note: we have to use `BigInt` here, because javascript numbers only support 53 bit integers safely! Additionally, because drand mainnet emits randomness every 30 seconds, you will see the same output for multiple runs until the newest round is emitted.
 
 As our 64 byte random hex string from drand is a multiple of 2, our coinflip will produce a uniform distribution of heads and tails (given enough flips) and works as expected.
 We could even take just one or two byte of output and still have an unbiased result. 
