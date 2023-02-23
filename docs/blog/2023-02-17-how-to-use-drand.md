@@ -143,9 +143,10 @@ const participants = ["alice", "bob", "carol", "dave", "edward", "fiona", "georg
 const chain = new HttpCachingChain("https://api.drand.sh") 
 const client = new HttpChainClient(chain)
 fetchBeaconByTime(client, Date.now()).then(beacon => {   
-  const randomNumber = BigInt("0x" + beacon.randomness.slice(0, 2)) // there are 7 participants, we take 1 byte of output (!bad!)
-	const winnerIndex = randomNumber % BigInt(participants.length)
-	console.log(`the winner is ${participants[winnerIndex]}`) 
+  // there are 7 participants, we take 1 byte of output (!! bad !!)
+  const randomNumber = BigInt("0x" + beacon.randomness.slice(0, 2)) 
+  const winnerIndex = randomNumber % BigInt(participants.length)
+  console.log(`the winner is ${participants[winnerIndex]}`) 
 })
 ```
 
