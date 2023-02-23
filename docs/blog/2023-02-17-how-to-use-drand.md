@@ -21,7 +21,7 @@ For cases such as random distribution of welfare (e.g. [universal basic income](
 
 ## Enter drand
 
-drand is built upon a [threshold network](https://en.wikipedia.org/wiki/Threshold_cryptosystem). Instead of relying on a single third party, multiple third parties work together to generate a random number. It exploits the fact that a hashed signature has all the properties of randomness as long as nobody holds the secret key. Due to the way drand [distributes keys](https://evervault.com/blog/shamir-secret-sharing), no party ever has the whole secret key, and as such no one can ever predict the signature generated - woohoo, randomness! These properties are the reason that projects such as [Social Income]([https://socialincome.org/](https://socialincome.org/)) are building on top of drand for their randomness!
+drand is built upon a [threshold network](https://en.wikipedia.org/wiki/Threshold_cryptosystem). Instead of relying on a single third party, multiple third parties work together to generate a random number. It exploits the fact that a hashed signature has all the properties of randomness as long as nobody holds the secret key. Due to the way drand [distributes keys](https://evervault.com/blog/shamir-secret-sharing), no party ever has the whole secret key, and as such no one can ever predict the signature generated - woohoo, randomness! These properties are the reason that projects such as [Social Income](https://socialincome.org/) are building on top of drand for their randomness!
 
 ## Using drand
 
