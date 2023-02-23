@@ -169,7 +169,7 @@ If we were to take a modified version of our code from before, we would end up w
 ```jsx
 const zeroToTwoInc = fetchNumberFromZeroToTwoInclusive() 
 const flip = zeroToTwoInc % 2  
-if (flip === 0) {   
+if (flip === 0) {
 	console.log("HEADS!") 
  else {   
 	console.log("TAILS!") 
