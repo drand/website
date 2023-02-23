@@ -119,15 +119,17 @@ const chain = new HttpCachingChain("https://api.drand.sh")
 const client = new HttpChainClient(chain)
 fetchBeaconByTime(client, Date.now()).then(beacon => {   
 
-	const flip = parseInt(Number("0x" + beacon.randomness)) % 2    
+	const flip = BigInt("0x" + beacon.randomness) % BigInt(2)
 
-	if (flip === 0) {     
+	if (flip === 0) {      
 		console.log(beacon.round+": HEADS!")
 	} else {     
 		console.log(beacon.round+": TAILS!")   
 	} 
 })
 ```
+
+A small note: we have to use `BigInt` here, because javascript only supports 53 bit integers safely! Additionally, because drand mainnet emits randomness every 30 seconds, you will see the same output for multiple runs until the newest round is emitted.
 
 As our 64 byte random hex string from drand is a multiple of 2, our coinflip will produce a uniform distribution of heads and tails (given enough flips) and works as expected.
 We could even take just one or two byte of output and still have an unbiased result. 
@@ -141,7 +143,8 @@ const participants = ["alice", "bob", "carol", "dave", "edward", "fiona", "georg
 const chain = new HttpCachingChain("https://api.drand.sh") 
 const client = new HttpChainClient(chain)
 fetchBeaconByTime(client, Date.now()).then(beacon => {   
-	const winnerIndex = parseInt(Number("0x" + beacon.randomness.slice(0,2))) % participants.length // there are 7 participants, we take 1 byte of output
+  const randomNumber = BigInt("0x" + beacon.randomness.slice(0, 2)) // there are 7 participants, we take 1 byte of output (!bad!)
+	const winnerIndex = randomNumber % BigInt(participants.length)
 	console.log(`the winner is ${participants[winnerIndex]}`) 
 })
 ```
@@ -173,7 +176,6 @@ if (flip === 0) {
 }
 ```
 which is biased since both the value 1 and 2 would produce "TAILS!", but only the value 0 would produce "HEADS!".
-
 Adding rejection sampling would be a matter of redrawing a new number any time we got a 2:
 
 ```jsx
