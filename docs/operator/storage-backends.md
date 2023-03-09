@@ -97,6 +97,6 @@ To help you estimate the memory size required to operate an in-memory node, you 
 of about 200 bytes for each beacon value stored.
 
 Besides the memory constraints, you'll also have to keep in mind the frequency of the network:
-- For a 30 seconds period, 2000 beacons will cover the last 100 minutes of values.
-- For a 3 seconds period, 2000 beacons will cover the last 10 minutes of values.
-- For a 1 second period, 2000 beacons will cover the last 33 minutes of values
+- For a 30 seconds period, 2000 beacons will cover the last ~16 hours of values.
+- For a 3 seconds period, 2000 beacons will cover the last ~1 hour of values.
+- For a 1 second period, 2000 beacons will cover the last ~30 minutes of values
