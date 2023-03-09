@@ -31,6 +31,8 @@ At the moment, there are no configurable options for this backend.
 
 ## PostgreSQL
 
+**_This backend is supported since Drand v1.5+._**
+
 The PostgreSQL backend allows Drand to store beacons in a database.
 
 The database connection will use `UTC` as default timezone. This parameter is not currently configurable.
@@ -64,6 +66,8 @@ The available options are:
   - If `max-idle` is greater than 0 and `max-open` is less than `max-idle`, then `max-idle` will be capped to `max-open` limit.
 
 ## In-memory (memDB)
+
+**_This backend is supported since Drand v1.5+._**
 
 The in-memory backend, also refered to as memdb, allows the node to store all beacons in-memory.
 
