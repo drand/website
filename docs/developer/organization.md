@@ -7,6 +7,10 @@ title: Organization
 ## Top level packages
 
 - `chain` - Code for generating the sequence of beacons (implementation of which is in `chain/beacon`) after setup.
+  - `boltdb` - BoltDB storage backend.
+  - `errors` - common errors for the chain package.
+  - `memdb` - in-memory storage backend.
+  - `postgresdb` - PostgreSQL storage backend.
 - `client` - The drand client library - composition utilities for fail-over and reliable abstraction.
   - `client/grpc` - The concrete gRPC client implementation.
   - `client/http` - The concrete HTTP client implementation.
@@ -17,6 +21,7 @@ title: Organization
   - `cmd/drand-cli` - The main drand group member binary.
   - `cmd/relay` - A relay that pulls randomness from a drand group member and exposes an HTTP server interface.
   - `cmd/relay-gossip` - A relay that pulls randomness from a group member and publishes it over a libp2p gossipsub topic.
+- `crypto` - Holds the schemes supported by Drand.
 - `core` - The primary Service interface of drand comamands.
   - `core/migration` - A library for migrating drand files from single-beacon to multi-beacon version.
 - `demo` - A framework for integration testing.

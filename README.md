@@ -29,6 +29,8 @@ If you want to build this site locally, run the following:
 1. Close the local server with `CTRL` + `c`.
 1. To restart the local server, run `npm start` from within the `website` folder.
 
+_Note_: You'll need to use NodeJS version 16, e.g. 16.19.1. At the moment, NodeJS 18 or newer is not supported.
+
 ## Creating a blog post
 
 1. Within the `/docs/blog` directory, create a new markdown document for the blog post. It should be the date of the post as `YYYY-MM-DD` followed by the post title in `kebab-case` and finally the extension `.md`. So, a post called _Bill and Teds Excellent Randomness Protocol_ created on Monday 25th May 2020 would look like `/docs/blog/2020-05-25-bill-and-teds-excellent-randomness-protocol.md`.
