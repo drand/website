@@ -75,7 +75,13 @@ module.exports = {
             'drand-client',
             'organization'
           ],
-          '/operator/': ['deploy', 'docker', 'metrics', 'drand-cli'],
+          '/operator/': [
+            'deploy',
+            'docker',
+            'storage-backends',
+            'metrics',
+            'drand-cli'
+          ],
           '/about/': [
             {
               title: 'About',
