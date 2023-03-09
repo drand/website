@@ -4,15 +4,15 @@ title: Storage Backends
 
 # Storage Backends
 
-Drand supports multiple storage backends: BoltDB, PostgreSQL, in-memory storage, aka. MemDB.
+drand supports multiple storage backends: BoltDB, PostgreSQL, in-memory storage, aka. MemDB.
 
-To launch Drand with a specific backend, you need to provide the `--db` flag.
+To launch drand with a specific backend, you need to provide the `--db` flag.
 
 The supported values are: `bolt` for BoltDB, `postgres` for PostgreSQL, `memdb` for the in-memory backend.
 
 ## BoltDB
 
-The BoltDB backend allows Drand to store beacon data under a local filesystem.
+The BoltDB backend allows drand to store beacon data under a local filesystem.
 
 The database can be found under the `<storage-path>/multibeacon/<beacon-id>/db/drand.db`.
 
@@ -31,9 +31,9 @@ At the moment, there are no configurable options for this backend.
 
 ## PostgreSQL
 
-**_This backend is supported since Drand v1.5+._**
+**_This backend is supported since drand v1.5+._**
 
-The PostgreSQL backend allows Drand to store beacons in a database.
+The PostgreSQL backend allows drand to store beacons in a database.
 
 The database connection will use `UTC` as default timezone. This parameter is not currently configurable.
 
@@ -67,9 +67,9 @@ The available options are:
 
 ## In-memory (memDB)
 
-**_This backend is supported since Drand v1.5+._**
+**_This backend is supported since drand v1.5+._**
 
-The in-memory backend, also refered to as memdb, allows the node to store all beacons in-memory.
+The in-memory backend, also referred to as memdb, allows the node to store all beacons in-memory.
 
 This backend will lose all the contents on node restart/stop.
 

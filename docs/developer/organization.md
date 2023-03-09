@@ -21,7 +21,7 @@ title: Organization
   - `cmd/drand-cli` - The main drand group member binary.
   - `cmd/relay` - A relay that pulls randomness from a drand group member and exposes an HTTP server interface.
   - `cmd/relay-gossip` - A relay that pulls randomness from a group member and publishes it over a libp2p gossipsub topic.
-- `crypto` - Holds the schemes supported by Drand.
+- `crypto` - Holds the schemes supported by drand.
 - `core` - The primary Service interface of drand comamands.
   - `core/migration` - A library for migrating drand files from single-beacon to multi-beacon version.
 - `demo` - A framework for integration testing.
