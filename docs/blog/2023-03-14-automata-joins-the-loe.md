@@ -27,7 +27,7 @@ A diverse set of stakeholders is important in so many ways; in ensuring the inte
 Fairness and privacy is important to us at Automata. The rise of Web3 - which has shown itself to be as much an ideological movement as much as it has been an economic one - has given us reason to believe that its subsequent development will be governed by a set of rules quite unlike its predecessors. A decentralized source of randomness is fundamental to a decentralized Web3. 
 
 In particular, there are a few characterizations that are helpful to keep in mind when it comes to considering what constitutes high-quality randomness: 
-Anyone (such as users!) should be able to verify that a number is legitimately random
+Anyone (such as users!) should be able to verify that a number is legitimately random.
 Randomness needs to be unbiased. No participant should be able to influence the output in any measure or way. 
 Randomness needs to be unpredictable. No participant should be able to predict the output (or its properties) before it has been generated 
 
