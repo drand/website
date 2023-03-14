@@ -1,7 +1,7 @@
 ---
 title: "Automata Network Joins the LoE!"
 summary: "Automata becomes the newest member of the League of Entropy. We've asked them why they're motivated by drand and decided to contribute - check what they said!"
-date: 2023-03-14
+date: 2023-03-15
 author: Yiannis Psaras
 tags: 
     - New Members
