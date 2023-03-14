@@ -24,7 +24,7 @@ A diverse set of stakeholders is important in so many ways; in ensuring the inte
 
 **Why did you decide to join the League of Entropy? What value do you see in drand that is important for your mission? What convinced you to join?**
 
-Fairness and privacy is important to us at Automata. And the rise of Web3 - which has shown itself to be as much an ideological movement as much as it has been an economic one - has given us reason to believe that its subsequent development will be governed by a set of rules quite unlike its predecessors. A decentralized source of randomness is fundamental to a decentralized Web3. 
+Fairness and privacy is important to us at Automata. The rise of Web3 - which has shown itself to be as much an ideological movement as much as it has been an economic one - has given us reason to believe that its subsequent development will be governed by a set of rules quite unlike its predecessors. A decentralized source of randomness is fundamental to a decentralized Web3. 
 
 In particular, there are a few characterizations that are helpful to keep in mind when it comes to considering what constitutes high-quality randomness: 
 Anyone (such as users!) should be able to verify that a number is legitimately random
