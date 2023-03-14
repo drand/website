@@ -6,9 +6,7 @@ author: Yiannis Psaras
 tags: 
     - New Members
     - League of Entropy
-	- News
 ---
-
 
 We are proud to announce that [Automata](https://www.ata.network), a Web3 middleware protocol focused on protecting fairness & privacy, is joining forces with the League of Entropy (LoE)! Automata is becoming the 17th member to join the LoE and the first partner joining from Singapore - a significant milestone for the LoE.
 
