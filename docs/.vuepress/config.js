@@ -68,8 +68,20 @@ module.exports = {
             'security-model',
             'specification'
           ],
-          '/developer/': ['clients', 'http-api', 'gossipsub', 'drand-client'],
-          '/operator/': ['deploy', 'docker', 'metrics', 'drand-cli'],
+          '/developer/': [
+            'clients',
+            'http-api',
+            'gossipsub',
+            'drand-client',
+            'organization'
+          ],
+          '/operator/': [
+            'deploy',
+            'docker',
+            'storage-backends',
+            'metrics',
+            'drand-cli'
+          ],
           '/about/': [
             {
               title: 'About',
