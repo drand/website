@@ -99,7 +99,7 @@ The `tlock` Go library is a pure Go library implemented on top of an implementat
 
 ![CLI gif demo](https://user-images.githubusercontent.com/181501/177999855-cc1cfef7-ee1c-4193-bea7-4ee2e689f2d1.svg)
 
-The `tlock-js` is a pure Typescript implementation of timed encryption using the drand network.  Like the `tlock` Go library, it uses [Age encryption](http://age-encryption.org) under the hood to perform symmetric encryption on a given payload using [chacha20-poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305) and wraps the symmetric key using timelock encryption.  This ciphertext is then (optionally) encoded using ascii armor making it easy to move around and display - similar to how PGP and other utilities do.
+The `tlock-js` is a pure Typescript implementation of timed encryption using the drand network.  Like the `tlock` Go library, it uses [Age encryption](http://age-encryption.org) under the hood to perform symmetric encryption on a given payload using [chacha20-poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305) and wraps the symmetric key using timelock encryption.  This ciphertext is then (optionally) encoded using ascii armor making it easy to move around and display - similar to what PGP and other utilities do.
 
 The library only has a handful of dependencies: 
 
