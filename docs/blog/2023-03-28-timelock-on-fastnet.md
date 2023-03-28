@@ -77,14 +77,14 @@ Because our timed release encryption scheme allows users to **encrypt a fixed si
 
 Hybrid encryption also allows users to significantly reduce the size of a ciphertext meant for multiple recipients, since one only needs to wrap the DEK for different recipients while the bulk of the encrypted data remains the same for all recipients.
 
-In practice, we decided the easiest way to implement this was to rely on the existing `age` (https://github.com/FiloSottile/age) library and tool to create new types of “recipients” and “identities” for it using our timelock scheme to wrap symmetric encryption keys. This is made easier with `age` through the notion of “stanzas”, data itself is encrypted using a `filekey` which is then encrypted (wrapped) using one or multiple stanzas following the battle-tested hybrid encryption technique. 
+In practice, we decided the easiest way to implement this was to rely on the existing [`age`](https://github.com/FiloSottile/age) library and tool to create new types of “recipients” and “identities” for it using our timelock scheme to wrap symmetric encryption keys. This is made easier with `age` through the notion of “stanzas”, data itself is encrypted using a `filekey` which is then encrypted (wrapped) using one or multiple stanzas following the battle-tested hybrid encryption technique. 
 
 We tried to stay pretty close to the age-plugin format in order to possibly adapt this new scheme into a plugin, perhaps sometime in the future. Here is our custom tlock stanza:
 
 ```bash
 -> tlock {roundnumber} {chainhash}
 {timelocked-fileKey-for-given-roundnumber-and-chainhash}
-`
+```
 
 ## tlock
 
