@@ -47,7 +47,7 @@ The League of Entropy is a consortium of organisations that decided, back in 201
 
 As of March 2023, the League is constituted of over 21 drand nodes operated by 18 organisations, with a threshold of over 50%, and you can follow our blog to see when new partners are joining the League: [https://drand.love/blog/](https://drand.love/blog/)
 
-In case you were worried after reading our paper, know that whenever new members join the League, we conduct a so-called “resharing” of the League’s group secret key using verifiable secret sharing. This means that **the public key of the drand networks we are running never changes** and it is not going to cause an incompatibility issue with our timelock scheme. 
+In case you were worried after reading our paper, know that whenever new members join the League, we conduct a so-called “resharing” of the League’s group secret key using verifiable secret sharing. This means that **the public keys of the drand networks we run never change** and it is not going to cause an incompatibility issue with our timelock scheme. 
 
 ### Our “timed release encryption” scheme
 
