@@ -81,7 +81,7 @@ In practice, we decided the easiest way to implement this was to rely on the exi
 
 We tried to stay pretty close to the age-plugin format in order to possibly adapt this new scheme into a plugin, perhaps sometime in the future. Here is our custom tlock stanza:
 
-`bash
+```bash
 -> tlock {roundnumber} {chainhash}
 {timelocked-fileKey-for-given-roundnumber-and-chainhash}
 `
