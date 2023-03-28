@@ -1,5 +1,5 @@
 ---
-title: "Timelock Encryption is now supported mainnet"
+title: "Timelock Encryption is now supported on drand mainnet"
 summary: "Following the launch of a new `fastnet` mainnet network on March 1st, 2023, we are proud to announce general availability of Timelock Encryption!"
 date: 2023-03-28
 author: Yolan Romailler, Nicolas Gailly
@@ -9,17 +9,17 @@ tags:
     - Conferences and Events
 ---
 
-The drand team has been busy during the past year working on a very exciting problem: **Timelock Encryption**. Timelock encryption enables you to encrypt a message that cannot be decrypted by anyone until a specified time in the future.
+The drand team has been busy during the past year working on delivering an exciting new feature: **Timelock Encryption**. Timelock encryption enables you to encrypt a message that cannot be decrypted by anyone until a specified time in the future.
 
 You might have heard about it from us already, since we were proud to present not just one, but three new open-source projects in August 2022 bringing a new very exciting feature called “timelock encryption” to our drand testnet! 
 
-Well, wait no more: we have now finally reached “General Availability” and our *audited* Timelock Encryption scheme is **now compatible with the drand mainnet**, namely the newly launched `fastnet` network which we’ll discuss at the end of this post. 
+Well, wait no more: we have now finally reached “General Availability” and our *audited* Timelock Encryption scheme is **now compatible with the drand mainnet**, thanks to our newly launched `fastnet` network which we’ll discuss quickly in this post as well.
 
-Thanks to the team's work, you can now use these features in three different ways:
+Thanks to the team's work, you can now use these features in many ways:
 
-- `tlock`, a [Go library doing Timelock encryption](https://github.com/drand/tlock/) by relying on drand’s beacon signatures, along with `tle` - a CLI tool allowing you to use timelock encryption just like you would use `gpg` or `age`.
+- [Our Timevault web-demo](https://timevault.drand.love/) using `tlock-js` to perform timelock encryption easily in your browser, locally.- `tlock`, a [Go library doing Timelock encryption](https://github.com/drand/tlock/) by relying on drand’s beacon signatures, along with `tle` - a CLI tool allowing you to use timelock encryption just like you would use `gpg` or `age`.
 - `tlock-js`, a [TS library doing the same](https://github.com/drand/tlock-js/) for your browser apps.
-- [https://timevault.drand.love/](https://timevault.drand.love/), a web-app demo using `tlock-js` to perform timelock encryption easily in your browser, locally.
+- Using the unchained drand beacons from our new `fastnet` network: https://api.drand.sh/dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493/public/latest 
 
 These were already [presented at DEF CON](https://www.youtube.com/watch?t=1652&v=IW7sdSd2wOQ&feature=youtu.be) when we launched them on our testnet. Check the talk if you want more details about possible applications and the history behind Timelock Encryption. 
 
@@ -73,9 +73,9 @@ For more technical information about how this works, you can **check our pre-pri
 
 ## Hybrid encryption
 
-Because our timed release encryption scheme allows users to **encrypt a fixed sized message**, and also to achieve better performance in general, it relies on “**Hybrid encryption**” to encrypt arbitrary data more easily. Hybrid encryption means that we are using timed encryption to **encrypt a Data Encryption Key (DEK)** used to subsequently encrypt the actual data we want to transmit with “regular” encryption schemes. This is commonly known as “wrapping a key”, and it's how modern public key encryption schemes function to encrypt more data than their “block size”. Typically, the DEK is an AES or ChaCha key, both being blazingly fast symmetric encryption schemes compared to the public key scheme used to encrypt the DEK.
+Because our timed release encryption scheme allows users to **encrypt a fixed sized message**, and also to achieve better performance in general, it relies on “**Hybrid encryption**” to encrypt arbitrary data more easily. Hybrid encryption means that we are using an asymmetric encryption scheme to **encrypt a Data Encryption Key (DEK)** used to subsequently encrypt the actual data we want to transmit with a symmetric encryption scheme. This is commonly known as “wrapping a key”, and it's how modern public key encryption schemes function to encrypt more data than their “block size”. It has the benefit of being much faster than doing asymmetric encryption of each chunk of data. Typically, the DEK is an AES or ChaCha key, both being blazingly fast symmetric encryption schemes compared to the public key scheme used to encrypt the DEK.
 
-Hybrid encryption also allows users to significantly reduce the size of a ciphertext meant for multiple recipients, since one only needs to wrap the DEK for different recipients while the bulk of the encrypted data remains the same for all recipients.
+Hybrid encryption also allows users to significantly reduce the size of a ciphertext meant for multiple recipients, since one only needs to wrap the DEK for different recipients while the bulk of the encrypted data remains the same for all recipients since it was encrypted with a single symmetric key.
 
 In practice, we decided the easiest way to implement this was to rely on the existing [`age`](https://github.com/FiloSottile/age) library and tool to create new types of “recipients” and “identities” for it using our timelock scheme to wrap symmetric encryption keys. This is made easier with `age` through the notion of “stanzas”, data itself is encrypted using a `filekey` which is then encrypted (wrapped) using one or multiple stanzas following the battle-tested hybrid encryption technique. 
 
@@ -111,16 +111,6 @@ It’s available on npm at [https://www.npmjs.com/package/tlock-js](https://www.
 
 Finally, to ensure the best security guarantees possible to our users, we had both `tlock` and `tlock-js` go through a code assessment by a renowned cybersecurity company, which we’ll be releasing shortly as well.
 
-## Related works
-
-Our timelock work has already gathered significant interest from the community and we’re happy to report that there already exists:
-
-- a [tlock-rs library](https://github.com/timoth-y/tlock-rs) prototype by [Timofey Luin](https://twitter.com/timoethey) supporting only the timelock part of our scheme without the hybrid encryption using age and not compatible with our `tle` tool. Timofey then used it to benchmark arithmetic circuits doing [verifiable timelock encryption](https://github.com/timoftime/zk-timelock) with Arkworks, cool stuff!
-- the [tlock_age library](https://github.com/thibmeu/tlock-rs) by [Thibault Meunier](https://twitter.com/thibmeu), which started as a fork of the tlock-rs library adding age support to it and making it compatible with the age-based scheme implemented in our `tlock` and `tlock-js` libraries as well as in our `tle` tool. Thibault also changed the API significantly and is looking at migrating to a much faster Rust BLS12-381 implementation. If you’re looking at using timelock in Rust, search no more!
-- a [CLI tool in Rust](https://github.com/thibmeu/drand-rs), called `dee` , also by [Thibault](https://twitter.com/thibmeu), that uses his library in order to be compatible with `tle` but that also has cool drand-related features to get verifiable, public randomness. It also has a different set of flags.
-
-We are also aware of a few blockchain ecosystems that are currently looking into building on top of the BLS signatures emitted by the League of Entropy in order to achieve their own timed release encryption scheme. Stay tuned for more timelock-related news in the coming months!
-
 # Our new `fastnet` network
 
 The best part about our timelock solution is that it is live on our mainnet! You can try it in your browser here: [https://timevault.drand.love/](https://timevault.drand.love/) 
@@ -146,5 +136,17 @@ It is running at a 3 second frequency, which is 10 times faster than our previou
 You can start building your very own sealed-bid auction system on top of it, [do a timelocked responsible disclosure](https://research.kudelskisecurity.com/2023/02/22/releasing-a-timelocked-responsible-disclosure/), or use it as a [deadman’s switch by encrypting your bitcoin private key](https://gwern.net/self-decrypting#uses) with it and giving the timelocked ciphertext to your heirs, while having the full security of running on the League of Entropy mainnet instead of on our testnet, as was the case until now.
 
 Expect another blog post in the coming months with more details about the G1/G2 swap in `fastnet`, and what it means for BLS signatures, and for the applications using drand beacons. (Hints: smaller footprint, better performance and, where applicable, much cheaper gas costs!)
+
+## Related works
+
+Our timelock work has already gathered significant interest from the community and we’re happy to report that there already exists:
+
+- a [tlock-rs library](https://github.com/timoth-y/tlock-rs) prototype by [Timofey Luin](https://twitter.com/timoethey) supporting only the timelock part of our scheme without the hybrid encryption using age and not compatible with our `tle` tool. Timofey then used it to benchmark arithmetic circuits doing [verifiable timelock encryption](https://github.com/timoftime/zk-timelock) with Arkworks, cool stuff!
+- the [tlock_age library](https://github.com/thibmeu/tlock-rs) by [Thibault Meunier](https://twitter.com/thibmeu), which started as a fork of the tlock-rs library adding age support to it and making it compatible with the age-based scheme implemented in our `tlock` and `tlock-js` libraries as well as in our `tle` tool. Thibault also changed the API significantly and is looking at migrating to a much faster Rust BLS12-381 implementation. If you’re looking at using timelock in Rust, search no more!
+- a [CLI tool in Rust](https://github.com/thibmeu/drand-rs), called `dee` , also by [Thibault](https://twitter.com/thibmeu), that uses his library in order to be compatible with `tle` but that also has cool drand-related features to get verifiable, public randomness. It also has a different set of flags.
+
+We are also aware of a few blockchain ecosystems that are currently looking into building on top of the BLS signatures emitted by the League of Entropy in order to achieve their own timed release encryption scheme. Stay tuned for more timelock-related news in the coming months!
+
+---
 
 Finally, don’t hesitate to [join our drand Slack Workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to discuss timelock encryption, or share with us your cool use cases for it, or follow us on our [newly created @drand_loe Twitter account](https://twitter.com/drand_loe) to stay tuned with the latest news from the drand team. Until next time!
