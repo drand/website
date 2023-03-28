@@ -17,7 +17,7 @@ Well, wait no more: we have now finally reached “General Availability” and o
 
 Thanks to the team's work, you can now use these features in three different ways:
 
-- `tlock`, a [Go library doing Timelock encryption](https://github.com/drand/tlock/) by relying on drand’ s beacon signatures, along with `tle` a CLI tool allowing you to use timelock encryption just like you would use `gpg`  or `age`.
+- `tlock`, a [Go library doing Timelock encryption](https://github.com/drand/tlock/) by relying on drand’s beacon signatures, along with `tle` - a CLI tool allowing you to use timelock encryption just like you would use `gpg` or `age`.
 - `tlock-js`, a [TS library doing the same](https://github.com/drand/tlock-js/) for your browser apps.
 - [https://timevault.drand.love/](https://timevault.drand.love/), a web-app demo using `tlock-js` to perform timelock encryption easily in your browser, locally.
 
