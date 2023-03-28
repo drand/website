@@ -13,7 +13,7 @@ The drand team has been busy during the past year working on a very exciting pro
 
 You might have heard about it from us already, since we were proud to present not just one, but three new open-source projects in August 2022 bringing a new very exciting feature called “timelock encryption” to our drand testnet! 
 
-Well, wait no more: we have now finally reached “General Availability” and our *audited* Timelock Encryption scheme is **now available on a new chain running on the drand mainnet**, namely the newly launched `fastnet` network which we’ll discuss at the end of this post. 
+Well, wait no more: we have now finally reached “General Availability” and our *audited* Timelock Encryption scheme is **now compatible with the drand mainnet**, namely the newly launched `fastnet` network which we’ll discuss at the end of this post. 
 
 Thanks to the team's work, you can now use these features in three different ways:
 
