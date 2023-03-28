@@ -141,7 +141,7 @@ It is readily available through our mainnet endpoints: [https://api.drand.sh/dbd
 ```
 
 
-It is running at a 3 second frequency, which is 10 times faster than our previous chained `default` mainnet network, and it uses G1 for signatures, which means its random beacon have signatures that are 50% smaller! It is also running in unchained mode, and thus enables timelock encryption on mainnet! 
+It is running at a 3 second frequency, which is 10 times faster than our previous chained `default` mainnet network, and it uses G1 for signatures, which means its random beacons have signatures that are 50% smaller! It is also running in unchained mode, and thus enables timelock encryption on mainnet! 
 
 You can start building your very own sealed-bid auction system on top of it, [do a timelocked responsible disclosure](https://research.kudelskisecurity.com/2023/02/22/releasing-a-timelocked-responsible-disclosure/), or use it as a [deadman’s switch by encrypting your bitcoin private key](https://gwern.net/self-decrypting#uses) with it and giving the timelocked ciphertext to your heirs, while having the full security of running on the League of Entropy mainnet instead of on our testnet, as was the case until now.
 
