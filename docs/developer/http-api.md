@@ -85,7 +85,7 @@ Retrieves the latest round of randomness. It returns a JSON object with the foll
 }
 ```
 
-- `round` is an monotonically increasing integer - the randomness round index
+- `round` is a monotonically increasing integer - the randomness round index
 - `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
