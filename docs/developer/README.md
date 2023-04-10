@@ -12,12 +12,17 @@ The current public League of Entropy drand mainnet API endpoints are:
 * `https://api2.drand.sh` (HTTPS endpoint, also available over HTTP)
 * `https://api3.drand.sh` (HTTPS endpoint, also available over HTTP)
 * `https://drand.cloudflare.com` (HTTPS endpoint)
+* `https://api.drand.secureweb3.com:6875` (HTTPS endpoint)
 * `/dnsaddr/api.drand.sh` (1st-level libp2p gossipsub relay endpoint)
 * `/dnsaddr/api2.drand.sh` (1st-level libp2p gossipsub relay endpoint)
 * `/dnsaddr/api3.drand.sh` (1st-level libp2p gossipsub relay endpoint)
-* `http://drandeokfd5aaz3hr4hfk7mlr23vc63boxrpr44ertumtbousmdgbhad.onion` (Tor hidden service)
 
-Mainnet chain hash: `8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce`
+There are two networks on mainnet:
+- `default` which is running the chained scheme with public keys on G1
+- `fastnet` which is running the unchained scheme with public keys on G2
+
+`default` network chain hash: `8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce`
+`fastnet` network chain hash: `dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493`
 
 In order to retrieve randomness from a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
 
