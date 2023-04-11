@@ -21,8 +21,11 @@ There are two networks on mainnet:
 - `default` which is running the chained scheme with public keys on G1
 - `fastnet` which is running the unchained scheme with public keys on G2
 
-`default` network chain hash: `8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce`
-`fastnet` network chain hash: `dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493`
+`default` network chain hash: 
+```8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce```
+
+`fastnet` network chain hash: 
+```dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493```
 
 In order to retrieve randomness from a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
 
