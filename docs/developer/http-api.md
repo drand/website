@@ -14,11 +14,23 @@ The public [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) H
     - [https://api3.drand.sh](https://api3.drand.sh)
 - Cloudflare
     - [https://drand.cloudflare.com](https://drand.cloudflare.com)
+- Storswift
+    - [https://api.drand.secureweb3.com:6875](https://api.drand.secureweb3.com:6875)
 
-The chain hash for the League of Entropy drand group is:
+The League of Entropy currently runs two networks in mainnet: `default` and `fastnet`. They are chained and unchained networks respectively, the details of which can be found in the [cryptography specification](https://drand.love/docs/cryptography/#randomness).
+
+The chain hash for the League of Entropy `default` drand group is:
 
 ```
 8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
+```
+
+It also available at the default context, i.e. omitting the `/{chain-hash}` in the API specification below.
+
+The chain has for the League of Entropy `fastnet` drand group is:
+
+```
+dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493
 ```
 
 ## `/chains`
@@ -43,7 +55,12 @@ Retrieves the randomness chain information. It returns a JSON object with the fo
   "public_key": "868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31",
   "period": 30,
   "genesis_time": 1595431050,
-  "hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce"
+  "hash": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce",
+  "groupHash": "176f93498eac9ca337150b46d21dd58673ea4e3581185f869672e59fa4cb390a",
+  "schemeID": "pedersen-bls-chained",
+  "metadata": {
+    "beaconID": "default"
+  }
 }
 ```
 
@@ -51,10 +68,13 @@ Retrieves the randomness chain information. It returns a JSON object with the fo
 - `period` is the time in seconds between randomness beacon rounds
 - `genesis_time` is the time in seconds since the Unix Epoch that the group began generating randomness
 - `hash` is the _chain hash_, which uniquely identifies the drand chain. It is used as a root of trust for validation of the first round of randomness.
+- `groupHash` is the hash of a file containing the current set of nodes participating in the network. The group file is updated on every resharing.
+- `schemeID` is the name of the scheme this network uses. The scheme specifies the type of cryptography being used to generate the randomness beacons.
+- `metadata` contains some miscellaneous metadata about the network that is added to most packets during operation.
 
 ## `/{chain-hash}/public/latest`
 
-Retrives the latest round of randomness. It returns a JSON object with the following structure:
+Retrieves the latest round of randomness. It returns a JSON object with the following structure:
 
 ```json
 {
@@ -65,7 +85,7 @@ Retrives the latest round of randomness. It returns a JSON object with the follo
 }
 ```
 
-- `round` is an sequentially increasing integer - the randomness round index
+- `round` is a monotonically increasing integer - the randomness round index
 - `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
 - `previous_signature` is the signature of the previous round of randomness
@@ -83,10 +103,9 @@ Retrieves a previous round of randomness identified by the positive integer `rou
 }
 ```
 
-- `round` is an sequentially increasing integer - the randomness round index
+- `round` is a sequentially increasing integer - the randomness round index
 - `randomness` is a SHA-256 hash of the signature
 - `signature` is the _Boneh-Lynn-Shacham_ (BLS) signature for this round of randomness
-- `previous_signature` is the signature of the previous round of randomness
+- `previous_signature` is the signature of the previous round of randomness (note: this will is omitted for [unchained networks](https://drand.love/docs/cryptography/#randomness)
 
-**Note**: For backward-compatibility reasons, paths without `chain-hash` could be attended by
-the default network in operation. 
+**Note**: For backwards-compatibility reasons, paths without `chain-hash` will resort to the the default network in operation. 
