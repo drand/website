@@ -124,7 +124,7 @@ The goal of a threshold signature scheme is to collectively compute a signature 
 
 **Key Generation**: The $n$ participants execute a $t$-of-$n$ DKG to setup a collective public key $S \in \mathbb{G}_2$, and private key shares $s_i \in \mathbb{Z}_p^{\ast}$ of the unknown collective private key $s$, as described above.
 
-**Partial Signature Generation**: To sign a message $m$ each participant $i$ uses his private key share $s_i$ to create a _partial BLS signature_ $\sigma_i = s_{i}H(m)$.
+**Partial Signature Generation**: To sign a message $m$ each participant $i$ uses their private key share $s_i$ to create a _partial BLS signature_ $\sigma_i = s_{i}H(m)$.
 
 **Partial Signature Verification**: To verify the correctness of a partial signature $\sigma_i$ on $m$, a verifier uses the public key share $S_i$, which is generated during the DKG, and verifies that $e(H(m),S_i) = e(\sigma_i,g_2)$ holds.
 
@@ -138,18 +138,41 @@ Additionally, Lagrange interpolation also guarantees that no set of less than $t
 
 In summary, a threshold BLS signature $\sigma$ exhibits all properties required for publicly-verifiable, unbiased, unpredictable, and distributed randomness.
 
+#### Smaller signatures for resource constrained applications
+
+The above description of the signature threshold scheme accurately describes how we generate signatures that contain all the necessary properties for randomness under the `pedersen-bls-chained` and `pedersen-bls-unchained` schemes. 
+Under that scheme, messages are mapped to a point on $\mathbb{G}_1$ and public keys are a point on $\mathbb{G}_2$. As a result, message signatures are 96 bytes long and public keys are 48 bytes long. For systems where users are signing large messages and/or storing a lot of public keys, this trade-off makes a lot of sense: a 96 byte signature will be a small proportion of the entire message stored or transmitted. Additionally, signatures can be aggregated to save space.
+For drand however, we create a single public key at foundation of the network and emit random beacons (and thus signatures) at a constant rate as long as the network is running.
+As of [v1.5.0](https://github.com/drand/drand/releases/tag/v1.5.0-testnet) drand supports a new scheme, `bls-unchained-on-g1`, which exploits the bilinearity property of the BLS12-381 signature scheme to swap the generator groups for signatures and public keys such that signatures are created on $\mathbb{G}_2 and public keys are a point on $\mathbb{G}_1. This reduces the storage requirements of the node operators by 50% as well as reducing costs for any downstream users that require storing randomness beacons (such as smart contracts).
+
+For many applications using BLS12-381, messages are large and the signature constitutes a small part of the payload size. For public-facing applications, such as in blockchain ecosystems, users of the system store their public key on a
+Many applications built with BLS12-381 create many keypairs and subsequently publish or store many public keys.
+Thus for that scheme, the following operations apply:
+
+**Key Generation**: The $n$ participants execute a $t$-of-$n$ DKG to setup a collective public key $S \in \mathbb{G}_1$, and private key shares $s_i \in \mathbb{Z}_p^{\ast}$ of the unknown collective private key $s$.
+
+**Partial Signature Generation**: To sign a message $m$ each participant $i$ uses their private key share $s_i$ to create a _partial BLS signature_ $\sigma_i = s_{i}H(m)$.
+
+**Partial Signature Verification**: To verify the correctness of a partial signature $\sigma_i$ on $m$, a verifier uses the public key share $S_i$, which is generated during the DKG, and verifies that $e(H(m),S_i) = e(\sigma_i,g_1)$ holds.
+
+**Signature Reconstruction**: To reconstruct the collective BLS signature $\sigma$ on $m$, a verifier first needs to gather $t$ different and valid partial BLS signatures $\sigma_i$ on $m$ followed by a Lagrange interpolation on them.
+
+
 ### Randomness
-Drand nodes can work in two modes: _chained_ or _unchained_. 
+Drand nodes currently support three schemes, though they can roughly be divided into two modes: _chained_ or _unchained_. 
 
 The drand randomness beacon operates in discrete rounds $r$. In every round, drand produces a new random value using threshold BLS signatures which can be linked together, or not, into a chain of randomness.
 
 In **chained** mode, in order to extend the chain of randomness, each drand participant $i$ creates the partial BLS signature $\sigma_i^r$ on the message $m = H(r || \sigma_{r-1})$ in round $r$, where $\sigma_{r-1}$ denotes the (full) BLS threshold signature from round $r - 1$ and $H$ is a cryptographic hash function.
 
 ![randomness_chained.png](./images/randomness_chained.png)
+Chained mode is supported by using the `pedersen-bls-chained` scheme.
 
 In **unchained** mode, in order to produce unchained randomness, each drand participant $i$ creates the partial BLS signature $\sigma_i^r$ on the message $m = H(r)$ in round $r$, where $H$ is a cryptographic hash function.
 
 ![randomness_unchained.png](./images/randomness_unchained.png)
+
+Unchained mode is supported by using the either the `pedersen-bls-unchained` or `bls-unchained-on-g1` scheme.
 
 Once at least $t$ participants have broadcasted their partial signatures $\sigma_i^r$ on $m$, anyone can recover the full BLS threshold signature $\sigma_r$.
 
