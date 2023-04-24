@@ -1,7 +1,7 @@
 ---
 title: "Randomness Summit Tokyo 2023"
 summary: "A breakdown of what happened at our Randomness Summit in Tokyo"
-date: 2023-04-12
+date: 2023-04-24
 author: Patrick McClurg
 tags:
     - News
