@@ -140,6 +140,13 @@
               class="wide"
             />
           </a>
+          <a href="https://www.ata.network/" class="logo" title="Automata Network">
+            <img
+              src="/images/loe/ata-network.png"
+              alt="Automata Network logo"
+              class="wide"
+            />
+          </a>
         </div>
       </div>
     </div>
