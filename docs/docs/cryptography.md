@@ -149,7 +149,7 @@ For many applications using BLS12-381, messages are large and the signature cons
 Many applications built with BLS12-381 create many keypairs and subsequently publish or store many public keys.
 Thus for that scheme, the following operations apply:
 
-**Key Generation**: The $n$ participants execute a $t$-of-$n$ DKG to setup a collective public key $S \in \mathbb{G}_1$, and private key shares $s_i \in \mathbb{Z}_p^{\ast}$ of the unknown collective private key $s$.
+**Key Generation**: The $n$ participants execute a $t$-of-$n$ DKG to setup a collective public key $S \in \mathbb{G}_2$, and private key shares $s_i \in \mathbb{Z}_p^{\ast}$ of the unknown collective private key $s$.
 
 **Partial Signature Generation**: To sign a message $m$ each participant $i$ uses their private key share $s_i$ to create a _partial BLS signature_ $\sigma_i = s_{i}H(m)$.
 
