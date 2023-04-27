@@ -28,4 +28,6 @@ Finally, Thibault from Cloudflare (also a member of the League of Entropy) prese
 For those who couldn't make it on the day (in person or online), we have compiled a youtube playlist of all the talks that can be found [here](https://www.youtube.com/watch?v=U4bEewhZIus&list=PLhuBigpl7lqtE883Z3I6FCrtjmVOJ7A9c).
 Also, the slide decks are available for download on IPFS: [Qmd8Hbj31yXq6MDptaiez5JiRiG3vyU672oYTFfaV31NZL](https://ipfs.io/ipfs/Qmd8Hbj31yXq6MDptaiez5JiRiG3vyU672oYTFfaV31NZL)
 
-It's still too early to release any details of a possible Randomness Summit 2024, but a big thank you to everyone who came along and we look forward to seeing you (and others!) at future events!
+It's still too early to release any details of a possible Randomness Summit 2024, but a big thank you to everyone who came along and we look forward to seeing you (and others!) at future events! Make sure to monitor this blog for announcements of future Randomness Summits, as well as events where the drand team will be present at.
+
+You can [join our drand Slack Workspace (opens new window)](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to discuss drand and randomness-related topics, or share with us your cool use cases for it. You can also follow us on our [newly created @drand_loe Twitter account (opens new window)](https://twitter.com/drand_loe) to stay tuned with the latest news from the drand team.
