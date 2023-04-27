@@ -13,9 +13,9 @@ On the 30th of March, the drand team hosted the second edition of the Randomness
 The Randomness Summit was a one day conference consisting of talks from a range of speakers on topics such as verifiable randomness functions, verifiable delay functions, distributed key generation, cryptographic specifications and more!
 
 To kick off the day, Patrick from the drand team gave a brief overview of what's happened with drand since the last randomness summit. 
-Following him, Lefteris from Mysten Labs gave a presentation on generating distributed randomness and how to architect for producing it under asynchrony safely.
+Following him, Lefteris from IST Austria and Mysten Labs gave a presentation on generating distributed randomness and how to architect for producing it under asynchrony safely.
 Filippo Valsorda then gave a presentation giving some recommendations for specification-writers on how to avoid common pitfalls when specifying protocols and schemes using randomness.
-Bernardo from the University of Copenhagen came next and gave a comprehensive breakdown of all the different types of randomness beacons, their guarantees and how to combine them to fit your security model.
+Bernardo from the University of Copenhagen came next and gave a comprehensive breakdown of all the different types of randomness beacons, their guarantees and how to combine them to fit your security model. His talk was a great overview to everything about public randomness for those who are new to the field!
 Pratyay came next, presenting the architecture of the [Supra](https://supraoracles.com/) VRF, the challenges they faced in designing it, and the innovative solutions they created to overcome them.
 Luis from NIST presented a little on what NIST is currently doing in the randomness space, particularly around their ongoing effort to standardise randomness beacons and threshold cryptography. Details on their standardisation tracks can be found [on the NIST website](https://csrc.nist.gov/projects/interoperable-randomness-beacons).
 Matej from the Consensus Lab team in Protocol Labs gave the next presentation on the latest research into scalable byzantine fault tolerance algorithms, and how randomness can be used to improve their performance characteristics.
