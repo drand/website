@@ -155,7 +155,7 @@ Thus for that scheme, the following operations apply:
 
 **Partial Signature Verification**: To verify the correctness of a partial signature $\sigma_i \in \mathbb{G}_1$ of the message $m$, a verifier uses the public key share $S_i$, which is generated during the DKG, and verifies that $e(H(m),S_i) = e(\sigma_i,G_2)$ holds.
 
-**Signature Reconstruction**: To reconstruct the collective BLS signature $\sigma$ on $m$, a verifier first needs to gather $t$ different and valid partial BLS signatures $\sigma_i$ on $m$ followed by a Lagrange interpolation on them.
+**Signature Reconstruction**: To reconstruct the collective BLS signature $\sigma$ of the message $m$, a verifier first needs to gather $t$ different and valid partial BLS signatures $\sigma_i$ of $m$ and then needs to perform a Lagrange interpolation on them using the coefficients generated during the distributed key generation.
 
 
 ### Randomness
