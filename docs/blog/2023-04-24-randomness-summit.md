@@ -28,4 +28,4 @@ Finally, Thibault from Cloudflare (also a member of the League of Entropy) prese
 For those who couldn't make it on the day (in person or online), we have compiled a youtube playlist of all the talks that can be found [here](https://www.youtube.com/watch?v=U4bEewhZIus&list=PLhuBigpl7lqtE883Z3I6FCrtjmVOJ7A9c).
 Also, the slide decks are available for download on IPFS: [Qmd8Hbj31yXq6MDptaiez5JiRiG3vyU672oYTFfaV31NZL](https://ipfs.io/ipfs/Qmd8Hbj31yXq6MDptaiez5JiRiG3vyU672oYTFfaV31NZL)
 
-It's still too early to release any details of the Randomness Summit 2023, but a big thank you to everyone who came along and we look forward to seeing you (and others!) at future events!
+It's still too early to release any details of a possible Randomness Summit 2024, but a big thank you to everyone who came along and we look forward to seeing you (and others!) at future events!
