@@ -145,8 +145,6 @@ Under these schemes, messages are mapped to a point on $\mathbb{G}_2$ and public
 For drand however, we create a single public key at launch of the network and emit random beacons (and thus signatures) at a constant rate as long as the network is running. It is therefore more interesting to minimize the size of the signatures.
 As of [v1.5.0](https://github.com/drand/drand/releases/tag/v1.5.0-testnet) drand supports a new scheme, `bls-unchained-on-g1`, which exploits the bilinearity property of the BLS signature scheme to swap the generator groups for signatures and public keys such that signatures are created on $\mathbb{G}_1$ and public keys are a point on $\mathbb{G}_2$. This reduces the storage requirements of the node operators by 50% as well as reducing latency and costs for any downstream users that require fetching and storing random beacons (such as smart contracts).
 
-For many applications using BLS12-381, messages are large and the signature constitutes a small part of the payload size. For public-facing applications, such as in blockchain ecosystems, users of the system store their public key on a
-Many applications built with BLS12-381 create many keypairs and subsequently publish or store many public keys.
 Thus for that scheme, the following operations apply:
 
 **Key Generation**: The $n$ participants execute a $t$-of-$n$ DKG to setup a collective public key $S \in \mathbb{G}_2$, and private key shares $s_i \in \mathbb{Z}_p^{\ast}$ of the unknown collective private key $s$.
