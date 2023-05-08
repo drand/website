@@ -44,7 +44,7 @@ The world is unpredictable (just like drand randomness... heh), and it's possibl
 The former would mean that ciphertexts created for some time after the cessation of the network would be decryptable to everybody. The latter would mean that ciphertexts created for some time after the cessation of the network would be unencryptable forever (/until quantum computers can break them).
 In the interests of privacy, we felt the latter option was preferable. That said, if you encrypt the private key to your [insert cryptocurrency name] fortune to stop yourself from spending it now and the network stops... you're going to have a bad time.
 
-[1] their report is available in timelocked form [here](https://research.kudelskisecurity.com/2023/01/09/announcing-a-timelocked-responsible-disclosure/), although it was encrypted using the drand testnet, so you will need to use the [tlock go library](https://github.com/drand/tlock) to decrypt it by passing in the testnet details. All the security issues they identified have since been remediated! You can find remediation details in the github issues of the relevant repos.
+[1] part of thei report is available in timelocked form [here](https://research.kudelskisecurity.com/2023/01/09/announcing-a-timelocked-responsible-disclosure/), although it was encrypted using the drand testnet, so you will need to use the [tlock go library](https://github.com/drand/tlock) to decrypt it by passing in the testnet details. We will be releasing the full report on our blog soon, as all the issues they identified have been remediated!
 
 ## Use cases
 
