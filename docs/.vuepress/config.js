@@ -66,7 +66,8 @@ module.exports = {
             'overview',
             'cryptography',
             'security-model',
-            'specification'
+            'specification',
+            'timelock-encryption'
           ],
           '/developer/': [
             'clients',

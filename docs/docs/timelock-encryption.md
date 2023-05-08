@@ -3,7 +3,7 @@ title: Timelock Encryption
 sidebarDepth: 2
 ---
 
-# Timelock encryption
+# Timelock Encryption
 
 ## What is it?
 
@@ -18,12 +18,14 @@ In our timelock scheme, we have exploited [identity-based encryption](https://cr
 Additionally, this means that users can decrypt their timelock ciphertext *offline*, rather than requiring submission to a third party to do it for them.
 
 ## I don't have time to read all of this
+
 - [here is our blog post announcing the new network and timelock encryption](https://drand.love/blog/2023/03/28/timelock-on-fastnet/)
 - [here is Yolan's talk at Real World Crypto](https://www.youtube.com/watch?v=Xh849Ij3lhU) on timelock encryption
 - [here is the paper on eprint](https://eprint.iacr.org/2023/189)
 
 
-## ⚠️  Security assumptions ⚠️
+## ⚠️ Security assumptions ⚠️
+
 While our timelock scheme has been formally audited by reknowned security firm [Kudelski Security](https://kudelskisecurity.com)[1], as with any cryptographic scheme, it's important to understand its limitations before you go and bet the farm on it! This is not an exhaustive list, and you ought to also read the [drand security model](https://drand.love/docs/security-model/), but it's a good place to start.
 
 - **there have never been a threshold of malicious nodes in the drand network**
@@ -45,6 +47,7 @@ In the interests of privacy, we felt the latter option was preferable. That said
 [1] their report is available in timelocked form [here](https://research.kudelskisecurity.com/2023/01/09/announcing-a-timelocked-responsible-disclosure/), although it was encrypted using the drand testnet, so you will need to use the [tlock go library](https://github.com/drand/tlock) to decrypt it by passing in the testnet details. All the security issues they identified have since been remediated! You can find remediation details in the github issues of the relevant repos.
 
 ## Use cases
+
 We have identified some cool use cases for timelock encryption, but these are certainly not exhaustive - hopefully you can come up with new, innovative use cases we haven't thought of!
 
 - [responsible vulnerability disclosure](https://timevault.drand.love/)
@@ -55,7 +58,7 @@ We have identified some cool use cases for timelock encryption, but these are ce
 - voting
 - quizzes
 
-## The math bit 🧮
+## The math bit 🤓
 
 ### Encryption
 

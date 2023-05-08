@@ -19,11 +19,6 @@ features:
         link: /developer/clients/#go
       - text: JS
         link: /developer/clients/#js
-  - title: Timelock encryption
-    details: Encrypt a piece of data so that it cannot be decrypted until some time in the future has passed
-    actions:
-      - text: Specification
-        link: /docs/timelock
 ---
 
 ## Learn more
