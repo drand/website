@@ -35,7 +35,7 @@ That said, `fastnet` (our new network for timelock encryption) was started with 
 
 - **neither the scheme, nor drand are quantum resistant**
 
-The cryptography we employ do not use quantum resistant algorithms. If you timelock encrypt something for 1000 years and a viable quantum computer becomes available, anybody can decrypt it. Right now there are no widespread quantum resistant schemes for threshold cryptography, but we're keeping an eye out for the future!
+The cryptography we employ does not use quantum resistant algorithms. If you timelock encrypt something for 1000 years and a viable quantum computer becomes available, they could decrypt it. Right now there are no widespread quantum resistant schemes for threshold IBE cryptography, but we're keeping an eye out for the future!
 To that end, consider it relatively safe to timelock encrypt something for 5-20 years depending on how bullish you are on quantum computing.
 
 - **if the League of Entropy shuts down, members will delete their keys**
