@@ -81,7 +81,7 @@ A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at th
 
 A client that wishes to decrypt a ciphertext $V$ takes the associated signature of epoch $p: \pi_p$ and performs the following:
 
-1. Compute $\theta = V \oplus H_2(e(U, \pi_p))$
+1. Compute $\theta = V \oplus H_2(e(\pi_p, U))$
 
 2. Compute $M = W \oplus H_4(\theta)$
 
