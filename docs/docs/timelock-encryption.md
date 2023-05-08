@@ -65,7 +65,7 @@ We have identified some cool use cases for timelock encryption, but these are ce
 A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at the epoch $p$ will perform the following:
 
 1. Compute $\mathbb{G_{id}}= e(P, Q_{id}) = e(P,H_1(p))$, the "round public key" 
-- (this can be pre-computed per epoch, it's the same for everyone)
+    - (this can be pre-computed per epoch, it's the same for everyone)
 
 2. Choose a random $(\theta \in {0,1}^l)$, "the mask"
 
