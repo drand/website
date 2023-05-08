@@ -58,6 +58,8 @@ We have identified some cool use cases for timelock encryption, but these are ce
 - voting
 - quizzes
 
+If you can think of any more cool use cases, join the action on our slack channel and post them in the [#drand-use-cases channel](https://drandworkspace.slack.com/archives/C04UANC4P7D) for discussion!
+
 ## The math bit 🤓
 
 ### Encryption
