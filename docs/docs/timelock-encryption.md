@@ -66,7 +66,6 @@ A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at th
 
 1. Compute $\mathbb{G_{id}}= e(P, Q_{id}) = e(P,H_1(p))$, the "round public key" 
     - (this can be pre-computed per epoch, it's the same for everyone)
-
 2. Choose a random $(\theta \in {0,1}^l)$, "the mask"
 
 3. Set $r = H_3(\theta, M)$ where $H_3:{0,1}^* \to F_q$ is a secure hash function, "the ephemeral secret key"
