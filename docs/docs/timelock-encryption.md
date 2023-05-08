@@ -42,7 +42,7 @@ To that end, consider it relatively safe to timelock encrypt something for 5-20 
 
 The world is unpredictable (just like drand randomness... heh), and it's possible that the League of Entropy will all hang up their coats at some point in the future. Should that happen, members would have two choices with their private keys: release them to the world or delete them entirely.
 The former would mean that ciphertexts created for some time after the cessation of the network would be decryptable to everybody. The latter would mean that ciphertexts created for some time after the cessation of the network would be unencryptable forever (/until quantum computers can break them).
-In the interests of privacy, we felt the latter option was preferable. That said, if you encrypt the private key to your Filecoin fortune to stop yourself from spending it now and the network stops... you're going to have a bad time.
+In the interests of privacy, we felt the latter option was preferable. That said, if you encrypt the private key to your [insert cryptocurrency name] fortune to stop yourself from spending it now and the network stops... you're going to have a bad time.
 
 [1] their report is available in timelocked form [here](https://research.kudelskisecurity.com/2023/01/09/announcing-a-timelocked-responsible-disclosure/), although it was encrypted using the drand testnet, so you will need to use the [tlock go library](https://github.com/drand/tlock) to decrypt it by passing in the testnet details. All the security issues they identified have since been remediated! You can find remediation details in the github issues of the relevant repos.
 
