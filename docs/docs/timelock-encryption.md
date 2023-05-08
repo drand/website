@@ -26,7 +26,7 @@ Additionally, this means that users can decrypt their timelock ciphertext *offli
 
 ## ⚠️ Security assumptions ⚠️
 
-While our timelock scheme has been formally audited by reknowned security firm [Kudelski Security](https://kudelskisecurity.com)[1], as with any cryptographic scheme, it's important to understand its limitations before you go and bet the farm on it! This is not an exhaustive list, and you ought to also read the [drand security model](https://drand.love/docs/security-model/), but it's a good place to start.
+While our timelock scheme has been assessed for security issues by renowned security firm [Kudelski Security](https://kudelskisecurity.com)[1], as with any cryptographic scheme, it's important to understand its limitations before you go and bet the farm on it! This is not an exhaustive list, and you ought to also read the [drand security model](https://drand.love/docs/security-model/), but it's a good place to start.
 
 - **there have never been a threshold of malicious nodes in the drand network**
 
