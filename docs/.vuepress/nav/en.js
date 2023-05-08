@@ -10,8 +10,8 @@ module.exports = [
   },
   { text: 'Partner With Us', link: '/partner-with-us/' },
   { text: 'Blog', link: '/blog/' },
-  {
-    text: "We're hiring",
-    link: 'https://boards.greenhouse.io/protocollabs/jobs/4283635004'
-  }
+//  {
+//    text: "We're hiring",
+//    link: 'https://boards.greenhouse.io/protocollabs/jobs/4283635004'
+//  }
 ]
