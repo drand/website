@@ -87,8 +87,12 @@ The available scheme are:
 // DefaultSchemeID is the default scheme ID.
 const DefaultSchemeID = "pedersen-bls-chained"
 
-// UnchainedSchemeID is the scheme id used to set unchained randomness on beacons.
+// UnchainedSchemeID is the scheme ID used to set unchained randomness on beacons.
 const UnchainedSchemeID = "pedersen-bls-unchained"
+
+// ShortSigSchemeID is the scheme ID used to set unchained randomness on beacons with a reduced beacon size 
+const ShortSigSchemeID = "bls-unchained-on-g1"
+
 ```
 
 As you can notice, the default value is `pedersen-bls-chained`. This is because of backward-compatibility
