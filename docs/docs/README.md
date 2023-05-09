@@ -7,4 +7,4 @@ This section introduces the key concepts behind drand. For information about con
 - [Cryptography](/docs/cryptography/) provides an overview of the cryptographic building blocks that drand uses to generate publicly-verifiable, unbiased, and unpredictable randomness in a distributed manner.
 - [Security Model](/docs/security-model/) describes the security considerations taken into account when designing and building drand.
 - [Specification](/docs/specification/) is a formal description of the drand protocols.
-- [Timelock Encryption](/docs/timelock/) gives all the information on our Timelock Encryption scheme, and links on where to find the tools to use it.
+- [Timelock Encryption](/docs/timelock-encryption/) gives all the information on our Timelock Encryption scheme, and links on where to find the tools to use it.
