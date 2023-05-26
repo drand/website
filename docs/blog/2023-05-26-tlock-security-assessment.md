@@ -12,7 +12,7 @@ We are happy to announce that our timed release encryption scheme "[tlock](https
 
 ## Overview
 
-Kudelski Security, a renowned provider of cybersecurity solutions, was engaged to review the implementation of our timelock encryption scheme and timelock responsible disclosure demo. The work covered:
+[Kudelski Security](https://research.kudelskisecurity.com/2023/05/23/audit-of-protocol-labs-timelock-encryption/), a renowned provider of cybersecurity solutions, was engaged to review the implementation of our timelock encryption scheme and timelock responsible disclosure demo. The work covered:
 
 - `tlock`, our [Go implementation](https://github.com/drand/tlock/) as both a library and a command line tool (`tle`) for timelock encryption.
 - `tlock-js`, our interoperable [TypeScript implementation](https://github.com/drand/tlock-js/) of timelock encryption.
