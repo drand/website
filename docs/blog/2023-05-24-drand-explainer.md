@@ -22,7 +22,7 @@ Well, this blog post is the right place to uncover all the mysteries of the abov
 
 What constitutes a random number?   
 There are some fancy mathematical definitions, but stated simply: it's a number that cannot be guessed at a rate better than chance.
-Suppose we choose a random number in the range 1 and 100 (including 100). If we asked 100 people to guess our number, we would expect one of those people guess the number correctly (on average), even with a fully random selection process. 
+Suppose we choose a random number in the range 1 and 100 (including 100). If we asked 100 people to guess our number, on average only one of those people would guess the number correctly, even with a fully random selection process. 
 
 For cryptographic purposes, it's often important that two people don't select the same random random number - as an example, if two people used the same random number as their Bitcoin private key, they'd be sharing a wallet (and the wallet's funds)!  
 While this is impossible to prevent, cryptographic schemes use astronomically large number ranges (on the order of the number of atoms in the universe!) to ensure users get unique random numbers if they use proven selection methods.
@@ -31,7 +31,7 @@ While this is impossible to prevent, cryptographic schemes use astronomically la
 
 Random numbers are used by everybody daily: connecting to a website over HTTPS creates some random numbers, signing into our bank account may use some random numbers, creating a user account or purchasing an item online will generate a random user or receipt identifier; most of these (like the Bitcoin example above) are _private_ random numbers. If you shared random numbers associated with your bank account publicly, a malicious actor might be able to steal all your money.
 
-Public random numbers are a little bit different. These are numbers we _want_ everybody to see: think lottery numbers, the roll of a dice in a board game or a coin flip for who takes the kick-off in a football match.
+Public random numbers are a little bit different. These are numbers we _want_ everybody to see: think lottery numbers, the roll of a dice in a board game, selecting a business to be audited at random or a coin flip for who takes the kick-off in a football match.
 This is exactly the type of randomness that drand provides - you definitely shouldn't generate your Bitcoin private key using drand (or if you do, please tell us so we can liberate all your Bitcoin to help fund the team!).
 
 ## Verifiability
@@ -70,7 +70,7 @@ In digital signature schemes, users also create a public key. This is a mathemat
 In the human signature world, it's a little bit like your name in print being used to verify that your signature is valid (although much, much, much more secure).
 
 So why are we talking about signatures?! This post is about randomness, and I even said we need randomness to even *generate* a signature! 
-Well there are some properties of digital signatures that are particularly interesting in the scope of randomness. Given some piece of data we want to sign, it's impossible to predict the signature that would verify for that piece of data at a rate better than chance unless we have access to the private key.
+Well there are some properties of digital signatures that are particularly interesting in the scope of randomness. Given we some piece of data, an attacker who has our public key but not our private key would not be able to predict a valid signature for it (at a rate better than chance). To create a valid signature, they would have to create all possible signatures and verify them against the public key (which would take more computing power than exists in the world to do so in a reasonable time frame!).
 Additionally, there's exactly one signature that will be valid for a given message and private key combination.
 So for a signature scheme that provides [128 bit security](https://en.wikipedia.org/wiki/Security_level), we have approximately a chance of 1 in 340,282,370,000,000,000,000,000,000,000,000,000,000 of correctly guessing the signature for a given message. Those are not great odds for an attacker.
 
@@ -83,7 +83,7 @@ We're close to explaining the full opening statement now. We've identified a way
 
 Enter threshold cryptography.  
 
-Threshold cryptography is a bit like a business bank account: to reduce risk in business banking, instead of one person holding custody over the whole account, certain values of transaction require multiple parties in the business to sign off on them. A threshold signature scheme is analogous in that multiple parties must work together to create a valid signature for the whole group.
+Threshold cryptography is a bit like a business bank account: to reduce risk in business banking, instead of one person holding custody over the whole account, transaction over a certain value require multiple parties in the business to sign off on them. A threshold signature scheme is analogous in that multiple parties must work together to create a valid signature for the whole group.
 
 In practice, each party has their own private key and they sign a message with it to create a 'partial signature' (...which is itself a signature... confusing).  When enough of these partial signatures have been created, anybody can aggregate them together into a final valid signature. 
 That's an important distinction with the business bank account analogy: there's no hierarchy between signers in a threshold scheme; any group of their signatures will do - there is no CEO or CFO who calls the shots - once enough partial signatures have been created, the final signature can be created.
@@ -99,7 +99,7 @@ We've covered a looooot of ground in this post already, so let's try and pull it
 
 At the foundation of a drand network, all the parties generate their own private key and initiate a distributed key generation protocol to create a shared pair of private and public keys. Recall that *NO* single party has access to that private key.
 Every epoch (30 seconds for our default mainnet network), each party signs the same message (in this case the epoch number), and sends their partial signature to everybody else in the network.
-Upon receiving partial signatures from other parties, each party verifies the partial signature is valid, and upon reaching a threshold number of these partial signatures, aggregates them into a single valid group signature.
+Upon receiving partial signatures from other parties, each party verifies the partial signature is valid (using that party's own public key, rather than the public of the network), and upon reaching a threshold number of these partial signatures, aggregates them into a single valid group signature.
 This single group signature is effectively a random number that can be verified as having been created by the drand network.
 This randomness is released publicly so that others can verify and use it, and because drand epochs coincide with times on the clock, consumers can commit to certain future random values for use in their application (e.g. I will draw the lottery using the random number generated at 12PM tomorrow by the drand network which will be epoch 123456).
 
