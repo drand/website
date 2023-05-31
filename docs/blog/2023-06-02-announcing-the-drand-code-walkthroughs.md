@@ -13,9 +13,9 @@ tags:
 
 ## What, where and when
 
-The drand community and developer base is expanding rapidly. drand usage is gaining momentum with many applications using it to draw randomness for their systems. While our [slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) is a great place to interact with other developers and the drand core maintainers, code walkthroughs are a good way to gain a holistic view of the system, become familiar with nitty gritty details, and ask questions in real time.
+The drand community and developer base is expanding rapidly. drand usage is gaining momentum with many applications using it to draw randomness for their systems. While our [slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) is a great place to interact with other developers and the drand core maintainers, code walkthroughs are even better if one wants to gain a holistic view of the system, become familiar with nitty gritty details, and ask questions in real time.
 
-With those benefits in mind, we have designed and will be running a series of virtual code walkthroughs on the drand codebase. The series consists of eight (8) sessions, taking place every other Tuesday at 1430 UTC, starting on the 20th of June. Each session is scheduled to last approximately 45mins with 30mins for Q&A and pair programming assistance.
+With those benefits in mind, we have designed and will be running a series of virtual code walkthroughs on the drand codebase. The series consists of eight (8) sessions, taking place **every other Tuesday at 1430 UTC, starting on the 20th of June**. Each session is scheduled to last approximately 45mins with 30mins for Q&A and pair programming assistance.
 
 ## Registration
 
