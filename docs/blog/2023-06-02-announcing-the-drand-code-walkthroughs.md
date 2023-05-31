@@ -9,7 +9,7 @@ tags:
 ---
 
 
-![drand-code-walkthroughs](./images/2023-06-02-drand-code-walkthroughs/drand-code-walkthroughs.png)
+![drand-code-walkthroughs](./images/drand-code-walkthroughs.png)
 
 ## What, where and when
 
