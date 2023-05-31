@@ -31,7 +31,8 @@ The topics and brief descriptions of the code walkthrough sessions are listed be
 ### **Session 1: “What is drand and how to use its CLI and clients”**
 
 - **Dates:** Tuesday, **20th June 2023**, 1430 UTC
-- **Description:** We will explain what is the drand binary, what it does and run through all of the CLI commands and related parameters to explain how to start a node as an operator, how to sync and follow other nodes. We will also run a Distributed Key Generation (DKG), perhaps the most central part of setting up a drand network. In this session we will not go through the DKG code, which is subject to another session.
+- **Description:** We will explain what the drand binary is, what it does and run through all of the CLI commands and related parameters to explain how to start a node as an operator and how to sync and follow other nodes. We will also run a Distributed Key Generation (DKG), perhaps the most central part of setting up a drand network.  
+In this session we will not go through the DKG code, which is subject to another session.
 Finally we will do a walkthrough of the drand client libraries. There are currently two drand libraries (in Go and in JS), which we will use to consume drand randomness.
 
 ### **Session 2: “What is a drand beacon? How is it created?”**
