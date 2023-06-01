@@ -1,7 +1,7 @@
 ---
 title: "drand explainer for beginners"
 summary: "A brief primer on what drand is and how it works"
-date: 2023-05-24
+date: 2023-06-01
 author: Patrick McClurg
 tags:
     - Features
