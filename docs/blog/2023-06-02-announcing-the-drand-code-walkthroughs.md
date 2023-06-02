@@ -74,4 +74,4 @@ Finally we will do a walkthrough of the drand client libraries. There are curren
 
 We’re looking forward to an enlightening series of sessions. Please share your thoughts and feedback by joining the drand slack workspace [invitation link](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA)] and posting questions in the `#code-walkthroughs` channel. Requests for extra topics are more than welcome. The League of Entropy can also be reached through email at: `leagueofentropy [ at ] googlegroups.com`.
 
-Finally, don't forget to **register for free** to our code walkthroughs on our [registration page](https://lu.ma/drand-code-walkthroughs), see there!
+Finally, don't forget to **register for free** to our code walkthroughs on our [registration page](https://lu.ma/drand-code-walkthroughs), see you there!
