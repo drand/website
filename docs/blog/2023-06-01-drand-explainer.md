@@ -10,7 +10,7 @@ tags:
 ---
 
 
-drand is a threshold network that generates publicly verifiable random numbers.
+drand is software for running a threshold network that generates publicly verifiable random numbers.
 
 Boy, that's a mouthful.
 
@@ -32,13 +32,13 @@ While this is impossible to prevent, cryptographic schemes use astronomically la
 Random numbers are used by everybody daily: connecting to a website over HTTPS creates some random numbers, signing into our bank account may use some random numbers, creating a user account or purchasing an item online will generate a random user or receipt identifier; most of these (like the Bitcoin example above) are _private_ random numbers. If you shared random numbers associated with your bank account publicly, a malicious actor might be able to steal all your money.
 
 Public random numbers are a little bit different. These are numbers we _want_ everybody to see: think lottery numbers, the roll of a dice in a board game, selecting a business to be audited at random or a coin flip for who takes the kick-off in a football match.
-This is exactly the type of randomness that drand provides - you definitely shouldn't generate your Bitcoin private key using drand (or if you do, please tell us so we can liberate all your Bitcoin to help fund the team!).
+This is exactly the type of randomness that drand provides - you definitely shouldn't generate your Bitcoin private key using drand (or if you do, please tell us so we can liberate all your Bitcoin!).
 
 ## Verifiability
 
 In the examples of public randomness we discussed above, humans have come up with a myriad of dances to ensure fairness: lottery numbers are drawn from fancy machines built by companies dedicated to fairness, dice are shared in board games to ensure that a single player isn't using a rigged die, and a trusted third party (the referee) picks the coin and flips it to decide which team takes the kick-off.
 
-None of these solutions are really _verifiable_, but we've got established procedures around them that increase our assurance that they're fair.
+None of these solutions are really _verifiable_ and require trusting third parties (e.g. referees, manufacturers), but we've got established procedures around them that increase our assurance that they're fair.
 
 For generating random numbers fast and at scale however, it's a lot more difficult to prove fairness:
 - if I trust a third party to generate the random number, how do I know they really chose it randomly?
@@ -62,7 +62,7 @@ How then can we verify a randomly selected number was really randomly selected? 
 Digital signatures are a lot like human signatures: we take some piece of data (like a contract or a letter) and we append a message to it that uniquely identifies us and binds the signature to the piece of data.
 That said, human and digital signatures differ in a few ways:
 - human signatures map to a single person; digital signatures map to a single private key (and a person could own multiple private keys)
-- human signatures can be copied to another piece of data and still be valid; digital signatures are bound to a single piece of data (as the data is 'included' in the signature in a mathematical sense)
+- human signatures can be copied to another piece of data and still be valid; digital signatures are effectively bound to a single piece of data, as the data is 'included' in the signature in a mathematical sense (this isn't 100% true, you _could_ find another piece of data that collides with the one you're signing, but the chances are so astronomically low that it's not worth considering).
 - digital signatures are verifiable; we can run mathematical operations to verify that the person who created the signature had access to the data and the private key. This is like being able to verify the handwriting of a human signature but more precise.
 
 A small side note: private keys are a bit like a password. They're a huge (private) random number that users use in lieu of a password. They're much more secure than passwords (due to their size), and users tend to store them somewhere rather than typing them in by hand, as remembering them would take savant abilities and typing them in would tire your hands!
