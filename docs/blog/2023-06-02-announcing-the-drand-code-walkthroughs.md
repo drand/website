@@ -1,7 +1,7 @@
 ---
 title: Announcing the drand Code Walkthroughs
 summary: Join the drand core maintainers for a series of 8 sessions on the nuts and bolts of the drand codebase.
-date: 2023-06-02
+date: 2023-06-06
 tags:
    - News
    - How-to
