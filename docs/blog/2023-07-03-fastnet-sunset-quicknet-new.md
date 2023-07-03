@@ -1,7 +1,7 @@
 ---
 title: "`fastnet` is being sunset, long live `quicknet`"
 summary: "After identifying a non-compliance issue with the BLS RFC on G1, we are launching a new RFC compliant quicknet network to replace fastnet."
-date: 2023-06-30
+date: 2023-07-03
 author: Yolan Romailler
 tags:
     - News
