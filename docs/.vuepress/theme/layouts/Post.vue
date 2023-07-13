@@ -22,6 +22,10 @@
               >{{ tag }}</router-link
             >
           </span>
+          <span class="meta">
+            <img src="/images/icon-twitter.svg" />
+            <TweetButton :url="$page.path" :text="$page.title" />
+          </span>
         </div>
       </template>
     </ParentLayout>
@@ -31,11 +35,13 @@
 <script>
 import ParentLayout from '@parent-theme/layouts/Layout.vue'
 import dayjs from 'dayjs'
+import TweetButton from '../components/TweetButton.vue'
 
 export default {
   name: 'Post',
   components: {
-    ParentLayout
+    ParentLayout,
+    TweetButton
   },
   methods: {
     resolvePostTags(tags) {
