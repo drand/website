@@ -9,7 +9,7 @@ export default {
     tweetUrl() {
       const tweetText = encodeURIComponent(this.text)
       const tweetUrl = encodeURIComponent(this.url)
-      return `https://twitter.com/intent/tweet?text=${tweetText}&url=${tweetUrl}`
+      return `https://twitter.com/intent/tweet?text=${tweetText}&url=https://drand.love${tweetUrl}`
     }
   }
 }
