@@ -85,7 +85,7 @@ A client that wishes to decrypt a ciphertext $C$ takes the associated signature 
 1. Compute $\theta = V \oplus H_2(e(\pi_p, U))$
 2. Compute $M = W \oplus H_4(\theta)$
 3. Set $r = H_3(\theta, M)$
-4. Test that $U = rG_1 $ if not, reject
+4. Test that $U = rG_1$ if not, reject
 5. $M$ is the corresponding plaintext
 
 
