@@ -19,7 +19,7 @@ they will be untrustworthy. It’s the trustworthy you can’t trust.
 > – Captain Jack Sparrow
 > 
 
-If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. And if you have delved deep into pirate lore, you will definitely know their unspoken rule: never trust anyone.  
+If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. And if you have delved deep into pirate lore, you will definitely know their unspoken rule: never trust anyone and anything.
 
 ## Scenario:
 
@@ -71,7 +71,7 @@ That means that at the end, each pirate will have four shares created including 
 
 **🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each should have a share from the others. 
 
-![graph](./images/graph.png)
+![graph](./images/graph.jpg)
 
 **🏴‍☠️** The next step requires that each pirate aggregates their shares. This one will be their final share that they need for the key. 
 
