@@ -29,7 +29,7 @@ To improve his chances, the crafty Sparrow creates a team of those pirates. At t
 
 ![Pirates around a map](./images/2023-09-06-dkg/pirates-map.png)
 
-One pirate proposes that Jack create copies of the map for each member. But trust is a rare commodity among pirates. Instead, Sparrow devises a cunning plan: he divides the map into pieces, giving each pirate a fragment. This ensures that the treasure can only be located when enough of the pieces are together, making each piece of the puzzle indispensable.
+One pirate proposes that Jack creates a copy of the map for each member. But trust is a rare commodity among pirates. Instead, Sparrow devises a cunning plan: he divides the map into pieces, giving each pirate a fragment. This ensures that the treasure can only be located when enough of the pieces are together, making each piece of the puzzle indispensable.
 
 ![pirates sharing pieces of the map](./images/2023-09-06-dkg/pirate.gif)
 
