@@ -122,7 +122,7 @@ In the early 90s, Pedersen initially introduced the DKG scheme. The security in 
 
 🙄⚓**2006**: **[Gennaro et al.](https://link.springer.com/article/10.1007/s00145-006-0347-3)** 
 
-Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can influence the contribution of the public key in a way that is not being uniformly chosen randomly. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol.
+Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can influence the contribution of the public key in a way that is not being uniformly chosen randomly. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol. But future research always finds ways to amaze us ...
 
 😃 🏊🏾‍♂️ **2007**:  **[Rabin et al.](https://link.springer.com/content/pdf/10.1007/3-540-48910-X_21.pdf)** 
 
