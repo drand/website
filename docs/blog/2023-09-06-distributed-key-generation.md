@@ -19,7 +19,7 @@ they will be untrustworthy. It’s the trustworthy you can’t trust.
 > – Captain Jack Sparrow
 > 
 
-If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. And if you have delved deep into pirate lore, you will definitely know their unspoken rule: never trust anyone or anything.
+If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. But if you have truly delved deep into pirate lore, you will definitely know their unspoken rule: never trust anyone or anything.
 
 ## Scenario:
 
