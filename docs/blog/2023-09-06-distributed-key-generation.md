@@ -49,7 +49,7 @@ In a nutshell:
 2. Then each participant gets a share, which is a point on this polynomial.
 3. In order to reconstruct the polynomial, and reveal the secret we need t participants to be involved. Otherwise, the secret cannot be revealed.
 
-The above works under the context that we have a certain entity, named the Dealer that is responsible for the sharing. However thinking that the dealer is an honest entity, is not the best assumption. The dealer still knows the secret and the polynomial, and thus becomes a single point of failure. 
+The above works under the context that we have a certain entity, named the Dealer, who is responsible for the sharing. However assuming that the dealer is an honest entity is not a wise assumption. The dealer still knows the secret and the polynomial, and thus becomes a single point of failure. 
 
 # DKGs:
 
