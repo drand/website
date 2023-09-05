@@ -25,7 +25,7 @@ If you're familiar with "Pirates of the Caribbean", you'll remember how tricky p
 
 Imagine you're at a pirate gathering in the heart of the Caribbean. Captain Jack Sparrow has just discovered information on the most magnificent treasure ever known. However, he overhears whispers that other pirates are also on the trail.
 
-To improve his chances, the crafty Sparrow determines a team of those pirates. At their first meeting, the pirates decide to combine their own clues to create the greatest possible treasure map. Jack, as the leader, is entrusted with this critical responsibility. But, before embarking on their expedition, they know the significance of thorough planning. Here is where a big dilemma arises: how can they ensure no single pirate betrays the rest and goes after the treasure alone?
+To improve his chances, the crafty Sparrow creates a team of those pirates. At their first meeting, the pirates decide to combine their own clues to create the greatest possible treasure map. Jack, as the leader, is entrusted with this critical responsibility. But, before embarking on their expedition, they know the significance of thorough planning. Here is where a big dilemma arises: how can they ensure no single pirate betrays the rest and goes after the treasure alone?
 
 ![Pirates around a map](./images/2023-09-06-dkg/pirates-map.png)
 
