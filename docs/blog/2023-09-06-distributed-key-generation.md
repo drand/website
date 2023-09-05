@@ -65,9 +65,9 @@ Let’s say that we have pirates A, B C, and we cannot forget Jack. We can say n
 
 That means that at the end, each pirate will have four shares created including his/her own.
 
-🙍🏾Jack : {s_Jack, s_A, s_B, s_C}    🙍🏾‍♂️A: { s_A, s_Jack, s_B, s_C}
+🙍🏾Jack : {s_Jack, s_A, s_B, s_C}           🙍🏾‍♂️A: { s_A, s_Jack, s_B, s_C}
 
-🙍🏾‍♀️B: { s_B, s_Jack, s_A, s_C}         🥷🏾C: {s_C, s_Jack, s_A, s_B}
+🙍🏾‍♀️B: { s_B, s_Jack, s_A, s_C}              🥷🏾C: {s_C, s_Jack, s_A, s_B}
 
 **🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each should have a share from the others. 
 
@@ -116,11 +116,11 @@ Check this out:
 
 There has been considerable debate and, in some quarters, a level of confusion regarding the security aspects of Pedersen's DKG. To provide a clearer understanding of the evolving perspectives on its security, it's beneficial to delve into a brief timeline that outlines key milestones in the research focused on this framework.
 
-😃 🏊🏾‍♂️ ****1991: Pedersen**** 
+😃 🏊🏾‍♂️ **1991: Pedersen**
 
 In the early 90s, Pedersen initially introduced the DKG scheme. The security in the initial scheme lies in the security of the Joint-Feldman Protocol for verifiable secret sharing during the secret-sharing process
 
-🙄⚓**********2006: [Gennaro et al.](https://link.springer.com/article/10.1007/s00145-006-0347-3)** 
+🙄⚓**2006**: **[Gennaro et al.](https://link.springer.com/article/10.1007/s00145-006-0347-3)** 
 
 Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can influence the contribution of the public key in a way that is not being uniformly chosen randomly. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol.
 
