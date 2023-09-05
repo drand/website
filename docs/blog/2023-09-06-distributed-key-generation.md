@@ -57,7 +57,7 @@ As previously outlined, secret-sharing methods rely on a single dealer who is pr
 
 To demonstrate this, let’s go back to our pirate example. 
 
-Let’s say that we have Pirate A, B C, and we cannot forget Jack. We can say now that the secret is the actual gold of the treasure box, and the box is protected with a secret code, the key. The distribution now involves all four of them to contribute to the randomness of the key. 
+Let’s say that we have pirates A, B C, and we cannot forget Jack. We can say now that the secret is the actual gold of the treasure box, and the box is protected with a secret code - the key. The distribution now involves all four of them contributing to the randomness of the key. 
 
 **🏴‍☠️ First Step:** Each of the pirates (Pirates A, B, C, and Jack) agrees to jointly create a secret key to a treasure box. But none of them should have the complete key on their own.
 
