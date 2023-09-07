@@ -49,7 +49,7 @@ In a nutshell:
 2. Then each participant gets a share, which is a point on this polynomial.
 3. In order to reconstruct the polynomial, and reveal the secret we need t participants to be involved. Otherwise, the secret cannot be revealed.
 
-The above works under the context that we have a certain entity, named the Dealer, who is responsible for the sharing. However assuming that the dealer is an honest entity is not a wise assumption. The dealer still knows the secret and the polynomial, and thus becomes a single point of failure. 
+The above works under the context that we have a certain entity, named the Dealer, who is responsible for the sharing. However, assuming that the dealer is an honest entity is not a wise assumption. The dealer still knows the secret and the polynomial, and thus becomes a single point of failure. 
 
 # DKGs:
 
@@ -131,15 +131,15 @@ In the early 90s, Pedersen initially introduced the DKG scheme. The security in 
 
 🙄⚓**2006**: **[Gennaro et al.](https://link.springer.com/article/10.1007/s00145-006-0347-3)** 
 
-Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can craft their contribution in a way that can influence the group public key such that is not being uniformly random. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol. But future research always finds ways to amaze us ...
+Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can craft their contribution in a way that can influence the group public key such that is not uniformly random. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol. But future research always finds ways to amaze us ...
 
 😃 🏊🏾‍♂️ **2007**:  **[Rabin et al.](https://link.springer.com/content/pdf/10.1007/3-540-48910-X_21.pdf)** 
 
 In this 2007 study, Rabin et al. provided a series of security proofs showing that Feldman's (VSS) was susceptible to malicious inputs in Pedersen's (DKG). However, the same article also notes in Section 5 that Joint-Feldman (JF-DKG) has a beneficial attribute: it prevents any adversary from producing an output that allows the computation of its discrete logarithm. This feature is sufficiently robust to enable the construction of secure threshold signature schemes. Therefore, it makes Pedersen’s initial DKG sufficient for threshold signing. 
 
-😃 🏊🏾‍♂️ **2021: [Gurkan et al](https://eprint.iacr.org/2021/005).**
+😃 🏊🏾‍♂️ **2021**: **[Gurkan et al](https://eprint.iacr.org/2021/005).**
 
-In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided proof that using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol.
+In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided formal proof that states using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol. This is relevant as Drand utilizes the BLS signatures that have been proven secure, and allow efficiency without additional rounds. 
 
 # ***The Future: Asynchronous DKG Algorithms***
 
