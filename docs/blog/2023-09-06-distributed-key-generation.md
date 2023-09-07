@@ -102,7 +102,7 @@ From a high-level perspective, the protocol can be divided into three distinct p
 | --- | --- | --- | --- | --- | --- | --- |
 | Sync. | 1/2 | No | ✅ | $O(n\mathcal{B}(\kappa t))$ | $O(n^2)$ | $O(R)$ |
 
-Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa) represents the communication cost of Byzantine Broadcast and $R$ it's round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
+Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa)$ represents the communication cost of Byzantine Broadcast and $R$ it's round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
 
 
 
