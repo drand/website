@@ -45,7 +45,7 @@ The most famous secret-sharing scheme was introduced by Adi Shamir in 1979 and i
 
 In a nutshell: 
 
-1. For a given secret s, a polynomial φ of degree t-1, where t is the threshold, is chosen so that the constant term of this polynomial, the value φ(0) in other words, is the secret.
+1. For a given secret 's', a polynomial 'φ' of degree 't'-1, where t is the threshold, is chosen so that the constant term of this polynomial, the value φ(0) in other words, is the secret.
 2. Then each participant gets a share, which is a point on this polynomial.
 3. In order to reconstruct the polynomial, and reveal the secret we need t participants to be involved. Otherwise, the secret cannot be revealed.
 
@@ -69,7 +69,7 @@ That means that at the end, each pirate will have four shares created including 
 
 🙍🏾‍♀️B: { s_B, s_Jack, s_A, s_C}              🥷🏾C: {s_C, s_Jack, s_A, s_B}
 
-**🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each should have a share from the others. 
+**🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each pirate  should have one share from each other pirates, including themselves. Therefore, for example, Jack must have 4 shares, 3 from A, B, C and 1 from his own.
 
 ![graph](./images/2023-09-06-dkg/graph.jpg)
 
@@ -84,7 +84,7 @@ That means that at the end, each pirate will have four shares created including 
 
 The beauty of DKG is its decentralized nature. Since every pirate contributes equally to the randomness of the key, it's incredibly difficult for an outside adversary to determine the full secret key without access to the requisite number of shares. Moreover, the process guarantees that even if a pirate tries to cheat and distribute false shares they can be detected and potentially excluded from the protocol.
 
-Overall, DKG algorithms are an amazing research area and they can be used securely in a variety of cryptographic operations, like generating secret keys for signing or validating. Furthermore, by allowing DKG to be placed,  the power is spread among the participants, reducing the risk of a single point of failure and increasing the overall security of the network.
+Overall, DKG algorithms are an amazing research area and they can be used securely in a variety of cryptographic operations, like generating secret keys for signing or validating. Furthermore, by allowing DKG to take place,  the power is spread among the participants, reducing the risk of a single point of failure and increasing the overall security of the network.
 
 # Drand’s DKG Approach:
 
@@ -100,7 +100,11 @@ From a high-level perspective, the protocol can be divided into three distinct p
 
 | Network Model | Fault tolerance | Adaptive adversary | Discrete log key | CommunicationComplexity | Comp. Complexity | Round Complexity |
 | --- | --- | --- | --- | --- | --- | --- |
-| Sync. | 1/2 | No | ✅ | $O(n\mathcal{B}(\kappa t))$ | $O(nt^3)$ | $O(R)$ |
+| Sync. | 1/2 | No | ✅ | $O(n\mathcal{B}(\kappa t))$ | $O(n^2)$ | $O(R)$ |
+
+Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa) represents the communication cost of Byzantine Broadcast and $R$ it's round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
+
+
 
 ### Implementation: The Kyber Library 💻:
 
@@ -122,7 +126,7 @@ In the early 90s, Pedersen initially introduced the DKG scheme. The security in 
 
 🙄⚓**2006**: **[Gennaro et al.](https://link.springer.com/article/10.1007/s00145-006-0347-3)** 
 
-Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can influence the contribution of the public key in a way that is not being uniformly chosen randomly. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol. But future research always finds ways to amaze us ...
+Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they showed that a potential adversary can craft their contribution in a way that can influence the group public key such that is not being uniformly random. Therefore, the adversary can take the advantage to compromise two of the participants and gain information about the private key, which means it leaks information about the secret. As a result, this is a sinking phase for Pedersen, as it shows that it cannot be used as a secure DKG protocol. But future research always finds ways to amaze us ...
 
 😃 🏊🏾‍♂️ **2007**:  **[Rabin et al.](https://link.springer.com/content/pdf/10.1007/3-540-48910-X_21.pdf)** 
 
@@ -130,24 +134,34 @@ In this 2007 study, Rabin et al. provided a series of security proofs showing th
 
 😃 🏊🏾‍♂️ **************2021: [Gurkan et al](https://eprint.iacr.org/2021/005).**
 
-In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF schemes. Specifically, they provided proof that using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol.
+In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided proof that using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol.
 
 # ***The Future: Asynchronous DKG Algorithms***
 
-Looking ahead, one exciting development in the world of DKG is the adoption of asynchronous algorithms. Traditional DKG protocols often rely on synchronous communication assumptions, where participants have to wait for messages from others before proceeding.
+Looking ahead, one exciting development in the world of DKG is the adoption of asynchronous algorithms. Traditional DKG protocols often rely on synchronous communication assumptions, where participants operate in rounds, waiting until the end of each round before proceeding.
 
-The adoption of asynchronous DKG algorithms aims to enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems.
+The adoption of asynchronous DKG algorithms aims to enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems. It will allow to turn around based on the messages received in asynchronous mode and not rounds.
 
 The latest advanced DKG protocol presented is [Bingo](https://eprint.iacr.org/2022/1759.pdf) 🀞🀞:
 
 - Interesting components adjusted in Bingo:
-    - [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html)
-    - [KZG Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
-    - [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography)
-    - Asynchrony
+    - [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html) (Allows to achieve an f-sharing to achieve a packed VSS)
+    - [KZG Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html) (For the creation of Bivariate Polynomial Commitment Scheme to obtain
+      adaptive security )
+    - [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography) (As required by the KZG commitments) 
+    - Utilization in asynchronous settings.
     
 - Advantages in Security:
-    - Adaptive Adversaries:  within the domain of (DKG) security, the primary focus has often been on passive adversaries—those that can merely observe information. However, Bingo marks a pivotal advancement as it is the first (ADKG) protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.
+    - Adaptive Adversaries:  Within the domain of (DKG) security, the primary focus has often been on passive adversaries—those that can merely observe information. However, Bingo marks a pivotal advancement as it is the first (ADKG) protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.
+      - But what is an adaptive adversary?
+        Taking again the pirate analogy. Consider the scenario that our four pirates are sailing across the sea peacefully everyone having their shares.
+        However, the winds of the sea carry whispers, and soon the famous pirate Blackhead catches wind of this treasure. Unlike any other pirate, Blackhead is the notion
+        of adaptability. When one of his strategies fails, he quickly shifts to another.
+        He decides that he wants to corrupt some of the pirates to obtain the shares and find the way to the treasures himself. He makes a plan but without a strategy that
+        defines it. He sails the water to attack the other’s pirate ships but he is ready to adapt to any difficulties or weather that he might face.
+        Blackhead's approach mirrors that of an adaptive adversary in the DKG world. Just as Blackhead adjusts to the unpredictable nature of the sea, an adaptive adversary
+        in our world can adjust to network changes, evolving defences always seeking a way to achieve its objective.
+        
 
 Distributed Key Generation (DKG) algorithms are a rich field with unlimited possibilities and innovations. The progress made in enhancing security and scalability, particularly against adaptive adversaries, is a testament to the continuous progress in this area. As we explore this fascinating intersection of cryptography, distributed systems, and security, it becomes increasingly clear that we are part of a wonderful world that is continuously evolving.
 
