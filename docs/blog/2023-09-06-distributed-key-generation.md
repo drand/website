@@ -73,9 +73,10 @@ That means that at the end, each pirate will have four shares created including 
 
 ![graph](./images/2023-09-06-dkg/graph.jpg)
 
-**🏴‍☠️** The next step requires that each pirate aggregates their shares. This one will be their final share that they need for the key. 
+**🏴‍☠️**  The next step of the process, is that each pirate combines the received shares to create their final secret share for the construction of the key. Therefore, now 4 new individual aggregate shares will be 
+constructed that when interpolated together reveal the polynomial.
 
-**🏴‍☠️ Reconstruction:** Based on a given threshold, the pirates can reconstruct the secret. What this eventually means is that a subset of pirates more or equal to a specific threshold t can combine their final aggregated shares to reconstruct the polynomial and thus the secret.
+**🏴‍☠️ Reconstruction:** Based on a given threshold, the pirates can reconstruct the secret. What this eventually means is that a subset of pirates more or equal to a specific threshold 't' can combine their final aggregated shares to reconstruct the polynomial and thus the secret.
 
 ![hooray.gif](./images/2023-09-06-dkg/hooray.gif)
 
@@ -104,6 +105,12 @@ From a high-level perspective, the protocol can be divided into three distinct p
 
 Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa)$ represents the communication cost of Byzantine Broadcast and $R$ it's round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
 
+### Resharing ###
+An operation of DKG, important for Drand is resharing. Resharing allows for the addition and removal of new participants, in the node while maintaining the distributed key. In this case,  
+we have an initial group of nodes labelled as A, which has already executed the DKG protocol and possesses portions of a distributed private. This group aims to redistribute their portions 
+to another set of nodes, labelled as B. The B group nodes initially have no shares but are aware of the long-term public keys of the A group nodes. The goal is that after resharing, the B group nodes can utilize their updated shares for randomness generation. However, the A group nodes will be excluded from generating randomness alongside the B group nodes. 
+
+More information about the resharing of Drand: [Resharing](https://drand.love/docs/specification/#setup-phase)
 
 
 ### Implementation: The Kyber Library 💻:
