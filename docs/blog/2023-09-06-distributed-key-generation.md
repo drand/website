@@ -155,10 +155,13 @@ The latest advanced DKG protocol presented is [Bingo](https://eprint.iacr.org/20
     - Adaptive Adversaries:  Within the domain of (DKG) security, the primary focus has often been on passive adversaries—those that can merely observe information. However, Bingo marks a pivotal advancement as it is the first (ADKG) protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.
       - But what is an adaptive adversary?
         Taking again the pirate analogy. Consider the scenario that our four pirates are sailing across the sea peacefully everyone having their shares.
+        
         However, the winds of the sea carry whispers, and soon the famous pirate Blackhead catches wind of this treasure. Unlike any other pirate, Blackhead is the notion
         of adaptability. When one of his strategies fails, he quickly shifts to another.
+        
         He decides that he wants to corrupt some of the pirates to obtain the shares and find the way to the treasures himself. He makes a plan but without a strategy that
         defines it. He sails the water to attack the other’s pirate ships but he is ready to adapt to any difficulties or weather that he might face.
+        
         Blackhead's approach mirrors that of an adaptive adversary in the DKG world. Just as Blackhead adjusts to the unpredictable nature of the sea, an adaptive adversary
         in our world can adjust to network changes, evolving defences always seeking a way to achieve its objective.
         
