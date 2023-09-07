@@ -132,7 +132,7 @@ Gennaro et al. took the Joint-Feldman protocol as described by Pedersen and they
 
 In this 2007 study, Rabin et al. provided a series of security proofs showing that Feldman's (VSS) was susceptible to malicious inputs in Pedersen's (DKG). However, the same article also notes in Section 5 that Joint-Feldman (JF-DKG) has a beneficial attribute: it prevents any adversary from producing an output that allows the computation of its discrete logarithm. This feature is sufficiently robust to enable the construction of secure threshold signature schemes. Therefore, it makes Pedersen’s initial DKG sufficient for threshold signing. 
 
-😃 🏊🏾‍♂️ **************2021: [Gurkan et al](https://eprint.iacr.org/2021/005).**
+😃 🏊🏾‍♂️ **2021: [Gurkan et al](https://eprint.iacr.org/2021/005).**
 
 In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided proof that using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol.
 
