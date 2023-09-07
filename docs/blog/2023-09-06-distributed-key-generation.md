@@ -93,7 +93,8 @@ Overall, DKG algorithms are an amazing research area and they can be used secure
 
 From a high-level perspective, the protocol can be divided into three distinct phases:
 
-1. **Share Distribution:**  Each participant generates a random secret and distributes it to the other participants using Feldman's VSS. Then, each party sends a unique share to every other member and publicly broadcasts a list of commitments.
+1. **Share Distribution:**  Each participant generates a random secret and distributes it to the other participants using Feldman's VSS. Then, each party sends a unique share to every other member and publicly broadcasts a list of commitments. A commitment can be seen as a digital analogue of an envelope ✉️ that has been sealed. The envelope provided hiding until it is opened and binding as it is sealed, exactly like a commitment. 
+
 2. **Verification Phase:** Each participant verifies the received shares they have received from other participants. If a participant identifies an incorrect or invalid share, they issue a public complaint against the sender. The accused party must then either correct the share or risk being deemed an unreliable dealer.
 3. **Finalization Phase:** During the final phase, all verified shares from every participant are aggregated. However, any participant found to be unreliable or invalid during the verification stage is excluded from this aggregation
 
@@ -103,13 +104,12 @@ From a high-level perspective, the protocol can be divided into three distinct p
 | --- | --- | --- | --- | --- | --- | --- |
 | Sync. | 1/2 | No | ✅ | $O(n\mathcal{B}(\kappa t))$ | $O(n^2)$ | $O(R)$ |
 
-Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa)$ represents the communication cost of Byzantine Broadcast and $R$ it's round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
+Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa)$ represents the communication cost of Byzantine Broadcast and $R$ its round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
 
 ### Resharing ###
 An operation of DKG, important for Drand is resharing. Resharing allows for the addition and removal of new participants, in the node while maintaining the distributed key. In this case,  we have an initial group of nodes labelled as A, which has already executed the DKG protocol and possesses portions of a distributed private. This group aims to redistribute their portions  to another set of nodes, labelled as B. The B group nodes initially have no shares but are aware of the long-term public keys of the A group nodes. The goal is that after resharing, the B group nodes can utilize their updated shares for randomness generation. However, the A group nodes will be excluded from generating randomness alongside the B group nodes. 
 
 More information about the resharing of Drand: [Resharing](https://drand.love/docs/specification/#setup-phase)
-
 
 ### Implementation: The Kyber Library 💻:
 
@@ -145,9 +145,9 @@ In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way
 
 Looking ahead, one exciting development in the world of DKG is the adoption of asynchronous algorithms. Traditional DKG protocols often rely on synchronous communication assumptions, where participants operate in rounds, waiting until the end of each round before proceeding.
 
-The adoption of asynchronous DKG algorithms aims to enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems. It will allow to turn around based on the messages received in asynchronous mode and not rounds.
+The adoption of asynchronous DKG algorithms aims to enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems.
 
-The latest advanced DKG protocol presented is [Bingo](https://eprint.iacr.org/2022/1759.pdf) 🀞🀞:
+The latest DKG protocol presented in the literature is [Bingo](https://eprint.iacr.org/2022/1759.pdf) 🀞🀞:
 
 - Interesting components adjusted in Bingo:
     - [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html) (Allows to achieve an f-sharing to achieve a packed VSS)
@@ -159,16 +159,7 @@ The latest advanced DKG protocol presented is [Bingo](https://eprint.iacr.org/20
 - Advantages in Security:
     - Adaptive Adversaries:  Within the domain of (DKG) security, the primary focus has often been on passive adversaries—those that can merely observe information. However, Bingo marks a pivotal advancement as it is the first (ADKG) protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.
       - But what is an adaptive adversary?
-        Taking again the pirate analogy. Consider the scenario that our four pirates are sailing across the sea peacefully everyone having their shares.
-        
-        However, the winds of the sea carry whispers, and soon the famous pirate Blackhead catches wind of this treasure. Unlike any other pirate, Blackhead is the notion
-        of adaptability. When one of his strategies fails, he quickly shifts to another.
-        
-        He decides that he wants to corrupt some of the pirates to obtain the shares and find the way to the treasures himself. He makes a plan but without a strategy that
-        defines it. He sails the water to attack the other’s pirate ships but he is ready to adapt to any difficulties or weather that he might face.
-        
-        Blackhead's approach mirrors that of an adaptive adversary in the DKG world. Just as Blackhead adjusts to the unpredictable nature of the sea, an adaptive adversary
-        in our world can adjust to network changes, evolving defences always seeking a way to achieve its objective.
+        An adaptive adversary represents a malicious entity trying to corrupt nodes with the advantage that can adapt to the environment and responses from the environment as part of the attack.
         
 
 Distributed Key Generation (DKG) algorithms are a rich field with unlimited possibilities and innovations. The progress made in enhancing security and scalability, particularly against adaptive adversaries, is a testament to the continuous progress in this area. As we explore this fascinating intersection of cryptography, distributed systems, and security, it becomes increasingly clear that we are part of a wonderful world that is continuously evolving.
