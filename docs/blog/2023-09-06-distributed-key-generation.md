@@ -10,7 +10,7 @@ tags:
 
 # Treasure Hunting Together: An Exploration of the Beauty of Distributed Key Generation Algorithms
 
-Inspired by the work of [Rosario Gennaro](https://www-cs.ccny.cuny.edu/~rosario/)
+Inspired by the work of [Rosario Gennaro](https://www-cs.ccny.cuny.edu/~rosario/) 
 
 > You can always trust the untrustworthy because you can always trust that 
 they will be untrustworthy. It’s the trustworthy you can’t trust.
@@ -19,7 +19,7 @@ they will be untrustworthy. It’s the trustworthy you can’t trust.
 > – Captain Jack Sparrow
 > 
 
-If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. But if you have truly delved deep into pirate lore, you will definitely know their unspoken rule: never trust anyone or anything.
+If you're familiar with "Pirates of the Caribbean", you'll remember how tricky pirates can be. But if you have truly delved deep into pirate lore, you will definitely know that you should never trust a pirate.
 
 ## Scenario:
 
