@@ -10,7 +10,7 @@ tags:
 
 # Treasure Hunting Together: An Exploration of the Beauty of Distributed Key Generation Algorithms
 
-Inspired by the work of [Rosario Gennaro](https://www-cs.ccny.cuny.edu/~rosario/) 
+Inspired by the work of [Rosario Gennaro](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiToZ_D15iBAxU7QkEAHfWfAjIQFnoECA8QAQ&url=https%3A%2F%2Fdspace.mit.edu%2Fbitstream%2Fhandle%2F1721.1%2F11014%2F35957538-MIT.pdf%3Fsequence%3D2&usg=AOvVaw0L2voltxQPmSz27PD5zp6o&opi=89978449), [Johannes Blömer](https://link.springer.com/chapter/10.1007/978-3-642-15328-0_17) and 
 
 > You can always trust the untrustworthy because you can always trust that 
 they will be untrustworthy. It’s the trustworthy you can’t trust.
