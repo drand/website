@@ -150,14 +150,15 @@ Looking ahead, one exciting development in the world of DKG is the adoption of a
 The adoption of asynchronous DKG algorithms aims to be more realistic in term of network assumptions and therefore enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems.
 
 One of the latest DKG protocol presented in the literature is [Bingo](https://eprint.iacr.org/2022/1759.pdf) and it has retained our attention given its:
-    - Usage of well known [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html)
-    - Usage of [KZG Polynomial Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
-    - Usage of [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography)
-    - Utilization in asynchronous settings.
-    - State of the art complexity (cubic word complexity, constant rounds)
-    - Security against Adaptive Adversaries:  Within the domain of DKG security, the primary focus has often been on fixed, given adversaries. However, Bingo is among the first asynchronous protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.  
-      But what is an adaptive adversary?
-      An adaptive adversary represents a malicious entity able to corrupt nodes with the advantage that it can adapt to the protocol as part of the attack, and even change the set of corrupted nodes during the execution of the protocol, from one step to the other.
+
+- Usage of well known [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html)
+- Usage of [KZG Polynomial Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
+- Usage of [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography)
+- Utilization in asynchronous settings.
+- State of the art complexity (cubic word complexity, constant rounds)
+- Security against Adaptive Adversaries:  in DKG security, the primary focus has often been on fixed, given adversaries. However, Bingo is among the first asynchronous protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.  
+  _But what is an adaptive adversary?_
+  An adaptive adversary represents a malicious entity able to corrupt nodes with the advantage that it can adapt to the protocol as part of the attack, and even change the set of corrupted nodes during the execution of the protocol, from one step to the other.
 
 As you can see, Distributed Key Generation (DKG) algorithms are a rich field with many ongoing innovations. 
 The drand team has started looking into possibly implementing Bingo or another ADKG in practice in order to improve our current DKG system.
