@@ -66,10 +66,10 @@ Let’s say that we have pirates A, B C, and we cannot forget Jack. We can say n
 That means that at the end, each pirate will have four shares created including his/her own.
 
 
-🙍🏾 Jack: $`{s^{Jack}_{Jack}, s^{Jack}_A, s^{Jack}_B, s^{Jack}_C}`$  
-🙍🏾‍♂️ A: $`{ s^A_A, s^A_{Jack}, s^A_B, s^a_C}`$  
-🙍🏾‍♀️ B: $`{s^B_B, s^B_{Jack}, s^B_A, s^B_C}`$  
-🥷🏾 C: $`{s^C_C, s^C_{Jack}, s^C_A, s^C_B}`$  
+🙍🏾 Jack: ${s^{Jack}_{Jack}, s^{Jack}_A, s^{Jack}_B, s^{Jack}_C}$  
+🙍🏾‍♂️ A: ${ s^A_A, s^A_{Jack}, s^A_B, s^a_C}$  
+🙍🏾‍♀️ B: ${s^B_B, s^B_{Jack}, s^B_A, s^B_C}$  
+🥷🏾 C: ${s^C_C, s^C_{Jack}, s^C_A, s^C_B}$  
 
 **🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each pirate  should have one share from each other pirates, including themselves. Therefore, for example, Jack must have 4 shares, 3 from A, B, C and 1 from his own.
 
