@@ -45,7 +45,7 @@ The most famous secret-sharing scheme was introduced by Adi Shamir in 1979 and i
 
 In a nutshell: 
 
-1. For a given secret 's', a polynomial 'φ' of degree 't'-1, where t is the threshold, is chosen so that the constant term of this polynomial, the value φ(0) in other words, is the secret.
+1. For a given secret $s$, a polynomial $\phi$ of degree $t-1$, where $t$ is the threshold, is chosen so that the constant term of this polynomial, the value $\phi(0)$ in other words, is the secret.
 2. Then each participant gets a share, which is a point on this polynomial.
 3. In order to reconstruct the polynomial, and reveal the secret we need t participants to be involved. Otherwise, the secret cannot be revealed.
 
@@ -61,13 +61,15 @@ Let’s say that we have pirates A, B C, and we cannot forget Jack. We can say n
 
 **🏴‍☠️ First Step:** Each of the pirates (Pirates A, B, C, and Jack) agrees to jointly create a secret key to a treasure box. But none of them should have the complete key on their own.
 
-**🏴‍☠️ Generation:** Jack creates a polynomial of a degree t and distributes shares to the other pirates including himself. A does the same, and B and C follow too.
+**🏴‍☠️ Generation:** Jack creates a polynomial of a degree $t$ and distributes shares to the other pirates including himself. A does the same, and B and C follow too.
 
 That means that at the end, each pirate will have four shares created including his/her own.
 
-🙍🏾Jack : {s_Jack, s_A, s_B, s_C}           🙍🏾‍♂️A: { s_A, s_Jack, s_B, s_C}
 
-🙍🏾‍♀️B: { s_B, s_Jack, s_A, s_C}              🥷🏾C: {s_C, s_Jack, s_A, s_B}
+🙍🏾 Jack: $`{s^{Jack}_{Jack}, s^{Jack}_A, s^{Jack}_B, s^{Jack}_C}`$  
+🙍🏾‍♂️ A: $`{ s^A_A, s^A_{Jack}, s^A_B, s^a_C}`$  
+🙍🏾‍♀️ B: $`{s^B_B, s^B_{Jack}, s^B_A, s^B_C}`$  
+🥷🏾 C: $`{s^C_C, s^C_{Jack}, s^C_A, s^C_B}`$  
 
 **🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each pirate  should have one share from each other pirates, including themselves. Therefore, for example, Jack must have 4 shares, 3 from A, B, C and 1 from his own.
 
@@ -76,7 +78,7 @@ That means that at the end, each pirate will have four shares created including 
 **🏴‍☠️**  The next step of the process, is that each pirate combines the received shares to create their final secret share for the construction of the key. Therefore, now 4 new individual aggregate shares will be 
 constructed that when interpolated together reveal the polynomial.
 
-**🏴‍☠️ Reconstruction:** Based on a given threshold, the pirates can reconstruct the secret. What this eventually means is that a subset of pirates more or equal to a specific threshold 't' can combine their final aggregated shares to reconstruct the polynomial and thus the secret.
+**🏴‍☠️ Reconstruction:** Based on a given threshold, the pirates can reconstruct the secret. What this eventually means is that a subset of pirates more or equal to a specific threshold $t$ can combine their final aggregated shares to reconstruct the polynomial and thus the secret.
 
 ![hooray.gif](./images/2023-09-08-dkg/hooray.gif)
 
@@ -87,9 +89,9 @@ The beauty of DKG is its decentralized nature. Since every pirate contributes eq
 
 Overall, DKG algorithms are an amazing research area and they can be used securely in a variety of cryptographic operations, like generating secret keys for signing or validating. Furthermore, by allowing DKG to take place,  the power is spread among the participants, reducing the risk of a single point of failure and increasing the overall security of the network.
 
-# Drand’s DKG Approach:
+# drand’s DKG Approach:
 
-[Drand](https://drand.love/) incorporates [Pedersen's DKG scheme](https://www.cs.cornell.edu/courses/cs754/2001fa/129.PDF), an advanced framework originally devised by Torben Pryds Pedersen. This method ingeniously builds upon multiple instances of [Feldman's Verifiable Secret Sharing (VSS)](https://www.cs.umd.edu/~gasarch/TOPICS/secretsharing/feldmanVSS.pdf), enhancing them with added verification procedures to further secure the protocol.
+[drand](https://drand.love/) incorporates [Pedersen's DKG scheme](https://www.cs.cornell.edu/courses/cs754/2001fa/129.PDF), an advanced framework originally devised by Torben Pryds Pedersen. This method ingeniously builds upon multiple instances of [Feldman's Verifiable Secret Sharing (VSS)](https://www.cs.umd.edu/~gasarch/TOPICS/secretsharing/feldmanVSS.pdf), enhancing them with added verification procedures to further secure the protocol.
 
 From a high-level perspective, the protocol can be divided into three distinct phases:
 
@@ -107,13 +109,13 @@ From a high-level perspective, the protocol can be divided into three distinct p
 Where $t$ is the threshold of malicious nodes, $\mathcal{B}(\kappa)$ represents the communication cost of Byzantine Broadcast and $R$ its round complexity. As presented in the paper by [Das et al.](https://eprint.iacr.org/2021/1591.pdf)
 
 ### Resharing ###
-An operation of DKG, important for Drand is resharing. Resharing allows for the addition and removal of new participants, in the node while maintaining the distributed key. In this case,  we have an initial group of nodes labelled as A, which has already executed the DKG protocol and possesses portions of a distributed private. This group aims to redistribute their portions  to another set of nodes, labelled as B. The B group nodes initially have no shares but are aware of the long-term public keys of the A group nodes. The goal is that after resharing, the B group nodes can utilize their updated shares for randomness generation. However, the A group nodes will be excluded from generating randomness alongside the B group nodes. 
+An operation of DKG, important for drand is resharing. Resharing allows for the addition and removal of new participants, in the node while maintaining the distributed key. In this case,  we have an initial group of nodes labelled as A, which has already executed the DKG protocol and possesses portions of a distributed private. This group aims to redistribute their portions  to another set of nodes, labelled as B. The B group nodes initially have no shares but are aware of the long-term public keys of the A group nodes. The goal is that after resharing, the B group nodes can utilize their updated shares for randomness generation. However, the A group nodes will be excluded from generating randomness alongside the B group nodes. 
 
-More information about the resharing of Drand: [Resharing](https://drand.love/docs/specification/#setup-phase)
+More information about the resharing of drand: [Resharing](https://drand.love/docs/specification/#setup-phase)
 
 ### Implementation: The Kyber Library 💻:
 
-Drand's implementation (DKG) for its distributed randomness beacon is executed using the Kyber Library, a specialized cryptographic library written in Golang, also commonly referred to as the Go programming language. The Kyber Library as forked by Drand provides a robust set of cryptographic primitives and utilities, enabling the highly secure and efficient deployment of Pedersen's DKG scheme within this framework.
+drand's implementation (DKG) for its distributed randomness beacon is executed using the Kyber Library, a specialized cryptographic library written in Golang, also commonly referred to as the Go programming language. The Kyber Library as forked by drand provides a robust set of cryptographic primitives and utilities, enabling the highly secure and efficient deployment of Pedersen's DKG scheme within this framework.
 
 Check this out:
 
@@ -139,29 +141,24 @@ In this 2007 study, Rabin et al. provided a series of security proofs showing th
 
 😃 🏊🏾‍♂️ **2021**: **[Gurkan et al](https://eprint.iacr.org/2021/005).**
 
-In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided formal proof that states using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol. This is relevant as Drand utilizes the BLS signatures that have been proven secure, and allow efficiency without additional rounds. 
+In a more recent study, Gurkan et al. showed that Pedersen's DKG is a secure way to handle rekeyable encryption schemes, signature schemes, and VUF functions. Specifically, they provided formal proof that states using JF-DKG is secure, preventing an adversary from forging a signature by participating in the actual DKG protocol. This is relevant as drand utilizes the BLS signatures that have been proven secure, and allow efficiency without additional rounds. 
 
 # ***The Future: Asynchronous DKG Algorithms***
 
-Looking ahead, one exciting development in the world of DKG is the adoption of asynchronous algorithms. Traditional DKG protocols often rely on synchronous communication assumptions, where participants operate in rounds, waiting until the end of each round before proceeding.
+Looking ahead, one exciting development in the world of DKG is the adoption of asynchronous algorithms. Traditional DKG protocols often rely on synchronous communication assumptions, where the participants operates in rounds with set bounds on delays. However the internet as we know it cannot really be considered to be a synchronous system.
 
-The adoption of asynchronous DKG algorithms aims to enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems.
+The adoption of asynchronous DKG algorithms aims to be more realistic in term of network assumptions and therefore enhance the efficiency and resilience of decentralized systems, such as blockchain networks, which are becoming increasingly popular. By improving the underlying key generation processes, these algorithms are paving the way for more secure, reliable, and scalable decentralized systems.
 
-The latest DKG protocol presented in the literature is [Bingo](https://eprint.iacr.org/2022/1759.pdf) 🀞🀞:
-
-- Interesting components adjusted in Bingo:
-    - [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html) (Allows to achieve an f-sharing to achieve a packed VSS)
-    - [KZG Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html) (For the creation of Bivariate Polynomial Commitment Scheme to obtain
-      adaptive security )
-    - [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography) (As required by the KZG commitments) 
+One of the latest DKG protocol presented in the literature is [Bingo](https://eprint.iacr.org/2022/1759.pdf) and it has retained our attention given its:
+    - Usage of well known [Bivariate Polynomials](https://mathworld.wolfram.com/BivariatePolynomial.html)
+    - Usage of [KZG Polynomial Commitments](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
+    - Usage of [Bilinear Pairings](https://en.wikipedia.org/wiki/Pairing-based_cryptography)
     - Utilization in asynchronous settings.
-    
-- Advantages in Security:
-    - Adaptive Adversaries:  Within the domain of (DKG) security, the primary focus has often been on passive adversaries—those that can merely observe information. However, Bingo marks a pivotal advancement as it is the first (ADKG) protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.
-      - But what is an adaptive adversary?
-        An adaptive adversary represents a malicious entity trying to corrupt nodes with the advantage that can adapt to the environment and responses from the environment as part of the attack.
-        
+    - State of the art complexity (cubic word complexity, constant rounds)
+    - Security against Adaptive Adversaries:  Within the domain of DKG security, the primary focus has often been on fixed, given adversaries. However, Bingo is among the first asynchronous protocol to successfully prove security against adaptive adversaries, all while retaining the same asymptotic complexity as an ADKG protocol secure against non-adaptive threats.  
+      But what is an adaptive adversary?
+      An adaptive adversary represents a malicious entity able to corrupt nodes with the advantage that it can adapt to the protocol as part of the attack, and even change the set of corrupted nodes during the execution of the protocol, from one step to the other.
 
-Distributed Key Generation (DKG) algorithms are a rich field with unlimited possibilities and innovations. The progress made in enhancing security and scalability, particularly against adaptive adversaries, is a testament to the continuous progress in this area. As we explore this fascinating intersection of cryptography, distributed systems, and security, it becomes increasingly clear that we are part of a wonderful world that is continuously evolving.
-
-The exhilarating pace of research and discovery in DKG only deepens our anticipation for the groundbreaking developments that the future is bound to bring.
+As you can see, Distributed Key Generation (DKG) algorithms are a rich field with many ongoing innovations. 
+The drand team has started looking into possibly implementing Bingo or another ADKG in practice in order to improve our current DKG system.
+Stay tuned for more news as we explore the fascinating intersections of cryptography, distributed systems, and security.
