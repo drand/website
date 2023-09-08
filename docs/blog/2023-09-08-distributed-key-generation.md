@@ -27,11 +27,11 @@ Imagine you're at a pirate gathering in the heart of the Caribbean. Captain Jack
 
 To improve his chances, the crafty Sparrow creates a team of those pirates. At their first meeting, the pirates decide to combine their own clues to create the greatest possible treasure map. Jack, as the leader, is entrusted with this critical responsibility. But, before embarking on their expedition, they know the significance of thorough planning. Here is where a big dilemma arises: how can they ensure no single pirate betrays the rest and goes after the treasure alone?
 
-![Pirates around a map](./images/2023-09-06-dkg/pirates-map.png)
+![Pirates around a map](./images/2023-09-08-dkg/pirates-map.png)
 
 One pirate proposes that Jack creates a copy of the map for each member. But trust is a rare commodity among pirates. Instead, Sparrow devises a cunning plan: he divides the map into pieces, giving each pirate a fragment. This ensures that the treasure can only be located when enough of the pieces are together, making each piece of the puzzle indispensable.
 
-![pirates sharing pieces of the map](./images/2023-09-06-dkg/pirate.gif)
+![pirates sharing pieces of the map](./images/2023-09-08-dkg/pirate.gif)
 
 Now, imagine if this was not just a tale of sea and books. This story of divided maps and collective trust mirrors the amazing world of Distributed Key Generation (DKG) algorithms. Much like the fragmented map, a DKG algorithm breaks down a secret key into multiple shards. Only by combining a certain number of these shards can one unlock the information they protect.
 
@@ -71,14 +71,14 @@ That means that at the end, each pirate will have four shares created including 
 
 **🏴‍☠️ Sharing:** As soon as the above is complete, each pirate distributes their shares to the other pirates. So, at the end of this, each pirate  should have one share from each other pirates, including themselves. Therefore, for example, Jack must have 4 shares, 3 from A, B, C and 1 from his own.
 
-![graph](./images/2023-09-06-dkg/graph.jpg)
+![graph](./images/2023-09-08-dkg/graph.jpg)
 
 **🏴‍☠️**  The next step of the process, is that each pirate combines the received shares to create their final secret share for the construction of the key. Therefore, now 4 new individual aggregate shares will be 
 constructed that when interpolated together reveal the polynomial.
 
 **🏴‍☠️ Reconstruction:** Based on a given threshold, the pirates can reconstruct the secret. What this eventually means is that a subset of pirates more or equal to a specific threshold 't' can combine their final aggregated shares to reconstruct the polynomial and thus the secret.
 
-![hooray.gif](./images/2023-09-06-dkg/hooray.gif)
+![hooray.gif](./images/2023-09-08-dkg/hooray.gif)
 
 
 ## Decentralization:
