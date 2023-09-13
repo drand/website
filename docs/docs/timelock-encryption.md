@@ -32,7 +32,7 @@ While our timelock scheme has been assessed for security issues by renowned secu
 - **there have never been a threshold of malicious nodes in the drand network**
 
 If there were, at any time, a threshold number of malicious nodes in the network, they could cooperatively generate all future random values and use them to decrypt arbitrary future timelock ciphertexts. Drand randomness, while unpredictable, is entirely deterministic, even after the resharing of keys.
-That said, `quicknet` (our latest network compatible with timelock encryption) was started with 18 different organisations running in total 22 nodes for a threshold of 12, effectively eliminating any trusted third party and diluting trust in independant organisations that have no reason to collude together!
+That said, `quicknet` (our latest network compatible with timelock encryption) was started with 18 different organisations running in total 22 nodes for a threshold of 12, effectively eliminating any trusted third party and diluting trust in independent organisations that have no reason to collude with one another!
 
 - **neither the scheme, nor drand are quantum resistant**
 
