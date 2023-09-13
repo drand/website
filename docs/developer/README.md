@@ -27,7 +27,7 @@ There are two networks on mainnet:
 `quicknet` network chain hash: 
 ```52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971```
 
-Note that [the `fastnet` network has been deprecated.](/blog/2023/07/03/fastnet-sunset-quicknet-new/)
+Note that [the `fastnet` network has been deprecated.](/blog/2023/07/03/fastnet-sunset-quicknet-new/).
 
 In order to retrieve randomness from a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
 

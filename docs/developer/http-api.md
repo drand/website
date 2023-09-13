@@ -19,7 +19,7 @@ The public [League of Entropy](https://blog.cloudflare.com/league-of-entropy/) H
 
 The League of Entropy currently runs two networks in mainnet: `default` and `fastnet`. They are chained and unchained networks respectively, the details of which can be found in the [cryptography specification](https://drand.love/docs/cryptography/#randomness).
 
-The chain hash for the League of Entropy `default` drand group is:
+The chain hash for the League of Entropy `default` chain running at a 30s frequency in chained mode on Mainnet is:
 
 ```
 8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce
@@ -27,11 +27,13 @@ The chain hash for the League of Entropy `default` drand group is:
 
 It also available at the default context, i.e. omitting the `/{chain-hash}` in the API specification below.
 
-The chain has for the League of Entropy `fastnet` drand group is:
+The chain hash for the League of Entropy `quicknet` network running at a 3s frequency in unchained mode on Mainnet is:
 
 ```
-dbd506d6ef76e5f386f41c651dcb808c5bcbd75471cc4eafa3f4df7ad4e4c493
+52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971
 ```
+
+Note that [the `fastnet` network has been deprecated.](/blog/2023/07/03/fastnet-sunset-quicknet-new/).
 
 ## `/chains`
 

@@ -22,6 +22,7 @@ Additionally, this means that users can decrypt their timelock ciphertext *offli
 - [here is our blog post announcing the new network and timelock encryption](https://drand.love/blog/2023/03/28/timelock-on-fastnet/)
 - [here is Yolan's talk at Real World Crypto](https://www.youtube.com/watch?v=Xh849Ij3lhU) on timelock encryption
 - [here is the paper on eprint](https://eprint.iacr.org/2023/189)
+- [here is our post about deprecating `fastnet` in favor of the RFC-compliant `quicknet`](https://drand.love/blog/2023/07/03/fastnet-sunset-quicknet-new/)
 
 
 ## ⚠️ Security assumptions ⚠️
@@ -31,7 +32,7 @@ While our timelock scheme has been assessed for security issues by renowned secu
 - **there have never been a threshold of malicious nodes in the drand network**
 
 If there were, at any time, a threshold number of malicious nodes in the network, they could cooperatively generate all future random values and use them to decrypt arbitrary future timelock ciphertexts. Drand randomness, while unpredictable, is entirely deterministic, even after the resharing of keys.
-That said, `fastnet` (our new network for timelock encryption) was started with 16 different participants running 23 nodes, so we're confident a threshold number of them have not been compromised!
+That said, `quicknet` (our latest network compatible with timelock encryption) was started with 18 different organisations running in total 22 nodes for a threshold of 12, effectively eliminating any trusted third party and diluting trust in independent organisations that have no reason to collude with one another!
 
 - **neither the scheme, nor drand are quantum resistant**
 
