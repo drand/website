@@ -975,8 +975,8 @@ Drand uses the pairing curve
 
 The implementation that drand uses is located in the
 [bls12-381](https://github.com/drand/bls12-381) repo.
-**Hash to curve**:The hash-to-curve algorithm is derived from the [RFC
-v7](https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-07).
+**Hash to curve**:The hash-to-curve algorithm as described in
+[RFC-9380](https://www.rfc-editor.org/info/rfc9380).
 
 **Groups**: This document uses the notation G1 and G2 as commonly used in
 pairing equipped curves. The BLS12-381 specification specifies a base point, or
