@@ -20,7 +20,7 @@ Keep reading to learn more details about the new features this network launch en
 - **3s frequency:** Quicker generation compared to the legacy frequency, enabling faster applications, better UX and higher throughput.
 - **Shorter beacons**: Thanks to the G1-G2 swap that we’re detailing below, we’ve been able to cut our signatures’ size by 50%!
 
-# The `quicknet` details
+## The `quicknet` details
 
 We have successfully launched the `quicknet-t` Testnet beacon chain on the 13th of July and more recently the `quicknet` one on our Mainnet on the 23rd of August.
 
@@ -75,7 +75,7 @@ The same holds for our mainnet relays, any given beacon chain information can be
 }
 ```
 
-# Sun-setting of `fastnet`
+## Sun-setting of `fastnet`
 
 If you've been following our blog, you'll remember our previous post about [timelock being supported on mainnet](https://drand.love/blog/2023/03/28/timelock-on-fastnet/) where we announced the launch of our new `fastnet` network that supported our timelock scheme. The League of Entropy launched this new drand network on March 1st, 2023, however we quickly identified an issue with our BLS signatures on G1 that made them non-spec compliant with the Hash To Curve [RFC 9380](https://www.ietf.org/rfc/rfc9380.html) as well as most BLS signatures implementations on G1 apart from ours. Therefore we had to double down and launch the `quicknet` network in order to fix this issue.
 
@@ -84,19 +84,19 @@ We’ll be sun-setting `fastnet` in the coming months [as announced previously](
 > Note: The default chained beacon network remains available with its legacy frequency of 30s for those who require it. We might consider deprecating it at some point in the next 18 months, but nothing is set in stone yet.
 > 
 
-# Shoutout to the League of Entropy 🤝
+## Shoutout to the League of Entropy 🤝
 
 Our decentralisation journey wouldn't be possible without the League of Entropy. We are delighted to share that all members in the League of Entropy are running the `quicknet` drand network alongside the `default` chained beacon network on the League’s network of currently 23 nodes.
 
 A big shoutout to the League of Entropy for their invaluable contributions, running drand nodes for free for anyone to use whenever one needs public, verifiable randomness. Together, we're pioneering a faster, more decentralised future for randomness generation, with this new unchained network enabling a host of new possibilities for our users!
 
-# Get Started 🚀
+## Get Started 🚀
 
 For developers and users eager to dive into the new `quicknet` drand network, our [official documentation](https://drand.love/developer/) provides detailed resources about using drand relays and beacons. 
 
 We also have a blog post about “[drand for beginners](https://drand.love/blog/2023/06/02/drand-explainer/)” that’s packed with useful information and another one about [using drand on-chain](https://drand.love/blog/2023/03/16/draffle/) with a demo lottery use-case running on the Filecoin Virtual Machine.
 
-# G1 - G2 Swap
+## G1 - G2 Swap
 
 Let us see what the G1-G2 swap really means!
 
@@ -120,7 +120,7 @@ These enhancements are designed to make the drand network more robust, efficient
 
 We’re looking forward your projects and ideas, don’t hesitate to [join our Slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to discuss these.
 
-# Security considerations
+## Security considerations
 
 Finally, you might be wondering what these changes might means from a **security** point of view. On that front, the guarantees of the League of Entropy (LoE) network remain the same:
 
@@ -140,7 +140,7 @@ From a **liveness** point of view, the way the drand nodes operate hasn’t chan
 
 As you can see, the League of Entropy’s and drand’s security, liveness and availability are not impacted in any way by these changes - on the contrary.
 
-# Onward!
+## Onward!
 
 That’s it, we’ve launched everything we need to allow you to start using Timelock Encryption or drand random beacons right now in your services! And actually people do!
 
