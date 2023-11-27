@@ -35,6 +35,23 @@ The chain hash for the League of Entropy `quicknet` network running at a 3s freq
 
 Note that [the `fastnet` network has been deprecated.](/blog/2023/07/03/fastnet-sunset-quicknet-new/).
 
+### Testnet endpoints
+
+Furthermore, we also have "testnet endpoints" which are used as a test environment to test our latest changes, potentially helping you detect breaking changes or issues with our latest release before they hit mainnet.
+We recommend running your CI/CD against our testnet endpoints as well as our mainnet ones, in order to detect issues early.
+
+We currently have 3 testnet HTTP(s) endpoints being run by:
+- Protocol Labs
+    - [https://pl-us.testnet.drand.sh/chains](https://pl-us.testnet.drand.sh/chains)
+    - [http://pl-eu.testnet.drand.sh/chains](http://pl-eu.testnet.drand.sh/chains)
+- Cloudflare
+    - [https://testnet-api.drand.cloudflare.com/chains](https://testnet-api.drand.cloudflare.com/chains)
+
+As you can see, they are currently running various chains as explained below.
+We are committed to maintaining the `default`, G2 based, chained testnet chain (`84b2234fb34e835dccd048255d7ad3194b81af7d978c3bf157e3469592ae4e02`) as well as the faster, G1 based, unchained `quicknet-t` testnet chain (`cc9c398442737cbd141526600919edd69f1d6f9b4adb67e4d912fbc64341a9a5`) as long as we run the equivalent mainnet networks.
+
+Other testnet chains, such as our first "unchained" testnet (`7672797f548f3f4748ac4bf3352fc6c6b6468c9ad40ad456a397545c6e2df5bf`) or our first G1 based non-RFC compliant chain (`f3827d772c155f95a9fda8901ddd59591a082df5ac6efe3a479ddb1f5eeb202c`)  might be deprecated in the future.
+
 ## `/chains`
 
 Retrieves the _chain hash_ of every running network a user can interact with. It returns a JSON object with the following structure:
