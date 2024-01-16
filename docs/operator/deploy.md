@@ -79,23 +79,22 @@ Running drand behind a reverse proxy is the **default** method of deploying dran
     ```nginx
     # /etc/nginx/sites-available/default
     server {
-      server_name drand.example.xyz;
-      listen 443 ssl http2;
+        server_name drand.example.xyz;
+        listen 443 ssl http2;
 
-      location / {
-        grpc_pass grpc://localhost:4444;
-        grpc_set_header X-Real-IP $remote_addr;
-      }
+        location / {
+            # Check for gRPC header
+            if ($http_content_type = "application/grpc") {
+                grpc_pass grpc://localhost:4444;
+                grpc_set_header X-Real-IP $remote_addr;
+            }
 
-      location /public/ {
-        proxy_pass http://localhost:8080;
-        proxy_set_header Host $host;
-      }
-      location /info {
-        proxy_pass http://localhost:8080;
-        proxy_set_header Host $host;
-      }
-      # Add ssl certificates by running certbot --nginx
+            # If not gRPC, treat as regular HTTP
+            proxy_pass http://localhost:8080;
+            proxy_set_header Host $host;
+        }
+
+    # Add ssl certificates by running certbot --nginx
     }
     ```
 

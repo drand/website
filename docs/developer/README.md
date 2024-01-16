@@ -21,13 +21,13 @@ There are two networks on mainnet:
 - `default` which is running the chained scheme with public keys on G1
 - `quicknet` which is running the unchained scheme with public keys on G2
 
-`default` network chain hash: 
+`default` network chain hash:
 ```8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce```
 
-`quicknet` network chain hash: 
+`quicknet` network chain hash:
 ```52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971```
 
-Note that [the `fastnet` network has been deprecated.](/blog/2023/07/03/fastnet-sunset-quicknet-new/).
+Note that [the `fastnet` network has been deprecated](/blog/2023/07/03/fastnet-sunset-quicknet-new/).
 
 In order to retrieve randomness from a drand network you should **preferentially use the [drand client libraries](/developer/clients/) or the [drand-client CLI](/developer/drand-client/)**, which support the different mechanisms and perform verification for every value obtained.
 
@@ -36,3 +36,6 @@ Alternatively, you can interact directly with the endpoints. Make sure to manual
 - [HTTP API reference](/developer/http-api/)
 - [Pubsub-based randomness distribution](/developer/gossipsub/)
 - gRPC API: usually not publicly accessible. A gRPC API is supported by the drand client libraries, the `drand-client` CLI application and the [drand application](/operator/drand-cli/) itself (using `drand get public`).
+
+Finally, for development purposes, we recommend also testing your code against our Testnet endpoints.
+See [our dedicated documentation entry about testnet endpoints](/developer/http-api/#testnet-endpoints).
