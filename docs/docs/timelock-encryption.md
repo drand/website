@@ -106,7 +106,7 @@ tlock-js is a javascript library developed and maintained by the drand team for 
 
 dee is a rust CLI developed and maintained by Thibault Meunier from Cloudflare. It can perform timelock encryption and decryption, as well as retrieve beacons from any of the drand networks.
 
-- [timevault](https://timelock.drand.love)
+- [timevault](https://timevault.drand.love)
 
 timevault is a web app for timelock encrypting and decrypting vulnerability reports for responsible disclosure as well as arbitrary text. It is developed and maintained by the drand team.
 
