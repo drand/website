@@ -76,7 +76,8 @@ It was getting late for LoE members and some could not commit any more time to t
 - the drand team will patch all the issues identified and release a new version
 - the drand team will add additional testing for flows that proved erroneous, as well as DKG timeouts
 - we will instruct LoE members to upgrade more gradually ahead of any ceremony start to identify issues sooner
-- we will perform an asynchronous ceremony in the coming weeks
+- we will perform an asynchronous tesntet ceremony in the coming weeks
+- we will run a mainnet ceremony on v1.5.9 in order to ensure everybody has hit all the required upgrade paths
 
 ## Final thoughts
 This was not a good look for the drand team. drand v2 has been in the pipeline for over a year and this is the second aborted ceremony in a row trying to get it into testnet.
