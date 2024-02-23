@@ -1,7 +1,7 @@
 ---
 title: "Post-mortem following testnet outage on 21st of February"
 summary: "The testnet network stopped producing randomness prior to the v2 ceremony, and we break down the reasons why"
-date: 2024-02-24
+date: 2024-02-23
 author: Patrick McClurg
 tags:
     - News
@@ -9,7 +9,7 @@ tags:
     - Ceremony
 ---
 
-Yesterday (2024-02-21), we aborted our v2.0.2-testnet ceremony after a series of bugs were identified in succession. The `default`, `testnet-g` and `testnet-unchained-3s` networks stopped for around 45mins in total, while `quicknet-t` remained relatively stable throughout.
+On 2024-02-21, we aborted our v2.0.2-testnet ceremony after a series of bugs were identified in succession. The `default`, `testnet-g` and `testnet-unchained-3s` networks stopped for around 45mins in total, while `quicknet-t` remained relatively stable throughout.
 There is a tl;dr at the bottom for those who want a quick update.
 
 While it felt like a disaster, this is the reason we have a testnet - sometimes things go wrong, and it's better they go wrong in testnet than jeopardising the 100% uptime of mainnet! 
@@ -62,6 +62,7 @@ With this patched version, we initiated the resharing on the leader node, but we
 Though our DKG database reported that we had created a proposal successfully, we were unsure of the state of other nodes. 
 
 Facing time pressure as our asia-based colleagues were already up past midnight, we decided to abort the DKG and retry. The leader can issue aborts unilaterally, and this packet seemed to be gossiped without an issue.
+
 In hindsight, we should have asked other LoE members for the output of their `drand dkg status` command, and confirmed whether or not they had received a successful proposal.
 Had they all successfully received the proposal, we could have continued the resharing, as gossip is only a backup mechanism for nodes that are not well connected to others (e.g. across regions) or that go down as the leader starts the resharing.
 
