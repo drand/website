@@ -11,10 +11,14 @@ tags:
 
 Yesterday (2024-02-21), we aborted our v2.0.2-testnet ceremony after a series of bugs were identified in succession. The `default`, `testnet-g` and `testnet-unchained-3s` networks stopped for around 45mins in total, while `quicknet-t` remained relatively stable throughout.
 There is a tl;dr at the bottom for those who want a quick update.
+
+While it felt like a disaster, this is the reason we have a testnet - sometimes things go wrong, and it's better they go wrong in testnet than jeopardising the 100% uptime of mainnet! 
+
+
 ### Prior to the ceremony
 We will focus on the `default` network for the remainer of the post-mortem, though issues affecting it can be generally applied to the other networks that stopped.
-The previous `default` ceremony had taken place in May of 2023 - it had been nearly a year since we reshared this ceremony. 
-In that ceremony, 12 nodes had taken part, with a threshold of 7. Due to known, non-deterministic issues in the codebase at that time, 2 nodes failed to complete the distributed key generation (diadata and ipfsforce). This left the network slightly degraded, with 10 nodes operational.
+The previous `default` ceremony had taken place in May of 2023 - it had been nearly a year since its last resharing. 
+In that ceremony, 12 nodes had taken part, with a threshold of 7. Due to known, non-deterministic issues in the codebase at that time, 2 nodes failed to complete the distributed key generation (DIA data and IPFS force). This left the network degraded, with 10 nodes operational.
 
 In a previous testnet upgrade (for `quicknet-t` on 2024-01-10) the network upgraded to v2.0.0-testnet. Due to some API incompatibilities, nodes on this new version were unable to connect to nodes older than v1.5.7. 
 cLabs did not take part in this ceremony and have failed to upgrade their node (or respond materially) since then. As a result, their node forked from the rest of the network leaving the default network with 9 operational nodes.
