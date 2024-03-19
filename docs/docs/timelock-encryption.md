@@ -79,7 +79,7 @@ A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at th
 
     $W = M \oplus H_4(\theta)$, "the one-time pad"
 
-NB. in the target group $\mathbb{G_T}$ we use additive notation here, like in the groups $mathbb{G_2}$ and $\mathbb{G_2}$, the convention for pairings would typically use multiplicative notation in the target group, but we find it confusing rather than helpful.
+NB. in the target group $\mathbb{G_T}$ we use additive notation here, like in the groups $mathbb{G_1}$ and $\mathbb{G_2}$, the convention for pairings would typically use multiplicative notation in the target group, but we find it confusing rather than helpful.
 
 ### Decryption
 
