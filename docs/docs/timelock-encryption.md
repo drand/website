@@ -67,10 +67,10 @@ If you can think of any more cool use cases, join the action on our slack channe
 
 A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at the epoch $p$ will perform the following:
 
-1. Compute $G_{id}= e(Q_{id},P) = e(H_1(p),P)$, the "round public key" 
+1. Compute $G_{id}= e(Q_{id},P) = e(H_1(p),P) \in \mathbb{G_T}$, the "round public key" 
     - (this can be pre-computed per epoch, it's the same for everyone)
 2. Choose a random $(\theta \in {0,1}^l)$, "the mask"
-3. Set $r = H_3(\theta, M)$ where $H_3:{0,1}^* \to F_q$ is a secure hash function, "the ephemeral secret key"
+3. Set $r = H_3(\theta, M)$ where $H_3:{0,1}^* \to F_q$ is a secure hash function mapping to field elements, "the ephemeral secret key"
 4. Output the ciphertext $C = {U, V, W}$ where:
 
     $U = rG_2\in \mathbb{G_2}$, "the ephemeral public key"
