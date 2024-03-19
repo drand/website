@@ -67,7 +67,7 @@ If you can think of any more cool use cases, join the action on our slack channe
 
 A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at the epoch $p$ will perform the following:
 
-1. Compute $\mathbb{G_{id}}= e(Q_{id},P) = e(H_1(p),P)$, the "round public key" 
+1. Compute $G_{id}= e(Q_{id},P) = e(H_1(p),P)$, the "round public key" 
     - (this can be pre-computed per epoch, it's the same for everyone)
 2. Choose a random $(\theta \in {0,1}^l)$, "the mask"
 3. Set $r = H_3(\theta, M)$ where $H_3:{0,1}^* \to F_q$ is a secure hash function, "the ephemeral secret key"
@@ -79,6 +79,8 @@ A client that wishes to encrypt a message $M \in {0,1}^l$ only decryptable at th
 
     $W = M \oplus H_4(\theta)$, "the one-time pad"
 
+NB. in the target group $\mathbb{G_T}$ we use additive notation here, like in the groups $mathbb{G_2}$ and $\mathbb{G_2}$, the convention for pairings would typically use multiplicative notation in the target group, but we find it confusing rather than helpful.
+
 ### Decryption
 
 A client that wishes to decrypt a ciphertext $C$ takes the associated signature of epoch $p: \pi_p \in \mathbb{G_1}$ and performs the following:
@@ -86,7 +88,7 @@ A client that wishes to decrypt a ciphertext $C$ takes the associated signature 
 1. Compute $\theta = V \oplus H_2(e(\pi_p, U))$
 2. Compute $M = W \oplus H_4(\theta)$
 3. Set $r = H_3(\theta, M)$
-4. Test that $U = rG_1$ if not, reject
+4. Test that $U == rG_1$ if not, reject
 5. $M$ is the corresponding plaintext
 
 
