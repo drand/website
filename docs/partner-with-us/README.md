@@ -29,12 +29,12 @@ features:
   - info: A diverse infrastructure setup, interconnected with different endpoints, and access methods to randomness.
 guidelinesLink: https://docs.google.com/document/d/1zy_ki3Qk6ecg_APEjYlT9DBwzdJx9I_ImHvaUaIwKHU/edit?usp=sharing
 recommendationsLink: https://docs.google.com/document/d/1p5vGdDOyBEAAMaCsDSEyI-BpX64_kNpCMu49qWc_G8M/edit?usp=sharing
-getStartedLink: https://docs.google.com/forms/d/e/1FAIpQLScaFa4UTTh7BQsAzz0bLDZ5t3U8IO8dusy0dOK4iYYim6yLhA/viewform?usp=sf_link
+getStartedLink: https://docs.google.com/forms/d/e/1FAIpQLSfGwiSz2_gq6NHo3MGyJyH4_GKv_TcY1YmbwkctKlCh5aVToA/viewform?usp=sf_link
 ---
 
 ### Get started now
 
-Fill in the [Form](https://docs.google.com/forms/d/e/1FAIpQLScaFa4UTTh7BQsAzz0bLDZ5t3U8IO8dusy0dOK4iYYim6yLhA/viewform?usp=sf_link), or send us an email (leagueofentropy [ at ] googlegroups.com) to express your interest in joining the League of Entropy and one of our member organizations will get in touch shortly. You can also join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to follow developments, discuss with the League of Entropy and our community members.
+Fill in the [Form](https://docs.google.com/forms/d/e/1FAIpQLSfGwiSz2_gq6NHo3MGyJyH4_GKv_TcY1YmbwkctKlCh5aVToA/viewform?usp=sf_link), or send us an email (leagueofentropy [ at ] googlegroups.com) to express your interest in joining the League of Entropy and one of our member organizations will get in touch shortly. You can also join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA) to follow developments, discuss with the League of Entropy and our community members.
 
 
 ::: slot footer
