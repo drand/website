@@ -44,5 +44,20 @@ module.exports = [
       content: '/browserconfig.xml'
     }
   ],
-  ['meta', { name: 'theme-color', content: '#5bbad5' }]
+    ['meta', { name: 'theme-color', content: '#5bbad5' }],
+    [
+        'script',
+        {
+            async: true,
+            src: 'https://www.googletagmanager.com/gtag/js?id=G-P53FGSQ4Z5'
+        }
+    ],
+    [
+        'script',
+        {},
+        `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-P53FGSQ4Z5');`
+    ]
 ]

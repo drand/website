@@ -122,12 +122,6 @@ module.exports = {
       }
     ],
     [
-      '@vuepress/google-analytics',
-      {
-        ga: 'G-P53FGSQ4Z5'
-      }
-    ],
-    [
       'vuepress-plugin-seo',
       {
         siteTitle: ($page, $site) => $site.title,
