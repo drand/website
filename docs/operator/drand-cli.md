@@ -63,30 +63,28 @@ USAGE:
    drand [global options] command [command options] [arguments...]
 
 VERSION:
-   0.0.0
+   2.0.7-testnet
 
 COMMANDS:
-   start  Start the drand daemon.
-   stop   Stop the drand daemon.
+   dkg               Commands for interacting with the DKG
+   start             Start the drand daemon.
+   stop              Stop the drand daemon.
 
-   share             Launch a sharing protocol.
+   share             The old command for running DKGs; this has been removed
    load              Launch a sharing protocol from filesystem
-   follow            follow and store a randomness chain
+   sync              sync your local randomness chain with other nodes and validate your local beacon chain. To follow a remote node, it requires the use of the 'follow' flag.
    generate-keypair  Generate the longterm keypair (drand.private, drand.public) for this node, and load it on the drand daemon if it is up and running.
 
-   get  get allows for public information retrieval from a remote drand node.
+   util              Multiple commands of utility functions, such as reseting a state, checking the connection of a peer...
+   show              local information retrieval about the node's cryptographic material. Show prints the information about the collective public key, the group details (group.toml),the long-term public key (drand.public), respectively.
 
-   util  Multiple commands of utility functions, such as reseting a state, checking the connection of a peer...
-   show  local information retrieval about the node's cryptographic material. Show prints the information about the collective public key (drand.cokey), the group details (group.toml), the long-term private key (drand.private), the long-term public key (drand.public), or the private key share (drand.share), respectively.
-
-   help, h  Shows a list of commands or help for one command
+   help, h           Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --verbose       If set, verbosity is at the debug level (default: false)
-   --folder value  Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
+   --verbose       If set, verbosity is at the debug level (default: false) [$DRAND_VERBOSE]
+   --folder value  Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/1337user/.drand") [$DRAND_FOLDER]
    --help, -h      show help (default: false)
    --version, -v   print the version (default: false)
-
 ```
 
 The `help` command can be used for subcommands as well, for example `drand help generate-keypair`. If you prefer, you can
@@ -111,18 +109,15 @@ USAGE:
    drand generate-keypair [command options] <address> is the address other nodes will be able to contact this node on (specified as 'private-listen' to the daemon)
 
 OPTIONS:
-   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --folder value   Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
-   --tls-disable    Disable TLS for all communications (not recommended). (default: false)
-   --id value       Indicates the id for the randomness generation process which will be started
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --folder value   Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/1337user/.drand") [$DRAND_FOLDER]
+   --id value       Indicates the id for the randomness generation process which will be started [$DRAND_ID]
+   --scheme value   Indicates a set of values drand will use to configure the randomness generation process (default: "pedersen-bls-chained") [$DRAND_SCHEME]
+   --help, -h       show help (default: false)
 ```
 
 The generated key and all other drand state will be stored in `$HOME/.drand` by default, but this
 can be overridden with the `--folder` flag.
-
-The `--tls-disable` flag should only be used if you intend to run an insecure test deployment without TLS protection.
-If either `drand` itself or a reverse proxy is providing TLS protection, the keypair must be generated with TLS
-set to the default of `true`.
 
 The `--id` flag should be used when generating long-term public/private keypair for networks with beacon id different from
 default. If you don't provide a value, the default beacon id will be used. For example, a network with beacon id 
@@ -142,7 +137,9 @@ phase, it will attempt to catch up with the drand beacon chain by contacting oth
 generation protocol once it has caught up.
 
 If the DKG has not yet been performed, the daemon will wait for an operator to begin the DKG phase using the
-[`drand share`](#drand-share) command.
+[`drand dkg init`](#drand-share) command.
+
+It contains a lot of flags for metrics, OpenTelemetry configuration, json log formatting, and configuring which database engine to user.
 
 ```
 $ drand help start
@@ -154,20 +151,29 @@ USAGE:
    drand start [command options] [arguments...]
 
 OPTIONS:
-   --folder value          Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/<username>/.drand")
-   --tls-cert value        Set the TLS certificate chain (in PEM format) for this drand node. The certificates have to be specified as a list of whitespace-separated file paths. This parameter is required by default and can only be omitted if the --tls-disable flag is used.
-   --tls-key value         Set the TLS private key (in PEM format) for this drand node. The key has to be specified as a file path. This parameter is required by default and can only be omitted if the --tls-disable flag is used.
-   --tls-disable           Disable TLS for all communications (not recommended). (default: false)
-   --control value         Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --private-listen value  Set the listening (binding) address of the private API. Useful if you have some kind of proxy.
-   --public-listen value   Set the listening (binding) address of the public API. Useful if you have some kind of proxy.
-   --metrics value         Launch a metrics server at the specified (host:)port.
-   --certs-dir value       directory containing trusted certificates (PEM format). Useful for testing and self signed certificates
-   --push                  Push mode forces the daemon to start making beacon requests to the other node, instead of waiting the other nodes contact it to catch-up on the round (default: false)
-   --verbose               If set, verbosity is at the debug level (default: false)
-   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is already included in the current DKG.
-   --skipValidation        skips bls verification of beacon rounds for faster catchup. (default: false)
-   --json                  Set the output as json format (default: false)
+   --folder value              Folder to keep all drand cryptographic information, with absolute path. (default: "/Users/1337user/.drand") [$DRAND_FOLDER]
+   --control value             Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --private-listen value      Set the listening (binding) address of the private API. Useful if you have some kind of proxy. [$DRAND_PRIVATE_LISTEN]
+   --public-listen value       Set the listening (binding) address of the public API. Useful if you have some kind of proxy. [$DRAND_PUBLIC_LISTEN]
+   --metrics value             Launch a metrics server at the specified (host:)port. [$DRAND_METRICS]
+   --traces value              Publish metrics to the specific OpenTelemetry compatible host:port server. E.g. 127.0.0.1:4317 [$DRAND_TRACES]
+   --traces-probability value  The probability for a certain trace to end up being collected.Between 0.0 and 1.0 values, that corresponds to 0% and 100%.Be careful as a high probability ratio can produce a lot of data. (default: 0.05) [$DRAND_TRACES_PROBABILITY]
+   --push                      Push mode forces the daemon to start making beacon requests to the other node, instead of waiting the other nodes contact it to catch-up on the round (default: false) [$DRAND_PUSH]
+   --verbose                   If set, verbosity is at the debug level (default: false) [$DRAND_VERBOSE]
+   --from value                Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is alreadyincluded in the current DKG. [$DRAND_FROM]
+   --skipValidation            skips bls verification of beacon rounds for faster catchup. (default: false) [$DRAND_SKIP_VALIDATION]
+   --json                      Set the output as json format (default: false) [$DRAND_JSON]
+   --id value                  Indicates the id for the randomness generation process which will be started [$DRAND_ID]
+   --db value                  Which database engine to use. Supported values: bolt, postgres, or memdb. (default: "bolt") [$DRAND_DB]
+   --pg-dsn value              PostgreSQL DSN configuration.
+      Supported options are:
+      - sslmode: if the SSL connection is disabled or required. Default disabled. See: https://www.postgresql.org/docs/15/libpq-ssl.html#LIBPQ-SSL-PROTECTION
+      - connect_timeout: how many seconds before the connection attempt times out. Default 5 (seconds). See: https://www.postgresql.org/docs/15/libpq-connect.html#LIBPQ-CONNECT-CONNECT-TIMEOUT
+      - max-idle: number of maximum idle connections. Default: 2
+      - max-open: number of maximum open connections. Default: 0 - unlimited.
+       (default: "postgres://drand:drand@127.0.0.1:5432/drand?sslmode=disable&connect_timeout=5") [$DRAND_PG_DSN]
+   --memdb-size value  The buffer size for in-memory storage. Must be at least 10. Recommended, 2000 or more (default: 2000) [$DRAND_MEMDB_SIZE]
+   --help, -h          show help (default: false)
 ```
 
 #### Endpoint configuration
@@ -187,7 +193,7 @@ rules to limit the potential for denial of service attacks.
 :::
 
 The **control API endpoint** is used by the `drand` command to control a running drand daemon using commands like
-[`drand share`](#drand-share).
+[`drand dkg init`](#drand-dkg).
 
 The control interface is always enabled and bound to the `localhost` interface. The default port is `8888`, but this can be
 overridden with the `--control` flag. If you use a non-standard control port, you will also need to use the `--control` flag
@@ -205,24 +211,32 @@ The **public HTTP endpoint** provides an API that clients can fetch randomness f
 information and is safe to expose to the internet. Alternatively, you may keep this endpoint behind a firewall and
 expose randomness to the public with the help of a relay server such as [`drand-relay-http`](#drand-relay-http).
 
-Finally, the **metrics endpoint** provides an API for observing runtime metrics about the drand node. It can be enabled
+The **metrics endpoint** provides an API for observing runtime metrics about the drand node. It can be enabled
 with the `--metrics <metrics-port>` flag. See [drand Metrics](./metrics/) for more details on accessing the metrics.
 
 ::: danger
 The metrics API may expose sensitive information about the running `drand` daemon, and should not be exposed to the public internet.
 :::
 
+Finally drand can produce traces compatible with OpenTelemetry specification. To turn on this feature, set the `DRAND_TRACES`
+environment varible to the desired destination, e.g.
+```shell
+export DRAND_TRACES=127.0.0.1:4317
+export DRAND_TRACES_PROBABILITY=1 # This will sample all traces to the destination server
+```
+
+After that, in the same terminal, use any of the drand features, such as `make test-unit-memdb`, to start producing traces.
+
+To explore the trace details, launch a new browser tab/window at the [Grafana instance](http://127.0.0.1:3000/explore?orgId=1),
+which will allow you to explore in detail the inner workings of Drand.
+
+For more details on how to use Grafana, you can [read the manual here](https://grafana.com/docs/grafana/v9.4/explore/trace-integration/).
+
+
 #### TLS configuration
 
-The `--tls-cert` and `--tls-key` commands give the path to TLS certificates and keys needed for `drand` to provide TLS protection
-to its connections with other `drand` nodes. If you are using a reverse proxy as described in the [Deployment Guide](./deploy/),
-you should pass the `--tls-disable` flag, as the proxy will handle TLS instead of `drand`.
-
-::: danger
-The `--tls-disable` flag may also be used to run without TLS entirely, but we **do not recommend** disabling TLS except for local
-testing and `drand` development. If you do run without TLS, you must also provide the `--tls-disable` flag when
-[generating your key](#drand-generate-keypair).
-:::
+TLS certificate configuration is no longer supported by drand as of v2. Instead, you should run drand behind a reverse proxy and perform TLS termination there, as described in the [Deployment Guide](./deploy/).
+By default, drand assumes that all connections between nodes will take place over TLS. To override this config and run an insecure network, you can build it with the following go compiler flag: `-tags=conn_insecure` .
 
 For more on TLS setup, see the [Deployment Guide](./deploy/).
 
@@ -242,8 +256,9 @@ USAGE:
    drand stop [command options] [arguments...]
 
 OPTIONS:
-   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --id value       Indicates the id for the randomness generation process which will be started
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --help, -h       show help (default: false)
 ```
 
 ::: tip
@@ -253,14 +268,14 @@ when running `drand stop`.
 
 ### `drand load`
 
-The `reload` command tells the `drand` daemon to load a network which has been previously stopped. You
+The `load` command tells the `drand` daemon to load a network which has been previously stopped. You
 must set `--id` flag to choose the correct network to load again.
 
 ```
 $ drand help load
 
 NAME:
-   drand load - Launch a sharing protocol from filesystem
+   drand load - Load a stopped beacon from the filesystem
 
 USAGE:
    drand load [command options] [arguments...]
@@ -275,78 +290,247 @@ If the daemon was started with a non-standard control port, you must use the `--
 when running `drand stop`.
 :::
 
-### `drand share`
+### `drand dkg`
 
-The `share` command tells the `drand` daemon to begin the Distributed Key Generation (DKG) protocol on a new network to create private 
-key shares with the other drand nodes.
+The `dkg` subcommand contains a range of commands related to the generation and resharing of the distributed key.
 
-The `share` command must be used when setting up a new drand network before randomness generation can begin. It may also be
-used after the network is running to "re-share" the key material, which allows us to change the members of the drand network
+The `init` command must be used when setting up a new drand network before randomness generation can begin. 
+The `reshare` command must be used after the network is running to "re-share" the key material, which allows us to change the members of the drand network
 without interrupting the generation of randomness.
 
 For details about to running the initial DKG, see the [Deployment Guide](./deploy/).
 
 ```
-$ drand help share
+$ drand help dkg
 
 NAME:
-   drand share - Launch a sharing protocol.
+   drand dkg - Commands for interacting with the DKG
 
 USAGE:
-   drand share [command options] [arguments...]
+   drand dkg command [command options] [arguments...]
+
+COMMANDS:
+   init
+   reshare
+   join
+   execute
+   accept
+   reject
+   abort
+   status
+   generate-proposal
+   help, h            Shows a list of commands or help for one command
 
 OPTIONS:
-   --tls-disable           Disable TLS for all communications (not recommended). (default: false)
-   --control value         Set the port you want to listen to for control port commands. If not specified, we will use the default port 8888.
-   --from value            Old group.toml path to specify when a new node wishes to participate in a resharing protocol. This flag is optional in case a node is already included in the current DKG.
-   --timeout value         Timeout to use during the DKG, in string format. Default is 10s
-   --source value          Source flag allows to provide an executable which output will be used as additional entropy during resharing step.
-   --user-source-only      user-source-only flag used with the source flag allows to only use the user's entropy to pick the dkg secret (won't be mixed with crypto/rand). Should be used for reproducibility and debbuging purposes. (default: false)
-   --secret-file value     Specify the secret to use when doing the share so the leader knows you are an eligible potential participant. must be at least 32 characters.
-   --period value          period to set when doing a setup
-   --nodes value           number of nodes expected (default: 0)
-   --threshold value       threshold to use for the DKG (default: 0)
-   --connect value         Address of the coordinator that will assemble the public keys and start the DKG
-   --out value             save the group file into a separate file instead of stdout
-   --leader                Specify if this node should act as the leader for setting up the group (default: false)
-   --beacon-delay value    Leader uses this flag to specify the genesis time or transition time as a delay from when  group is ready to run the share protocol (default: 0)
-   --transition            When set, this flag indicates the share operation is a resharing. The node will use the currently stored group as the basis for the resharing (default: false)
-   --force                 When set, this flag forces the daemon to start a new reshare operation.By default, it does not allow to restart one (default: false)
-   --catchup-period value  Minimum period while in catchup. Set only by the leader of share / reshares (default: "0s")
-   --scheme value          Indicates a set of values drand will use to configure the randomness generation process (default: "pedersen-bls-chained")
-   --id value              Indicates the id for the randomness generation process which will be started
+   --help, -h  show help (default: false)
 ```
 
-The node that begins the sharing procedure should run with the `--leader` flag. The other nodes use the `--connect <leader-addr>` flag, passing
-in the address of the leader. 
+### `drand dkg generate-proposal`
 
-All nodes must specify the following values:
+The `generate-proposal` command is a helper to automatically pull the public keys of various nodes and form them into a toml file for running DKGs. This allows users to inspect and verify the expected parties to the DKG.
 
-- `--secret` - a secret value, shared out-of-band with the other node operators. When re-sharing, this may be distinct from
-  the secrets used for any prior DKG rounds.
-- `--id` - the unique identifier of the new network we will start. This value cannot be change on re-sharing. This identifier
-must be equal to the one used when generating long-term keypair. If you don't set this value, the default identifier will be used. 
+`joiner`s are parties who are not yet participating in the network - for the first foundation of the network, everybody is a joiner! 
+`remainer`s are parties who are currently participating in the network generating randomness who are intended to continue doing so in the next 'epoch'. They can signal acceptance or rejection of proposals to the other nodes for consideration.
+`leaver`s are parties who are currently participating in the network generating randomness, but who are intended to leave before the next 'epoch'.
 
+```
+$ ./drand dkg generate-proposal -h
 
-Only the leader must specify the following values:
+NAME:
+   drand dkg generate-proposal
 
-- `--period` - sets the interval between rounds of the drand beacon chain. This must be a string that's parse-able by Golang's
-  [time.ParseDuration function](https://golang.org/pkg/time/#ParseDuration), for example "30s" or "1m".
-- `--nodes` - the number of nodes expected to take part in the DKG. Note that the DKG will succeed even if fewer nodes participate,
-  so long as there are enough to meet the threshold.
-- `--threshold` - the number of nodes required to generate randomness. The DKG will fail if fewer than `threshold` nodes participate
-  in the DKG before the timeout.
+USAGE:
+   drand dkg generate-proposal [command options] [arguments...]
 
-When re-sharing to nodes that are not members of the existing drand group, the new nodes must obtain a copy of the group configuration file
-from an existing member, and use the `--from <group-file-path>` flag to specify the path to the `group.toml` file. In this case, `--id` flag 
-is not required, as the unique identifier will be taken from the file. Members of the existing group may omit the `--from` flag, as they already 
-posse the current group configuration.
+OPTIONS:
+   --joiner value [ --joiner value ]      the address of a joiner you wish to add to a DKG proposal. You can pass it multiple times. To use TLS, prefix their address with 'https://'
+   --remainer value [ --remainer value ]  the address of a remainer you wish to add to a DKG proposal. You can pass it multiple times. To use TLS, prefix their address with 'https://'
+   --out value                            the location you wish to save the proposal file to
+   --id value                             Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value                        Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --leaver value [ --leaver value ]      the address of a leaver you wish to add to the DKG proposal. You can pass it multiple times. To use TLS, prefix their address with 'https://'
+   --help, -h                             show help (default: false)
+
+```
+
+### `drand dkg init`
+
+The initial DKG is run to create a distributed key amongst a set of nodes for the first time. It takes a proposal file (created using the [`drand dkg generate-proposal`](##drand-dkg-generate-proposal) command, or by hand for sadists), and key attributes of the new network such as period (how often it emits randomness), threshold (the number of shares required to create a valid signature), and the catchup period (how fast the network can create new beacons if it gets behind).
+
+```
+$ drand dkg init -h
+
+NAME:
+   drand dkg init
+
+USAGE:
+   drand dkg init [command options] [arguments...]
+
+OPTIONS:
+   --id value              Indicates the id for the randomness generation process which the command applies to.[$DRAND_ID]
+   --control value         Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --scheme value          Indicates a set of values drand will use to configure the randomness generation process (default: "pedersen-bls-chained") [$DRAND_SCHEME]
+   --period value          period to set when doing a setup [$DRAND_PERIOD]
+   --threshold value       threshold to use for the DKG (default: 0) [$DRAND_THRESHOLD]
+   --catchup-period value  Minimum period while in catchup. Set only by the leader of share / reshares (default: "0s") [$DRAND_CATCHUP_PERIOD]
+   --proposal value        Path to a toml file specifying the leavers, joiners and remainers for a network proposal [$DRAND_PROPOSAL_PATH]
+   --timeout value         The duration from now in which DKG participants should abort the DKG if it has not completed. (default: "24h")
+   --source value          The path to an external binary used to inject additional entropy into the DKG process
+   --genesis-delay value   The duration from now until the network should start creating randomness
+   --help, -h              show help (default: false)
+
+```
 
 ::: tip
 You can mix an external source of entropy into the key sharing protocol by using the `--source` flag. The argument should be the path
 to an executable that must output random binary data when run. By default, external entropy sources are mixed with Golang's `crypto/rand` secure RNG. The `--user-source-only` flag overrides this default, which is useful during testing and debugging to allow a reproducible "random" value,
 but should not be used in production.
 :::
+
+### `drand dkg reshare`
+
+The resharing process is used for adding or removing nodes to a currently running network. The same private key generating during the initial distributed key generation is resharing between the proposed nodes such that they all receive a small share. Resharing can happen as often as necessary, and does not allow a single party to gain any more information about the private key by retaining their own shares between epochs.
+It operates similar to the `drand dkg init` command, though some parameters are no longer changeable between epochs (e.g. the period).
+
+```
+$ drand dkg reshare -h
+
+NAME:
+   drand dkg reshare
+
+USAGE:
+   drand dkg reshare [command options] [arguments...]
+
+OPTIONS:
+   --id value              Indicates the id for the randomness generation process which the command applies to.[$DRAND_ID]
+   --control value         Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --threshold value       threshold to use for the DKG (default: 0) [$DRAND_THRESHOLD]
+   --catchup-period value  Minimum period while in catchup. Set only by the leader of share / reshares (default: "0s") [$DRAND_CATCHUP_PERIOD]
+   --proposal value        Path to a toml file specifying the leavers, joiners and remainers for a network proposal [$DRAND_PROPOSAL_PATH]
+   --timeout value         The duration from now in which DKG participants should abort the DKG if it has not completed. (default: "24h")
+   --help, -h              show help (default: false)
+```
+
+### `drand dkg join``
+
+New joiners to a network must run the `join` command to register their interest in taking part in the distributed key generation/resharing process.
+If this is a resharing, the new nodes must obtain a copy of the group configuration file
+from an existing member, and use the `--group <group-file-path>` flag to specify the path to the `group.toml` file. In this case, `--id` flag 
+is not required, as the unique identifier will be taken from the file. 
+
+```
+$ drand dkg join -h
+
+NAME:
+   drand dkg join
+
+USAGE:
+   drand dkg join [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --group value    The group file of the previous epoch [$DRAND_DKG_GROUP]
+   --help, -h       show help (default: false)
+```
+
+
+### `drand dkg accept`
+
+Members of the existing network epoch can run `accept` to express their acceptance of a leader's resharing proposal.
+
+```
+$ drand dkg accept -h
+
+NAME:
+   drand dkg accept
+
+USAGE:
+   drand dkg accept [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --help, -h       show help (default: false)
+```
+
+### `drand dkg reject`
+
+Members of the existing network epoch can run `reject` to express their rejection of a leader's resharing proposal. This does not a priori halt the DKG.
+
+```
+$ drand dkg reject -h
+
+NAME:
+   drand dkg reject
+
+USAGE:
+   drand dkg reject [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --help, -h       show help (default: false)
+```
+
+### `drand dkg execute`
+
+Once nodes have accepted or rejected a proposal, the leader can kick off execution. This will start the actual protocol for distributed key generation or resharing.
+
+```
+$ drand dkg execute -h
+
+NAME:
+   drand dkg execute
+
+USAGE:
+   drand dkg execute [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --help, -h       show help (default: false)
+```
+
+### `drand dkg abort`
+
+Should anything go wrong during the proposal of a DKG, such as incorrect parameters or too many rejections, the leader can abort it. This will cause other nodes to revert their current DKG state to the last successful one (or none if the abort was for an initial DKG). Future proposals will share an epoch identifier with the aborted proposal.
+
+```
+$ drand dkg abort -h
+
+NAME:
+   drand dkg abort
+
+USAGE:
+   drand dkg abort [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --help, -h       show help (default: false)
+```
+
+### `drand dkg status`
+
+The `status` command allows operators to track the status of the DKG over time: what state their node is in, what who made a proposal, who has accepted or rejected a proposal, or when a resharing has completed.
+This can be output as CSV or in a pretty table, the default being pretty.
+
+```
+$ drand dkg status -h
+
+NAME:
+   drand dkg status
+
+USAGE:
+   drand dkg status [command options] [arguments...]
+
+OPTIONS:
+   --id value       Indicates the id for the randomness generation process which the command applies to. [$DRAND_ID]
+   --control value  Set the port you want to listen to for control port commands. If not specified, we will use the default value. (default: "8888") [$DRAND_CONTROL]
+   --format value   Set the format of the status output. Valid options are: pretty, csv (default: "pretty") [$DRAND_STATUS_FORMAT]
+   --help, -h       show help (default: false)
+```
 
 ### `drand get`
 
