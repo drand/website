@@ -61,12 +61,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format:styles": "stylus-supremacy format ./docs/.vuepress/**/*.styl --replace",
     "docs:dev": "run-s docs:dev:*",
-    "docs:dev:wasm": "run-s docs:build:wasm",
     "docs:dev:vuepress": "vuepress --no-clear-screen dev docs",
-    "docs:build": "run-s docs:build:wasm docs:build:vuepress",
-    "docs:build:wasm": "run-s docs:build:wasm:*",
-    "docs:build:wasm:mkdirp": "mkdir -p ./docs/.vuepress/public/node_modules/drand-client/wasm",
-    "docs:build:wasm:cp": "cp ./node_modules/drand-client/wasm/drand.wasm ./docs/.vuepress/public/node_modules/drand-client/wasm",
+    "docs:build": "npm run docs:build:vuepress",
     "docs:build:vuepress": "vuepress build docs",
     "docs:all-relative": "cd ./docs/.vuepress/dist && all-relative",
     "docs:build:ipfs": "run-s docs:build docs:all-relative"
