@@ -63,7 +63,7 @@ USAGE:
    drand [global options] command [command options] [arguments...]
 
 VERSION:
-   2.0.7-testnet
+   2.0.1
 
 COMMANDS:
    dkg               Commands for interacting with the DKG
