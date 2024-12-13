@@ -88,7 +88,6 @@ module.exports = {
               title: 'About',
               path: '/about/'
             },
-            'code-of-conduct',
             'community',
             'contributing',
             {
