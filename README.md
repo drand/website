@@ -1,4 +1,4 @@
-# Drand documentation
+# drand documentation
 
 Welcome to the drand documentation website! The live site can be found at https://drand.love.
 

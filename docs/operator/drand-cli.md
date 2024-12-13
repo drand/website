@@ -5,7 +5,7 @@ sidebarDepth: 2
 
 # Command-line tools
 
-Drand's main functionality is provided by the `drand` program, which allows you to run a drand server and control its operation. You can also
+drand's main functionality is provided by the `drand` program, which allows you to run a drand server and control its operation. You can also
 use `drand` as a client to fetch randomness from a drand network.
 
 See the [Supplemental Tools](#supplemental-tools) for some other helpful tools for scaling drand, as well as a standalone client for consuming
@@ -63,7 +63,7 @@ USAGE:
    drand [global options] command [command options] [arguments...]
 
 VERSION:
-   2.0.1
+   2.0.4
 
 COMMANDS:
    dkg               Commands for interacting with the DKG
@@ -210,6 +210,8 @@ The **public HTTP endpoint** provides an API that clients can fetch randomness f
 `--public-listen` flag and specify the `host:port` that you want to listen on. This endpoint exposes no sensitive
 information and is safe to expose to the internet. Alternatively, you may keep this endpoint behind a firewall and
 expose randomness to the public with the help of a relay server such as [`drand-relay-http`](#drand-relay-http).
+However, we recommend using the [`http-relay`](https://github.com/drand/http-relay) binary that talks gRPC to 
+the drand nodes, handles caching for you, and supports the nicer `/v2/` HTTP REST APIs if you intend to run a HTTP relay.
 
 The **metrics endpoint** provides an API for observing runtime metrics about the drand node. It can be enabled
 with the `--metrics <metrics-port>` flag. See [drand Metrics](./metrics/) for more details on accessing the metrics.
@@ -228,7 +230,7 @@ export DRAND_TRACES_PROBABILITY=1 # This will sample all traces to the destinati
 After that, in the same terminal, use any of the drand features, such as `make test-unit-memdb`, to start producing traces.
 
 To explore the trace details, launch a new browser tab/window at the [Grafana instance](http://127.0.0.1:3000/explore?orgId=1),
-which will allow you to explore in detail the inner workings of Drand.
+which will allow you to explore in detail the inner workings of drand.
 
 For more details on how to use Grafana, you can [read the manual here](https://grafana.com/docs/grafana/v9.4/explore/trace-integration/).
 
@@ -411,7 +413,7 @@ OPTIONS:
    --help, -h              show help (default: false)
 ```
 
-### `drand dkg join``
+### `drand dkg join`
 
 New joiners to a network must run the `join` command to register their interest in taking part in the distributed key generation/resharing process.
 If this is a resharing, the new nodes must obtain a copy of the group configuration file
@@ -532,52 +534,14 @@ OPTIONS:
    --help, -h       show help (default: false)
 ```
 
-### `drand get`
-
-The `get` command allows you to fetch public information from a running drand node, including random values and the public
-distributed key. Note that you do not need to be a node operator or a member of the drand group in order to use `drand get`,
-but you will need a copy of the group configuration file. You will also need access to the gRPC API endpoint, which may be
-protected by firewall rules.
-
-```
-$ drand get --help
-
-NAME:
-   drand get - get allows for public information retrieval from a remote drand node.
-
-
-USAGE:
-   drand get command [command options] [arguments...]
-
-COMMANDS:
-   public  Get the latest public randomness from the drand beacon and verify it against the collective public key as specified in group.toml. Only one node is contacted by default. This command attempts to connect to the drand beacon via TLS and falls back to plaintext communication if the contacted node has not activated TLS in which case it prints a warning.
-
-   chain-info  Get the binding chain information that this node participates to
-   help, h     Shows a list of commands or help for one command
-
-OPTIONS:
-   --help, -h     show help (default: false)
-   --version, -v  print the version (default: false)
-```
-
-There are three main subcommands for `drand get`:
-
-- `drand get public <path-to-group.toml>` returns the latest public random value from the group described in `group.toml`.
-  You may fetch a specific round instead of the latest by supplying the `--round <round-number>` flag.
-- `drand get chain-info --chain-hash <value>` returns the binding chain information that this node participates to. In order to choose
-a network among the running ones on a node, you must provide the chain hash of it.
-
-
 ### `drand show`
 
 The `show` command returns private information from a local `drand` node, including its private cryptographic material.
 
 There are several subcommands for `drand show`:
 
-- `drand show share` prints the private distributed key share for the local node.
 - `drand show group` prints the group configuration file. If a DKG has been performed, this will include the distributed public key.
 - `drand show chain-info` prints the information for the randomness chain the local node is participating in.
-- `drand show private` prints the long-term private key of the local node.
 - `drand show public` prints the long-term public key of the local node.
 
 For full usage information, run `drand show --help`.
@@ -593,17 +557,15 @@ The `util` command provides several subcommands that are useful for debugging an
 - `drand util check <address>` attempts to contact the node at the given address to see if it's online and responding to requests.
   This can be used to check that a running network on your local node is reachable at its public address, or to make sure that a
   remote node can be reached before running `drand share`.
-- `drand util list-schemes` lists all scheme the node supports and can be used on share command.
 - `drand util remote-status` asks for the statuses of remote networks' nodes indicated by `ADDRESS1 ADDRESS2 ADDRESS3...`, 
+- `drand util ping` sends a ping to the local `drand` daemon and prints its status.
+- `drand util list-schemes` lists all scheme the node supports and can be used on share command.
    including the network visibility over the rest of the addresses given.
 - `drand util status` gets the status of many modules of a running network on the local node.
-- `drand util migrate` runs the migration required the multi-beacon folder structure on the local node.
-- `drand util ping` sends a ping to the local `drand` daemon and prints its status.
-- `drand util backup` backs up the primary drand database of a running network to a secondary location.
-- `drand util self-sign` signs the public identity of a running network. Needed for backward compatibility with previous versions.
 - `drand util reset` deletes all distributed information (group file, key share, random beacon state, etc) from a network on the local node. It
   does NOT delete the long-term keypair.
 - `drand util del-beacon <round-number>` deletes all beacon chain rounds from `<round-number>` until the current head of the beacon
+- `drand util backup` backs up the primary drand database of a running network to a secondary location.
   chain from a running network's database. You MUST restart the running network after issuing this command.
 
 For full usage information, run `drand util --help`.

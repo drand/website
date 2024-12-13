@@ -11,7 +11,7 @@ The drand team has been hard at work the last couple of months to develop and in
 In summary, the new features include:
 
 - **Unchained Randomness**: Each randomness beacon in drand has so far been linked to the previous one, forming a chain of beacons. With this update, each beacon is now independent of (all) the previous one(s).
-- **Multi-protocol Support**: Drand is now able to support multiple protocols running on the same physical node and the same binary. In other words, a node can now participate in multiple drand networks, each of which having different characteristics. These characteristics can be different frequency of emitting randomness, different thresholds, different participants or having randomness in chained or unchained mode.
+- **Multi-protocol Support**: drand is now able to support multiple protocols running on the same physical node and the same binary. In other words, a node can now participate in multiple drand networks, each of which having different characteristics. These characteristics can be different frequency of emitting randomness, different thresholds, different participants or having randomness in chained or unchained mode.
 
 We have compiled a comprehensive list of 26 Q&A in this [FAQ document](https://docs.google.com/document/d/16QJG3Z-Kr0mN6snQz8cm0NnMXpYBpelKyvCf2oo1Zgc/edit?usp=sharing). Below we provide a base summary of the new features and we encourage you to refer to the document for further details.
 
@@ -57,7 +57,7 @@ With this feature, drand has the potential to solve problems that remain unsolve
 
 **What is this?**
 
-Drand is producing randomness every 30 seconds, by default, and this is how it has been programmed to operate ever since the network’s launch in August 2020 and up to the present day. However, several applications operate at higher frequencies (and quite likely some others at lower frequencies). We have heard the requests from our ecosystem of users and have worked hard to refactor the codebase and make drand capable of using different randomness schemes and/or frequencies.
+drand is producing randomness every 30 seconds, by default, and this is how it has been programmed to operate ever since the network’s launch in August 2020 and up to the present day. However, several applications operate at higher frequencies (and quite likely some others at lower frequencies). We have heard the requests from our ecosystem of users and have worked hard to refactor the codebase and make drand capable of using different randomness schemes and/or frequencies.
 
 **What does it enable?**
 

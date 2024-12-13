@@ -56,11 +56,11 @@ The daemon does not automatically run in the background. To run the daemon in th
 
 To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users.
 
-The drand daemon can run using [TLS](#with-tls), or using [unencrypted connections](#unencrypted-connections). Drand tries to use TLS by default.
+The drand daemon can run using [TLS](#with-tls), or using [unencrypted connections](#unencrypted-connections). drand tries to use TLS by default.
 
 #### With TLS
 
-Drand nodes attempt to communicate by default over TLS-protected connections. Therefore, you need to point your node to the TLS certificate chain and corresponding private key you wish to use via:
+drand nodes attempt to communicate by default over TLS-protected connections. Therefore, you need to point your node to the TLS certificate chain and corresponding private key you wish to use via:
 
 ```bash
 drand start \
@@ -222,17 +222,9 @@ As a basic security method, participants must include a shared secret before the
 
 #### Custom entropy source
 
-Drand takes its entropy for the setup phase from the OS's entropy source by default. This source is `/dev/urandom` on Unix systems. However, it is possible for a participant to inject their own entropy source into the creation of their secret. To do so, you must have an executable that produces random data when called, and pass the name of that executable to drand:
+drand takes its entropy for the setup phase from the OS's entropy source by default. This source is `/dev/urandom` on Unix systems. However, it is possible for a participant to inject their own entropy source into the creation of their secret.
 
-```bash
-drand share <regular options> --source <entropy-exec>
-```
-
-In this command, `<entropy-exec>` is the path to the executable, which produces the user's random data on `STDOUT`. As a precaution, the user's randomness is mixed by default with `crypto/rand` to create a random stream. In order to introduce reproducibility, the flag `--user-source-only` can be set to impose that only the user-specified entropy source is used. We recommend only using this flag during testing.
-
-```bash
-drand share <group-file> --source <entropy-exec> --user-source-only
-```
+You should be able to rely on [`rngd`](https://linux.die.net/man/8/rngd) to feed your custom entropy source into your OS kernel, and thus into `drand`.
 
 ### Group TOML file
 
@@ -265,16 +257,6 @@ drand util status --list-ids
 drand show chain-info --id {beacon-id}
 ```
 
-Non-administrators can contact an external drand node to ask for its current distributed public key:
-
-```bash
-drand get chain-info --id {beacon-id} <address>
-```
-
-In this command, `<address>` is the address of a drand node. Use the`--tls-cert` flag to specify the server's certificate if needed. The `group.toml` file does not need to be updated with the collective key.
-
-When using the `get chain-info` method, a drand node _can_ lie about the key if no out-of-band verification is performed. That information is usually best gathered from a trusted drand operator and then embedded in any applications using drand.
-
 ### Timings
 
 At each new period, each node will try to broadcast their partial signatures for the corresponding round and try to generate full randomness from the partial signatures. The corresponding round is the number of rounds elapsed from the genesis time. That means there is a 1-1 mapping between a given time and a drand round.
@@ -283,27 +265,19 @@ At each new period, each node will try to broadcast their partial signatures for
 
 Due to the threshold nature of drand, a drand network can support some numbers of nodes offline at any given point. This number is determined by the threshold: `max_offline = group_len - threshold`. When a drand node goes back up, it will sync rapidly with the other nodes to catch up its local chain and participate in the next upcoming drand round.
 
-### Drand network failure
+### drand network failure
 
 If, for some reason, drand goes down for some time and then backs up, the new random beacon will be built over the _last successfully generated beacon_. For example, if the network goes down at round `10` (i.e., the last beacon generated contained `round: 10`), and back up again at round `20` (i.e., field `round: 20`), then this new randomness contains the field `previous_round:10`.
 
 ## Control functionalities
 
-Drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
+drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
 
 ```bash
 drand start --control 1234
 ```
 
 In that case, you need to specify the control port for each of the following commands.
-
-### Long-term private key
-
-To retrieve the long-term private key of our node, run:
-
-```bash
-drand show private --id {beacon-id}
-```
 
 ### Long-term public key
 
@@ -312,28 +286,6 @@ To retrieve the long-term public key of our node, run:
 ```bash
 drand show public --id {beacon-id}
 ```
-
-### Private key share
-
-To retrieve the private key share of our node, as determined during the DKG, run the following command:
-
-```bash
-drand show share --id {beacon-id}
-```
-
-The JSON-formatted output has the following form:
-
-```json
-{
-  "index": 1,
-  "share": {
-    "gid": 22,
-    "scalar": "764f6e3eecdc4aba8b2f0119e7b2fd8c35948bf2be3f87ebb5823150c6065764"
-  }
-}
-```
-
-The "gid" simply indicates which group the data belongs to. It is present for scalar and points on the curve, even though scalars are the same on the three groups of bls12-381. The field is present already to be able to accommodate different curves later on.
 
 ### Chain information
 
@@ -345,7 +297,7 @@ drand show chain-info --id {beacon-id}
 
 ## Updating drand group
 
-Drand allows for "semi-dynamic" group update with a _resharing_ protocol that offers the following:
+drand allows for "semi-dynamic" group update with a _resharing_ protocol that offers the following:
 
 - New nodes can join an existing group and get new shares. Note that, in fact, all nodes get _new_ shares after running the resharing protocol.
 - Nodes can leave their current group. It may be necessary for nodes that do not wish to operate drand anymore.
@@ -354,26 +306,14 @@ Drand allows for "semi-dynamic" group update with a _resharing_ protocol that of
 
 The main advantage of this method is that the distributed public key stays the _same_ even with new nodes coming in. That can be useful when the distributed public key is embedded inside the application using drand, and hence is difficult to update.
 
-**Setting up the coordinator**: The coordinator must be a member of the current network. To run the coordinator, run the following:
-
-```bash
-drand share --leader --transition --secret-file /path/to/my/secret/file --nodes 15 --threshold 10 --out group2.toml --id {beacon-id}
-```
-
-**Setting up the current members for the resharing**: The current members can simply run the following command:
-
-```bash
-drand share --connect <coordinator> --transition --secret-file /path/to/my/secret/file --out group2.toml --id {beacon-id}
-```
-
 **Setting up the new members**: The new members need the current group file to proceed. Check how to get the group file in the [Deployment](https://beta.drand.love/operator/deploy/#group-toml-file) section.
 
 :::tip
 A new member will need the full history of randomness beacons to participate in a group so that the new node can field requests for previous rounds.
-Getting the full history can take a while.
+Getting the full history can take a while, you can also ask an existing member for a copy of their database to speed things up and reduce bandwidth usage.
 :::
 
-A new member can synchronize with a chain before joining. This can be done by anyone, and does not require resharing to have started.
+A new member can synchronize with a chain before joining. This can be done by anyone that is allowlisted by the other nodes, and does not require resharing to have started.
 
 ```bash
 drand follow --sync-nodes <coordinator> --chain-hash <chain hash>
@@ -382,15 +322,8 @@ drand follow --sync-nodes <coordinator> --chain-hash <chain hash>
 This command will not exit, but will keep adding new beacons to the local database as they are produced.
 If you wish for the command to terminate once it has synchronized up to _now_, you can add the option `--up-to=<round>` where `round` is the current randomness round.
 
-To join the group, the incoming member should execute:
+After the resharing protocol is finished, each node will have the new group file written out as `.drand/multibeacon/<beaconid>/groups/group.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
 
-```bash
-drand share connect <coordinator> --from group.toml --secret-file /path/to/my/secret/file --out group2.toml
-```
-
-After the protocol is finished, each node will have the new group file written out as `group2.toml`. The randomness generation starts only at the specified transition time specified in the new group file.
-
-In this case, the `Beacon ID` is not required as it is taken from the group file.
 ## Metrics
 
 The `--metrics <metrics-address>` flag may be used to launch a metrics server at the provided address. The address may be specified as `127.0.0.1:port`, or as `:port` to bind to the default network interface. The webserver at this port will serve [pprof](https://golang.org/pkg/net/http/pprof/) runtime profiling data at `<metrics>/debug/pprof`, allow triggering golang garbage collection at `<metrics>/debug/gc`, and will serve [prometheus](https://prometheus.io/docs/guides/go-application/) metrics at `<metrics>:/metrics`. Prometheus counters track the number of gRPC requests sent and received by the drand node, as well as the number of HTTP API requests. This endpoint should not be exposed publicly. If desired, prometheus metrics can be used as a data source for [grafana dashboards](https://grafana.com/docs/grafana/latest/features/datasources/prometheus/) or other monitoring services.

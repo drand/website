@@ -1,6 +1,6 @@
 # Specification
 
-Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
+drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
 in Golang. Servers running drand can be linked with each other to produce
 collective, publicly verifiable, unbiased, unpredictable random values at fixed
 intervals using bilinear pairings and threshold cryptography.
@@ -9,7 +9,7 @@ This document is a specification of the drand protocols.
 
 ## Notations
 
-### Drand node
+### drand node
 
 A drand node is a server that runs the drand code, participates in the
 distributed key generation (DKG) process and the randomness generation and that can
@@ -43,11 +43,11 @@ func (n *Node) Hash() []byte {
 **Public Key**: Public keys of drand nodes are points on the G1 group of the
 BLS12-381 curve. See the [curve](#drand-curve) section for more information.
 
-### Drand network
+### drand network
 Each group of nodes that runs a specific process (e.g., one with the same set of parameters) constitutes a separate network. 
 Each network will act as an independent beacon generator. 
 
-### Drand beacon
+### drand beacon
 
 A drand beacon is what the drand network periodically creates and that can be
 used to derive the randomness. A beacon contains the signature of the previous
@@ -96,7 +96,7 @@ const ShortSigSchemeID = "bls-unchained-on-g1"
 ```
 
 As you can notice, the default value is `pedersen-bls-chained`. This is because of backward-compatibility
-reasons. Drand nodes older or equal to version `1.3.0`, which don't know anything about schemes, 
+reasons. drand nodes older or equal to version `1.3.0`, which don't know anything about schemes, 
 use this set of parameters.
 
 ### Group configuration
@@ -175,14 +175,14 @@ func (g *Group) Hash() []byte {
 
 ## Wireformat & API
 
-Drand currently uses [gRPC](https://grpc.io/) as the networking protocol. All
+drand currently uses [gRPC](https://grpc.io/) as the networking protocol. All
 exposed services and protobuf definitions are in the
 [protocol.proto](https://github.com/drand/drand/blob/master/protobuf/drand/protocol.proto)
 file for the intra-nodes protocols and in the
 [api.proto](https://github.com/drand/drand/blob/master/protobuf/drand/api.proto)
 file.
 
-## Drand node
+## drand node
 
 Generating public randomness is the primary functionality of drand. Public
 randomness is generated collectively by drand nodes and is made publicly available.
@@ -207,8 +207,8 @@ Messages are delivered to the correct internal process by a module that checks t
 ![beacon-id-dispatching.png](./images/beacon_id_dispatching.png)
 
 
-## Drand versioning
-Each request sent by a drand node will contain the actual drand protocol version that the node is using. Drand uses [semantic
+## drand versioning
+Each request sent by a drand node will contain the actual drand protocol version that the node is using. drand uses [semantic
 versioning](https://semver.org) as a versioning protocol. This has a clear purpose. Only nodes with same 
 MAJOR version will be allowed to communicate with each other. For backward-compatibility reasons, 
 the fallback value will be `0.0.0`, and nodes with this version will always be allowed to communicate
@@ -236,7 +236,7 @@ In the following diagram, we can see:
 **Notes**: Node 2 is a node where node-versioning feature is not supported. This node has not been updated to the latest version (above 1.3). In this case, 
 `Metadata` won't be present on requests, so the fallback version other nodes infer is `0.0.0`.
 
-## Drand modules
+## drand modules
 
 The A drand network is composed of a distributed set of nodes and has two
 phases / modules:
@@ -271,7 +271,7 @@ in the new group configuration.
 
 #### Getting the public key of the coordinator
 
-Participants needs to know at least the address _and_ public key of the coordinator. Drand provides a simple gRPC call that returns the public key of the node.
+Participants needs to know at least the address _and_ public key of the coordinator. drand provides a simple gRPC call that returns the public key of the node.
 **Note**: This part is not _required_ by the spec but is implemented by drand
 for simplicity of use. This protocol relies the TOFU ("Trust On First Use")
 approach: the coordinator is trusted for this and the subsequent phase and gives
@@ -400,7 +400,7 @@ accordingly to the protocol.
 
 #### Types of distributed key generation
 
-Drand supports two operations with respect to setting up a distributed key:
+drand supports two operations with respect to setting up a distributed key:
 
 - Fresh setup: nodes have no prior shares and want to run the protocol from scratch
 - Resharing: Resharing enables to _remove_ and _add_ new nodes to a group, while
@@ -683,7 +683,7 @@ section](#catchup-mode) for more information.
 
 #### Beacon: chained or unchained
 
-Drand has now the ability to work in two different modes regarding randomness generation: chained or unchained.
+drand has now the ability to work in two different modes regarding randomness generation: chained or unchained.
 In the first case, drand binds the different random beacon together so they form a chain of random
 beacons. Remember a drand beacon is structured as follows:
 
@@ -708,7 +708,7 @@ one therefore forming a randomness chain.
 In the second case, drand keeps binding the different random beacon together, but this is not strictly necessary. The 
 chain integrity won't be required in other to verify a random value generated.
 
-**Notes**: Drand can choose between these two working modes using the `--scheme` flag. 
+**Notes**: drand can choose between these two working modes using the `--scheme` flag. 
 See [scheme](#scheme) section for more information.
 
 **Partial beacon creation**: At each new round, a node creates a `PartialBeacon`
@@ -968,9 +968,9 @@ given round requested and sends back all subsequent beacons until the last one.
 
 ## Cryptographic specification
 
-### Drand curve
+### drand curve
 
-Drand uses the pairing curve
+drand uses the pairing curve
 [BLS12-381](https://hackmd.io/@benjaminion/bls12-381). All points on the curve are sent using the compressed form.
 
 The implementation that drand uses is located in the

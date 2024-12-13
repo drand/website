@@ -1,13 +1,13 @@
 ---
 title: "drand @ NorthSec"
-summary: "Drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received."
+summary: "drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received."
 date: 2022-06-24
 tags:
     - Conferences and Events
     - News
 ---
 
-_Drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received._
+_drand was recently presented at the North Sec conference! Here is a brief summary of the event and the drand talk, as well as the answers to a few of the interesting questions we received._
 
 You can find the slides [ready to be downloaded on IPFS](https://ipfs.io/ipfs/bafybeigenfo4az5j7abbjc3mbn7i4rl6qto7cca75kednwh73lopzq6foa/Public_verifiable_unbiasable_randomness_wassat-NSec2022-Yolan_Romailler.pdf) [CID: bafybeigenfo4az5j7abbjc3mbn7i4rl6qto7cca75kednwh73lopzq6foa] and if you want to watch the video of the talk, it is already [available on Youtube](https://youtu.be/I1iKtNGRv0s?t=17468).
 
@@ -17,9 +17,9 @@ You can find the slides [ready to be downloaded on IPFS](https://ipfs.io/ipfs/ba
 
 At North Sec you find plenty of security professionals and hackers alike in the audience, and the range of talks is usually well balanced, from pen-testing to social impact or legal ones, including cryptography, malware, and more! It features both attack- and defence-focused presentations and is usually very enjoyable.
 
-## Drand @ North Sec
+## drand @ North Sec
 
-The Drand team attended North Sec to present a talk titled “Public, verifiable, and unbiasable randomness: wassat?” whose goal was to introduce the different flavours of randomness to the audience, as well as to explain some of the quirks that make randomness a sensitive topic, and why it’s especially difficult in the distributed, public case. Finally, we also did a recap about the current drand network being run by the League of Entropy and available to the public as a source of randomness. We have invited interested parties to start using drand in their projects, or to join the [League of Entropy](https://www.cloudflare.com/en-gb/leagueofentropy/) to contribute to a secure, distributed randomness network.
+The drand team attended North Sec to present a talk titled “Public, verifiable, and unbiasable randomness: wassat?” whose goal was to introduce the different flavours of randomness to the audience, as well as to explain some of the quirks that make randomness a sensitive topic, and why it’s especially difficult in the distributed, public case. Finally, we also did a recap about the current drand network being run by the League of Entropy and available to the public as a source of randomness. We have invited interested parties to start using drand in their projects, or to join the [League of Entropy](https://www.cloudflare.com/en-gb/leagueofentropy/) to contribute to a secure, distributed randomness network.
 
 ![Is that random?](./images/2022-06-24-drand-at-northsec/Untitled.jpg)
 

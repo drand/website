@@ -8,12 +8,12 @@ title: About
 
 ---
 
-Drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
+drand (pronounced "dee-rand") is a distributed randomness beacon daemon written
 in Golang. Servers running drand can be linked with each other to produce
 collective, publicly verifiable, unbiased, unpredictable random values at fixed
 intervals using bilinear pairings and threshold cryptography.
 
-Drand is meant to be an Internet infrastructure level service that provides
+drand is meant to be an Internet infrastructure level service that provides
 randomness to applications, similar to how NTP provides timing information and
 Certificate Transparency logs provide certificate issuance information for free.
 
@@ -37,7 +37,7 @@ the given epoch. Decentralization helps for the liveness of the beacon.
 
 ## Origins of drand
 
-Drand's development originally started in 2017 at the [DEDIS](https://dedis.ch)
+drand's development originally started in 2017 at the [DEDIS](https://dedis.ch)
 lab at [EPFL](https://epfl.ch) by Nicolas GAILLY, a PhD student at the time
 with the help of Philipp Jovanovic and under the supervision of Bryan Ford.
 
@@ -74,7 +74,7 @@ using pairings.
 
 Thanks to the use of pairing based cryptography, drand is able to generate verifiable
 randomness in a very simple and efficient manner and to deliver it in a reliable
-way to the clients. Drand was meant to be from the ground up a distributed
+way to the clients. drand was meant to be from the ground up a distributed
 service providing public randomness in an application-agnostic, secure, and
 efficient way. And _nothing else_. The idea is that instead of having each
 decentralized systems re-inventing the wheel internally, often poorly, drand would
@@ -136,5 +136,5 @@ Finally, two special notes:
   project and providing the push to make drand a production ready network.
 
 :::tip Get in touch
-If you have any questions or comments, you can reach the Drand team at [info@drand.love](mailto:info@drand.love) or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA).
+If you have any questions or comments, you can reach the drand team at [info@drand.love](mailto:info@drand.love) or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA).
 :::

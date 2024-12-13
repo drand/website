@@ -2,7 +2,7 @@
 
 Client libraries enable easy access to drand randomness in specific programming languages. They also provide peace of mind by _verifying_ randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
-Drand randomness is available over [HTTP](/developer/http-api/) and over [libp2p PubSub](/developer/gossipsub/).
+drand randomness is available over [HTTP](/developer/http-api/) and over [libp2p PubSub](/developer/gossipsub/).
 
 Currently, the following client libraries are available:
 

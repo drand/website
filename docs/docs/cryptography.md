@@ -8,7 +8,7 @@ sidebarDepth: 2
 This document provides an overview of the cryptographic building blocks that drand uses to generate
 publicly-verifiable, unbiased, and unpredictable randomness in a distributed manner. The drand beacon has two phases (a setup phase, and a beacon phase), which we describe below.
 
-Generally, we assume that there are $n$ participants, out of which at most $f<n$ are malicious. Drand heavily relies on [threshold cryptography](https://en.wikipedia.org/wiki/Threshold_cryptosystem) primitives, where (at least) a threshold of $t=f+1$ nodes have to work together to execute certain cryptographic operations successfully.
+Generally, we assume that there are $n$ participants, out of which at most $f<n$ are malicious. drand heavily relies on [threshold cryptography](https://en.wikipedia.org/wiki/Threshold_cryptosystem) primitives, where (at least) a threshold of $t=f+1$ nodes have to work together to execute certain cryptographic operations successfully.
 
 Threshold cryptography has many applications, as it avoids single points of failure. One such application is cryptocurrency multi-sig wallets, where $t$-of-$n$ participants are required to sign a transaction using a threshold signature scheme.
 
@@ -44,7 +44,7 @@ Shamir's Secret Sharing scheme assumes that the dealer is honest but this assump
 A [Verifiable Secret Sharing](https://en.wikipedia.org/wiki/Verifiable_secret_sharing) (VSS)
 scheme protects against malicious dealers by enabling participants to verify that their shares are consistent with those dealt to other nodes ensuring that the shared secret can be correctly reconstructed later on.
 
-Drand uses [Feldman's VSS](https://ieeexplore.ieee.org/abstract/document/4568297) scheme, an extension of SSS. Let $\mathbb{G}$ denote a cyclic group of prime order $p$ in which computing discrete logarithms is intractable.
+drand uses [Feldman's VSS](https://ieeexplore.ieee.org/abstract/document/4568297) scheme, an extension of SSS. Let $\mathbb{G}$ denote a cyclic group of prime order $p$ in which computing discrete logarithms is intractable.
 
 A cyclic group means there exists a generator $g$ such that any element $x \in \mathbb{G}$ can be written as $x = g^a$ for some $a \in {0,\ldots,p-1}$.
 
@@ -58,7 +58,7 @@ These commitments enable each participant $i$ to verify that their share $s_i = 
 
 Although VSS schemes protect against a malicious dealer, the dealer still knows the secret itself. To create a collectively shared secret $s$ such that no individual node gets any information about it, participants can utilize a [Distributed Key Generation](https://en.wikipedia.org/wiki/Distributed_key_generation) (DKG) protocol.
 
-Drand uses [Pedersen's DKG](https://www.cs.cornell.edu/courses/cs754/2001fa/129.PDF) scheme, which essentially runs $n$ instances of Feldman's VSS in parallel on top of some additional verification steps.
+drand uses [Pedersen's DKG](https://www.cs.cornell.edu/courses/cs754/2001fa/129.PDF) scheme, which essentially runs $n$ instances of Feldman's VSS in parallel on top of some additional verification steps.
 
 **Share Distribution**: Every participant $i$ creates a (random) secret $s_i \in \mathbb{Z}_p$ and shares it with all other participants using VSS by sending a share $s_{i,j}$ to each participant $j$ and broadcasting the list of commitments $(A{i,0},A_{i,1},\ldots,A_{i,t-1})$ to everyone.
 
@@ -91,7 +91,7 @@ $\forall a,b \in \mathbb{Z}_p^{\ast}, \forall P \in \mathbb{G}_1, \forall Q \in 
 
 **Computability**: There exists an efficient algorithm to compute $e$.
 
-Drand currently uses the [BLS12-381 curve](https://electriccoin.co/fr/blog/new-snark-curve/).
+drand currently uses the [BLS12-381 curve](https://electriccoin.co/fr/blog/new-snark-curve/).
 
 ### Randomness generation
 
@@ -157,7 +157,7 @@ Thus for that scheme, the following operations apply:
 
 
 ### Randomness
-Drand nodes currently support three schemes, though they can roughly be divided into two modes: _chained_ or _unchained_. 
+drand nodes currently support three schemes, though they can roughly be divided into two modes: _chained_ or _unchained_. 
 
 The drand randomness beacon operates in discrete rounds $r$. In every round, drand produces a new random value using threshold BLS signatures which can be linked together, or not, into a chain of randomness.
 

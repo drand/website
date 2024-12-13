@@ -31,7 +31,7 @@ P.S.: If this has piqued your interest and you’d rather watch a video about ho
 
 ## Timelock Encryption
 
-### Drand background
+### drand background
 
 In order to understand how the system works, we need to first recall a few things about how drand functions…
 

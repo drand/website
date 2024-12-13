@@ -1,5 +1,5 @@
 ---
-title: Drand documentation
+title: drand documentation
 description: The home page for developer documentation for drand, a distributed randomness beacon.
 home: true
 heroImage: images/logo-drand-text-bottom-dark.svg
@@ -23,7 +23,7 @@ features:
 
 ## Learn more
 
-Billions of devices around the world use random numbers to keep computers secure and keep the internet open. High-grade random number generators need to be unpredictable, publicly verifiable, bias-resistant, decentralized, and always available. Drand strives to meet all these criteria while keeping things simple and accessible. [Find out more about how drand produces random numbers and how the team are making the project secure →](/docs/overview/)
+Billions of devices around the world use random numbers to keep computers secure and keep the internet open. High-grade random number generators need to be unpredictable, publicly verifiable, bias-resistant, decentralized, and always available. drand strives to meet all these criteria while keeping things simple and accessible. [Find out more about how drand produces random numbers and how the team are making the project secure →](/docs/overview/)
 
 ## Get involved
 

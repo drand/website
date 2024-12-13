@@ -4,7 +4,7 @@ title: Metrics
 
 # Metrics guide
 
-Drand uses [prometheus](https://prometheus.io/) instrumentation for helping
+drand uses [prometheus](https://prometheus.io/) instrumentation for helping
 operators monitor and understand the runtime behavior of system.
 
 ## Local metrics
