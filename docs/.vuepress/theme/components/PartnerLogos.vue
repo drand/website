@@ -15,22 +15,12 @@
             class="wide"
           />
         </a>
-        <a href="https://www.zengo.com/" class="logo" title="ZenGo">
-          <img src="/images/loe/logo-zengo.png" alt="ZenGo logo" class="wide" />
-        </a>
         <a
           href="https://ethereum.foundation/"
           class="logo"
           title="Ethereum Foundation"
         >
           <img src="/images/loe/ef-logo.png" alt="Ethereum Foundation logo" />
-        </a>
-        <a href="https://tierion.com/" class="logo" title="Tierion">
-          <img
-            src="/images/loe/tierion-logo.png"
-            alt="Tierion logo"
-            class="wide"
-          />
         </a>
         <a
           href="https://www.kudelskisecurity.com/"
@@ -43,15 +33,19 @@
             class="wide"
           />
         </a>
-        <a href="http://clabs.org/" class="logo" title="cLabs">
-          <img
-            src="/images/loe/c-labs-logo.png"
-            alt="cLabs logo"
-            class="wide"
-          />
-        </a>
         <a href="https://theqrl.org/" class="logo" title="QRL">
           <img src="/images/loe/logo-qrl.svg" alt="QRL logo" class="narrow" />
+        </a>
+        <a
+          href="https://www.ata.network/"
+          class="logo"
+          title="Automata Network"
+        >
+          <img
+            src="/images/loe/ata-network.png"
+            alt="Automata Network logo"
+            class="wide"
+          />
         </a>
         <a
           href="https://www.uchile.cl/"
@@ -80,8 +74,8 @@
             alt="Centre for Digital Trust logo"
           />
         </a>
-        <a href="https://ptisp.pt/" class="logo last-row" title="PTisp">
-          <img src="/images/loe/logo-ptisp.png" alt="PTisp logo" class="wide" />
+        <a href="https://www.diadata.org/" class="logo" title="DIA">
+          <img src="/images/loe/logo-dia.png" alt="DIA logo" />
         </a>
         <a
           href="https://www.epfl.ch/labs/dedis/"

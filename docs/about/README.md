@@ -108,6 +108,17 @@ decryption key oracle for timelock encryption, is used in a RNG certified by
 Gaming Labs International for several lottery games, sortitions in various settings,
 and more!
 
+In 2024, the drand project is stewarded by the team at [Randamu](https://randa.mu/), and has deployed 3
+different mainnet networks:
+ - the `default` chained one, launched in 2020 with a frequency of 30s and signatures on G2,
+   and beacons linked to the previous ones, not compatible with Timelock encryption;
+ - the `quicknet` unchained network, launched in 2023 with a period of only 3 seconds and
+   with signatures on G1. This one is fully compatible with Timelock encryption;
+ - the `evmnet` unchained network, launched in 2024, with a period of 3 seconds and signatures on G1, 
+   but using the BN254 curve instead of the BLS12-381, in order to
+   be compatible with the EVM pre-compiles meant for BN254 only. This network allows
+   to verify the randomness on EVM-compatible chains directly on-chain. 
+
 ## Acknowledgments
 
 Thanks to  [@herumi](https://github.com/herumi)for providing support on his
@@ -125,5 +136,5 @@ Finally, two special notes:
   project and providing the push to make drand a production ready network.
 
 :::tip Get in touch
-If you have any questions or comments, you can reach the Drand team at [leagueofentropy@googlegroups.com](mailto:leagueofentropy@googlegroups.com) or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA).
+If you have any questions or comments, you can reach the Drand team at [info@drand.love](mailto:info@drand.love) or join the [drand slack workspace](https://join.slack.com/t/drandworkspace/shared_invite/zt-19u4rf6if-bf7lxIvF2zYn4~TrBwfkiA).
 :::
