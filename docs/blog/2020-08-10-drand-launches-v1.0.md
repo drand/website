@@ -1,6 +1,6 @@
 ---
 title: The League of Entropy launches drand v1.0 to become the Internet’s first production-grade, publicly verifiable randomness beacon!
-summary: Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
+summary: Welcome to the brand new website for the drand project! drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 image: /images/drand-launch-banner.png
 date: 2020-08-10
 tags:
@@ -11,23 +11,23 @@ tags:
 
 ![Banner for drand v1.0](/images/drand-launch-banner.png)
 
-Welcome to the brand new website for the drand project! Drand is now in production, providing publicly verifiable randomness as a foundational internet service.
+Welcome to the brand new website for the drand project! drand is now in production, providing publicly verifiable randomness as a foundational internet service.
 
 Below you'll find an introduction to drand, information on recent protocol upgrades, details about the expansion and strengthening of drand's largest deployment, the League of Entropy, and glimpses into the future of drand and the League of Entropy.
 
 ## New to drand? Here is a primer
 
-Randomness is at the core of many business-critical operations and protocols that we rely on every day (e.g., the cryptography of secure communications, the execution of public lotteries, and so on). However, despite being such a huge requirement, there has never been a source of public randomness capable of providing truly unbiased randomness at scale. Drand was created to change that. 
+Randomness is at the core of many business-critical operations and protocols that we rely on every day (e.g., the cryptography of secure communications, the execution of public lotteries, and so on). However, despite being such a huge requirement, there has never been a source of public randomness capable of providing truly unbiased randomness at scale. drand was created to change that. 
 
-Drand provides a mechanism for a universally accessible source of publicly-verifiable, unbiasable, and unpredictable randomness. Following an initial multi-party computation to establish a distributed key, drand nodes operated by independent parties periodically broadcast information that gets aggregated into a final random beacon whose validity can be easily verified by users. 
+drand provides a mechanism for a universally accessible source of publicly-verifiable, unbiasable, and unpredictable randomness. Following an initial multi-party computation to establish a distributed key, drand nodes operated by independent parties periodically broadcast information that gets aggregated into a final random beacon whose validity can be easily verified by users. 
 
-Drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/), and the first network was launched as an experiment in 2019. After nearly a year in the research stage, it was time to transform drand into a production-level public service. Over the past few months, we have rolled out a host of new changes and improvements to the service. We've also deployed drand's largest network, the [League of Entropy](http://leagueofentropy.com/).
+drand started as a research project in the [DEDIS lab at EPFL](http://dedis.epfl.ch/), and the first network was launched as an experiment in 2019. After nearly a year in the research stage, it was time to transform drand into a production-level public service. Over the past few months, we have rolled out a host of new changes and improvements to the service. We've also deployed drand's largest network, the [League of Entropy](http://leagueofentropy.com/).
 
 We believe that drand can be a foundational Internet core service for randomness, one that everyone online can access and use in the same way as other foundational protocols, like DNS or NTP.
 
-## Drand v1.1
+## drand v1.1
 
-Drand launched v1.0 in July and updgraded to v1.1 in August, rolling out many new features and architecture improvements. Chief among them are:
+drand launched v1.0 in July and updgraded to v1.1 in August, rolling out many new features and architecture improvements. Chief among them are:
 
 ### 3 layered architecture
 
@@ -45,7 +45,7 @@ The network architecture was split into three layers, offering enhanced protecti
 
 A set of tools is now used to monitor the various drand nodes and alert operators to incidents. A [status page](https://drand.statuspage.io/) that shows both system status and any planned maintenance is now available for the network. We have also established a network observatory to measure network performance and reliability from the perspective of the end-user, with vantage points around the world.
 
-### Drand’s specification & security model
+### drand’s specification & security model
 
 The drand protocol now has a [full specification](/docs/specification/) and a documented [security model](/docs/security-model/). 
 
@@ -96,7 +96,7 @@ More partners have signed up to join soon, and we'll keep growing the network ov
 
 ### League of Entropy's governance
 
-Our changes start with the drand community. Drand's strength and resilience are ensured by the number and diversity of its nodes. But a key requirement for the overall security of the network is that no single entity retains complete and centralized control over the drand network. This calls for an explicit and decentralized governance model for the drand community of operators. So one of the first changes was to draft a new model of collaborative governance for the League of Entropy – the consortium supporting and sustaining the drand network.
+Our changes start with the drand community. drand's strength and resilience are ensured by the number and diversity of its nodes. But a key requirement for the overall security of the network is that no single entity retains complete and centralized control over the drand network. This calls for an explicit and decentralized governance model for the drand community of operators. So one of the first changes was to draft a new model of collaborative governance for the League of Entropy – the consortium supporting and sustaining the drand network.
 
 With this new governance model, we've established the rules and requirements that the League of Entropy needs in order to maintain a high level of network security, ensure that the League operates effectively, and establish the right conditions for ongoing improvement to the production quality of drand. We've also laid down the procedures for adding new members to the League of Entropy in an equitable, fair, and decentralized way. All told, we think these changes set up the drand project for continued success as we find new users and implement new features.
 

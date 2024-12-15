@@ -23,13 +23,6 @@
           <a href="https://chainsafe.io/" class="logo" title="ChainSafe">
             <img src="/images/loe/logo-chainsafe.svg" alt="ChainSafe logo" />
           </a>
-          <a href="http://clabs.org/" class="logo" title="cLabs">
-            <img
-              src="/images/loe/logo-clabs.png"
-              alt="cLabs logo"
-              class="wide"
-            />
-          </a>
           <a href="https://cloudflare.com/" class="logo" title="Cloudflare">
             <img
               src="/images/loe/logo-cloudflare.svg"
@@ -68,6 +61,9 @@
               alt="Emerald Onion logo"
             />
           </a>
+          <a href="https://www.diadata.org/" class="logo" title="DIA">
+            <img src="/images/loe/logo-dia.png" alt="DIA logo" />
+          </a>
           <a
             href="https://ethereum.foundation/"
             class="logo"
@@ -77,9 +73,6 @@
               src="/images/loe/logo-eth.png"
               alt="Ethereum Foundation logo"
             />
-          </a>
-          <a href="https://www.initc3.org/" class="logo" title="IC3">
-            <img src="/images/loe/logo-ic3.png" alt="IC3 logo" />
           </a>
           <a
             href="https://www.kudelskisecurity.com/"
@@ -95,22 +88,8 @@
           <a href="https://protocol.ai/" class="logo" title="Protocol Labs">
             <img src="/images/loe/logo-pl.svg" alt="Protocol Labs logo" />
           </a>
-          <a href="https://ptisp.pt/" class="logo" title="PTisp">
-            <img
-              src="/images/loe/logo-ptisp.png"
-              alt="PTisp logo"
-              class="wide"
-            />
-          </a>
           <a href="https://theqrl.org/" class="logo" title="QRL">
             <img src="/images/loe/logo-qrl.svg" alt="QRL logo" class="narrow" />
-          </a>
-          <a href="https://tierion.com/" class="logo" title="Tierion">
-            <img
-              src="/images/loe/logo-tierion.svg"
-              alt="Tierion logo"
-              class="wide"
-            />
           </a>
           <a
             href="https://www.uchile.cl/"

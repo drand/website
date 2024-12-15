@@ -8,8 +8,8 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Drand - Distributed Randomness Beacon.',
-      description: 'Drand Documentation'
+      title: 'drand - Distributed Randomness Beacon.',
+      description: 'drand Documentation'
     }
   },
   markdown: {
@@ -28,7 +28,7 @@ module.exports = {
     search: true,
     searchMaxSuggestions: 10,
     author: {
-      name: 'Drand Team',
+      name: 'drand Team',
       twitter: ''
     },
     keywords:
@@ -88,7 +88,6 @@ module.exports = {
               title: 'About',
               path: '/about/'
             },
-            'code-of-conduct',
             'community',
             'contributing',
             {

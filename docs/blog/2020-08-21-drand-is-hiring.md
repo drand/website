@@ -1,5 +1,5 @@
 ---
-title: Drand is hiring! 
+title: drand is hiring! 
 summary: Protocol Labs is hiring a Project Operator and an Infrastructure Engineer to work on the drand team.
 date: 2020-08-27
 tags:

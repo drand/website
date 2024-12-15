@@ -1,6 +1,6 @@
 # Pubsub network
 
-Drand is able to publish randomness on a [libp2p](https://libp2p.io) pubsub network using the [gossipsub protocol](https://docs.libp2p.io/concepts/publish-subscribe/), using what is known as a _gossip relay_.
+drand is able to publish randomness on a [libp2p](https://libp2p.io) pubsub network using the [gossipsub protocol](https://docs.libp2p.io/concepts/publish-subscribe/), using what is known as a _gossip relay_.
 
 ## Public endpoints
 

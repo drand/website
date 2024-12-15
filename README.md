@@ -1,4 +1,4 @@
-# Drand documentation
+# drand documentation
 
 Welcome to the drand documentation website! The live site can be found at https://drand.love.
 
@@ -55,5 +55,4 @@ _Note_: You'll need to use NodeJS version 16, e.g. 16.19.1. At the moment, NodeJ
 Always test that you blog post is displaying correctly before merging anything into `master`.
 
 ## Deployment to drand.love
-Commits on master automatically deploy the updated website to https://drand.love using [Fleek](https://fleek.co/).  Commits on side branches provide a preview build in their `fleek/build` check.  
-See [this entry](https://docs.fleek.co/hosting/site-deployment/) in Fleek's documentation for more details on how that happens.
+Commits on master automatically deploy the updated website to https://drand.love using Cloudflare Pages.  Commits on side branches provide a preview build.  

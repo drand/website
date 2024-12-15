@@ -9,9 +9,11 @@ module.exports = [
     ]
   },
   { text: 'Partner With Us', link: '/partner-with-us/' },
+  { text: 'Press', link: '/press/' },
   { text: 'Blog', link: '/blog/' },
-//  {
-//    text: "We're hiring",
-//    link: 'https://boards.greenhouse.io/protocollabs/jobs/4283635004'
-//  }
+  { text: 'Other Randamu Creations', link: 'https://randa.mu/' }
+  //  {
+  //    text: "We're hiring",
+  //    link: 'https://boards.greenhouse.io/protocollabs/jobs/4283635004'
+  //  }
 ]

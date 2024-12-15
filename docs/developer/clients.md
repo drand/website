@@ -2,21 +2,22 @@
 
 Client libraries enable easy access to drand randomness in specific programming languages. They also provide peace of mind by _verifying_ randomness rounds and add additional features like failover, racing, aggregation, and caching.
 
-Drand randomness is available over [HTTP](/developer/http-api/), [libp2p PubSub](/developer/gossipsub/) and gRPC.
+drand randomness is available over [HTTP](/developer/http-api/) and over [libp2p PubSub](/developer/gossipsub/).
 
 Currently, the following client libraries are available:
 
-- [Go](#go)
-- [JS](#js)
+- [Go](https://github.com/drand/go-clients), to build both PubSub and HTTP clients
+- [JS](https://github.com/drand/drand-client), to build HTTP clients
+- [Rust](https://github.com/thibmeu/drand-rs/tree/main/drand_core), to build HTTP clients
 
-If your application cannot use the libraries above, you can still use the [drand-client CLI](/developer/drand-client) or make requests to the [HTTP API](/developer/http-api/) endpoints. If you have created a client library or know of a client library not listed here, [please let us know by opening an issue](https://github.com/drand/website/issues/new).
+If your application cannot use the libraries above, you can still make requests to the [HTTP API](/developer/http-api/) endpoints. If you have created a client library or know of a client library not listed here, [please let us know by opening an issue](https://github.com/drand/website/issues/new).
 
 ## Go
 
 ### Install
 
 ```sh
-go get github.com/drand/drand
+go get github.com/drand/drand/v2@latest
 ```
 
 ### Usage

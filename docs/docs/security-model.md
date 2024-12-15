@@ -7,7 +7,7 @@ sidebarDepth: 2
 
 ## Notations
 
-**Drand node**: a node that is running the drand daemon and participating to the
+**drand node**: a node that is running the drand daemon and participating to the
 creation of the randomness in one or many networks at the same time. The **drand network** is
 the set of drand nodes connected with each other. Each drand network has a longterm public key and a
 private share (after running the setup/resharing phase). 
@@ -44,7 +44,7 @@ or assumptions taken.
 The DKG protocol model follows the one from the Pedersen's protocol. [Gennaro's paper](https://www.researchgate.net/publication/225722958_Secure_Distributed_Key_Generation_for_Discrete-Log_Based_Cryptosystems) explains the protocol and its assumptions.
 
 **Synchronous Network**: A packet sent from an online node reaches its
-destination in a bounded amount of time. Drand realizes this assumption by the
+destination in a bounded amount of time. drand realizes this assumption by the
 usage of timeouts during the DKG protocol.
 
 **Synchronized Clocks**: All nodes must have roughly synchronized clocks (less
@@ -56,7 +56,7 @@ bounded amount of time. This assumption is not strictly realized by drand
 currently. See [DKG attacks](#distributed-key-generation-ceremony) section to understand the impact.
 
 **Authenticated Channel**: Every communication between nodes must be
-authenticated. Drand achieves this by signing every outgoing DKG packets with
+authenticated. drand achieves this by signing every outgoing DKG packets with
 a BLS signature on the longterm public key of the sender node.
 
 **Public Group**: Every node willing to run the DKG on a new network must know the group
@@ -156,7 +156,7 @@ generation phase, each with different consequences.
    Consequence: The attacker in such position is able to aggregate the final
    beacon of the current round before any other drand nodes. However, the advantage
    should be at most half of the RTT of the slowest link between the honest
-   drand nodes. Drand end users should be using the round number as a marker and
+   drand nodes. drand end users should be using the round number as a marker and
    not the time accuracy which may not be granular enough for some applications.
 
 2. Active Adversary Scenario
