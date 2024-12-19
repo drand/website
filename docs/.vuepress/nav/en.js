@@ -8,7 +8,7 @@ module.exports = [
       { text: 'Operator', link: '/operator/' }
     ]
   },
-  { text: 'Partner With Us', link: '/partner-with-us/' },
+  { text: 'The League Of Entropy', link: '/loe/' },
   { text: 'Press', link: '/press/' },
   { text: 'Blog', link: '/blog/' },
   { text: 'Other Randamu Creations', link: 'https://randa.mu/' }
