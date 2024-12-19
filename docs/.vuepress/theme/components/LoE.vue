@@ -135,7 +135,7 @@
     </div>
     <div class="button">
       <router-link
-        :to="'/partner-with-us'"
+        :to="'/loe'"
         class="action-button reverse yellow"
       >
         Join the coalition!

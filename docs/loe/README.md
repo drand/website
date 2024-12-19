@@ -1,6 +1,6 @@
 ---
 layout: Partners
-title: Partner with us
+title: The League of Entropy
 partners: true
 description: Join us as a partner! Let's make drand a foundational Internet protocol together.
 heroImage: ../images/drand-logo-dark-text.png
@@ -8,11 +8,11 @@ heroImage2: ../images/logo-loe.png
 heroAlt: drand logo
 hero2Alt: loe logo
 heroText: Join us as a partner!
-tagline: Let's make drand a foundational Internet protocol together.
+tagline: Let's make drand a foundational Internet protocol together, providing publicly verifiable randomness as a Public Good.
 slideFeature:
   - title: What does it mean to partner with us?
     details: We are making verifiable randomness a first class Internet service and drand a foundational Internet protocol! 
-    details2: The League of Entropy is a coalition of 16 independent organizations that power the drand network and contribute to randomness generation.
+    details2: The League of Entropy is a coalition of 15 independent organizations that power the drand network and contribute to randomness generation.
     image: '../images/loe-slides.jpg'
     actions:
       - text: Find out more
@@ -30,6 +30,9 @@ features:
 guidelinesLink: https://docs.google.com/document/d/1zy_ki3Qk6ecg_APEjYlT9DBwzdJx9I_ImHvaUaIwKHU/edit?usp=sharing
 recommendationsLink: https://docs.google.com/document/d/1p5vGdDOyBEAAMaCsDSEyI-BpX64_kNpCMu49qWc_G8M/edit?usp=sharing
 getStartedLink: https://docs.google.com/forms/d/e/1FAIpQLSfGwiSz2_gq6NHo3MGyJyH4_GKv_TcY1YmbwkctKlCh5aVToA/viewform?usp=sf_link
+redirectFrom:
+  - /partner-with-us/
+  - partner-with-us
 ---
 
 ### Get started now

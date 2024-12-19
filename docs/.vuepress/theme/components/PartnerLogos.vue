@@ -3,9 +3,10 @@
     <div class="members">
       <h3>Our partners</h3>
       <p>
+        Discover the League of Entropy (LoE), a coalition dedicated to delivering publicly verifiable decentralized randomness.
         Many leading computing organizations are already collaborating with us
-        on this important project.
-        <a href="#">Join them →</a>
+        on this important project. <br />
+        Join us!
       </p>
       <div class="logos">
         <a href="https://cloudflare.com/" class="logo" title="Cloudflare">
