@@ -14,7 +14,6 @@
     "@vuepress/plugin-last-updated": "^1.9.10",
     "all-relative": "^2.0.0",
     "dayjs": "^1.11.13",
-    "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "markdown-it-deflist": "^3.0.0",
     "markdown-it-footnote": "^4.0.0",
