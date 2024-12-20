@@ -38,6 +38,8 @@
       </div>
     </header>
 
+    <PartnerLogos />
+
     <div
       v-if="data.slideFeature && data.slideFeature.length"
       class="partners-slides"
@@ -70,8 +72,6 @@
         </div>
       </div>
     </div>
-
-    <PartnerLogos />
 
     <div v-if="data.detailsText && data.detailsText.length" class="details">
       <h3>{{ data.featureIntro }}</h3>
