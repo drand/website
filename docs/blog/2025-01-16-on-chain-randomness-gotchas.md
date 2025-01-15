@@ -63,14 +63,14 @@ function drawLottery() public returns (uint8) {
 }
 ```
 
-- **Solution**: Utilise better, unpredictable yet verifiable randomness sources like [**drand**](https://drand.love).
+- **Solution**: Utilise better, unpredictable yet verifiable randomness sources like [**drand**](/).
 
 ### 4. **Hash Collisions**
 
 - **Problem**: Using a hash function like `keccak256` with poor or predictable inputs can lead to hash collisions, where two different sets of input values produce the same hash. This compromises the uniqueness and reliability of the hash, making it exploitable in scenarios requiring high entropy, such as generating unique IDs or random numbers. Additionally, predictable inputs can lead to reduced randomness, where the output of the hash function becomes less unpredictable than expected. This can create vulnerabilities in systems that rely on randomness for security or fairness, such as lotteries, token distributions, or cryptographic proofs.
 - **Example:** Consider a contract that uses `keccak256(abi.encodePacked(block.timestamp))` to generate a random value. Since `block.timestamp` can be influenced by miners within a small range or predicted by an attacker observing transaction patterns, the resulting hash becomes highly predictable. This allows attackers to exploit the system by determining favourable conditions to participate or manipulate outcomes.
 - **Solution**: To mitigate these issues, use highly unpredictable and diverse inputs for hashing to maximise entropy. For example, instead of hashing a single predictable value like `block.timestamp`, combine it with less predictable sources such as the sender's address (`msg.sender`), a unique transaction identifier, or even cryptographic nonces.
-    - **Combine Multiple Sources**: Rely on unpredictable input sources or reliable off-chain randomness oracles like [**drand**](https://drand.love). This reduces the likelihood of predictability and collisions.
+    - **Combine Multiple Sources**: Rely on unpredictable input sources or reliable off-chain randomness oracles like [**drand**](/). This reduces the likelihood of predictability and collisions.
     - **Test for Predictability**: Simulate different input scenarios to identify any potential vulnerabilities or patterns in hash outputs. For instance, ensure that no adversary can influence or predict the resulting hash values.
     - **Avoid Encoding Pitfalls**: Use proper encoding methods like `abi.encode` instead of `abi.encodePacked` to avoid unintended hash collisions from input concatenation.
         
@@ -151,6 +151,6 @@ function flipCoin() public returns (bool) {
 
 Randomness is very important for trust in blockchain-based systems, enabling fair games, secure protocols, and robust applications. However, poorly implemented randomness techniques can introduce vulnerabilities, exposing systems to exploitation. Addressing these gaps is critical for ensuring the integrity and reliability of decentralised technologies.
 
-**The League of Entropy and [drand](https://drand.love)** offer a robust solution using threshold cryptography off-chain, whereby nodes collaborate to produce publicly verifiable and unpredictable random values. The random values can then be used on a blockchain to fulfil requests. No single node can control or predict the outcome and the random values are generated at regular intervals without any reuse.
+**The League of Entropy and [drand](/)** offer a robust solution using threshold cryptography off-chain, whereby nodes collaborate to produce publicly verifiable and unpredictable random values. The random values can then be used on a blockchain to fulfil requests. No single node can control or predict the outcome and the random values are generated at regular intervals without any reuse.
 
 By understanding the associated risks with pseudo-randomness, hash collisions, modulo bias and predictable inputs, developers can design solutions that benefit from enhanced security and fairness. Leveraging best practices such as incorporating high-entropy sources like drand beacons, using verifiable randomness oracles, and conducting rigorous audits is vital to creating systems that users can trust.
