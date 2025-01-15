@@ -8,8 +8,6 @@ tags:
     - How-to
 ---
 
-# On-Chain Randomness Gotchas
-
 When building smart contracts that rely on random values, relying on proper randomness is fundamental, especially in applications like lotteries, random NFT allocations (with random NFT rarities), and more. Notwithstanding, generating and using randomness on-chain can be tricky. In this blog post, we reflect on why proper (unpredictable and unbiasable) randomness is needed, the challenges of achieving it, and common pitfalls to avoid when writing smart contracts that consume random values.
 
 Randomness on-chain should be **unpredictable** and **unbiasable**. This means that no one, including miners or validators, should be able to manipulate or predict the outcome. Achieving a balance between unpredictability and efficiency is challenging, as many methods can be vulnerable to manipulation. 
