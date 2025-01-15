@@ -74,7 +74,6 @@ module.exports = {
             'http-api',
             'gossipsub',
             'drand-client',
-            'organization'
           ],
           '/operator/': [
             'deploy',
@@ -102,6 +101,13 @@ module.exports = {
     displayAllHeaders: true
   },
   plugins: [
+    [
+      'sitemap',
+      {
+        hostname: 'https://drand.love',
+        changefreq: 'weekly',
+      },
+    ],
     ['@vuepress/plugin-back-to-top', true],
     [
       '@vuepress/active-header-links',
@@ -207,7 +213,7 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
   ],
   extraWatchFiles: ['.vuepress/nav/en.js'],
   configureWebpack: (config, isServer) => {

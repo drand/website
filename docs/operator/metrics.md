@@ -52,3 +52,7 @@ All of the above measurements have two significant labels:
 
 - The label `http_address` identifies the HTTP endpoint that is being queried by the client,
 - The label `client_id` identifies the client itself.
+
+## Tracing
+
+In case you are interested in more detailled performance metrics, we support tracing and more information can be found in our Github repository in the [`development` instructions](https://github.com/drand/drand/blob/master/DEVELOPMENT.md#development-environment).
