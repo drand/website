@@ -18,7 +18,7 @@ Randomness on-chain should be **unpredictable** and **unbiasable**. This means t
 
 Randomness is key for various functions in decentralised applications (dApps), including the following examples:
 
-- **Selecting a random subset** of participants from a larger group, such as an array `[1, 2, 3, 4]`, involves considering all possible subsets rather than just contiguous subarrays. For an array of size `n`, the total number of *non-empty* subsets is (2^n)−1, which accounts for all combinations of elements, including single elements `(1)`, pairs `(1, 2)`, `(1, 3)`, triples `(1, 2, 3)`, and so on. For `[1, 2, 3, 4]`, this results in 15 subsets. If the order of the selection matters, permutations are used instead, calculated as P(n,k)=n! / (n−k)!, where `k` is the number of elements chosen. Understanding whether to use subsets, combinations, or permutations ensures a fair and appropriate method for selecting winners or participants randomly from a group.
+- **Selecting a random subset** of participants from a larger group, such as an array `[1, 2, 3, 4]`, involves considering all possible subsets rather than just contiguous subarrays. For an array of size `n`, the total number of *non-empty* subsets is $2^n−1$, which accounts for all combinations of elements, including single elements `(1)`, pairs `(1, 2)`, `(1, 3)`, triples `(1, 2, 3)`, and so on. For `[1, 2, 3, 4]`, this results in 15 subsets. If the order of the selection matters, permutations are used instead, calculated as $P(n,k)=/frac{n!}{(n−k)!}$, where `k` is the number of elements chosen. Understanding whether to use subsets, combinations, or permutations ensures a fair and appropriate method for selecting winners or participants randomly from a group.
 - **Shuffling arrays**, i.e., distributing items in a randomised order.
 - **Minting random NFTs** where different rarities are assigned randomly.
 - **On-chain raffles** where winners are picked at random from a list.
@@ -26,7 +26,7 @@ Randomness is key for various functions in decentralised applications (dApps), i
 
 ## On-Chain Randomness Gotchas to Watch Out For
 
-When implementing randomness in smart contracts, several pitfalls can affect the randomness quality or lead to vulnerabilities:
+When implementing randomness in smart contracts, several pitfalls can affect the randomness quality or lead to vulnerabilities. Let's explore a few of them together.
 
 ### 1. **Entropy Reduction**
 
@@ -34,7 +34,7 @@ When implementing randomness in smart contracts, several pitfalls can affect the
 - **Example**: For scenarios requiring an 8-bit random number (a value between 0 and 255), using only 8 bits from the 256-bit value is appropriate and does not reduce the randomness or unpredictability for that specific use case. However, if the intention is to maximise randomness for larger ranges or use the value for purposes requiring high entropy, discarding the remaining bits could be wasteful or insufficient.
 - **Solution**: Use the Right Amount of Entropy for your Use Case. If you need an 8-bit random number, extract precisely 8 bits. There’s no benefit to using more bits than required in this scenario, as the entropy of an 8-bit integer is inherently capped at 8 bits.
     
-    Avoid Wastefulness. When many small numbers are needed, make full use of the 256-bit random value. For example, instead of discarding unused bits, consider splitting the 256-bit value into 32 8-bit integers for other parts of your application where randomness is needed.
+    Avoid Wastefulness. When many small numbers are needed, make full use of the 256-bit random value. For example, instead of discarding unused bits, consider splitting the 256-bit value into 32 smaller 8-bit integers for other parts of your application where randomness is needed.
     
     Understand Entropy Needs. Evaluate how much entropy your application requires and tailor your approach accordingly. Discarding excess bits is fine when they aren't needed but could be detrimental and lead to bias if greater unpredictability is required for security purposes.
     
@@ -44,7 +44,7 @@ When implementing randomness in smart contracts, several pitfalls can affect the
 - **Problem**: When you use the modulo operation to constrain a random number to a specific range, there is a risk of uneven distribution.
 - **Example**: Using `randomValue % 100` could lead to some numbers being more likely than others if the max `randomValue` is not evenly divisible by 100. In the following bar plot, we generated a million random integers with the above formula and an 8-bit `randomValue`, i.e., a value between 0 and 255 inclusive.
     
-    ![10e06_100_mod_8_bits_occurence.svg](images/2025-01-16/100_mod_8_bits_occurence.svg)
+    ![](./images/2025-01-16/100_mod_8_bits_occurence.svg)
     
     Clearly, we can see that the first 55 values are more likely to occur than the rest. This modulo bias is a result of the modular reduction. This can be explained intuitively by looking at how random values are mapped into the $[0, 99]$ range. When `randomValue` is equal to 0, 100, or 200, the modular reduction maps it into 0. In other words, there are three distinct values that can be mapped into 0. The same observation can be made for the first 56th values. However, for the rest, there are only two distinct values. Let’s look at which values can be mapped into 60: there is only 60, 160. `randomValue` cannot be 260 since we assume an 8-bit random value. Hence, only two values can be mapped into 60. This is the source of the non-uniform distribution.
     
@@ -65,7 +65,7 @@ function drawLottery() public returns (uint8) {
 }
 ```
 
-- **Solution**: Utilise external, verifiable randomness sources like [**drand**](https://drand.love).
+- **Solution**: Utilise better, unpredictable yet verifiable randomness sources like [**drand**](https://drand.love).
 
 ### 4. **Hash Collisions**
 
