@@ -32,7 +32,7 @@ module.exports = {
       twitter: ''
     },
     keywords:
-      'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, documentation, docs, Protocol Labs',
+      'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, Protocol Labs, VRF, Verifiable Random Function, loe, randamu',
     domain: canonicalBaseURL,
     docsRepo: 'drand/website',
     docsDir: 'docs',
@@ -185,7 +185,7 @@ module.exports = {
             path: '/blog/',
             itemPermalink: '/blog/:year/:month/:day/:slug',
             pagination: {
-              lengthPerPage: 20
+              lengthPerPage: 200
             }
           }
         ],
