@@ -9,6 +9,7 @@ Over the years, drand has been featured in many places, here are the ones we hav
 
 |Date Published|Article Title|Featured Partner(s)|Type of Content
 |--------------|-------------|-------------------|----------------
+|December 11, 2024|<a href="https://www.einpresswire.com/article/766956933/case-study-randamu-proof-of-play-collaborate-to-revolutionize-verifiable-randomness-for-pirate-nation">Case Study: Randamu & Proof of Play Collaborate to Revolutionize Verifiable Randomness for Pirate Nation</a>|Randamu|Press Release
 |November 26, 2024|<a href="https://www.einpresswire.com/article/764037726/randamu-launches-drand-dcrypt-testnet">🔓Randamu Launches “drand dcrypt” Testnet</a>|Randamu|Press Release
 |October 11, 2024|<a href="https://olympixai.medium.com/secure-random-number-generation-in-blockchain-environments-challenges-solutions-and-best-59fc0fb9326e">🔒Secure Random Number Generation in Blockchain Environments</a>|Randamu|Blog / OpEd
 |July 22, 2024|<a href="https://www.einpresswire.com/article/729550995/tangle-network-joins-the-league-of-entropy-enhancing-security-and-trust-of-web3-applications">Tangle Network joins the League of Entropy</a>|Tangle NetworkRandamu|Press Release
