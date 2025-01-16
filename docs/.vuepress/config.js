@@ -32,7 +32,7 @@ module.exports = {
       twitter: ''
     },
     keywords:
-      'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, documentation, docs, Protocol Labs',
+      'drand, randomness, protocol, entropy, league, league of entropy, decentralized, random, Protocol Labs, VRF, Verifiable Random Function, loe, randamu',
     domain: canonicalBaseURL,
     docsRepo: 'drand/website',
     docsDir: 'docs',
@@ -74,7 +74,6 @@ module.exports = {
             'http-api',
             'gossipsub',
             'drand-client',
-            'organization'
           ],
           '/operator/': [
             'deploy',
@@ -102,6 +101,13 @@ module.exports = {
     displayAllHeaders: true
   },
   plugins: [
+    [
+      'sitemap',
+      {
+        hostname: 'https://drand.love',
+        changefreq: 'weekly',
+      },
+    ],
     ['@vuepress/plugin-back-to-top', true],
     [
       '@vuepress/active-header-links',
@@ -185,7 +191,7 @@ module.exports = {
             path: '/blog/',
             itemPermalink: '/blog/:year/:month/:day/:slug',
             pagination: {
-              lengthPerPage: 20
+              lengthPerPage: 200
             }
           }
         ],
@@ -207,7 +213,7 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
   ],
   extraWatchFiles: ['.vuepress/nav/en.js'],
   configureWebpack: (config, isServer) => {
