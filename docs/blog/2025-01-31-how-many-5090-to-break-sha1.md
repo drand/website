@@ -92,6 +92,6 @@ In a more realistic way, it would take less than a day to find a SHA-1 collision
 
 Finally, looking back at the prediction we quoted earlier, can we really find a SHA-1 chosen-prefix collision for less than \$10,000 in 2025? Well, not if we want it to finish in 2025 and assume an electricity price of \$0.18 per kWh, and also not using rented GPUs. But if we purchase just 2 RTX 5090s at \$1999 each (let’s assume you’re not getting the fancy, expensive versions), and have them running for the 413 days it would take them to find a SHA-1 **chosen-prefix collision** for roughly \$5065 of electricity cost, then we could find one for less than \$10,000!   
 
-Most remarkably, for the basic SHA-1 collision, we can see that in only 8 years, we're down from an attack costing ~110 GPU years to an attack costing ~8 GPU-years in 2020 (thanks to both theoretical improvements & newer GPUs) to less than 2 GPU years nowadays (thanks to newer, much faster GPUs). Funnily, this is roughly in line with what Moore’s law would have told us.
+Most remarkably, for the basic SHA-1 collision, we can see that in only 8 years, we're down from an attack costing ~110 GPU years to an attack costing ~8 GPU-years in 2020 (thanks to both theoretical improvements & newer GPUs) to less than 2 GPU years nowadays (thanks to newer, much faster GPUs). Funnily, this is roughly in line with what Moore’s law would have told us, who could have thought...
 
 See you all next time, and keep hashing (just not with SHA-1)!
