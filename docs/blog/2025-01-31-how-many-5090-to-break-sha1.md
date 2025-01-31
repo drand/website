@@ -63,13 +63,13 @@ At the time of writing this, AMD is yet to release their latest and greatest GPU
 
 A direct application of the rule of 3 allows us to compute that with this kind of hash rates, we are able to find a SHA-1 collision in 
 
-$\frac{2^{61.6} \text{H}}{68.9 \text{GH/s}} = 14081.4 \text{hours}$
+$\frac{2^{61.6}\;\text{H}}{68.9\;\text{GH/s}} = 14081.4\;\text{hours}$
 
 with a single RTX 5090 GPU, which is just 1.61 GPU-years! Far from the 110 GPU-year it used to take in 2017… How about a chosen-prefix attack as was done in 2020, you might ask?
 
 Well, we can compute it as well, it would take us
 
-$\frac{2^{63.4} \text{H}}{68.9 \text{GH/s}} =  49034.2 \text{hours}$
+$\frac{2^{63.4}\;\text{H}}{68.9\;\text{GH/s}} =  49034.2\;\text{hours}$
 
 using our brand new RTX 5090 GPU, which is roughly 5.6 GPU-years, also very far from the 107 GPU-year it took in 2020!
 
