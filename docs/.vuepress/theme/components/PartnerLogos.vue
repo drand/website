@@ -56,6 +56,9 @@
         <a href="https://www.ucl.ac.uk/" class="logo last-row" title="UCL">
           <img src="/images/loe/logo-ucl.svg" alt="UCL logo" class="" />
         </a>
+        <a href="https://forcecommunity.io/" class="logo last-row" title="IPFS Force">
+          <img src="/images/loe/logo-IPFSForce.svg" alt="IPFSForce logo" class="" />
+        </a>
       </div>
       <h4 class="partners-header">Testnet members</h4>
       <p class="members-details">Testnet members are prospective mainnet members who are showcasing their operational excellence in order to graduate to Mainnet.</p>
