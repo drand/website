@@ -8,9 +8,9 @@ This section helps developers build applications that use drand as a source of r
 
 The current public League of Entropy drand mainnet API endpoints are:
 
-* `https://api.drand.sh` (HTTPS endpoint, also available over HTTP)
-* `https://api2.drand.sh` (HTTPS endpoint, also available over HTTP)
-* `https://api3.drand.sh` (HTTPS endpoint, also available over HTTP)
+* `https://api.drand.sh/v2` (HTTPS endpoint, also available over HTTP)
+* `https://api2.drand.sh/v2` (HTTPS endpoint, also available over HTTP)
+* `https://api3.drand.sh/v2` (HTTPS endpoint, also available over HTTP)
 * `https://drand.cloudflare.com` (HTTPS endpoint)
 * `https://api.drand.secureweb3.com:6875` (HTTPS endpoint)
 * `/dnsaddr/api.drand.sh` (1st-level libp2p gossipsub relay endpoint)
