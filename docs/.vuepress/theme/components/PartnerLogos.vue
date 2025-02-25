@@ -39,38 +39,38 @@
         <a href="https://www.diadata.org/" class="logo" title="DIA">
           <img src="/images/loe/logo-dia.png" alt="DIA logo" />
         </a>
-        <a href="https://www.epfl.ch/labs/dedis/" class="logo last-row"
+        <a href="https://www.epfl.ch/labs/dedis/" class="logo"
           title="EPFL - Decentralized and Distributed Systems Laboratory">
           <img src="/images/loe/logo-epfl.svg" alt="EPFL - Decentralized and Distributed Systems Laboratory logo"
             class="" />
         </a>
-        <a href="https://www.initc3.org/" class="logo last-row" title="IC3">
+        <a href="https://www.initc3.org/" class="logo" title="IC3">
           <img src="/images/loe/initiative-for-ccandc-logo.png" alt="IC3 logo" class="narrow" />
         </a>
-        <a href="https://protocol.ai/" class="logo last-row" title="Protocol Labs">
+        <a href="https://protocol.ai/" class="logo" title="Protocol Labs">
           <img src="/images/loe/protocol-labs-logo.png" alt="Protocol Labs logo" />
         </a>
-        <a href="https://emeraldonion.org/" class="logo last-row" title="Emerald Onion">
+        <a href="https://emeraldonion.org/" class="logo" title="Emerald Onion">
           <img src="/images/loe/logo-emerald-onion.png" alt="Emerald Onion logo narrow" />
         </a>
-        <a href="https://www.ucl.ac.uk/" class="logo last-row" title="UCL">
+        <a href="https://www.ucl.ac.uk/" class="logo" title="UCL">
           <img src="/images/loe/logo-ucl.svg" alt="UCL logo" class="" />
         </a>
-        <a href="https://forcecommunity.io/" class="logo last-row" title="IPFS Force">
+        <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
           <img src="/images/loe/logo-IPFSForce.svg" alt="IPFSForce logo" class="" />
+        </a>
+        <a href="https://www.hslu.ch/en/" class="logo last-row" title="Lucerne University of Applied Sciences and Arts">
+          <img src="/images/loe/logo-hslu.png" alt="Lucerne University of Applied Sciences and Arts" class="" />
+        </a>
+        <a href="https://zkv.xyz/" class="logo last-row" title="ZKV">
+          <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
         </a>
       </div>
       <h4 class="partners-header">Testnet members</h4>
       <p class="members-details">Testnet members are prospective mainnet members who are showcasing their operational excellence in order to graduate to Mainnet.</p>
         <div class="logos">
-          <a href="https://www.hslu.ch/en/" class="logo" title="Lucerne University of Applied Sciences and Arts">
-            <img src="/images/loe/logo-hslu.png" alt="Lucerne University of Applied Sciences and Arts" class="" />
-          </a>
           <a href="https://www.upc.edu/en" class="logo" title="Polytechnic University of Catalonia">
             <img src="/images/loe/logo-upc.svg" alt="Polytechnic University of Catalonia" class="" />
-          </a>
-          <a href="https://zkv.xyz/" class="logo" title="ZKV">
-            <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
           </a>
         </div>
 
