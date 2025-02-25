@@ -59,16 +59,16 @@
         <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
           <img src="/images/loe/logo-IPFSForce.svg" alt="IPFSForce logo" class="" />
         </a>
-        <a href="https://www.hslu.ch/en/" class="logo last-row" title="Lucerne University of Applied Sciences and Arts">
+        <a href="https://www.hslu.ch/en/" class="logo" title="Lucerne University of Applied Sciences and Arts">
           <img src="/images/loe/logo-hslu.png" alt="Lucerne University of Applied Sciences and Arts" class="" />
         </a>
-        <a href="https://zkv.xyz/" class="logo last-row" title="ZKV">
+        <a href="https://zkv.xyz/" class="logo" title="ZKV">
           <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
         </a>
       </div>
       <h4 class="partners-header">Testnet members</h4>
       <p class="members-details">Testnet members are prospective mainnet members who are showcasing their operational excellence in order to graduate to Mainnet.</p>
-        <div class="logos">
+        <div class="logo">
           <a href="https://www.upc.edu/en" class="logo" title="Polytechnic University of Catalonia">
             <img src="/images/loe/logo-upc.svg" alt="Polytechnic University of Catalonia" class="" />
           </a>
@@ -77,19 +77,19 @@
         <h4 class="partners-header">Alumni</h4>
         <p style="font-size: 1em;">Alumni are former League members and partners. We are grateful for their help to make the internet a fairer place.</p>
           <div class="logos">
-            <a href="https://www.initc3.org/" class="logo" title="IC3">
+            <a class="logo" title="IC3">
               <img src="/images/loe/logo-ic3.png" alt="IC3 logo" />
             </a>
-            <a href="https://tierion.com/" class="logo" title="Tierion">
+            <a class="logo" title="Tierion">
               <img src="/images/loe/tierion-logo.png" alt="Tierion logo" class="wide" />
             </a>
-            <a href="https://www.zengo.com/" class="logo" title="ZenGo">
+            <a class="logo" title="ZenGo">
               <img src="/images/loe/logo-zengo.png" alt="ZenGo logo" class="wide" />
             </a>
-            <a href="http://clabs.org/" class="logo" title="cLabs">
+            <a class="logo" title="cLabs">
               <img src="/images/loe/c-labs-logo.png" alt="cLabs logo" class="wide" />
             </a>
-            <a href="https://ptisp.pt/" class="logo" title="PTisp">
+            <a class="logo" title="PTisp">
               <img src="/images/loe/logo-ptisp.png" alt="PTisp logo" class="wide" />
             </a>
           </div>
@@ -105,19 +105,19 @@
 
 <style lang="stylus">
 .partners-header
-  margin-top: 0px;
-  margin-bottom: 1em;
-  line-height: 1;
+  margin-top 0px
+  margin-bottom 1em
+  line-height 1
 
 .our-partners
   max-width 1100px
   margin auto auto
   padding 0 1.2rem
   .members-details
-    font-size: 1em;
-    line-height: 1;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    font-size 1em
+    line-height 1
+    margin-top 0px
+    margin-bottom 7px
   .members
     padding 1rem
   .logos
@@ -129,7 +129,7 @@
     align-items center
     justify-content center
     background white
-    margin 0.7rem 0.7rem 0
+    margin auto
     width 25%
     height 80px
     text-align center
@@ -143,7 +143,7 @@
     p
       font-size 1.5rem
     .logo
-      margin 0.7rem 0.7rem 2rem
+      margin auto
       width 17%
       &.last-row
         width 14%
