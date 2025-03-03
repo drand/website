@@ -127,9 +127,9 @@ module.exports = {
       }
     ],
     [
-      'vuepress-plugin-seo',
+      'seo',
       {
-        siteTitle: ($page, $site) => $site.title,
+        siteTitle: (_, $site) => $site.title,
         title: $page => $page.title,
         description: $page => $page.frontmatter.description,
         author: ($page, $site) =>
