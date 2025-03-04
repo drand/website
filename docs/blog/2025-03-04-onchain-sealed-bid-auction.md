@@ -7,7 +7,6 @@ tags:
     - Beginner
     - How-to
 ---
-
 ## 1. What We're Building & Why It's Cool
 
 🔒 A **sealed-bid auction** is like a high-stakes guessing game where no one knows what anyone else is offering until the very end. Instead of shouting bids in a crowded room (like in a regular auction), everyone submits their bids **in secret**. Once the bidding phase is over, all bids are revealed, and the highest bidder wins.
@@ -92,18 +91,11 @@ $ forge init
 
 This creates essential files and folders. You can read more about it in the Foundry [documentation](https://book.getfoundry.sh/projects/creating-a-new-project).
 
-### **Committing to Create a GitHub Repository**
+### **Committing to a GitHub Repository**
 
-NowFirst, create a new repository on [GitHub](https://github.com/). This will store all our code. Once created, GitHub will show you commands to set it up locally. With our newly initialized Foundry project, we simply need to add the remote branch and push the changesHere’s an example:
+Now, create a new repository on [GitHub](https://github.com/). This will store all our code. Once created, GitHub will show you commands to set it up locally. With our newly initialized Foundry project, we simply need to add the remote branch and push the changes:
 
 ```bash
-$ mkdir sealed-bid-auction-filecoin-testnet # Create project folder
-$ cd sealed-bid-auction-filecoin-testnet # Navigate into the folder
-$ echo "# sealed-bid-auction-filecoin-testnet" >> README.md # Add a README file
-$ git init # Initialize Git locally
-$ git add README.md
-$ git commit -m "first commit"
-$ git branch -M main
 $ git remote add origin https://github.com/<YOUR-USERNAME>/sealed-bid-auction-filecoin-testnet.git # replace <YOUR-USERNAME> with your github username
 $ git push -u origin main
 ```
@@ -119,7 +111,7 @@ Install them with:
 
 ```bash
 $ forge install OpenZeppelin/openzeppelin-contracts
-$ forge install <https://github.com/randa-mu/blocklock-solidity>
+$ forge install https://github.com/randa-mu/blocklock-solidity
 ```
 
 Now, create a **./remappings.txt** file in the project root folder so Foundry knows where to find these libraries. And add these lines to the file:
@@ -233,11 +225,10 @@ Events help keep track of auction actions:
 
 ```solidity
 event NewBid(uint256 indexed bidID, address indexed bidder);
-    event AuctionEnded(address winner, uint256 highestBid);
-    event BidUnsealed(uint256 indexed bidID, address indexed bidder, uint256 unsealedBid);
-    event HighestBidFulfilled(address indexed bidder, uint256 amount);
-    event ReservePriceClaimed(uint256 indexed bidID, address indexed claimant, uint256 amount);
-
+event AuctionEnded(address winner, uint256 highestBid);
+event BidUnsealed(uint256 indexed bidID, address indexed bidder, uint256 unsealedBid);
+event HighestBidFulfilled(address indexed bidder, uint256 amount);
+event ReservePriceClaimed(uint256 indexed bidID, address indexed claimant, uint256 amount);
 ```
 
 ### **Modifiers (To Enforce Rules) and Constructor**
@@ -348,9 +339,9 @@ function receiveBlocklock(uint256 requestID, bytes calldata decryptionKey)
 
     emit BidUnsealed(bid.bidID, bid.bidder, bid.unsealedBid);
 }
-    
-    
-    
+
+
+
 function updateHighestBid(uint256 bidID, uint256 unsealedBid) internal {
     Bid storage bid = bidsById[bidID];
 
@@ -594,7 +585,6 @@ First, we need to install the **blocklock-js** library (for Ciphertext magic!) a
 ```bash
 $ yarn add blocklock-js --dev
 $ yarn add ts-node typescript dotenv --dev
-
 ```
 
 ### **Step 2: Create Utility Scripts**
@@ -604,7 +594,7 @@ Next, let's create a `utils` folder where we'll store two important scripts:
 - **`utils/getBid.ts`**: This script will fetch bid data from the smart contract and display it in a human-readable format. 🧐
 - **`utils/encryptAndPlaceBid.ts`**: This script will generate bid amount **Ciphertexts** and place them in the auction contract. 💸
 
-You can find the full source code for these files on [GitHub](https://github.com/randa-mu/sealed-bid-auction-filecoin-testnet/tree/development/utils). You will also need to copy the [tsconfig.json](https://github.com/randa-mu/sealed-bid-auction-filecoin-testnet/blob/development/tsconfig.json) file and store it at the root of the project.
+You can find the full source code for these files on [GitHub](https://github.com/randa-mu/sealed-bid-auction-filecoin-testnet/tree/development/utils). You will also need to copy the [tsconfig.json](https://github.com/randa-mu/sealed-bid-auction-filecoin-testnet/blob/development/tsconfig.json) file and store it in the root folder of the project.
 
 ### **Step 3: Adjust the Parameters**
 
