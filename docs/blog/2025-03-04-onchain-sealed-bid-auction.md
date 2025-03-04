@@ -633,7 +633,7 @@ Now, you’re all set to watch your auction unfold! 🌟
 
 ## **7. Wrapping Up & What’s Next?**
 
-### 🎉 Well Done**!**
+### 🎉 Well Done!
 
 You’ve built a **fully functional sealed-bid auction** on the **Filecoin Calibration Testnet**! Your contract can now accept encrypted bids, keep them secret until the auction ends, and then decrypt them automatically. That’s a **big** deal! 💪
 
@@ -655,9 +655,9 @@ Want to take your auction to the next level? Here are a few **cool upgrades** to
 
 Want to give back to the community? You can **contribute to blocklock’s open-source libraries** and help improve the tools we just used!
 
-🔹 [blocklock-js (JavaScript library)](https://github.com/Blocklock/blocklock-js)
+🔹 [blocklock-js (JavaScript library)](https://github.com/randa-mu/blocklock-js)
 
-🔹 [blocklock-solidity (Smart contract library)](https://github.com/Blocklock/blocklock-solidity)
+🔹 [blocklock-solidity (Smart contract library)](https://github.com/randa-mu/blocklock-solidity)
 
 By contributing, you’ll be helping others **build private, secure, and decentralized applications.**
 
