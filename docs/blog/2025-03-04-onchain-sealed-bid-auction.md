@@ -70,7 +70,7 @@ The auction runs in **four phases**:
 
 Figure 1 (below) depicts a sequence diagram which demonstrates the sealed-bid auction process end-to-end:
 
-![sealed-bid auction flow.png](./images/2025-03-04-onchain-sealed-bid-auction./sealed-bid_auction_flow.png)
+![sealed-bid auction flow.png](./images/2025-03-04-onchain-sealed-bid-auction/sealed-bid_auction_flow.png)
 
 Figure 1. Sealed-Bid Auction Flow
 
