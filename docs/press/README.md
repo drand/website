@@ -9,6 +9,8 @@ Over the years, drand has been featured in many places, here are the ones we hav
 
 |Date Published|Article Title|Featured Partner(s)|Type of Content
 |--------------|-------------|-------------------|----------------
+| March 11, 2025 | <a href="https://www.einpresswire.com/article/789785231/zkv-joins-the-league-of-entropy-to-strengthen-the-global-network-for-verifiable-randomness">ZKV Joins the League of Entropy to Strengthen the Global Network for Verifiable Randomness</a> |Randamu|Press Release
+| March 4, 2025 | <a href="https://www.einpresswire.com/article/789771674/the-lucerne-university-of-applied-sciences-arts-joins-the-league-of-entropy-to-advance-distributed-randomness">The Lucerne University of Applied Sciences & Arts Joins the League of Entropy to Advance Distributed Randomness</a> |Randamu|Press Release
 |December 11, 2024|<a href="https://www.einpresswire.com/article/766956933/case-study-randamu-proof-of-play-collaborate-to-revolutionize-verifiable-randomness-for-pirate-nation">Case Study: Randamu & Proof of Play Collaborate to Revolutionize Verifiable Randomness for Pirate Nation</a>|Randamu|Press Release
 |November 26, 2024|<a href="https://www.einpresswire.com/article/764037726/randamu-launches-drand-dcrypt-testnet">🔓Randamu Launches “drand dcrypt” Testnet</a>|Randamu|Press Release
 |November 13, 2024|<a href="https://scroll.io/blog/anyrand-x-scroll">Anyrand x Scroll: Free, Verifiable Randomness for All EVMs</a>|Scroll|Press Release
