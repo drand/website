@@ -45,6 +45,7 @@ This small change combined both operator functionalities with network functional
 
 In order to get the tests to pass, the gRPC service was hosted on the private port, allowing nodes to issue DKG commands on behalf of other nodes.
 Being able to issue DKG commands on behalf of another node would allow a rogue operator to run successive resharing protocols to kick out other nodes, accepting the new group terms on other nodes’ behalf, and iteratively reduce the threshold value to just their nodes, allowing them to recover the group secret key for themselves.
+
 This is *THE WORST KIND OF BAD: a full group private key recovery attack*.
 
 The fix was simple: in drand v2.1.0, we separated the control and multi-party RPC interfaces for the DKG:
@@ -63,7 +64,9 @@ service DKGPublic {
 
 and ensured the `DKGControl` service is only available on our control plane through local RPCs, while the `DKGPublic` service remained exposed on the private plane to other nodes in the network. 
 
-***How did we allow this to happen?*** Simply stated, version 2 ended up being a huge refactor of the codebase spanning multiple months from 2022 until mid 2023, and pull requests were large and long-lived. While every line was reviewed, and the cryptography changes were even audited, it's easy to miss the forest from the trees in a 70,000 lines code review.
+***How did we allow this to happen?*** 
+
+Simply stated, version 2 ended up being a huge refactor of the codebase spanning multiple months from 2022 until mid 2023, and pull requests were large and long-lived. While every line was reviewed, and the cryptography changes were even audited, it's easy to miss the forest from the trees in a 70,000 lines code review.
 This goes to show that even with a large userbase, committed community, and a fuzzing setup, no project is guaranteed to be secure!
 
 Going forward, we are no longer performing huge refactors anyway as drand is considered **feature complete**, and hope to raise funding for further security audits (let us know if you're interested in helping to finance one!). Public goods such as public verifiable randomness can be costly to maintain, and public good funding is a tricky thing. We'd also be delighted to constitute a bug bounty fund, but sadly haven't been able to so far.
