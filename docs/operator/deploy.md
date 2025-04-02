@@ -42,7 +42,7 @@ Each drand network needs a public and secret key to interact with the rest of th
 drand generate-keypair --id {beacon-id} drand.example.com
 ```
 
-The address must be reachable over a TLS connection directly, or via a reverse proxy setup. If you need a non-secured channel, you can pass the `--tls-disable` flag, although this is not recommended. Disabling TLS should only really be done when running a development or test deployment.
+The address must be reachable via a reverse proxy setup performing TLS termination. (Disabling TLS is only done when running in development mode or for test deployment, using tags.)
 
 The default location for your keys is `~/.drand`. You can specify where you want the keys to be saved by using the `--folder` flag:
 
@@ -56,23 +56,18 @@ The daemon does not automatically run in the background. To run the daemon in th
 
 To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users.
 
-The drand daemon can run using [TLS](#with-tls), or using [unencrypted connections](#unencrypted-connections). drand tries to use TLS by default.
+The drand daemon should be behind a reverse proxy doing TLS termination.
 
-#### With TLS
+#### More about TLS
 
-drand nodes attempt to communicate by default over TLS-protected connections. Therefore, you need to point your node to the TLS certificate chain and corresponding private key you wish to use via:
+Running drand behind a reverse proxy is the **only** method of deploying drand. Such a setup greatly simplifies TLS management issues (renewal of certificates, etc.). We provide here the minimum setup using [Nginx](https://www.nginx.com/) and [certbot](https://certbot.eff.org/instructions/) - make sure you have both binaries installed with the latest version; Nginx version must be at least >= `1.13.10` for gRPC compatibility.
 
+For example if your public address and port are `drand.example.com:4321`, then the key generation above should use this address, but the node should use another port to listen on for the decrypted content from
+the reverse proxy (nginx). For example if the reverse proxy is running on the same machine and forwarding to port 8080, then you'd start your drand node like this:
 ```bash
-drand start \
-    --tls-cert <fullchain.pem> \
-    --tls-key <privkey.pem>
+drand start --private-listen 127.0.0.1:8080
 ```
 
-To get TLS certificates for free, you can use, for example, [Let's Encrypt](https://letsencrypt.org/) with its official CLI tool [EFF's certbot](https://certbot.eff.org/).
-
-##### TLS setup: Nginx with Let's Encrypt
-
-Running drand behind a reverse proxy is the **default** method of deploying drand. Such a setup greatly simplifies TLS management issues (renewal of certificates, etc.). We provide here the minimum setup using [Nginx](https://www.nginx.com/) and [certbot](https://certbot.eff.org/instructions/) - make sure you have both binaries installed with the latest version; Nginx version must be at least >= `1.13.10` for gRPC compatibility.
 
 1. First, add an entry in the Nginx configuration for drand:
 
@@ -114,7 +109,7 @@ Running drand behind a reverse proxy is the **default** method of deploying dran
 1. Running drand uses two ports: one for group member communication, and one for a public-facing API for distributing randomness. These ports and interfaces should be specified with flags.
 
     ```bash
-    drand start --tls-disable --private-listen 127.0.0.1:4444 --public-listen drand0.example.com:8080
+    drand start --private-listen 127.0.0.1:4444 --public-listen drand0.example.com:8080
     ```
 
     The `--private-listen` flag tells drand to listen on the given address. The public-facing address associated with this listener is given to other group members in the setup phase (see below).
@@ -138,22 +133,14 @@ allow from all
 </Proxy>
 ```
 
-#### Unencrypted-connections
-
-Although we **do not recommend** turning off TLS, you can disable it by using the `--tls-disable` flag.
-
-```bash
-drand start --tls-disable
-```
-
 ### Test the connection to a node
 
 Use `drand util check <address>` to test the gRPC endpoint on a drand node (like a ping to the node).
 
 ```bash
-drand util check example.com
+drand util check drand.example.com:443
 
-> drand: id example.com answers correctly
+> drand: id drand.example.com:443 answers correctly
 ```
 
 If the address used is a DNS name, this command will try to resolve the DNS name to IP.
@@ -163,15 +150,9 @@ If the address used is a DNS name, this command will try to resolve the DNS name
 Use `drand util check <address> --id <beacon-id>` to test the gRPC endpoint of a drand network which has a specific beacon id.
 
 ```bash
-drand util check example.com --id <beacon-id>
+drand util check drand.example.com:443 --id <beacon-id>
 
-> drand: id example.com answers correctly
-```
-
-If the address used is a DNS name, this command will try to resolve the DNS name to IP. If you disabled TLS, you need to add the `--tls-disable` flag:
-
-```bash
-drand util check --tls-disable drand0.example.com --id <beacon-id>
+> drand: id drand.example.com:443 answers correctly
 ```
 
 ### Run the setup phase
