@@ -29,7 +29,7 @@ The setup process for a drand node consists of the following steps:
 This document explains how to do the setup with the drand binary itself. If you want to install drand using Docker, follow the [Docker instructions instead](/operator/docker/).
 
 
-### Beacon ID 
+### Beacon ID
 
 Each drand network needs a **unique identifier** to run. The only constraint regarding possible values is it could not have been used before on another network. If you leave the id empty, the node will
 set it to `default`.
@@ -54,7 +54,7 @@ drand generate-keypair --id {beacon-id} drand0.example.com --folder ~/.drand-nod
 
 The daemon does not automatically run in the background. To run the daemon in the background, you must add ` &` to the end of your command. Docker users can use the `-d` option. Once the daemon is running, the best way to issue commands is to use the control functionalities. The control client has to run on the same server as the drand daemon, so only drand administrators can issue a command to their drand daemons.
 
-To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users.
+To choose where drand listens, use the `--private-listen` flag. You can also use the `--public-listen` flag to specify the address of the public API, however this flag is deprecated and we recommend relying on the [drand relay binary](https://github.com/drand/http-relay) instead, to run a public-facing HTTP relay. Both these flags allow specifying the interface and/or port for drand to listen on. The `--private-listen` flag is the primary listener used to expose a gRPC service for inter-group-member communication. The `--public-listen` flag exposes a public and limited HTTP service designed to be CDN friendly, and provide basic information for drand users. The later is deprecated and we recommend checking out our [http-relay](https://github.com/drand/http-relay) project instead.
 
 The drand daemon should be behind a reverse proxy doing TLS termination.
 
@@ -65,7 +65,7 @@ Running drand behind a reverse proxy is the **only** method of deploying drand. 
 For example if your public address and port are `drand.example.com:4321`, then the key generation above should use this address, but the node should use another port to listen on for the decrypted content from
 the reverse proxy (nginx). For example if the reverse proxy is running on the same machine and forwarding to port 8080, then you'd start your drand node like this:
 ```bash
-drand start --private-listen 127.0.0.1:8080
+drand start --private-listen 127.0.0.1:4444
 ```
 
 
@@ -73,32 +73,36 @@ drand start --private-listen 127.0.0.1:8080
 
     ```nginx
     # /etc/nginx/sites-available/default
+    # this first server clause is optional and in case you're plannign on serving
+    # some HTTP content on the same domain.
     server {
-        server_name drand.example.xyz;
-        listen 443 ssl http2;
-
+        server_name drand.example.com;
+        listen 80;
         location / {
-            # Check for gRPC header
-            if ($http_content_type = "application/grpc") {
-                grpc_pass grpc://localhost:4444;
-                grpc_set_header X-Real-IP $remote_addr;
-            }
-
-            # If not gRPC, treat as regular HTTP
             proxy_pass http://localhost:8080;
             proxy_set_header Host $host;
         }
+    }
 
-    # Add ssl certificates by running certbot --nginx
+    # This is the important clause doing gRPC TLS termination and forwarding
+    server {
+        server_name drand.example.com;
+        listen 4321 ssl http2;
+        location / {
+            grpc_pass grpc://localhost:4444;
+            grpc_set_header X-Real-IP $remote_addr;
+        }
+
+        # Add ssl certificates by running certbot --nginx
     }
     ```
 
     You can change:
 
-    1. the port on which you want drand to be accessible by changing the line `listen 443 ssl http2` to use any port.
-    2. the port on which the drand binary will listen locally by changing the line `grpc_pass grpc://localhost:4444;` to the private API port and `proxy_pass http://localhost:8080;` to the public API port.
+    1. the port on which you want drand to be accessible by changing the line `listen 4321 ssl http2` to use any port.
+    2. the port on which the drand binary will listen locally by changing the line `grpc_pass grpc://localhost:4444;` to the private API port.
 
-    You can use different `server` blocks to apply different configurations (DNS names, for example) for the private and public API.
+    You can use different `server` blocks to apply different configurations (DNS names, for example) for the private and public API. Be very careful NOT to expose your _control_ port (by default 8888).
 
 1. Run certbot to get a TLS certificate:
 
@@ -106,17 +110,15 @@ drand start --private-listen 127.0.0.1:8080
     sudo certbot --nginx
     ```
 
-1. Running drand uses two ports: one for group member communication, and one for a public-facing API for distributing randomness. These ports and interfaces should be specified with flags.
+1. Running drand uses two ports: one for group member communication, and one for a local-only control commands from the CLI. These ports and interfaces should be specified with flags.
 
     ```bash
-    drand start --private-listen 127.0.0.1:4444 --public-listen drand0.example.com:8080
+    drand start --private-listen 127.0.0.1:4444 --control 8881
     ```
 
     The `--private-listen` flag tells drand to listen on the given address. The public-facing address associated with this listener is given to other group members in the setup phase (see below).
 
     If no `private-listen` address is provided, it will default to the discovered public address of the drand node.
-
-    If no `public-listen` flag is provided, drand will not expose a public HTTP interface.
 
 ##### TLS setup: Apache for HTTP
 
@@ -138,9 +140,9 @@ allow from all
 Use `drand util check <address>` to test the gRPC endpoint on a drand node (like a ping to the node).
 
 ```bash
-drand util check drand.example.com:443
+drand util check drand.example.com:4321
 
-> drand: id drand.example.com:443 answers correctly
+> drand: id drand.example.com:4321 answers correctly
 ```
 
 If the address used is a DNS name, this command will try to resolve the DNS name to IP.
@@ -150,66 +152,20 @@ If the address used is a DNS name, this command will try to resolve the DNS name
 Use `drand util check <address> --id <beacon-id>` to test the gRPC endpoint of a drand network which has a specific beacon id.
 
 ```bash
-drand util check drand.example.com:443 --id <beacon-id>
+drand util check drand.example.com:4321 --id <beacon-id>
 
-> drand: id drand.example.com:443 answers correctly
+> drand: id drand.example.com:4321 answers correctly
 ```
 
 ### Run the setup phase
 
 To setup a new network, drand uses the notion of a coordinator that collects the public key of the participants, setups the group configuration once all keys are received, and then start the distributed key generation phase. Once the DKG phase is performed, the participants can see the list of members in the group configuration file.
 
-**Coordinator**: The designated coordinator node must run the following command
-**before** everyone else:
-
-```bash
-drand share --leader --nodes 10 --threshold 6 --secret-file /path/to/secret/file --period 30s --id {beacon-id} --scheme {scheme-id}
-```
-
-**Rest of participants**: Once the coordinator has run the previous command, the rest of the participants must run the following command:
-
-```bash
-drand share --connect <leaderaddress> --secret-file /path/to/secret/file --id {beacon-id}
-```
-
-The flags usage is as follows:
-
-| Flag               | Description                                                                                                                                                              |
-|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--leader`         | _This_ node is the group coordinator.                                                                                                                                    |
-| `--nodes`          | The number of nodes in this group.                                                                                                                                       |
-| `--threshold`      | The minimum number of nodes that need to be online for the network to be live.                                                                                           |
-| `--period`         | The period of the randomness beacon to use. It must be a valid duration as parsed by Golang's [`time.ParseDuration`](https://golang.org/pkg/time/#ParseDuration) method. |
-| `--catchup-period` | The period of randomness when recovering from a failure. A valid Golang duration, it may be 0 to catch up as fast as possible.                                           |
-| `--secret-file`    | The file that contains the password that the leader uses to authenticate nodes that want to participate in the group. This password must be at least 32 characters long. This variable contains the path and name of the file. Notice that this flag takes precedence over the `DRAND_SHARE_SECRET` env variable if set.      |
-| `--id`             | The unique identification for this new network. It allows drand to handle various networks running at the same time.                                                     |
-| `--scheme`         | The scheme the new network will use. It allows the network to work on chain or unchained mode.      |
-
-The `drand share` command will run until the DKG has finished. If you quit the command, the DKG will continue, but the group file will not be created. In that case, once the DKG is done, you can get the group file by running:
-
-```bash
-drand show group --out group.toml --id {beacon-id}
-```
-
-If you specified a `--control` in when you started the drand node, you will have to supply the same port with this command:
-
-```bash
-drand show group --out group.toml --control 3001 --id {beacon-id}
-```
-
-#### Secret
-
-As a basic security method, participants must include a shared secret before they can be accepted into a group. This secret is set by the leader. The secret must be at least 32 characters long. If the `DRAND_SHARE_SECRET` environment variable is set on your system, the command line flag can be omitted.
-
-#### Custom entropy source
-
-drand takes its entropy for the setup phase from the OS's entropy source by default. This source is `/dev/urandom` on Unix systems. However, it is possible for a participant to inject their own entropy source into the creation of their secret.
-
-You should be able to rely on [`rngd`](https://linux.die.net/man/8/rngd) to feed your custom entropy source into your OS kernel, and thus into `drand`.
+We refer you to our [drand dkg documentation](/operator/drand-cli/#drand-dkg) to learn more about how to use the `dkg` commands to create a new group.
 
 ### Group TOML file
 
-Once the DKG phase is done, each node has both a private share and a group file containing the distributed public key. Using the previous commands, the group file will be written to `group.toml`. That updated group file is needed by drand to securely contact drand nodes on their public interface to gather private or public randomness. To view this file, run `drand show group`. If you want to save the output to a file, add the `--out <file>` flag:
+Once the DKG phase is done, each node has both a private share and a group file containing the distributed public key. Using the previous commands, the group file will be written to `group.toml`. That updated group file is needed by drand to securely contact drand nodes. To view this file, run `drand show group`. If you want to save the output to a file, add the `--out <file>` flag:
 
 ```bash
 drand show group --out ~/group-config.toml --id {beacon-id}
@@ -255,7 +211,7 @@ If, for some reason, drand goes down for some time and then backs up, the new ra
 drand's local administrator interface provides further functionality, e.g., to update group details or retrieve secret information. By default, the daemon listens on `127.0.0.1:8888`, but you can specify another control port when starting the daemon with:
 
 ```bash
-drand start --control 1234
+drand start --control 8881
 ```
 
 In that case, you need to specify the control port for each of the following commands.
