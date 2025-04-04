@@ -73,7 +73,7 @@ drand start --private-listen 127.0.0.1:4444
 
     ```nginx
     # /etc/nginx/sites-available/default
-    # this first server clause is optional and in case you're plannign on serving
+    # this first server clause is optional and in case you're planning on serving
     # some HTTP content on the same domain.
     server {
         server_name drand.example.com;
