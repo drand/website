@@ -1,3 +1,14 @@
+# Archived - 2025.04.14
+
+The drand documentation is now hosted here: https://github.com/drand/drand-docs
+Using Docusaurus and with more up-to-date informations.
+
+You can find the documentation online here: https://docs.drand.love/
+
+Please open issues there about the docs from now on.
+
+---
+
 # drand documentation
 
 Welcome to the drand documentation website! The live site can be found at https://drand.love.
