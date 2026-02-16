@@ -1,4 +1,4 @@
-# Archived - 2025.04.14
+# Website changes
 
 The drand documentation is now hosted here: https://github.com/drand/drand-docs
 Using Docusaurus and with more up-to-date informations.

@@ -130,6 +130,28 @@
               class="wide"
             />
           </a>
+          <a
+            href="https://www.hslu.ch/"
+            class="logo"
+            title="Hochschule Luzern"
+          >
+            <img
+              src="/images/loe/logo-hslu.png"
+              alt="HSLU logo"
+              class="wide"
+            />
+          </a>
+          <a
+            href="https://english.cuit.edu.cn/"
+            class="logo"
+            title="Chengdu University of Information Technology"
+          >
+            <img
+              src="/images/loe/logo-cuit.png"
+              alt="CUIT logo"
+              class="wide"
+            />
+          </a>
         </div>
       </div>
     </div>
