@@ -62,9 +62,6 @@
         <a href="https://english.cuit.edu.cn/" class="logo" title="Chengdu University of Information Technology">
           <img src="/images/loe/logo-cuit.png" alt="Chengdu University of Information Technology" class="" />
         </a>
-        <a href="https://zkv.xyz/" class="logo" title="ZKV">
-          <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
-        </a>
       <a href="https://www.upc.edu/en" class="logo" title="Polytechnic University of Catalonia">
         <img src="/images/loe/logo-upc.svg" alt="Polytechnic University of Catalonia" class="" />
       </a>
@@ -94,6 +91,9 @@
             </a>
             <a class="logo" title="PTisp">
               <img src="/images/loe/logo-ptisp.png" alt="PTisp logo" class="wide" />
+            </a>
+            <a href="https://zkv.xyz/" class="logo" title="ZKV">
+             <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
             </a>
           </div>
     </div>
