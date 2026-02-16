@@ -16,9 +16,9 @@ features:
     details: Use drand client libraries to easily consume randomness from your applications, over HTTP, gRPC or libp2p PubSub.
     actions:
       - text: Go
-        link: /developer/clients/#go
+        link: https://docs.drand.love/developer/clients/#go-
       - text: JS
-        link: /developer/clients/#js
+        link: https://docs.drand.love/developer/clients/#javascript--typescript-
 ---
 
 ## Learn more

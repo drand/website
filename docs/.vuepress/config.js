@@ -62,26 +62,6 @@ module.exports = {
         },
         nav: require('./nav/en'),
         sidebar: {
-          '/docs/': [
-            'overview',
-            'cryptography',
-            'security-model',
-            'specification',
-            'timelock-encryption'
-          ],
-          '/developer/': [
-            'clients',
-            'http-api',
-            'gossipsub',
-            'drand-client',
-          ],
-          '/operator/': [
-            'deploy',
-            'docker',
-            'storage-backends',
-            'metrics',
-            'drand-cli'
-          ],
           '/about/': [
             {
               title: 'About',
@@ -90,11 +70,15 @@ module.exports = {
             'community',
             'contributing',
             {
+              title: 'Blog',
+              path: 'https://docs.drand.love/blog/'
+            },
+            {
               title: 'Status',
               path: 'https://drand.statuspage.io/'
             }
           ],
-          '/blog/': []
+
         }
       }
     },
@@ -176,42 +160,6 @@ module.exports = {
         macros: {
           '*': '\\times'
         }
-      }
-    ],
-    [
-      '@vuepress/plugin-blog',
-      {
-        directories: [
-          {
-            // Unique ID of current classification
-            id: 'blog',
-            // Target directory
-            dirname: 'blog',
-            // Path of the `entry page` (or `list page`)
-            path: '/blog/',
-            itemPermalink: '/blog/:year/:month/:day/:slug',
-            pagination: {
-              lengthPerPage: 200
-            }
-          }
-        ],
-        feed: {
-          canonical_base: canonicalBaseURL
-        },
-        frontmatters: [
-          {
-            // Unique ID of current classification
-            id: 'tag',
-            // Decide that the frontmatter keys will be grouped under this classification
-            keys: ['tag', 'tags'],
-            // Path of the `entry page` (or `list page`)
-            path: '/tag/',
-            // Layout of the `entry page`
-            layout: 'IndexTags',
-            // Layout of the `scope page`
-            scopeLayout: 'Tag'
-          }
-        ]
       }
     ],
   ],
