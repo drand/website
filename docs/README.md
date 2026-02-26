@@ -35,5 +35,5 @@ For questions, comments, or to start a collaboration, please reach the drand tea
 
 
 ::: slot footer
-Apache 2.0 or MIT Licensed · [Status](https://drand.statuspage.io/) · [GitHub](https://github.com/drand/drand) · Made with ❤️
+Apache 2.0 or MIT Licensed · [Status](https://drand.statuspage.io/) · [GitHub](https://github.com/drand/drand) · Made with ❤️  by [drand labs](https://drandlabs.com)
 :::
