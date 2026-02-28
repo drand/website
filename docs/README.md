@@ -11,7 +11,7 @@ features:
     details: Get your randomness or chain information directly by sending HTTP `GET` requests to the drand JSON HTTP API.
     actions:
       - text: API docs
-        link: /developer/http-api
+        link: https://docs.drand.love/dev-guide/developer/http-api
   - title: Client libraries
     details: Use drand client libraries to easily consume randomness from your applications, over HTTP, gRPC or libp2p PubSub.
     actions:

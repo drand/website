@@ -31,7 +31,14 @@
         <p>{{ feature.details }}</p>
         <div v-if="feature.actions && feature.actions.length" class="actions">
           <template v-for="(action, index) in feature.actions">
-            <router-link :to="action.link" class="action-button">{{
+            <a
+              v-if="isExternal(action.link)"
+              :href="action.link"
+              class="action-button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ action.text }}</a>
+            <router-link v-else :to="action.link" class="action-button">{{
               action.text
             }}</router-link>
           </template>
@@ -66,6 +73,16 @@ export default {
         link: this.data.actionLink,
         text: this.data.actionText
       }
+    }
+  },
+
+  methods: {
+    // only treat as external when link is clearly a full URL
+    // relative paths still use router link
+    isExternal(link) {
+      if (typeof link !== 'string') return false
+      const trimmed = link.trim()
+      return trimmed.startsWith('http://') || trimmed.startsWith('https://')
     }
   }
 }
