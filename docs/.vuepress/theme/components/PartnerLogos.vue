@@ -18,9 +18,6 @@
         <a href="https://ethereum.foundation/" class="logo" title="Ethereum Foundation">
           <img src="/images/loe/ef-logo.png" alt="Ethereum Foundation logo" />
         </a>
-        <a href="https://www.kudelskisecurity.com/" class="logo" title="Kudelski Security">
-          <img src="/images/loe/logo-kudelski-security.png" alt="Kudelski Security logo" class="wide" />
-        </a>
         <a href="https://theqrl.org/" class="logo" title="QRL">
           <img src="/images/loe/logo-qrl.svg" alt="QRL logo" class="narrow" />
         </a>
@@ -52,9 +49,6 @@
         </a>
         <a href="https://www.ucl.ac.uk/" class="logo" title="UCL">
           <img src="/images/loe/logo-ucl.svg" alt="UCL logo" class="" />
-        </a>
-        <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
-          <img src="/images/loe/logo-IPFSForce.svg" alt="IPFSForce logo" class="" />
         </a>
         <a href="https://www.hslu.ch/en/" class="logo" title="Lucerne University of Applied Sciences and Arts">
           <img src="/images/loe/logo-hslu.png" alt="Lucerne University of Applied Sciences and Arts" class="" />
@@ -94,6 +88,12 @@
             </a>
             <a href="https://zkv.xyz/" class="logo" title="ZKV">
              <img src="/images/loe/logo-zkv.jpg" alt="ZKV" class="" />
+            </a>
+            <a href="https://www.kudelskisecurity.com/" class="logo" title="Kudelski Security">
+              <img src="/images/loe/logo-kudelski-security.png" alt="Kudelski Security logo" class="wide" />
+            </a>
+            <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
+              <img src="/images/loe/logo-IPFSForce.svg" alt="IPFSForce logo" class="" />
             </a>
           </div>
     </div>
