@@ -74,17 +74,6 @@
               alt="Ethereum Foundation logo"
             />
           </a>
-          <a
-            href="https://www.kudelskisecurity.com/"
-            class="logo"
-            title="Kudelski Security"
-          >
-            <img
-              src="/images/loe/logo-kudelski-security.png"
-              alt="Kudelski Security logo"
-              class="wide"
-            />
-          </a>
           <a href="https://protocol.ai/" class="logo" title="Protocol Labs">
             <img src="/images/loe/logo-pl.svg" alt="Protocol Labs logo" />
           </a>
@@ -109,13 +98,6 @@
             <img
               src="/images/loe/storswift-logo.png"
               alt="StorSwift logo"
-              class="wide"
-            />
-          </a>
-          <a href="https://forcecommunity.io/" class="logo" title="IPFS Force">
-            <img
-              src="/images/loe/logo-IPFSForce.svg"
-              alt="IPFSForce logo"
               class="wide"
             />
           </a>
