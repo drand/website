@@ -62,8 +62,11 @@
       </div>
       <h4 class="partners-header">Testnet members</h4>
       <p class="members-details">Testnet members are prospective mainnet members who are showcasing their operational excellence in order to graduate to Mainnet.</p>
-        <div class="logo">
-        </div>
+      <div class="logos">
+        <a href="https://www.chainsecurity.com/" class="logo" title="ChainSecurity">
+          <img src="/images/loe/logo-chainsecurity.png" alt="ChainSecurity logo" class="wide" />
+        </a>
+      </div>
 
         <h4 class="partners-header">Alumni</h4>
         <p style="font-size: 1em;">Alumni are former League members and partners. We are grateful for their help to make the internet a fairer place.</p>
